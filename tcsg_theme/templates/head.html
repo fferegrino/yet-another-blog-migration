@@ -1,0 +1,5 @@
+    <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+    <meta charset="utf-8" />
+{% assets filters="scss", output="css/main.css", "css/main.scss" %}
+    <link rel="stylesheet" href="/{{ ASSET_URL }}">
+{% endassets %}
