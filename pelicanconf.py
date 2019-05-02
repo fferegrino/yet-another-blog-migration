@@ -28,6 +28,8 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
          ('Jinja2', 'http://jinja.pocoo.org/'),
          ('You can modify those links in your config file', '#'),)
 
+THEME = 'tcsg_theme'
+
 # Social widget
 SOCIAL = (('You can add links in your config file', '#'),
           ('Another social link', '#'),)
@@ -38,4 +40,4 @@ DEFAULT_PAGINATION = 10
 #RELATIVE_URLS = True
 
 PLUGIN_PATHS = ['./plugins']
-PLUGINS = ['pelican_alias', 'tv_alias']
+PLUGINS = ['pelican_alias', 'pelican_alias', 'tv_alias']
