@@ -29,6 +29,15 @@ jobs:
           command: |
             make publish
 
+      - run:
+          name: Upload to DigitalOcean
+          command: |
+            if [ "${CIRCLE_BRANCH}" != "master" ]; then
+              rsync -e "ssh -o StrictHostKeyChecking=no" -avz output/ $HTTP_USER@$HTTP_SERVER:$HTTP_DEMO_FOLDER
+            else
+              rsync -e "ssh -o StrictHostKeyChecking=no" -avz output/ $HTTP_USER@$HTTP_SERVER:$HTTP_FOLDER
+            fi
+
       - save_cache:
           paths:
             - ./venv
