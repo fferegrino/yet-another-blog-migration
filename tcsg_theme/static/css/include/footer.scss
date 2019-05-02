@@ -1,0 +1,109 @@
+$footer-font-size: 14px;
+
+/**
+ * Site footer
+ */
+.site-footer {
+    border-top: 5px solid #CCCEDB;
+    background: $ui-background-color url(../img/site/footer-dots.png) top right repeat-x;
+    padding: $spacing-unit 0 ($spacing-unit / 2);   
+}
+
+.footer-content {
+    margin: 5px;
+}
+
+.footer-heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: $spacing-unit / 2;
+}
+
+path { transition: fill .4s ease; }
+
+.icon-list {
+    list-style: none;
+    margin-left: 0;
+    
+    li {
+        display: inline-block;
+        padding: 0 9px;
+        &:first-child {
+            padding-left: 0;
+        }
+        
+        svg {
+            width: 30px;
+            height: 30px;
+        }
+        
+        a.contact {
+            fill: $text-color;
+            
+            &:hover{
+                fill: $accent-color;
+            }
+        }
+    }
+}
+
+@include media-query($on-palm) {
+    .icon-list li {
+        display: inline-block;
+        padding: 0 5px;
+        &:first-child {
+            padding-left: 0;
+        }
+    }
+ }
+ 
+#footer-signup {
+    
+    #mce-EMAIL {
+        display: inline-block;
+        padding: 5px 5px;
+        font-size: $footer-font-size;
+        width: 75%;
+        &:focus{
+            outline: none;
+        }
+    }
+    
+    #mc-embedded-subscribe {
+        padding: 4px 10px;
+        background-color: rgba(221,221,221,255);
+        border: 1px solid rgba(112,112,112,255);
+        font-size: $footer-font-size;
+    }
+    
+    /*
+    h1, h2, p {
+        margin-bottom: 0px;
+    }
+    */
+}
+
+
+@include media-query($on-palm) {
+    
+    .footer-heading {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: $spacing-unit / 2;
+    }
+}
+
+/* Social buttons */
+.social-btn {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 0px 1px 0px rgba(160,160,160,1);
+    -moz-box-shadow: 0px 0px 1px 0px rgba(160,160,160,1);
+    box-shadow: 0px 0px 1px 0px rgba(160,160,160,1);
+    
+    &.mail {
+        background-color: floralwhite;
+    }
+}
