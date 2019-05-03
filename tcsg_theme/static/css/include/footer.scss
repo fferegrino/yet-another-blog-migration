@@ -5,7 +5,7 @@ $footer-font-size: 14px;
  */
 .site-footer {
     border-top: 5px solid #CCCEDB;
-    background: $ui-background-color url(../img/site/footer-dots.png) top right repeat-x;
+    background: $ui-background-color url(#{$image-site-path}/footer-dots.png) top right repeat-x;
     padding: $spacing-unit 0 ($spacing-unit / 2);   
 }
 

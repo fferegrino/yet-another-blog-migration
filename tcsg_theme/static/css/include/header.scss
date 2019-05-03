@@ -15,13 +15,13 @@
     line-height: 56px;
     color: $text-color;
     text-decoration: none;
-    background-image: url(../img/site/header-detail.png);
+    background-image: url(#{$image-site-path}/header-detail.png);
     background-repeat: no-repeat;
     background-position: bottom left;
     padding-bottom: 4px;
     padding-left: 20px;
-    &,
-    &:visited {
+
+    &, &:visited {
         color: $grey-color-dark;
     }
     
