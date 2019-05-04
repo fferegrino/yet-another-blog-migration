@@ -1,5 +1,5 @@
 layout: post
-title: Primer Meetup Xamarin Students México
+title: Diapositivas primer Meetup Xamarin Students México
 date: 2016-06-02 22:00:00
 author: Antonio Feregrino
 excerpt: Este es un post de recapitulación del evento Meetup Xamarin Students México del 1 de junio de 2016 en Urban Station
