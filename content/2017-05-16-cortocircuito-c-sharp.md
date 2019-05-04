@@ -1,5 +1,5 @@
 layout: post
-title: "Operadores lógicos corto-circuitados"
+title: Operadores lógicos corto-circuitados
 date: 2017-05-16 19:00:01
 author: Antonio Feregrino
 excerpt: Los operadores lógicos más usados tienen una peculiaridad que ayuda a mejorar su desempeño, pero a veces podría ser un comportamiento indeseado. Por suerte, C# cuenta con otros operadores que evitan este comportamiento..

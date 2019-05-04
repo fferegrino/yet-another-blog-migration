@@ -1,5 +1,5 @@
 layout: post
-title: "Directivas de preprocesamiento en C#"
+title: Directivas de preprocesamiento en C#
 date: 2016-02-29 10:00:00
 author: Antonio Feregrino
 categories: c-sharp visual-studio

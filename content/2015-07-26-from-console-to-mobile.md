@@ -1,5 +1,5 @@
 layout: post
-title: "From console to mobile"
+title: From console to mobile
 date: 2015-07-26 18:00:00
 categories: xamarin
 excerpt: What happens when we face real people/world problems? for sure, there are still console apps out in the wild, but nowadays all the successful applications have a mobile version, why yours shouldn't have one?

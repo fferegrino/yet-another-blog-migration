@@ -1,5 +1,5 @@
 layout: post
-title: "Xamarin.Forms & PaintCode"
+title: Xamarin.Forms & PaintCode
 date: 2017-06-06 19:00:01
 author: Antonio Feregrino
 excerpt: Turn your vector drawings into controls for your mobile apps using PaintCode and Xamarin.Forms' custom renderers.

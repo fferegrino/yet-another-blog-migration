@@ -1,5 +1,5 @@
 layout: post
-title: "Árboles de expresiones en C#"
+title: Árboles de expresiones en C#
 date: 2017-04-18 19:00:01
 author: Antonio Feregrino
 excerpt: Un árbol de expresiones permite examinar el código de un delegado en tiempo de ejecución, permitiéndote así aprovechar al máximo los recursos de tu sistema.

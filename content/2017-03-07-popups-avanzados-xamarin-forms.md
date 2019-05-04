@@ -1,5 +1,5 @@
 layout: post
-title: "Popups avanzados en Xamarin.Forms"
+title: Popups avanzados en Xamarin.Forms
 date: 2017-03-07 19:00:01
 author: Antonio Feregrino
 excerpt: Añade popups más avanzados a tus apps hechas con Xamarin.Forms usando este NuGet, tan sencillo como crear una pagina nueva y agregarle los controles que quieres mostrar.

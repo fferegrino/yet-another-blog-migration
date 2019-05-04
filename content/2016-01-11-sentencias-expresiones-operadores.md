@@ -1,5 +1,5 @@
 layout: post
-title: "Sentencias, expresiones y operadores"
+title: Sentencias, expresiones y operadores
 date: 2016-01-11 19:00:00
 author: Antonio Feregrino
 categories: c-sharp

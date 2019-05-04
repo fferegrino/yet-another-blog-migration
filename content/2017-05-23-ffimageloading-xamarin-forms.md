@@ -1,5 +1,5 @@
 layout: post
-title: "Mejores imágenes en Xamarin.Forms"
+title: Mejores imágenes en Xamarin.Forms
 date: 2017-05-23 19:00:01
 author: Antonio Feregrino
 excerpt: Ahorra recursos al cargar imágenes en tus aplicaciones hechas con Xamarin.Forms con este control... que probablemente no tenías idea que necesitabas.

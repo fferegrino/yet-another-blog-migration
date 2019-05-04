@@ -1,5 +1,5 @@
 layout: post
-title: "async y await (tareas paralelas)"
+title: async y await (tareas paralelas)
 date: 2017-02-21 19:00:01
 author: Antonio Feregrino
 excerpt: Trabaja con tareas asíncronas y paralelas en tus aplicaciones móviles, de escritorio y hasta en el servidor.

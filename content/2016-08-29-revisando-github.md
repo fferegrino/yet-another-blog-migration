@@ -1,5 +1,5 @@
 layout: post
-title: "Revisando mis repos en GitHub"
+title: Revisando mis repos en GitHub
 date: 2016-08-29 19:00:01
 author: Antonio Feregrino
 excerpt: Un post un poco diferente, en este no hablaré sobre alguna característica de C# o un paquete de NuGet, sino de proyectos, pruebas y aplicaciones en los que lo he usado. Conoce algunas de las cosas que he hecho y subido a GitHub.

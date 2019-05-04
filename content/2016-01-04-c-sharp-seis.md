@@ -1,5 +1,5 @@
 layout: post
-title: "Seis características de C# 6"
+title: Seis características de C# 6
 date: 2016-01-04 22:00:00
 author: Antonio Feregrino
 categories: c-sharp

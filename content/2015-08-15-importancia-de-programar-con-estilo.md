@@ -6,7 +6,7 @@ categories: ['programming', 'professional development', 'es']
 excerpt: Y al decir "programar con estilo" no me refiero a que estén todo el tiempo con los meñiques levantados, o sólo hacerlo las tardes a las 5 p.m. No.
 github: https://github.com/fferegrino/cool-sharp
 alias: /importancia-de-programar-con-estilo/index.html
-featured_image: "featured.jpg"
+featured_image: featured.jpg
 tags: Meta
 featured_tag: Meta
 

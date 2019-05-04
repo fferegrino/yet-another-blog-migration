@@ -1,5 +1,5 @@
 layout: post
-title: "La palabra yield en C#"
+title: La palabra yield en C#
 date: 2016-11-22 19:00:01
 author: Antonio Feregrino
 excerpt: La palabra yield en C# tiene un uso bastante peculiar pero sencillo de entender cuando se explica de la manera adecuada, básicamente te ayudará a mejorar la eficiencia de tus aplicaciones. En este post trato de explicar qué es y cómo funciona eso a través de ejemplos de código.

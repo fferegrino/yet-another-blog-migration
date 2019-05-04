@@ -1,5 +1,5 @@
 layout: post
-title: "Tipos anónimos en C#"
+title: Tipos anónimos en C#
 date: 2015-11-26 21:00:00
 author: Antonio Feregrino
 categories: c-sharp

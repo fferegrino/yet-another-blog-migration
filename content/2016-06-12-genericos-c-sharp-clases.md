@@ -1,5 +1,5 @@
 layout: post
-title: "Clases genéricas en C#"
+title: Clases genéricas en C#
 date: 2016-06-12 19:00:01
 author: Antonio Feregrino
 excerpt: Los tipos genéricos son un mecanismo de C# que nos ayuda a maximizar la reutilización de código. La reutilización de código se logra a través de el uso de plantillas de código en las cuales se insertan marcadores que representarán los tipos de dato que usaremos en nuestra plantilla.

@@ -1,5 +1,5 @@
 layout: post
-title: "Xamarin.Forms, anatomía de una app"
+title: Xamarin.Forms, anatomía de una app
 date: 2016-07-04 21:00:00
 author: Antonio Feregrino
 categories: c-sharp

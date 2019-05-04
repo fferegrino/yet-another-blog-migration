@@ -1,5 +1,5 @@
 layout: post
-title: "Linq en C#"
+title: Linq en C#
 date: 2015-11-11 20:00:00
 author: Antonio Feregrino
 categories: c-sharp

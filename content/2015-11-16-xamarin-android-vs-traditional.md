@@ -1,5 +1,5 @@
 layout: post
-title: "Xamarin.Android vs traditional Android"
+title: Xamarin.Android vs traditional Android
 date: 2015-11-16 21:00:00
 author: Antonio Feregrino
 featured_image: featured.jpg

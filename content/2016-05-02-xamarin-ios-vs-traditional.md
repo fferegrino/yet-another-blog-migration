@@ -1,5 +1,5 @@
 layout: post
-title: "Xamarin.iOS vs iOS tradicional (con Swift)"
+title: Xamarin.iOS vs iOS tradicional (con Swift)
 date: 2016-05-02 21:00:00
 author: Antonio Feregrino
 featured_image: swift-c-sharp.png

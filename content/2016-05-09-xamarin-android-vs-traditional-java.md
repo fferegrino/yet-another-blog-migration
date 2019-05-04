@@ -1,5 +1,5 @@
 layout: post
-title: "Xamarin.Android vs Android tradicional (con Java)"
+title: Xamarin.Android vs Android tradicional (con Java)
 date: 2016-05-09 21:00:00
 author: Antonio Feregrino
 featured_image: java-c-sharp.png
