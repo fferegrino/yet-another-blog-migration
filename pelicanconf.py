@@ -34,6 +34,9 @@ THEME = 'tcsg_theme'
 SOCIAL = (('You can add links in your config file', '#'),
           ('Another social link', '#'),)
 
+MY_EMAIL = "antonio.feregrino@gmail.com"
+MY_TWITTER_HANDLE = "io_exception"
+
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
