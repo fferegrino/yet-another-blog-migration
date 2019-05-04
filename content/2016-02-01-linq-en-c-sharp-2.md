@@ -1,5 +1,5 @@
 layout: post
-title: "Linq en C# - segunda parte"
+title: Linq en C# - segunda parte
 date: 2016-02-01 20:00:00
 author: Antonio Feregrino
 categories: c-sharp

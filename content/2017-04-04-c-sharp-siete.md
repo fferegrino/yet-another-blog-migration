@@ -1,5 +1,5 @@
 layout: post
-title: "¿Qué hay en C# 7?"
+title: ¿Qué hay en C# 7?
 date: 2017-04-04 19:00:01
 author: Antonio Feregrino
 excerpt: Conoce algunas de las nuevas características incluídas en la versión 7 de C#;, tuplas, deconstructores, literales binarios y más.

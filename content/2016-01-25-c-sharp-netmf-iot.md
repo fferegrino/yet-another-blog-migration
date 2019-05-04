@@ -1,5 +1,5 @@
 layout: post
-title: "Cosas para hacer en C#: IoT"
+title: Cosas para hacer en C#: IoT
 date: 2016-01-25 19:00:00
 author: Antonio Feregrino
 categories: c-sharp

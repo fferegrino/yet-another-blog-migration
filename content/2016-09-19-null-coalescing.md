@@ -1,5 +1,5 @@
 layout: post
-title: "Operador null coalescing en C#"
+title: Operador null coalescing en C#
 date: 2016-09-19 19:00:01
 author: Antonio Feregrino
 excerpt: Este operador te ayudará a escribir con mayor claridad el código, al tiempo que te ahorras escribir algunos cuantos ifs en tu código.

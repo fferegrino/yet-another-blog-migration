@@ -1,5 +1,5 @@
 layout: post
-title: "¿Imprimir desde Xamarin.Forms?"
+title: ¿Imprimir desde Xamarin.Forms?
 date: 2017-05-09 19:00:01
 author: Antonio Feregrino
 excerpt: Imprime desde tu app hecha con Xamarin.Forms, ofrece a tus usuarios la posibilidad de generar reportes, tickets y facturas desde su teléfono celular y listas para imprimir.

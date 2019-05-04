@@ -1,5 +1,5 @@
 layout: post
-title: "CharpHat para Android"
+title: CharpHat para Android
 date: 2015-09-10 17:00:00
 author: Antonio Feregrino
 categories: blog es

@@ -1,5 +1,5 @@
 layout: post
-title: "Tips de desempeño en Xamarin Forms"
+title: Tips de desempeño en Xamarin Forms
 date: 2016-05-30 08:00:00
 author: Antonio Feregrino
 excerpt: Jason Smith, ingeniero a cargo de Xamarin Forms, hizo una fantástica presentación en la conferencia Evolve de este año. En ella, él repasó una larga lista de tips de desempeño, así como una sesión de preguntas y respuestas sobre Xamarin Forms.

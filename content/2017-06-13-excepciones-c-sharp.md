@@ -1,5 +1,5 @@
 layout: post
-title: "Excepciones en C#"
+title: Excepciones en C#
 date: 2017-06-13 19:00:01
 author: Antonio Feregrino
 excerpt: Las excepciones son un mecanismo que podemos usar en C# para reportar errores en nuestros programas y poder manejarlos apropiadamente.

@@ -1,5 +1,5 @@
 layout: post
-title: "Ser un Xamarin Student Partner"
+title: Ser un Xamarin Student Partner
 date: 2015-12-16 18:31:38
 author: Antonio Feregrino
 categories: blog es

@@ -1,5 +1,5 @@
 layout: post
-title: "Learning Xamarin.iOS at Stanford"
+title: Learning Xamarin.iOS at Stanford
 date: 2016-12-27 08:00:00
 author: Antonio Feregrino
 excerpt: Here is my experience learning Xamarin.iOS by taking the Stanford's CS193P course online which is given for Swift language.

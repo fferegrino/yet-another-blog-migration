@@ -1,5 +1,5 @@
 layout: post
-title: "Accesorios para un desarrollador"
+title: Accesorios para un desarrollador
 date: 2015-12-27 23:00:00
 author: Antonio Feregrino
 categories: blog es

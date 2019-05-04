@@ -1,5 +1,5 @@
 layout: post
-title: "¿Qué es var en C#?"
+title: ¿Qué es var en C#?
 date: 2015-10-29 20:00:00
 author: Antonio Feregrino
 categories: c-sharp

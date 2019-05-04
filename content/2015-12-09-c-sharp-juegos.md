@@ -1,5 +1,5 @@
 layout: post
-title: "Cosas para hacer en C#: Juegos"
+title: Cosas para hacer en C#: Juegos
 date: 2015-12-09 21:00:00
 author: Antonio Feregrino
 categories: c-sharp

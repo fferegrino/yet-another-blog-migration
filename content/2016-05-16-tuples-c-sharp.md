@@ -1,5 +1,5 @@
 layout: post
-title: "Tuples en C#"
+title: Tuples en C#
 date: 2016-05-16 19:00:01
 author: Antonio Feregrino
 excerpt: Seguramente te ha pasado, alguna vez has pensado &quot;Ojalá pudiera devolver dos cosas desde este método&quot; y si bien recuerdas que los métodos en C# únicamente pueden tener un solo tipo de retorno, es posible devolver más de dos valores haciendo uso de la clase genérica Tuple.

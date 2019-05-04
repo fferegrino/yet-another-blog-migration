@@ -1,5 +1,5 @@
 layout: post
-title: "CommonMark.NET"
+title: CommonMark.NET
 date: 2016-09-05 19:00:01
 author: Antonio Feregrino
 excerpt: Convertir de un documento escrito con el lenguaje Markdown a uno escrito en HTML con este paquete de NuGet es muy intuitivo, además de que su API permite una personalización de la salida bastante intuitiva.

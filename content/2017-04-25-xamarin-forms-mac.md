@@ -1,5 +1,5 @@
 layout: post
-title: "Xamarin.Forms para macOS"
+title: Xamarin.Forms para macOS
 date: 2017-04-18 19:00:01
 author: Antonio Feregrino
 excerpt: Por fin, Xamarin.Forms llega a macOS. Reusa tu código al máximo y haz que tus apps lleguen a todo el mundo.

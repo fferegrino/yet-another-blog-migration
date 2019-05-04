@@ -1,5 +1,5 @@
 layout: post
-title: "Introduction to Xamarin.Forms (Sharpuladora app)"
+title: Introduction to Xamarin.Forms (Sharpuladora app)
 date: 2015-12-16 18:00:00
 author: Antonio Feregrino
 categories: c-sharp

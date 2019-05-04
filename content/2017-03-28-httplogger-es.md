@@ -1,5 +1,5 @@
 layout: post
-title: "Inspeciona tus peticiones http con HttpLogger"
+title: Inspeciona tus peticiones http con HttpLogger
 date: 2017-03-28 19:00:01
 author: Antonio Feregrino
 excerpt: Inspecciona el request y response de las conexiones que tu app hace a servicios web. Haz con ellas lo que quieras, desde guardarlas en un archivo hasta ponerlas en pantalla.

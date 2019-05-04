@@ -1,5 +1,5 @@
 layout: post
-title: "Xamarin.Auth"
+title: Xamarin.Auth
 date: 2016-09-12 19:00:01
 author: Antonio Feregrino
 excerpt: Los atributos nos ofrecen otra manera de interactuar con el código que escribimos, ya sea dándole información al compilador o extendiendo las definiciones de nuestros métodos, propiedades o clases en tiempo de ejecución.

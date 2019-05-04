@@ -2,7 +2,7 @@ import ntpath
 import os
 from glob import glob
 
-for full_path in glob("~/Documents/GitHub/that-c-sharp-guy/en/_posts/*"):
+for full_path in glob("/Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy/en/_posts/*"):
     file_name = ntpath.basename(full_path)
     name, ext = os.path.splitext(file_name)
     properties = {}
@@ -25,7 +25,7 @@ for full_path in glob("~/Documents/GitHub/that-c-sharp-guy/en/_posts/*"):
                             properties[current_prop] = ', '.join(current_values) 
                         current_values = []
                     current_prop = parts[0].strip()
-                    value_content = parts[1].strip()
+                    value_content = parts[1].strip("\" ")
                     if value_content:
                         current_values.append(value_content)
                 elif len(parts) == 1:

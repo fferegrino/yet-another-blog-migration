@@ -1,5 +1,5 @@
 layout: post
-title: "Delegados en C#"
+title: Delegados en C#
 date: 2015-07-24 10:00:00
 author: Antonio Feregrino
 categories: c-sharp

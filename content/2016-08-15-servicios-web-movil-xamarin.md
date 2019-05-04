@@ -1,5 +1,5 @@
 layout: post
-title: "Servicios web resistentes en aplicaciones móviles"
+title: Servicios web resistentes en aplicaciones móviles
 date: 2016-08-15 19:00:01
 author: Antonio Feregrino
 excerpt: Llevamos nuestros dispositivos con nosotros a donde sea. Los tenemos en casa, en el trabajo y durante las vacaciones. Están con nosotros sin importar si estamos conectados a internet wifi de 1 gigabit o en una red 4g.

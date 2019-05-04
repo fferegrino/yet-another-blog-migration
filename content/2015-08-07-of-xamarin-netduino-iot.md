@@ -1,5 +1,5 @@
 layout: post
-title: "Of Xamarin, Netduino and IoT"
+title: Of Xamarin, Netduino and IoT
 date: 2015-08-07 18:31:38
 author: Antonio Feregrino
 categories: xamarin netduino iot sockets xamarin.forms poc

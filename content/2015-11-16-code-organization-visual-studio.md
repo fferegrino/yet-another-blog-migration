@@ -1,5 +1,5 @@
 layout: post
-title: "How is my code organized in Visual Studio?"
+title: How is my code organized in Visual Studio?
 date: 2015-11-16 21:00:00
 author: Antonio Feregrino
 featured_image: featured.jpg

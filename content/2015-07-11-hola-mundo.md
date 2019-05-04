@@ -1,5 +1,5 @@
 layout: post
-title: "¡Hola mundo!"
+title: ¡Hola mundo!
 date: 2015-07-11 18:31:38
 author: Antonio Feregrino
 categories: blog es

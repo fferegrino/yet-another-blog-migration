@@ -1,5 +1,5 @@
 layout: post
-title: "MVVM en Xamarin.Forms, caso práctico"
+title: MVVM en Xamarin.Forms, caso práctico
 date: 2016-06-26 21:00:00
 author: Antonio Feregrino
 categories: c-sharp

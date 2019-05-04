@@ -1,5 +1,5 @@
 layout: post
-title: "Libros para un desarrollador"
+title: Libros para un desarrollador
 date: 2015-12-22 22:00:00
 author: Antonio Feregrino
 categories: blog es

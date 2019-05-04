@@ -1,5 +1,5 @@
 layout: post
-title: "Code Snippets en Visual Studio"
+title: Code Snippets en Visual Studio
 date: 2016-02-22 10:00:00
 author: Antonio Feregrino
 categories: c-sharp visual-studio

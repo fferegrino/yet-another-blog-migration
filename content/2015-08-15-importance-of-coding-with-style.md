@@ -6,7 +6,7 @@ lang: en
 categories: ['programming', 'professional development', 'en']
 excerpt: And with "coding with style" I don't mean to keep your pinkies up while doing it or just write code every evening at 5:00 pm. No.
 github: https://github.com/fferegrino/cool-sharp#eng
-featured_image: "featured.jpg"
+featured_image: featured.jpg
 alias: /importance-of-coding-with-style/index.html
 tags: Meta
 featured_tag: Meta
