@@ -1,11 +1,19 @@
 {% if DEFAULT_PAGINATION %}
-<p class="paginator">
-    {% if articles_page.has_previous() %}
-        <a href="{{ SITEURL }}/{{ articles_previous_page.url }}">&laquo;</a>
-    {% endif %}
-    Page {{ articles_page.number }} / {{ articles_paginator.num_pages }}
-    {% if articles_page.has_next() %}
-        <a href="{{ SITEURL }}/{{ articles_next_page.url }}">&raquo;</a>
-    {% endif %}
-</p>
+<div class="listed-post pure-u-1">
+
+        <div class="pure-button-group" role="group" aria-label="...">
+            {% if articles_page.has_previous() %}
+                <a class="pure-button" href="{{ SITEURL }}/{{ articles_previous_page.url }}">&lArr;</a>
+            {% else %}
+                <a class="pure-button pure-button-disabled" href="#">&nlArr;</a>
+            {% endif %}
+                <a class="pure-button pure-button-disabled" href="#">Page {{ articles_page.number }} / {{ articles_paginator.num_pages }}</a>
+            {% if articles_page.has_next() %}
+                <a class="pure-button" href="{{ SITEURL }}/{{ articles_next_page.url }}">&rArr;</a>
+            {% else %}
+                <a class="pure-button pure-button-disabled" href="#">&nrArr;</a>
+            {% endif %}
+        </div>
+    </div>
+
 {% endif %}
