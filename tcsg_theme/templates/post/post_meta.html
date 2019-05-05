@@ -1,5 +1,5 @@
 <div id="post-meta">
-        <a href="/acerca-de/#citando" rel="author">{{ article.author }}</a> | {{ article.date }}
+        <a href="/acerca-de/#citando" rel="author">{{ article.author }}</a> | {{ article.date.strftime(DATE_FORMAT) }}
     {% if article.affiliate %}| Este post contiene links de un programa de afiliados <a href="/acerca-de/#links-de-afiliado" target="_blank">[?]</a>{% endif %} 
     {% if article.ideone %}| <strong><a href="{{ article.ideone }}" target="_blank"><i class="sp sp-ideone"></i> Ver código de este post en ideone</a></strong>{% endif %}
     {% if article.github %}| <strong><a href="{{ article.github }}" target="_blank"><i class="sp sp-git"></i> Ver código de este post en GitHub</a></strong>{% endif %}
