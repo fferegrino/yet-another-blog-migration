@@ -21,7 +21,7 @@ Lo primero que hay que tener en cuenta es que **cada popup que necesitemos en nu
 ### Popup básico   
 En el siguiente Xaml puedes ver la definición de una *popup page* muy sencilla que solo contiene un `Label`:
 
-{% highlight xml %}
+```xml  
 <popup:PopupPage 
   xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
@@ -31,13 +31,13 @@ En el siguiente Xaml puedes ver la definición de una *popup page* muy sencilla 
   <Label HorizontalTextAlignment="Center" FontSize="Large" 
 	Text="Hello basic popup!"></Label>
 </popup:PopupPage>
-{% endhighlight %}  
+```  
 
 Lo básico aquí es la definición del namespace `popup` y el uso de la `PopupPage`. Luego, para mostrar la página hay que hacer uso del servicio de navegación `PopupNavigation` incluido en esta librería:
 
-{% highlight csharp %}
+```csharp  
 await PopupNavigation.PushAsync(new BasicPopup());
-{% endhighlight %}  
+```  
 
 El resultado es algo como esto:
 
@@ -48,7 +48,7 @@ No se ve mucho como un *popup*, ¿verdad? ahora mismo lo componemos.
 ### *Popup* con estilo  
 Una guía de diseño que me parece adecuada es colocar un `Frame` centrado en la pantalla y dentro de este colocar el contenido que queremos mostrar, algo como esto:  
 
-{% highlight xml %}
+```xml  
 <popup:PopupPage 
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
@@ -60,7 +60,7 @@ Una guía de diseño que me parece adecuada es colocar un `Frame` centrado en la
     </Frame>
   </StackLayout>
 </popup:PopupPage>
-{% endhighlight %}  
+```  
 
 Que resultará en algo así:  
 
@@ -69,7 +69,7 @@ Que resultará en algo así:
 ### Propiedades del *popup*
 Por default el *popup* se cerrará cuando el usuario presione fuera del contenido que le estamos mostrando, pero en caso de que no desees este comportamiento basta con establecer la propiedad `CloseWhenBackgroundIsClicked` en `false`. Otra de las propiedades que se pueden cambiar es el color del fondo mediante la propiedad `BackgroundColor`, no siempre tiene que ser gris transparente. Y por último la que creo que la más atractiva de las propiedades: `Animation` que nos permite especificar la forma en que aparecerá y desaparecerá el control en la pantalla. Las posibilidades que tenemos son: *Scale*, *Move* y *Fade*: 
 
-{% highlight csharp %}
+```csharp  
 var propertiedPopup = new PropertiesPopup();
 
 propertiedPopup.Animation = new ScaleAnimation();
@@ -77,23 +77,23 @@ propertiedPopup.BackgroundColor = Color.FromRgba(0, 0, 0, 0.75);
 propertiedPopup.CloseWhenBackgroundIsClicked = true;
 
 await PopupNavigation.PushAsync(propertiedPopup);
-{% endhighlight %}   
+```   
 
 Si estableces que el *popup* no debe cerrarse cuando el usuario de click en el fondo, no olvides proveerle una manera de volver al estado anterior, por ejemplo, un botón. Para quitar un popup basta con llamar al método `PopAsync` del servicio de navegación:  
 
-{% highlight csharp %}
+```csharp  
 private async void Button_OnClicked(object sender, EventArgs e)
 {
     await PopupNavigation.PopAsync();
 }
-{% endhighlight %}  
+```  
 
 {% post_image complex.jpg "Basic pop" %}
 
 ### Animaciones personalizadas  
 Esta biblioteca es poderosa, como ya habrás visto, pero sus capacidades pueden ampliarse ya que permite introducir animaciones personalizadas o modificar algunas ya existentes, como es el caso del siguiente bloque de código:
 
-{% highlight csharp %}
+```csharp  
 var propertiedPopup = new PropertiesPopup();
 
 var scaleAnimation = new ScaleAnimation
@@ -111,7 +111,7 @@ var scaleAnimation = new ScaleAnimation
 
 propertiedPopup.Animation = scaleAnimation;
 await PopupNavigation.PushAsync(propertiedPopup);
-{% endhighlight %}  
+```  
 
 Que generará una animación así:  
 

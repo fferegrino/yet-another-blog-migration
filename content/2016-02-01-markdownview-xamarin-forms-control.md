@@ -29,7 +29,7 @@ The `WebView` control has a `Source` property that we can use to set its content
 ### Content  
 The `MarkdownView` exposes a bindable property named `Markdown` of type `string` which must be used to set the markdown document's source, and everytime it changes, new content is rendered. This is the code that is called when such property changes:  
 
-{% highlight csharp %}
+```csharp  
 private void SetWebViewSourceFromMarkdown()
 {
     string swapCssFunction =
@@ -54,7 +54,7 @@ CommonMarkConverter.Convert(Markdown) +
 
     SetStylesheet();
 }
-{% endhighlight %}  
+```  
 
 Wow wow wow, that is a lot of hardcoded html... but it is necesary to create a valid document to host our converted Markdown. This valid document will be the html of our MarkdownView soruce, this source is reset everytime the `Markdown` is changed. 
 
@@ -66,7 +66,7 @@ In order to work with local files inside a `WebView` we must set the BaseUrl pro
 ### Styling  
 A well formed html document is readable by itself, though it may be not very pretty, that is why this control also allows setting a local css file as the stylesheet for the document, the control exposes the property `Stylesheet` which is a string and everytime its contents change, a JavaScript function is triggered inside the html of the WebView by calling `Eval` method and passing the desired stylesheet name, in fact, here is the code:
 
-{% highlight csharp %}
+```csharp  
 void SetStylesheet()
 {
     if (!String.IsNullOrEmpty(Stylesheet))
@@ -74,7 +74,7 @@ void SetStylesheet()
         Eval("_sw(\"" + Stylesheet + "\")");
     }
 }
-{% endhighlight %}  
+```  
   
 Be aware that this control does not provide stylesheets, however, <a href="https://github.com/jasonm23/markdown-css-themes" target="_blank">here are some</a> that you can download and use with your application. Remember to put them into each platform appropiate folder: `Assets` for Android and Windows, `Resources` for iOS.    
 

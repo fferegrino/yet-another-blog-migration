@@ -19,7 +19,7 @@ Piensa en un río en el cual hay un conjunto de peces que viajan a través de é
 
 Para recrear las condiciones anteriores, crea una clase llamada `River` que reciba y almacene las especificaciones de la cantidad de peces, el tiempo entre ellos y si es o no peligroso:
 
-{% highlight csharp %}
+```csharp  
 public class River
 {
     private readonly int _fishAmount;
@@ -33,13 +33,13 @@ public class River
         _waitTime = waitTime;
         _dangerousRiver = dangerousRiver;
     }
-{% endhighlight %}  
+```  
 
 ### `Fish`
 
 Pero aguarda, no te olvides de los peces: estos tendrán una especie (`FishSpecies`), un color (`Color`) y un peso (`Weight`), todo representado dentro de una clase: 
 
-{% highlight csharp %}
+```csharp  
     public class Fish
     {
         public double Weight { get; set; }
@@ -66,7 +66,7 @@ Pero aguarda, no te olvides de los peces: estos tendrán una especie (`FishSpeci
 
         #endregion
     }
-{% endhighlight %}  
+```  
 
 Oh, además en esta clase introduje un método para crear peces aleatoriamente.
 
@@ -76,7 +76,7 @@ Bueno, volviendo al diseño del río. Ahora toca escribir la forma en que repres
 
 Para acceder al flujo de peces usaremos un método que retorne un `IOBservable<Fish>`. Acá es una buena oportunidad para decir que no es recomendable que tu mismo implementes la interfaz, lo mejor en muchos casos es hacer uso de las *Reactive Extensions* para crear un objeto de ese tipo:
 
-{% highlight csharp %}
+```csharp  
     public IObservable<Fish> Stream()
     {
         return Observable.Create<Fish>(observer =>
@@ -94,7 +94,7 @@ Para acceder al flujo de peces usaremos un método que retorne un `IOBservable<F
             return () => { };
         });
     }
-{% endhighlight %}  
+```  
 
 Vamos a revisar qué es lo que está ocurriendo en ese método:  
 
@@ -118,21 +118,21 @@ Usar el método `Observable.Create<T>` es solo una de las muchas maneras en las 
 ## Usando el río  
 Vamos a crear un par de ríos para después poder suscribirnos a ellos:  
 
-{% highlight csharp %}
+```csharp  
 var rioNormal = new River(10);
 var rioRapido = new River(10, waitTime: 10);
 var dangerousRiver = new River(fishAmount: 10, dangerousRiver: true);
-{% endhighlight %}  
+```  
 
 Entonces ahora podemos suscribirnos y estar al tanto de qué peces pasan por el río:  
 
-{% highlight csharp %}
+```csharp  
 rioNormal.Stream()
     .Subscribe(
         onNext: fish => Console.WriteLine($"{DateTime.Now:HH:mm:ss.ffff}: {fish}"),
         onCompleted: () => Console.WriteLine("¡Terminé de pescar!")
     );
-{% endhighlight %}  
+```  
 
 <pre>
 13:35:40.3923: Anglerfish, Green, 3,787.68
@@ -149,14 +149,14 @@ rioNormal.Stream()
 </pre>
 
 Como vimos anteriormente, también podemos filtrar los elementos:
-{% highlight csharp %}
+```csharp  
 rioNormal.Stream()
     .Where(fish => fish.Color == Color.Green && fish.Weight > 3000) // Filtramos los elementos
     .Subscribe(
         onNext: fish => Console.WriteLine($"{DateTime.Now:HH:mm:ss.ffff}: {fish}"),
         onCompleted: () => Console.WriteLine("¡Terminé de pescar!")
     );
-{% endhighlight %}  
+```  
 
 <pre>
 13:35:48.5546: Blowfish, Green, 3,420.28
@@ -166,7 +166,7 @@ rioNormal.Stream()
 
 Podemos agrupar los elementos con el método `Buffer`, que permitirá agrupar los elementos del flujo. Por ejemplo, imagina que el pescador está usando una red para 3 peces:  
 
-{% highlight csharp %}
+```csharp  
 rioNormal.Stream()
     .Buffer(3) // Agrupamos 3 elementos
     .Subscribe(
@@ -177,7 +177,7 @@ rioNormal.Stream()
         },
         onCompleted: () => Console.WriteLine("¡Terminé de pescar usando una red para 3 peces!")
     );
-{% endhighlight %}  
+```  
 
 <pre>
 Atrapé 3 peces (Tuna, Blowfish, Tuna)
@@ -189,14 +189,14 @@ Atrapé 1 peces (Anglerfish)
 
 Y no olvides que podemos especificarle al código que hacer en caso de que ocurra un error en el flujo, esto mediante el método (o lambda en este caso) `OnError`:
 
-{% highlight csharp %}
+```csharp  
 dangerousRiver.Stream()
     .Subscribe(
         onNext: fish => Console.WriteLine($"{DateTime.Now:HH:mm:ss.ffff}: {fish}"),
         onError: ex => Console.WriteLine($"Ocurrió un problema en el río: {ex.Message}"),
         onCompleted: () => Console.WriteLine("¡Terminé de pescar en el río peligroso!")
     );
-{% endhighlight %}  
+```  
 
 <pre>
 13:35:45.5200: Anglerfish, Black, 3,171.37
@@ -209,7 +209,7 @@ Ocurrió un problema en el río: Uh, hubo un derrame en el río
 ## El pescador o `IObserver<Fish>`  
 Hasta el momento hemos estado empleando lambdas para reaccionar a los mensajes de un publicador. Pero si recuerdas, en el post pasado hablé de otra interfaz que representaba al observador, recordarás también que esta interfaz especifica tres métodos. Nosotros vamos a crear una clase `Fisher` que representará al pescador:  
 
-{% highlight csharp %}
+```csharp  
 public class Fisher : IObserver<Fish>
 {
     private readonly string _name;
@@ -233,15 +233,15 @@ public class Fisher : IObserver<Fish>
         Console.WriteLine($"{_name}: ¡Terminó la pesca!");
     }
 }
-{% endhighlight %}  
+```  
 
 Y una vez que tenemos a un pescador (observador) podemos suscribirlo al flujo de peces para que esté al tanto de lo que ocurre:
 
-{% highlight csharp %}
+```csharp  
 var erik = new Fisher("Erik");
 rioNormal.Stream()
     .Subscribe(erik);
-{% endhighlight %}  
+```  
 
 <pre>
 Erik: atrapé un Anglerfish de color Red a las 13:35:57.6664

@@ -22,11 +22,11 @@ Los receptores, por su cuenta, se suscriben a los eventos para ser informados ca
 
 Para el código de ejemplo de este post cree una clase llamada `Generator`, que "genera" números aleatorios cada 0.5 segundos. Supongamos que queremos que la clase nos "avise" a través de un evento cada vez que esté a punto de generar un nuevo número. En C# declaramos eventos de la siguiente manera:
 
-{% highlight csharp %}
+```csharp  
 public delegate void GeneratingNumberEventHandler(Generator sender);
 
 public event GeneratingNumberEventHandler GeneratingNumber;
-{% endhighlight %}  
+```  
 
 En la primera línea de código puedes observar a un viejo conocido, los delegados, en este caso es un delegado que regresa valor alguno y recibe una instancia de `Generator` como parámetro. Este delegado será el molde para nuestros manejadores de evento.
 
@@ -43,31 +43,31 @@ Para que un receptor esté al pendiente de algún evento en un objeto debe suscr
 
 Por ejemplo, tenemos el siguiente método, que tiene `void` como valor de retorno y `Generator` como parámetro (y que por tanto puede ser usado como manjador para el evento declarado arriba):
 
-{% highlight csharp %}
+```csharp  
 static void G_GeneratingNumber(Generator sender)
 {
     Console.WriteLine(sender.Name + " generará un número");
 }
-{% endhighlight %}  
+```  
 
 Para asignarlo como manejador, debemos usar el operador `+=`:
 
-{% highlight csharp %}
+```csharp  
 g = new Generator(name);
 g.GeneratingNumber += G_GeneratingNumber;
-{% endhighlight %}  
+```  
 
 ### Invocando los eventos en el emisor
 
 Así pues, dentro de nuestro método que genera los números podemos hacer algo como lo siguiente, justamente antes de que se genere un número: 
 
-{% highlight csharp %}
+```csharp  
 if (GeneratingNumber!= null)
 {
     GeneratingNumber(this);
 }
 var generated = r.Next();
-{% endhighlight %}  
+```  
 
 Es importante que antes de invocar el evento compruebes que existe al menos un receptor (`GeneratingNumber!= null`) ya que de otro modo obtendrás una espantosa `NullReferenceException`.
 
@@ -87,20 +87,20 @@ De nueva cuenta, y al igual que con <a href="../func-y-action-en-c-sharp">Func y
 
 Para declararlo:
 
-{% highlight csharp %}
+```csharp  
 public event EventHandler GeneratingNumber1;
-{% endhighlight %}  
+```  
 
 #### Manejo  
 El delegado `EventHandler` indica que el método devuelve `void` y recibe una instancia de `object` y una de `EventArgs` como parámetros... sí, un poco complicado, pero tiene sus razones. De nuevo, mira a la forma de asignar un manejador, en esta ocasión estamos <a href="../lambdas-en-c-sharp">usando una lambda</a>:  
 
-{% highlight csharp %}
+```csharp  
 g.GeneratingNumber1 += (sender, e) => 
 {
     var generador = sender as Generator;
     Console.WriteLine(generador.Name + " generará un número (EventHandler)");
 };
-{% endhighlight %}  
+```  
 
 Comúnmente el parámetro `sender` es una referencia al objeto que lanzó el evento, es por eso que se puede hacer el *cast* a `Generator` sin problema. 
 
@@ -110,12 +110,12 @@ La invocación no varía mucho, igual hay que checar que no sea nulo antes de ll
  - `this` que hace referencia a quién genera el evento, y
  - `EventArgs.Empty` 
 
-{% highlight csharp %}
+```csharp  
 if (GeneratingNumber1 != null)
 {
     GeneratingNumber1(this, EventArgs.Empty);
 }
-{% endhighlight %}    
+```    
 
 ### Eventos con información extra (EventHandler<T>)  
 
@@ -124,24 +124,24 @@ Hay ocasiones en que los eventos por si mismos sean solo una parte de la informa
 
 #### Declaración  
 
-{% highlight csharp %}
+```csharp  
 public event EventHandler<int> EvenNumberGenerated;
-{% endhighlight %}  
+```  
 
 #### Manejo  
 
-{% highlight csharp %}
+```csharp  
 g.EvenNumberGenerated += (sender, number) => 
 {
     Console.WriteLine("Se generó el número par: " + number + " (manejador 1)");
 };
-{% endhighlight %}  
+```  
 
 #### Múltiples manejadores  
 
 Hay ocasiones en que para un mismo evento existen muchos suscriptores. Para suscribir más de un manejador de evento basta con seguir utilizando el operador `+=`
 
-{% highlight csharp %}
+```csharp  
 // Método para el manejador
 static void G_EvenNumberGenerated(object sender, int number)
 {
@@ -156,13 +156,13 @@ static void G_EvenNumberGenerated(object sender, int number)
 
 // Suscripción del manejador  
 g.EvenNumberGenerated += G_EvenNumberGenerated;  
-{% endhighlight %}    
+```    
 
 #### Invocación  
 
 Ahora, para invocar un evento de este tipo es necesario usar como argumentos el objeto que lo provoca y el valor asociado con el evento:   
 
-{% highlight csharp %}
+```csharp  
 var generated = r.Next();
 
 if (generated % 2 == 0)
@@ -172,7 +172,7 @@ if (generated % 2 == 0)
         EvenNumberGenerated(this, generated);
     }
     // ...
-{% endhighlight %}  
+```  
 
 Tras lo cual, el resultado de ejecutar el programa es el siguiente:  
 
@@ -193,9 +193,9 @@ Así como podemos suscribirnos a eventos, también es posible hacer lo contrario
 
 Para desuscribimos usamos el operador `-=` junto con el manejador de evento con el que nos suscribimos:  
 
-{% highlight csharp %}
+```csharp  
 g.EvenNumberGenerated -= G_EvenNumberGenerated;
-{% endhighlight %}  
+```  
 
 Si en tu código tendrás que desuscribir eventos, lo ideal es que los declares como métodos con nombre, no lambdas y no delegados, ya que es más natural <a href="http://stackoverflow.com/questions/183367/unsubscribe-anonymous-method-in-c-sharp" target="_blank">remover un manejador</a> que uno anónimo.  
   
@@ -210,7 +210,7 @@ La respuesta es un tanto sencilla, además del valor semántico que le da un eve
 
  O, en código:
 
-{% highlight csharp %}
+```csharp  
 // Dentro de la clase Generator
 public Action<int> EvenNumberGeneratedAction;
 
@@ -220,7 +220,7 @@ g.EvenNumberGeneratedAction(3);
 
 //g.EvenNumberGenerated = null; // No se puede "eliminar" a todos los manejadores desde fuera  
 g.EvenNumberGeneratedAction = null;
-{% endhighlight %}  
+```  
 
 ### Conclusión  
 

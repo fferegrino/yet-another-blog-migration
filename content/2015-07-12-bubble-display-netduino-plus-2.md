@@ -20,7 +20,7 @@ El bubble display no necesita explicación, en México lo compré  <a target="_b
 
 <p>Expone varios métodos, entre ellos el de display imprimir un dígito <code>PrintDigit</code>, también es importante el método <code>TurnOnDisplay</code> ya que con este se indica qué display estará activo y mostrará datos. Para crear el efecto de que todos los displays están encendidos a la vez, debe existir un retardo muy pequeño entre que se enciende un display mostrando un número y otro, como se muestra en el método <code>ShowNumber</code>. La clase está en <a target="_blank" href="https://gist.github.com/fferegrino/22cda60be970e98c90a1">GitHub</a> para su descarga, acá pongo una muestra de cómo se peuede usar para implementar un contador.</p>
 
-{% highlight csharp %}
+```csharp  
 public class Program
 {
     public static void Main()
@@ -39,6 +39,6 @@ public class Program
         }
     }
 }
-{% endhighlight %}
+```
 <h4>Sugerencia de armado</h4>
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/qaOH1" data-context="false"><a href="//imgur.com/a/qaOH1">Bubble Display set up</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>

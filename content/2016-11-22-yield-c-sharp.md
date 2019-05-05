@@ -22,7 +22,7 @@ Considero que la mejor manera de explicar el uso de esta palabra reservada es me
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 IEnumerable<int> GetMultiplesOf(int n, 
                                 int start, 
                                 int end)
@@ -39,10 +39,10 @@ IEnumerable<int> GetMultiplesOf(int n,
     }
     return multiples;
 }
-{% endhighlight %}   
+```   
 </div> 
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 IEnumerable<int> YieldMultiplesOf(int n, 
                                   int start, 
                                   int end)
@@ -59,7 +59,7 @@ IEnumerable<int> YieldMultiplesOf(int n,
     }  
 
 }
-{% endhighlight %}   
+```   
 </div>
 </div> 
 
@@ -71,22 +71,22 @@ Para que veas el funcionamiento, vamos a llamarlos dentro de un ciclo `foreach`:
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 Console.WriteLine("Normal collection");
 foreach (var m in GetMultiplesOf(2, 1, 10))
 {
     Console.WriteLine($"{m} es multiplo de 2");
 }
-{% endhighlight %} 
+``` 
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 Console.WriteLine("Yield collection");
 foreach (var m in YieldMultiplesOf(2, 1, 10))
 {
     Console.WriteLine($"{m} es multiplo de 2");
 }
-{% endhighlight %}   
+```   
 </div> 
 </div>
 
@@ -140,20 +140,20 @@ Mira el siguiente ejemplo, en donde se aplican algunas operaciones de Linq:
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var get = GetMultiplesOf(2, 320, 335)
             .Skip(3)
             .First();
 Console.WriteLine($"El 4to multiplo es {get}");
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var yield = YieldMultiplesOf(2, 320, 335)
                 .Skip(3)
                 .First();
 Console.WriteLine($"El 4to multiplo es {yield}");
-{% endhighlight %}
+```
 </div>
 </div>
 
@@ -192,7 +192,7 @@ El 4to multiplo es 326
 
 Al igual que cuando usamos `return`, un método puede contener varias instrucciones `yield return`. Por ejemplo, imagina un programa en donde tengas que calcular los factores primos de un número:
 
-{% highlight csharp %}
+```csharp  
 public static IEnumerable<int> PrimeFactors(int n)
 {
     while (n % 2 == 0)
@@ -213,7 +213,7 @@ public static IEnumerable<int> PrimeFactors(int n)
     if (n > 2)
         yield return n;
 }
-{% endhighlight %}  
+```  
 
 
 **Por otro lado, si en algun momento queremos terminar la ejecución de este método podemos usar la combinación de palabras `yield break` para hacerlo.**

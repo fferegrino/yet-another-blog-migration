@@ -26,7 +26,7 @@ Imaginemos que tenemos un arreglo de números enteros y a todos los elementos qu
 
 Generalmente haríamos una función con un bucle como el siguiente:
 
-{% highlight fsharp %}
+```fsharp  
 let array = [| 2; 3; 4; 5; 6; 7; 8; 9; 10 |]
 
 let squareArray arr = 
@@ -36,19 +36,19 @@ let squareArray arr =
     result.ToArray()
    
 let squaredArray = squareArray array  // [4, 9, 16, 25, 36, 49, 64, 81, 100]
-{% endhighlight %}  
+```  
 
 La función `map` resuelve el problema de transformar los elementos de un arreglo pasándoles una función. Esta función itera sobre cada elemento y a cada uno de ellos les aplica la función que nosotros pasemos como parámetro, esto nos ahorra usar mucho los *for...in...do* y además de que es más elegante. `map` retorna un arreglo de la misma longitud que el arreglo al cual le aplicamos la transformación.
 
 El código anterior quedaría así:
 
-{% highlight fsharp %}
+```fsharp  
 let array = [| 2; 3; 4; 5; 6; 7; 8; 9; 10 |]
 
 let squaredArray = 
     array
     |> Array.map(fun x -> x * x)  // [4, 9, 16, 25, 36, 49, 64, 81, 100]
-{% endhighlight %}  
+```  
 
 En este caso pasamos la función como una <a href="#" target="_blank" rel="nofollow">expresión lambda</a> `fun x -> x * x`, donde `x` es cada elemento del arreglo pasado como parámetro de la expresión, y `x * x` es el cuerpo de la función, de esa forma pudimos transformar los elementos del arreglo sin crear ningún bucle.
 
@@ -59,7 +59,7 @@ Al igual que `map`, `filter` es una función que itera sobre los arreglos. Como 
 
 Supongamos que tenemos un arreglo que representa los nombres de imágenes con diferentes extensiones y queremos obtener solo los jpg:
 
-{% highlight fsharp %}
+```fsharp  
 let images = [| 
     "hello.jpg"
     "world.jpg" 
@@ -75,11 +75,11 @@ let getJpgImages images : string array =
     result.ToArray()
 
 let jpgImages = getJpgImages images // ["hello.jpg", "world.jpg", "cats.jpg"]
-{% endhighlight %}  
+```  
 
 Ahora usemos la función `filter`:
 
-{% highlight fsharp %}
+```fsharp  
 let images = [| 
     "hello.jpg"
     "world.jpg" 
@@ -91,7 +91,7 @@ let images = [|
 let jpgImages = 
     images
     |> Array.filter(fun image -> image.EndsWith(".jpg")) // ["hello.jpg", "world.jpg", "cats.jpg"]
-{% endhighlight %}  
+```  
 
 Al igual que `map`, no tuvimos que crear ni un *for...in...do*, ni tampoco tuvimos que agregar el elemento que estamos filtrando, solamente pasamos nuestra expresión y `filter` hace todo por nosotros.
 
@@ -102,7 +102,7 @@ Al contrario que `map` y `filter`, `reduce` nos retorna un solo valor, que es la
 
 Prosigamos con el ejemplo de los números, si queremos sumar todos los elementos de un arreglo, haríamos algo como esto:
 
-{% highlight fsharp %}
+```fsharp  
 let array = [| 2; 3; 4; 5; 6; 7; 8; 9; 10 |]
 
 let sum arr : int = 
@@ -112,19 +112,19 @@ let sum arr : int =
     result
 
 let arraySum = sum(array); // 54
-{% endhighlight %}  
+```  
 
 Cuando usamos `reduce`, no solamente tenemos que pasar una función, si no también un acumulador, que es el valor inicial de nuestro contador, si es trabajo con enteros generalmente es 0, si son cadenas se pasa una cadena vacía. Depende de lo que quieras hacer.
 
 Ahora el ejemplo con `reduce`:
 
-{% highlight fsharp %}
+```fsharp  
 let array = [| 2; 3; 4; 5; 6; 7; 8; 9; 10 |]
 
 let arraySum = 
     array
     |> Array.reduce(fun acc x -> acc + x) // 54
-{% endhighlight %}  
+```  
 
 En este caso,  el acumulador toma el valor inicial de 0, ese valor se pasa como parámetro a la expresión lambda, al cual le pusimos como nombre `acc`. `x` es cada elemento del arreglo, y el cuerpo de nuestra lambda es la suma del acumulador y cada elemento del arreglo.
 
@@ -134,7 +134,7 @@ Como ves, esta función es un poco más elaborada, pero una vez que le entiendas
 
 Ahora que ya sabemos el uso de estas funciones, vamos a crear un pequeño programa donde usaremos las tres al mismo tiempo.
 
-{% highlight fsharp %}
+```fsharp  
 // Suponiendo que tenemos la siguiente estructura de ciudades
 type City = 
     struct
@@ -173,7 +173,7 @@ System.Console.WriteLine(citiesFilter)
 // Paris: 2243000
 // Madrid: 3216000
 // Berlin: 3397000
-{% endhighlight %}  
+```  
 
 Listo, tenemos nuestro programa funcionando y filtrando las ciudades, sin necesidad de usar bucles, además que gracias al acumulador usado como cadena, podemos imprimir nuestras ciudades en un lindo formato.
 

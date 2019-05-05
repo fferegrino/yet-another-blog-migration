@@ -43,9 +43,9 @@ Este pequeño paquetito de NuGet nos ayuda a acceder programáticamente a estos 
 
 Con el *Version Tracking Plugin* tenemos acceso al historial de instalaciones y actualizaciones de nuestra app en el dispositivo del usuario. Es simple de usar, una vez instalados los paquetes en los tres proyectos tenemos que inicializarlo en el método `OnCreate` de la `MainActivity` y en el método `FinishedLaunching` del `AppDelegate`, bastará con llamar al siguiente método:  
 
-{% highlight csharp %}
+```csharp  
 CrossVersionTracking.Current.Track();
-{% endhighlight %}  
+```  
 
 Una vez hecho esto, a través de la propiedad `CrossVersionTracking.Current` tendremos acceso a todas sus propiedades:   
 
@@ -66,22 +66,22 @@ Tenemos la primera versión de la app, con los siguientes valores en el nombre d
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- Android -->
 android:versionCode="1" 
 android:versionName="1.0"  
  
  
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- iOS -->
 <key>CFBundleShortVersionString</key>
 <string>1.0</string>
 <key>CFBundleVersion</key>
 <string>1.0</string>
-{% endhighlight %}
+```
 	</div>
 </div>
 
@@ -91,22 +91,22 @@ android:versionName="1.0"
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- Android -->
 android:versionCode="2" 
 android:versionName="1.0"  
  
  
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- iOS -->
 <key>CFBundleShortVersionString</key>
 <string>1.0</string>
 <key>CFBundleVersion</key>
 <string>1.1</string>
-{% endhighlight %}
+```
 	</div>
 </div>
 
@@ -116,22 +116,22 @@ android:versionName="1.0"
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- Android -->
 android:versionCode="2" 
 android:versionName="1.2"  
  
  
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- iOS -->
 <key>CFBundleShortVersionString</key>
 <string>1.2</string>
 <key>CFBundleVersion</key>
 <string>1.1</string>
-{% endhighlight %}
+```
 	</div>
 </div>
 
@@ -141,22 +141,22 @@ android:versionName="1.2"
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- Android -->
 android:versionCode="2" 
 android:versionName="2.0"  
  
  
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- iOS -->
 <key>CFBundleShortVersionString</key>
 <string>2.0</string>
 <key>CFBundleVersion</key>
 <string>2.0</string>
-{% endhighlight %}
+```
 	</div>
 </div>
 
@@ -166,22 +166,22 @@ android:versionName="2.0"
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- Android -->
 android:versionCode="3" 
 android:versionName="3.0"  
  
  
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight xml %}
+```xml  
 <!-- iOS -->
 <key>CFBundleShortVersionString</key>
 <string>3.0</string>
 <key>CFBundleVersion</key>
 <string>3.0</string>
-{% endhighlight %}
+```
 	</div>
 </div>
 

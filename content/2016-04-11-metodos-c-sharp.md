@@ -54,9 +54,9 @@ Uno de los más grandes ejemplos de métodos es el método `Main`, que es el pun
 
 #### Main:
 
-{% highlight csharp %}
+```csharp  
 public static void Main(string[] args) ...
-{% endhighlight %}  
+```  
 
 Que especifica que:  
 
@@ -67,12 +67,12 @@ Que especifica que:
  
 #### GetDefaultCar;
 
-{% highlight csharp %}
+```csharp  
 internal static F1Car GetDefaultCar()
 {
     return new F1Car();
 }
-{% endhighlight %}   
+```   
 
 Que especifica que:  
 
@@ -83,7 +83,7 @@ Que especifica que:
  
 #### ChangeDriver: 
  
-{% highlight csharp %}
+```csharp  
 public void ChangeDriver(Pilot newPilot)
 {
     if (!newPilot.Equals(_currentPilot))
@@ -91,7 +91,7 @@ public void ChangeDriver(Pilot newPilot)
         _currentPilot = newPilot;
     }
 }
-{% endhighlight %}    
+```    
 
 Que especifica que:  
 
@@ -102,7 +102,7 @@ Que especifica que:
  
 #### TryStartEngine: 
  
-{% highlight csharp %}
+```csharp  
 public bool TryStartEngine()
 {
     if (_currentPilot == null)
@@ -112,7 +112,7 @@ public bool TryStartEngine()
     StartEngine();
     return true;
 }
-{% endhighlight %}    
+```    
 
 Que especifica que:  
 
@@ -123,12 +123,12 @@ Que especifica que:
  
 #### StartEngine:
 
-{% highlight csharp %}
+```csharp  
 void StartEngine() 
 {
     IsRunning = true;
 }
-{% endhighlight %}  
+```  
 
 Que especifica que:  
 
@@ -140,22 +140,22 @@ Que especifica que:
 ### Uso
 De entrada, el método `Main` es reconocidísimo, ya que es el punto de entrada de cualquier aplicación en C#, a continuación, obtenemos un objeto `F1Car` usando el método de instancia:
 
-{% highlight csharp %}
+```csharp  
 var car = F1Car.GetDefaultCar();
-{% endhighlight %}  
+```  
 
 Podemos colocarle un piloto usando el método público:
 
-{% highlight csharp %}
+```csharp  
 car.ChangeDriver(schumacher);
-{% endhighlight %}  
+```  
 
 Ahora con piloto, podríamos encender el motor ¿no?
 
-{% highlight csharp %}
+```csharp  
 //car.StartEngine();
 var started = car.TryStartEngine();
-{% endhighlight %}  
+```  
 
 No podemos llamar directamente a `StartEngine` ya que es privado, pero si tenemos acceso a `TryStartEngine`, desde el cual si se puede acceder a los miembros privados de la clase.
 

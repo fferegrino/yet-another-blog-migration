@@ -20,7 +20,7 @@ En este post voy a hablar acerca de uno de los mejores tipos de <a href="../../t
 
 Para este post estoy usando <a href="../../tv/xamarin-forms" target="_blank">Xamarin.Forms</a>, y es una app bastante sencilla (cuyo código fuente debes descargar en <a href="https://github.com/ThatCSharpGuy/AsyncAwait" target="_blank">este enlace</a>) que contiene unos cuantos botones y una barra de progreso. En el siguiente código hace que cada 100 milisegundos la barra de progreso se mueva, así hasta llegar a 100:
 
-{% highlight csharp %}
+```csharp  
 void EjecutaTarea()
 {
     ProgressBar.Progress = 0;
@@ -30,7 +30,7 @@ void EjecutaTarea()
         ProgressBar.Progress = ((double)i + 1) / 100;
     }
 }
-{% endhighlight %}  
+```  
 
 Aunque... en realidad el usuario no lo ve, ya que cuando nosotros llamamos al método `EjecutaTarea` la interfaz es bloqueada mientras se realiza la tarea, algo como lo que se muestra en el siguiente diagrama:  
 
@@ -47,7 +47,7 @@ Es una restricción establecida que no puedes modificar la interfaz gráfica fue
 ### Creando asincronía con Task.Run  
 Para *crear-ejecutar* una tarea usaremos el método estático `Run` de la clase `Task`. Este método recibe un tipo `Action` o un tipo `Func<T>` (dependiendo de si queremos devolver un valor o no). El *action* o *func* es el código que queremos asociar con esa tarea. Vamos a tomar nuestro código anterior y envolverlo dentro de una `Task`:
 
-{% highlight csharp %}
+```csharp  
 void EjecutaTareaAsincrona()
 {
     ProgressBar.Progress = 0;
@@ -63,7 +63,7 @@ void EjecutaTareaAsincrona()
         }
     });
 }
-{% endhighlight %}    
+```    
 
 Hasta este punto la tarea se ejecutará en un hilo distinto al que en el que fue lanzada. Y mientras que esto ya no bloquea la interfaz, puede que no sea exactamente lo que estamos buscando, y es que cuando llamamos a `EjecutaTareaAsincrona` se dispara un nuevo hilo y la ejecución del código subsecuente continua, sin importarle que la tarea que acaba de lanzar termine o falle (una técnica conocida como *fire and forget*). Algo como lo que se ve en el siguiente diagrama:  
 
@@ -72,7 +72,7 @@ Hasta este punto la tarea se ejecutará en un hilo distinto al que en el que fue
 ## async y await  
 Para solucionar ese *problema* es cuando aparecen las palabras mágicas: `async` y `await`. Las dos deben ser usadas en conjunto, aunque en realidad `await` es quien depende de `async`. Modifiquemos un poco el código anterior para hacer uso de este par de palabras:  
 
-{% highlight csharp %}
+```csharp  
 async Task EjecutaTareaAsync()
 {
     ProgressBar.Progress = 0;
@@ -88,7 +88,7 @@ async Task EjecutaTareaAsync()
         }
     });
 }
-{% endhighlight %}  
+```  
 
 Primero, ¿notaste la palabra `async` en la firma del método? esta palabra reservada tiene una sola función: habilitar la palabra `await` dentro del cuerpo del método.  
 

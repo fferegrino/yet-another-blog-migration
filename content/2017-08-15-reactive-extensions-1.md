@@ -40,17 +40,17 @@ En todos los lugares en los que vayas a hacer uso de este paradigma de programac
 ## Algo no reactivo  
 Para comenzar vamos a ver un ejemplo de algo que no es reactivo. Comencemos por un arreglo de datos enteros:  
 
-{% highlight csharp %}
+```csharp  
 var datos = new[] { 3, 4, 6, 8, 11, 13, 15, 15, 13, 10, 6, 4 };
-{% endhighlight %}  
+```  
 
 Y luego una forma de **tomarlos** uno a uno e imprimirlos a consola:  
 
-{% highlight csharp %}
+```csharp  
 foreach (var dato in datos)
     Console.Write($"{dato}, ");
 Console.WriteLine("\nTerminé de leer los datos");
-{% endhighlight %}  
+```  
 
 Al ejecutarlo obtendremos algo como esto:
 
@@ -64,27 +64,27 @@ Nada raro: tenemos un arreglo y **sacamos** los valores de él para imprimirlos 
 ## Algo reactivo  
 Comenzaremos por convertir nuestros `datos` a un flujo de datos, para esto nos ayudaremos <a href="..\extension-methods-es" target="_blank">método de extensión</a> `ToObservable` que tomará un `IEnumerable` y lo convierte en un observable (o publicador):  
 
-{% highlight csharp %}
+```csharp  
 IObservable<int> flujoDatos = datos.ToObservable();
-{% endhighlight %}  
+```  
 
 Como puedes ver, nuestro objeto `flujoDatos` es ahora un `IObservable<int>` y para recibir información de él, ahora también sabes que debemos suscribirnos a él mediante un `IObserver<int>`, ¿cierto?
 
 Pues verás, otra de las ventajas de usar las **Reactive Extensions** es que podemos suscribirnos usando `Suscribe` especificando únicamente las acciones que vamos a realizar cada vez que se llame a `OnNext`, `OnCompleted` y `OnError`. Esto mediante el uso de <a href="..\delegados" target="_blank">expresiones lambda</a>:
 
-{% highlight csharp %}
+```csharp  
 flujoDatos.Subscribe(
     onNext: dato => { Console.Write($"{dato}, "); },
     onCompleted: () => { Console.WriteLine("\nTerminé de recibir los datos"); }
 );
-{% endhighlight %}    
+```    
 
 Al ejecutar el código obtendremos algo así en pantalla:  
 
-{% highlight csharp %}
+```csharp  
 3, 4, 6, 8, 11, 13, 15, 15, 13, 10, 6, 4, 
 Terminé de recibir los datos
-{% endhighlight %}  
+```  
 
 Pareciera que nada cambió, sin embargo, la diferencia está en la forma en la que los números llegaron al método `Console.Write`:
 
@@ -113,14 +113,14 @@ En este caso estamos utilizando un flujo de `int`s, pero la programación reacti
 ## LINQ y Rx  
 Empaquetadas junto con las *Reactive Extensions*, vienen otros métodos de extensión que permiten aplicar muchos de las operaciones de Linq sobre los `IObservables` como si de secuencias tradicionales se tratara, entonces podemos filtrar con `Where`:
 
-{% highlight csharp %}
+```csharp  
 flujoDatos
     .Where(dato => dato % 3 == 0)
     .Subscribe(
         onNext: dato => { Console.Write($"{dato}, "); },
         onCompleted: () => { Console.WriteLine("\nTerminé de recibir los múltiplos de 3"); }
     );
-{% endhighlight %}  
+```  
 
 <pre>
 3, 6, 15, 15, 6, 
@@ -129,7 +129,7 @@ Terminé de recibir los múltiplos de 3
 
 Saltarnos algunos valores con `Take` y `Skip`:
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine();
 flujoDatos
     .Skip(2)
@@ -138,7 +138,7 @@ flujoDatos
         onNext: dato => { Console.Write($"{dato}, "); },
         onCompleted: () => { Console.WriteLine("\nTerminé de recibir los tres elementos a partir del 2do"); }
     );
-{% endhighlight %}  
+```  
 
 <pre>
 6, 8, 11, 
@@ -147,7 +147,7 @@ Terminé de recibir los tres elementos a partir del 2do
 
 Y usar funciones de agregación como `Min`
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine();
 flujoDatos
     .Min()
@@ -155,7 +155,7 @@ flujoDatos
         onNext: dato => { Console.Write($"{dato}, "); },
         onCompleted: () => { Console.WriteLine("\nTerminé de recibir los datos y presenté el menor"); }
     );
-{% endhighlight %}  
+```  
 
 <pre>
 3, 

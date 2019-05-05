@@ -51,9 +51,9 @@ It is always important to set a start page for our app and in the case of Xamari
   
 In the solution inside  `sart` the property `MainPage` is set with a page created in-place, we must change that for a reference to our `CalcPage`:  
 
-{% highlight csharp %}
+```csharp  
 MainPage = new CalcPage();
-{% endhighlight %}
+```
 
 ##### Code
 File: `App.cs`
@@ -66,7 +66,7 @@ A simple calculator does not require of a lot of thought, the buttons are sorted
   
 A `Grid` is made of rows and columns which in Xamarin.Forms are specified in the form of `RowDefinition`s o `ColumnDefinition`s. Look at the following code:  
   
-{% highlight csharp %}
+```csharp  
 var layout = new Grid();
 
 // Rows:
@@ -76,7 +76,7 @@ layout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUni
 // Columns:
 layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-{% endhighlight %}
+```
 
 In the code above we create a new `Grid` called `layout` and then it gets added a pair of rows and columns. Something to notice here is that a `Width` is specified for the columns and a `Height` is specified for the rows. The fact that we use `GridUnitType.Star` (or `*`) indicates that the size of the columns will be proportional to each other.  
   
@@ -86,9 +86,9 @@ For this excerise, create a grid with rows and columns that represent the follow
   
 Once we have created the layout, it is important to tell our page to use it as a content, the way to do it is by specifying the property `Content` at the end of the page's constructor with the following line of code:  
 
-{% highlight csharp %}
+```csharp  
 Content = _layout;
-{% endhighlight %}
+```
 
 ##### Code
 File: `CalcPage.cs`
@@ -100,29 +100,29 @@ We will use buttons for the digits and operators as well as a label to show the 
 
 Initializing controls is pretty simple, for example, to create the button that will serve as the '0' in our calculator, we must write something like the following code:  
  
-{% highlight csharp %}
+```csharp  
 _b0 = new Button { Text = "0" };
-{% endhighlight %}
+```
 
 Once the control has been created we must add it to the containing layout to be shown in the screen. Remember that in this case the layout is made of rows and columns, so we must set a column number and column number where it must appear on the screen,
 the `Grid` class allows us to set those values via the static `SetColumn` y `SetRow` methods. In the code below the first column and the fourth row are set to the button `_b0`:  
   
-{% highlight csharp %}
+```csharp  
 Grid.SetColumn(_b0, 1);
 Grid.SetRow(_b0, 4);
-{% endhighlight %}  
+```  
 
 Next, we add it to the layout by using this line:  
   
-{% highlight csharp %}
+```csharp  
 _gridLayout.Children.Add(_b0);
-{% endhighlight %}
+```
 
 For the label where the result will be shown, we will use the `SetColumnSpan` methods to indicate that our control that it has to span across more than one column within the layout. In this case, we are setting ca column span of 4 to the `_resultDisplay` label:  
   
-{% highlight csharp %}
+```csharp  
 Grid.SetColumnSpan(_resultDisplay, 4);
-{% endhighlight %}
+```
 
 We also can use `SetRowSpan` if we want a control to use more than one row.
 
@@ -134,9 +134,9 @@ In a calculator like the one we are doing, user interaction is required and in X
   
 For our calculator we will handle the `Clicked` event of the buttons. To handle events is a simple task in C#, all we have to do is to assign (using the `+=` operator) an event handler to the desired control. In the code below an event is specified as a handler for the `Clicked` event of `_b0`:
   
-{% highlight csharp %}
+```csharp  
 _b0.Clicked += OnNumericButtonClicked;
-{% endhighlight %}  
+```  
 
 The `OnNumericButtonClicked` handler is just a method with `void` as return value and gets passed in two arguments:    
 
@@ -145,7 +145,7 @@ The `OnNumericButtonClicked` handler is just a method with `void` as return valu
 
 As an example, here is the implementation of the method for our calculator keyboard buttons. In the first line  a cast is made from `sender` to `Button`, and that is valid (and does not throw an exception) because as we said before: `sender` contains the control that triggered the event.
    
-{% highlight csharp %}
+```csharp  
 void OnNumericButtonClicked(object sender, EventArgs e)
 {
 	Button botonClickeado = (Button)sender;
@@ -158,7 +158,7 @@ void OnNumericButtonClicked(object sender, EventArgs e)
 		segundoNumero = botonClickeado.Text;
 	}
 }
-{% endhighlight %}
+```
 
 The handlers can be shared among several controls, so you do not have to create a handler for each control you use in your application. Now is your turn to build all the calculator's logic using the controls and the event handlers. If you get stuck, you can always take a look to the file indicated below to get you started.
 
@@ -168,7 +168,7 @@ File: `CalcPage.cs`
 ## Part 6 - A small trick    
 By this point you may think that our calculator is (almost) completed, but that is not the case. If you run it as is, you will notice that the calculator does not fill the entire screen... this is a small bug in our code. To work around this problem we will use another kind of layout that wraps our original layout. For this a `RelativeLayout` will come handy, this layout gives us a lot of flexibility when it comes to control how the interface elements are shown. As useful as this is, it requires more configuration. Go ahead and replace the `Content = _layout;` assignation to the following fragment of code:
   
-{% highlight csharp %}
+```csharp  
 // Trick to make our calculater fullscreen
 var relativeLayout = new RelativeLayout();
 relativeLayout.Children.Add(_layout, // <= Original layout
@@ -177,7 +177,7 @@ relativeLayout.Children.Add(_layout, // <= Original layout
 	Constraint.RelativeToParent(p => p.Width),
 	Constraint.RelativeToParent(p => p.Height));
 Content = relativeLayout;
-{% endhighlight %}
+```
 
 # What's next?
 As you have realized, this application is not finished, we have to implement some handlers and all the calculator's logic. Your mission, should you choose to accept it, is to finish building the *Sharpuladora*. You can check the book from Charles Petzold <a href=" https://developer.xamarin.com/guides/cross-platform/xamarin-forms/creating-mobile-apps-xamarin-forms/" target="_blank">Xamarin.Forms Book Preview 2</a>.

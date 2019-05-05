@@ -12,10 +12,10 @@ featured_tag: AprendeCSharp
 
 No hay duda de que conoces estos operadores: `&&` y `||`, sabes lo que hacen e inclusive los has usado más veces de las que lo recuerdas en tus aplicaciones. Pero, probablemente no sabes que cuando las usas, el lenguaje hace de las suyas tratando de mejorar el desempeño de tu aplicación. Considera el siguiente par de ejemplos:  
 
-{% highlight csharp %}
+```csharp  
 if(true || false) { } 
 if(false && true) { } 
-{% endhighlight %}  
+```  
 
 ¿Qué sentido tendría evaluar el lado derecho de ambos condicionales si ya sabemos que nada de lo que está ahí modificará el resultado? entonces en tiempo de ejecución sucede algo como lo siguiente:
 
@@ -43,7 +43,7 @@ Esto sin duda es algo de lo que muy pocos tendrían queja, pero para aquellos ca
 
 Para poner un ejemplo <a href=" https://github.com/ThatCSharpGuy/aprende-c-sharp/tree/master/CortoCircuito" target="_blank">que puedes descargar</a>, considera el siguiente par de métodos que imprimen un mensaje y retornan un valor constante booleano:
 
-{% highlight csharp %}
+```csharp  
 static bool AlwaysTrue(string label)
 {   
     Console.Write(label + ": " + true);
@@ -55,11 +55,11 @@ static bool AlwaysFalse(string label)
     Console.Write(label + ": " + false);
     return false;
 }
-{% endhighlight %}  
+```  
 
 Entonces, al ejecutar el siguiente código: 
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine("Ifs");
 if (AlwaysFalse("If 1") && AlwaysTrue("If 1")) ;
 Console.WriteLine();
@@ -70,7 +70,7 @@ Console.WriteLine();
 if (AlwaysTrue("If 4") | AlwaysTrue("If 4")) ;
 Console.WriteLine();
 if (AlwaysTrue("If 5") | AlwaysTrue("If 5") && (AlwaysFalse("If 5") & AlwaysTrue("If 5")));
-{% endhighlight %}  
+```  
 
 Obtendremos como resultado:  
 

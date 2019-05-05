@@ -55,27 +55,27 @@ Las expresiones son un tipo especial de sentencias que se componen de uno o más
 Algunos ejemplos de expresión son los siguientes:  
 
 ### Operador new  
-{% highlight csharp %}
+```csharp  
 new Object(); 
-{% endhighlight %}  
+```  
 Cuando usamos el operador `new` para instanciar un objeto, el constructor de la clase (en este caso `Object`) es el operando y el resultado de esta expresión es una referencia a una instancia de la clase (en este caso, de `Object`).
 
 ### Incremento y decremento
-{% highlight csharp %}
+```csharp  
 i++;
 --i;
-{% endhighlight %}
+```
 Los operadores `++` y `--` son denominados de incremento y decremento, el resultado de la expresión varía en función de la posición en la que estén colocados respecto al operando (que en nuestro caso es `i`).  
 
  - Antes del operando: es el valor del operando antes de ser incrementado/decrementado
  - Después del operando: es el valor del operando después de ser incrementado.
 
 ### Llamada (call)
-{% highlight csharp %}
+```csharp  
 ConvertInt(i);
 
 i.ToString();
-{% endhighlight %}  
+```  
 Las llamadas a métodos también son ejemplos de expresiones, estas expresiones no requieren de un operador como las dos anteriores, basta con escribir el nombre del método y agregarle sus argumentos en caso de ser necesarios.  
   
 Suponiendo que tenemos la siguiente firma de método `decimal ConvertInt(int i)`, la primera expresión en el código anterior tendrá como resultado un `decimal`, mientras que la segunda tendrá como resultado una cadena.
@@ -85,26 +85,26 @@ Suponiendo que tenemos la siguiente firma de método `decimal ConvertInt(int i)`
 En el ejemplo anterior de código, las expresiones estaban escritas solas y funcionan como están. Sin embargo, en C#, no todas las expresiones pueden existir de esa manera, muchas tienen que existir en acompañadas por una sentencia para que el programa compile, de otra manera obtendríamos el error de compilación `CS0201: Sólo se pueden utilizar las expresiones de objeto assignment, call, increment, decrement y new como instrucción`. Como ejemplo de dichas expresiones tenemos:  
 
 ### Literales  
-{% highlight csharp %}
+```csharp  
 int n = 10;
 var hola = "Hola";
-{% endhighlight %}  
+```  
 
 En este caso estamos frente a **las literales, las expresiones más simples que se pueden usar en C#**, la primera expresión es `10`, que se evalúa a un tipo por valor tipo `int`; la segunda expresión es `"Hola"` que se evalúa a un tipo por referencia tipo string. Si se hubiera usado únicamente `10;` u `"Hola";` sin sentencia, un error de compilación habría aparecido.  
 
 ### Literales y operadores  
-{% highlight csharp %}
+```csharp  
 int i = 3 + 2;
-{% endhighlight %}  
+```  
     
 En este caso `3 + 2` es una expresión en la que el operador es `+` cuyo resultado es un tipo por valor del tipo `int`, la sentencia que lo acompaña es declaración `int i`. De haber usado solo `3 + 2;` habríamos obtenido un error de compilación.
 
 ### Nombres simples    
-{% highlight csharp %}
+```csharp  
 string hola2 = hola;
 
 return hola; // Recordando de 'Hola' es un cadena
-{% endhighlight %}  
+```  
 
 Dentro del código anterior, `hola` es un nombre simple, es el nombre de una variable de tipo string. Pero además de eso, es una expresión que se evalúa al valor que contenga en ese momento. En el primer caso, se usa una sentencia de asignación y en el segundo está acompañada de la sentencia `return`, ya que de otro modo si hubiéramos usado `hola;` de nuevo tendríamos un error de compilación.
 

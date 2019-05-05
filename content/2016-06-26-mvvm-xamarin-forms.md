@@ -32,7 +32,7 @@ La separación de MVVM se puede observar en que el proyecto `Mvvmdex.Views` se r
 
 Para este proyecto, el modelo está contenido dentro de `Mvvmdex.Models`. Como sabe, en el modelo es donde se realiza el acceso a datos y la lógica de la aplicación. En esta aplicación, el *Mvvmdex*, únicamente se consulta a la PokéAPI dentro de la clase `MvvmdexClient`. Como puedes ver, no tiene ninguna relación con la vista:
 
-{% highlight csharp %}
+```csharp  
 public async Task<Pokemon> SearchForPokemon(string pokemonName)
 {
 	try
@@ -54,7 +54,7 @@ public async Task<Pokemon> SearchForPokemon(string pokemonName)
 		return null;
 	}
 }
-{% endhighlight %}   
+```   
 
 ## ViewModels
 
@@ -62,14 +62,14 @@ Para este proyecto, el modelo está contenido dentro de `Mvvmdex.ViewModels`. Es
 
 Esta sección tiene relación directa con el Modelo, en el *Mvvmdex* se hace referencia en el cliente `MvvmdexClient`:
 
-{% highlight csharp %}
+```csharp  
 private MvvmdexClient _client;
 
 public PokemonSearchViewModel()
 {
 	_client = new MvvmdexClient(); // <- Model
 }
-{% endhighlight %}  
+```  
 
 El modelo puede enviar y recibir mensajes del *viewmodel* a través de métodos.
 
@@ -77,7 +77,7 @@ El modelo puede enviar y recibir mensajes del *viewmodel* a través de métodos.
 
 La interfaz `INotifyPropertyChanged` permitirá a la vista ser notificada cada vez que suceda algún cambio en el *viewmodel*. La interfaz únicamente expone el evento `PropertyChanged` que debemos invocar cada vez que queremos notificar a la vista algún cambio. Para hacer la tarea más sencilla, se crea un método auxiliar:
 
-{% highlight csharp %}
+```csharp  
 public void RaiseOnPropertyChange([CallerMemberName] string propertyName = null)
 {
 	if (PropertyChanged != null)
@@ -85,7 +85,7 @@ public void RaiseOnPropertyChange([CallerMemberName] string propertyName = null)
 		PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 	}
 }
-{% endhighlight %}  
+```  
 
 El atributo `CallerMemberName` nos facilitará la tarea, ya que con él aseguramos que el nombre de la propiedad desde la que lo llamemos será colocada ahí para notificar a la vista sobre la propiedad correcta.  
 
@@ -95,7 +95,7 @@ Es importante decir que existen muchos frameworks de *mvvm* que ya contienen una
 
 Con las propiedades hay una pequeña limitante: no pueden ser propiedades auto-implementadas, ya que es necesario llamar a nuestro método auxiliar creado más arriba. Mira la propiedad `PokemonName`:
 
-{% highlight csharp %}
+```csharp  
 private string _pokemonName;
 
 public string PokemonName
@@ -103,7 +103,7 @@ public string PokemonName
 	get { return _pokemonName; }
 	set { _pokemonName = value; RaiseOnPropertyChange(); /* RaiseOnPropertyChange("PokemonName") */ }
 }
-{% endhighlight %}  
+```  
 
 Como puedes ver, cada vez que ocurre un cambio en la propiedad, se está notificando a quién desee sobre el cambio, en nuestro caso, la vista es quien desea ser notificada. Más adelante, con los *data bindings*, enlazaremos las propiedades en el *viewmodel* con elementos dentro de la vista.
  
@@ -111,7 +111,7 @@ Como puedes ver, cada vez que ocurre un cambio en la propiedad, se está notific
 
 Los *commands* es otro de los mecanismos que contempla *mvvm* para la comunicación entre los componentes, y es a través de ellos que se trasladan algunos de los eventos generados en la vista hacia el *viewmodel*. En Xamarin.Forms un comando no es más que una instancia de objeto que implementa la interfaz `ICommand`, en el caso de esta app, tenemos el comando `BuscaPokemonCommand` que lo único que hace es ejecutar una `Action` cuando se ejecuta.
 
-{% highlight csharp %}
+```csharp  
 public class BuscaPokemonCommand : ICommand
 {
 	private readonly Action _search;
@@ -132,7 +132,7 @@ public class BuscaPokemonCommand : ICommand
 
 	public event EventHandler CanExecuteChanged;
 }
-{% endhighlight %}  
+```  
 
 La interfaz ICommand contiene tres miembros:  
   
@@ -146,7 +146,7 @@ Es importante mencionar que al igual que con la interfaz `INotifyPropertyChanged
 
 Ahora, la forma en la que se usa este comando es a través de una propiedad ya que más adelante será enlazada con un control dentro de la vista:
 
-{% highlight csharp %}
+```csharp  
 private ICommand _buscaPokemonCommand;
 public ICommand BuscaPokemonCommand
 {
@@ -171,7 +171,7 @@ public ICommand BuscaPokemonCommand
 		return _buscaPokemonCommand;
 	}
 }
-{% endhighlight %}  
+```  
 
 ## Vista
  
@@ -179,7 +179,7 @@ Hay que recordar que en Forms podemos crear nuestras interfaces a través de có
 
 La vista de la aplicación es bastante simple, únicamente consta de un cuadro de búsqueda (`SearchBar`), un contenedor (`StackLayout`) que contiene varias etiquetas (`Label`) para mostrar los datos de Pokémon en cuestión y por último una etiqueta para mostrar en caso de que no encontremos un pokémon que coincida con nuestra búsqueda:
 
-{% highlight xml %}
+```xml  
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
 		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 		xmlns:converters="clr-namespace:Mvvmdex.Views.Converters" 
@@ -210,7 +210,7 @@ La vista de la aplicación es bastante simple, únicamente consta de un cuadro d
 			Text="😕" Grid.Row="1" HorizontalTextAlignment="Center" FontSize="100" />
 	</Grid>
 </ContentPage>
-{% endhighlight %}  
+```  
 
 ### Data bindings
 
@@ -218,17 +218,17 @@ Si ves mucho `Binding` en el código no te preocupes, es algo muy común en *MVV
 
 Por ejemplo, la etiqueta en la que se muestra el nombre y el número del Pokémon:
 
-{% highlight xml %}
+```xml  
 <Label Text="{Binding PokemonName}" FontSize="Large" />
-{% endhighlight %}  
+```  
 
 Mediante los *bindings* el texto del `Label` cambiará cada vez que la propiedad `PokemonName` lo haga.
 
 Sin embargo, los bindings no son solo de una dirección (*viewmodel* → vista), sino que también pueden ser usados al revés. Tomemos, por ejemplo el control `SearchBar`:
 
-{% highlight xml %}
+```xml  
 <SearchBar Grid.Row="0" SearchCommand="{Binding BuscaPokemonCommand}" Text="{Binding SearchTerms}" />
-{% endhighlight %}
+```
 
 Entonces cada vez que el usuario cambie el texto de la caja de búsqueda, la propiedad `SearchTerms` del *viewmodel* también cambiará. Y no solo eso, sino que también el control tiene enlazado el comando `BuscaPokemonCommand`, el comando se ejecutará cuando el usuario decida buscar Pokémons.  
 
@@ -242,13 +242,13 @@ En el más estricto de los sentidos el *viewmodel* debe ser independiente de la 
 
 Por ejemplo, en la app *Mvvmdex* quisiera mostrar u ocultar un panel dependiendo de si el Pokémon fue encontrado o no, el *viewmodel* ofrece la propiedad booleana `HasConicidence` que podemos ligar a `IsVisible`:
 
-{% highlight xml %}
+```xml  
 <StackLayout IsVisible="{Binding HasCoincidence}" ... />
-{% endhighlight %}  
+```  
 
 Sin embargo, no podemos ligar esa propiedad directamente con otro control para que se "esconda" cuando haya coincidencia, es por eso que se implementó la clase `BooleanInverterConverter`:
 
-{% highlight csharp %}
+```csharp  
 public class BooleanInverterConverter : IValueConverter
 {
 	public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -261,37 +261,37 @@ public class BooleanInverterConverter : IValueConverter
 		throw new NotImplementedException();
 	}
 }
-{% endhighlight %}  
+```  
 
 Que como puedes ver tiene dos métodos, uno para convertir "de ida" y uno "de vuelta", esta app solo hace uso del "de ida" y únicamente niega el valor booleano que se le pase.
 
 Luego entonces ya podemos usarlo en nuestra pantalla, primero declarándolo dentro de los recursos de la pantalla:
 
-{% highlight xml %}
+```xml  
 <ContentPage.Resources>
 	<ResourceDictionary>
 		<converters:BooleanInverterConverter x:Key="BooleanInverter" /> 
-{% endhighlight %}  
+```  
 
 Para luego usarlo junto con un enlace a datos en un control:
 
-{% highlight xml %}
+```xml  
 <Label IsVisible="{Binding HasCoincidence, Converter={StaticResource BooleanInverter}}" 
 	Text="😕" Grid.Row="1" HorizontalTextAlignment="Center" FontSize="100" />
-{% endhighlight %}  
+```  
 
 ### Enlace con el ViewModel
 
 Para terminar todo esto, falta un paso muy importante, y es el de relacionar de alguna manera la vista con el *viewmodel*. Hay muchas maneras de hacer esto, sin embargo, una de las más prácticas es establecer el nuestro *viewmodel* como el `BindingContext` de la vista. Para esta app, la acción se realiza en el *code behind* de la página `MvvmdexPage`:
 
-{% highlight csharp %}
+```csharp  
 public partial class MvvmdexPage : ContentPage
 {
 	public MvvmdexPage()
 	{
 		BindingContext = new PokemonSearchViewModel(); // <- ViewModel
 		// ....
-{% endhighlight %}  
+```  
 
 ## Para cerrar
 

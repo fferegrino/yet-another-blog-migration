@@ -26,7 +26,7 @@ Imaginemos que tenemos un arreglo de números enteros y a todos los elementos qu
 
 Generalmente haríamos una método con un bucle como el siguiente:
 
-{% highlight fsharp %}
+```fsharp  
 var array = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 static List<int> SquareArray(List<int> arr)
@@ -38,17 +38,17 @@ static List<int> SquareArray(List<int> arr)
 }
    
 var squaredArray = SquareArray(array); // [4, 9, 16, 25, 36, 49, 64, 81, 100]
-{% endhighlight %}  
+```  
 
 El método `Select` resuelve el problema de transformar los elementos de un arreglo pasándoles una método. Este método itera sobre cada elemento y a cada uno de ellos les aplica el método que nosotros pasemos como parámetro, esto nos ahorra usar mucho los *foreach* y además de que es más elegante. `Select` retorna un una colección de la misma longitud que la coleccion a la cual le aplicamos la transformación.
 
 El código anterior quedaría así:
 
-{% highlight fsharp %}
+```fsharp  
 var array = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 var squaredArray = array.Select(x => x * x).ToArray(); // [4, 9, 16, 25, 36, 49, 64, 81, 100]
-{% endhighlight %}  
+```  
 
 En este caso pasamos la el método como una <a href="#" target="_blank" rel="nofollow">expresión lambda</a> `x => x * x`, donde `x` es cada elemento del arreglo pasado como parámetro de la expresión, y `x * x` es el cuerpo del método, de esa forma pudimos transformar los elementos del arreglo sin crear ningún bucle.
 
@@ -59,7 +59,7 @@ Al igual que `Select`, `Where` es un método que itera sobre los arreglos. Como 
 
 Supongamos que tenemos una colección que representa los nombres de imágenes con diferentes extensiones y queremos obtener solo los jpg:
 
-{% highlight fsharp %}
+```fsharp  
 var images = new List<string> {
     "hello.jpg",
     "world.jpg",
@@ -79,11 +79,11 @@ public static List<string> GetJpgImages(List<string> images)
 }
 
 var jpgImages = GetJpgImages(images); // ["hello.jpg", "world.jpg", "cats.jpg"]
-{% endhighlight %}  
+```  
 
 Ahora usemos el método `Where`:
 
-{% highlight fsharp %}
+```fsharp  
 var images = new List<string> {
     "hello.jpg",
     "world.jpg",
@@ -96,7 +96,7 @@ var images = new List<string> {
 var jpgImages = images
                 .Where(image => image.EndsWith(".jpg"))
                 .ToList(); // ["hello.jpg", "world.jpg", "cats.jpg"]
-{% endhighlight %}  
+```  
 
 Al igual que con `Select`, no tuvimos que crear ni un *foreach*, ni tampoco tuvimos que agregar el elemento que estamos filtrando, solamente pasamos nuestra expresión y `Where` hace todo por nosotros.
 
@@ -105,7 +105,7 @@ Al contrario que `Select` y `Where`, `Aggregte` nos retorna un solo valor, que e
 
 Prosigamos con el ejemplo de los números, si queremos sumar todos los elementos de una lista, haríamos algo como esto:
 
-{% highlight fsharp %}
+```fsharp  
 var array = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9, 10 };   
 
 public static int Sum(List<int> arr)
@@ -117,17 +117,17 @@ public static int Sum(List<int> arr)
 }
 
 var arraySum = Sum(array); // 54
-{% endhighlight %}  
+```  
 
 Cuando usamos una de las variaciones de `Aggregate`, no solamente tenemos que pasar una el metodo acumulador, si no también un acumulador, que es el valor inicial de nuestro contador, si es trabajo con enteros generalmente es 0, si son cadenas se pasa una cadena vacía. Depende de lo que quieras hacer.
 
 Ahora el ejemplo con `Aggregate`:
 
-{% highlight fsharp %}
+```fsharp  
 var array = new List<int> { 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 var arraySum = array.Aggregate((acc, x) => acc + x); // 54
-{% endhighlight %}  
+```  
 
 En este caso, el acumulador toma el valor inicial de 0, ese valor se pasa como parámetro a la expresión lambda, al cual le pusimos como nombre `acc`. `x` es cada elemento de la colección, y el cuerpo de nuestra lambda es la suma del acumulador y cada elemento del arreglo.
 
@@ -137,7 +137,7 @@ Como ves, este método es un poco más elaborado, pero una vez que le entiendas,
 
 Ahora que ya sabemos el uso de estos métodos, vamos a crear un pequeño programa donde usaremos los tres al mismo tiempo.
 
-{% highlight fsharp %}
+```fsharp  
 // Suponiendo que tenemos la siguiente estructura de ciudades
 struct City
 {
@@ -176,7 +176,7 @@ Console.WriteLine(citiesFilter);
 // Paris: 2243000
 // Madrid: 3216000
 // Berlin: 3397000
-{% endhighlight %}  
+```  
 
 Listo, tenemos nuestro programa funcionando y filtrando las ciudades, sin necesidad de usar bucles, además que gracias al acumulador usado como cadena, podemos imprimir nuestras ciudades en un lindo formato.
 

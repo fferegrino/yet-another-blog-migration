@@ -33,77 +33,77 @@ As Tesseract and XLabs require platform specific code to work, we must find a wa
 
 ##### Android
 First of all, grab a reference to the container with  
-{% highlight csharp %}
+```csharp  
 var container = TinyIoCContainer.Current;
-{% endhighlight %}
+```
 The container is like a bucket where we "put" pieces of code that will be used within our application. Then, we must put code in that bucket, we do so by calling the <code>Register</code> method of the container:  
-{% highlight csharp %}
+```csharp  
 container.Register<IDevice>(AndroidDevice.CurrentDevice);
 container.Register<ITesseractApi>((cont, parameters) =>
 {
 	return new TesseractApi(ApplicationContext, AssetsDeployment.OncePerInitialization);
 });
-{% endhighlight %}
+```
 With the first line the device where the app is running gets registered (alongside with all its available features), whereas with the second line we are registering the implementation of the Tesseract API, for Android we must pass in the constructor a reference to the application context where the application is running. For this example it is set to <code>ApplicationContext</code> in the <code>MainActivity.cs</code>.  
 Finally we have yet to register our <code>container</code> in the XLabs <code>Resolver</code>:
-{% highlight csharp %}
+```csharp  
 Resolver.SetResolver(new TinyResolver(container));
-{% endhighlight %}
+```
 By the way, do not forget to add the following <code>using</code> statements at the top of your file
-{% highlight csharp %}
+```csharp  
 using TinyIoC;
 using Tesseract;
 using Tesseract.Droid;
 using XLabs.Ioc;
 using XLabs.Ioc.TinyIOC;
 using XLabs.Platform.Device;
-{% endhighlight %}
+```
 
 
 ##### iOS
 It is almost the same process as with Android. First, get a reference to the container:  
-{% highlight csharp %}
+```csharp  
 var container = TinyIoCContainer.Current;
-{% endhighlight %}  
+```  
 After that, register the device and the Tesseract API implementation. This time there is no need to add parameters to the <code>TesseractApi</code> constructor.  
-{% highlight csharp %}
+```csharp  
 container.Register<IDevice>(AndroidDevice.CurrentDevice);
 container.Register<ITesseractApi>((cont, parameters) =>
 {
 	return new TesseractApi();
 });
-{% endhighlight %}
+```
 Again, register the <code>container</code> in the <code>Resolver</code>
-{% highlight csharp %}
+```csharp  
 Resolver.SetResolver(new TinyResolver(container));
-{% endhighlight %} 
+``` 
 Here are the <code>using</code> statements for the <code>AppDelegate.cs</code> file
-{% highlight csharp %}
+```csharp  
 using TinyIoC;
 using Tesseract;
 using Tesseract.iOS;
 using XLabs.Ioc;
 using XLabs.Ioc.TinyIOC;
 using XLabs.Platform.Device;
-{% endhighlight %}  
+```  
 
 #### Shared code! yay!  
 Finally, we get to the code sharing part. The UI for this app wont be much of a hassle, just a button, an image and a label. The button to call the photo-taking action, the image to display the recently captured image and the label to display the recognized text. For this simple demo app all the code will be on the page itself, however, you may want to move the code to a viewmodel to create a more complex app, to start, create a new Page named <code>HomePage</code> in the root of the shared PCL project and add the following as class-level variables:
-{% highlight csharp %}
+```csharp  
 private Button _takePictureButton;
 private Label _recognizedTextLabel;
 private Image _takenImage;
 
 private readonly ITesseractApi _tesseractApi;
 private readonly IDevice _device;
-{% endhighlight %}
+```
 The last two lines are interfaces which abstract the platform specific features that we registered a few lines above. In the constructor of the <code>HomePage</code> we'll call the <code>Resolve</code> method on our resolver class to get a references to the implementations for each platform:
-{% highlight csharp %}
+```csharp  
 _tesseractApi = Resolver.Resolve<ITesseractApi>();
 _device = Resolver.Resolve<IDevice>();
-{% endhighlight %}
+```
 Then build the UI, I placed the three controls within a <code>StackLayout</code>, and wire the only event:
-{% highlight csharp %}
+```csharp  
 _takePictureButton.Clicked += TakePictureButton_Clicked;
 // ...
 async void TakePictureButton_Clicked(object sender, EventArgs e)
@@ -138,7 +138,7 @@ async void TakePictureButton_Clicked(object sender, EventArgs e)
 
 	return mediaFile;
 }
-{% endhighlight %}  
+```  
 
 #### Wrapping up
 Here are some photos I took of the app running on an iPod touch:

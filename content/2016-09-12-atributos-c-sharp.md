@@ -19,7 +19,7 @@ Los atributos en C# no son más que una forma de agregarle información extra (m
 
 Su sintaxis es un poco extraña, ya que a pesar de que un atributo no es más que una clase, generalmente no se instancía con el operador `new`, sino a través de los corchetes cuadrados `[]` y justo sobre la declaración de un método un método o tipo de dato, junto a un parámetro, o un ensamblado:  
 
-{% highlight csharp %}
+```csharp  
 [ObsoleteAttribute("Esta clase es obsoleta, prueba con iPhone 6 o Galaxy S6")]
 public class Nokia3310
 {
@@ -32,7 +32,7 @@ public class Nokia3310
         Console.WriteLine(whoIsCalling + " is calling " + number);
     }
     // ...
-{% endhighlight %}    
+```    
 
 Como puedes observar, en el código anterior existen 4 declaraciones de atributos: dos `ObsoleteAttribute`, un `CallerMemberNameAttribute` y un `RangeAttribute`. Antes de continuar, hay dos cosas a notar:  La primera es que no es necesaario escribir el nombre completo del atributo, tanto el nombre completo, como el nombre sin el sufijo "Attribute" son válidos para ser usados. Y la segunda es que los atributos también pueden recibir parámetros a través de su constructor.  
 
@@ -76,25 +76,25 @@ A peser de que el nombre no necesariamente debe tener la palabra "Attribute" (nu
 ### Derivar de la clase Attribute  
 Este es sin duda el paso más importante, tu atributo debe derivar de la clase `Attribute`, en nuestro caso estaremos derivando de la clase `ValidationAttribute` que ya tiene como clase base a `Attribute`:  
 
-{% highlight csharp %}
+```csharp  
 public class ValidCarrierAttribute : ValidationAttribute
 {
     // ...
-{% endhighlight %}  
+```  
 
 ### Especificar su objetivo  
 Una vez especificado el nombre del atributo y su relación con la clase base, es momento de especificar su objetivo. El objetivo de un atributo se refiere a en qué parte del código puede ser utilizado, para hacerlo es necesario utilizar el atributo `AttributeUsage`, que recibe como parámeto una combinación de valores del *enum* `AttributeTargets`. En nuestro caso, queremos aplicarlo únicamente a las propiedades de un tipo, por lo tanto usaremos únicamente `AttributeTargets.Property` (la lista completa en <a href="https://msdn.microsoft.com/en-us/library/system.attributetargets(v=vs.110).aspx" target="_blank">este enlace</a>):  
 
-{% highlight csharp %}
+```csharp  
 [AttributeUsage(AttributeTargets.Property)]
 public class ValidCarrierAttribute : ValidationAttribute
 // ...
-{% endhighlight %}  
+```  
 
 ### Parámetros
 Si tu atributo requiere recibir parámetros, debes declararlos en el constructor del atributo. En nuestro caso, recibiremos una cadena de texto que indicará las compañías con las que funciona, así como un parámetro que indica si se permite que un teléfono funcione con más de una compañía a la vez:  
 
-{% highlight csharp %}
+```csharp  
 //			   Positional parameter vvvvvvvvvvvvv
 public ValidCarrierAttribute(string validCarriers)
 {
@@ -104,7 +104,7 @@ public ValidCarrierAttribute(string validCarriers)
 // Named parameter 
 //          vvvvvvvvvvvvvvvv
 public bool MultipleCarriers { get; set; }
-{% endhighlight %}  
+```  
 
 #### Especificar la funcionalidad  
 En este caso, en el que estamos derivando de `ValidationAttribute` debemos sobreescribir el método `IsValid`, puedes revisar la implementación aquí.
@@ -115,30 +115,30 @@ Ahora sí, podemos usarlo en nuestras clases:
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 public class IPhone
 {
     [ValidCarrier("Vodafone,Telcel,AT&T", 
         MultipleCarriers = true)]
     public string Carrier { get; set; }
 }
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 public class Galaxy
 {
     [ValidCarrier("Vodafone,Movistar,Sprint")]
     public string Carrier { get; set; }  
     
 }
-{% endhighlight %}  
+```  
 </div>  
 </div>  
 
 Y lo podemos probar en nuestro código de la siguiente manera:
 
-{% highlight csharp %}
+```csharp  
 var iPhone = new IPhone();
 iPhone.Carrier = "Telcel,AT&T";
 
@@ -158,7 +158,7 @@ if (Validator.TryValidateObject(galaxy, galaxyContext, phoneResults, true))
     Console.WriteLine("Tu Galaxy es válido");
 else
     Console.WriteLine("Tu Galaxy es inválido");
-{% endhighlight %}  
+```  
 
 El resultado de ejecutar el código anterior es el siguiente:
 

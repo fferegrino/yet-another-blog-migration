@@ -48,14 +48,14 @@ Oh, ¿viste ese efecto en la pantalla justo antes de que apareció el perrito? e
 
 Adicionalmente podemos habilitar las transformaciones para modificar las imágenes, y se le pueden agregar varias transformaciones a una misma imagen, de tal modo que cuando ejecutamos las siguientes líneas:   
 
-{% highlight csharp %}
+```csharp  
 var grayscale = new GrayscaleTransformation();
 var blur = new BlurredTransformation(5);
 var corners = new CornersTransformation(4, CornerTransformType.AllCut);
 Image.Transformations.Add(grayscale);
 Image.Transformations.Add(blur);
 Image.Transformations.Add(corners);
-{% endhighlight %}  
+```  
 
 La imagen se transforma en:  
 
@@ -74,8 +74,8 @@ PM> Install-Package Xamarin.FFImageLoading.Transformations
 
 Y como con muchos *plugins*, es necesario instalarlo tanto en el proyecto central como en los clientes, e inicializarlo antes de cargar la aplicación con:  
 
-{% highlight csharp %}
+```csharp  
 CachedImageRenderer.Init();
-{% endhighlight %}  
+```  
 
 Al ser código abierto puedes revisar todos los detalles en <a href="https://github.com/luberda-molinet/FFImageLoading" target="_blank">GitHub</a>.

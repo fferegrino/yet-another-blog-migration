@@ -29,35 +29,35 @@ En este diagrama aparecen las algunas excepciones que existen en el framework po
 
 La forma de lanzar una excepción es usando la palabra `throw` seguido de la instancia de excepción que vamos a lanzar: 
 
-{% highlight csharp %}
+```csharp  
 throw new Exception("Hey, soy el mensaje de la excepción");
 
 var ex = new FormatException("Hey, soy una excepción guardada en una variable");
 throw ex;
-{% endhighlight %}  
+```  
 
 ## Excepciones personalizadas 
 
 Mientras que las excepciones por defecto en C# son genéricas y sirven bien al framework, es probable que para nuestra aplicación no sean lo más expresivas posibles y tratar de adecuarlas puede complicarnos la escritura de código. Es por eso que, en caso de ser necesario, podemos crear nuestras propias excepciones, basta con que estas deriven de `Exception`. Por ejemplo:
 
-{% highlight csharp %}
+```csharp  
 public class TienesMuchosGatosException : Exception
 // ...
-{% endhighlight %}  
+```  
 
 Ahora, ya podríamos hacer uso de esta excepción:
 
-{% highlight csharp %}
+```csharp  
 // ...
         if (value > 1)
             throw new TienesMuchosGatosException();
         _numeroGatos = value;
 // ...
-{% endhighlight %}  
+```  
 
 Pero no solo eso, sino que podemos añadirle constructores y propiedades nuevas a la excepción para que esta le dé más información a quién está usando nuestro código:
 
-{% highlight csharp %}
+```csharp  
 public class TienesMuchosGatosException : Exception
 {
     public int NumeroGatos { get; private set; }
@@ -75,16 +75,16 @@ public class TienesMuchosGatosException : Exception
             throw new TienesMuchosGatosException(value);
         _numeroGatos = value;
 // ...
-{% endhighlight %}  
+```  
 
 Como te puedes dar cuenta, estamos llamando al constructor de la clase base pasándole un mensaje (hay otro constructor que también recibe una instancia de `Exception` que podemos emplear para adjuntar cualquier otra excepción que hayamos atrapado para mayor información).
 
 Entonces, ahora ya con estas modificaciones, si llamamos al siguiente código:
 
-{% highlight csharp %}
+```csharp  
 var adulto = new Adulto();
 adulto.NumeroGatos = 10;
-{% endhighlight %}  
+```  
 
 Nuestro programa fallará, pero le dejará al desarrollador más información:
 
@@ -107,7 +107,7 @@ La misión de las expresiones es bastante clara: indicar que el problema no pued
 
 Su sintaxis es así:  
 
-{% highlight csharp %}
+```csharp  
 var adulto2 = new Adulto();
 try
 {
@@ -119,13 +119,13 @@ catch (TienesMuchosGatosException te)
     // Manejamos la excepción relacionada con los gatos:
     Console.WriteLine("Ooops, no puedes tener " + te.NumeroGatos + " gatos");
 }
-{% endhighlight %}  
+```  
 
 ### Manejo selectivo de excepciones 
 
 En el código anterior únicamente estamos manejando excepciones del tipo `TienesMuchosGatosException`, pero ¿qué pasaría si al establecer la propiedad también pudiéramos obtener excepciones de otro tipo? pues para eso podemos combinar los bloques `catch`: 
 
-{% highlight csharp %}
+```csharp  
 try
 {
     // Intentamos algo peligroso:
@@ -149,7 +149,7 @@ catch
 {
     // Manejamos cualquier otra excepcion
 }
-{% endhighlight %}  
+```  
 
 A estos bloques de captura de excepciones se decide si se accede o no de manera secuencial, es decir, en caso de que ocurra una excepción primero verifica si la excepción es del tipo `TienesMuchos...`, si no, verifica si es del tipo `NullReference...`, si no, verifica si es del tipo `Arithmetic...` y si no es cualquiera, entra el último bloque que atrapará cualquier excepción.
 
@@ -166,7 +166,7 @@ En otras ocasiones verás (o utilizarás) la vieja confiable `catch(Exception e)
 
 Hay ocasiones en las que tal vez quieras manejar una excepcion capturada con el único fin de realizar alguna tarea de registro, pero dejar que siga fallando como si no la hubieras atrapado. Para esos casos, puedes usar la instrucción `throw` solamente:
 
-{% highlight csharp %}
+```csharp  
 try
 {
     throw new NotImplementedException();
@@ -176,6 +176,6 @@ catch(Exception e)
     // Logging
     throw;
 }
-{% endhighlight %}  
+```  
 
 Tal vez te sientas tentado a colocar el identificador para relanzar la excepción (`throw e;`), pero esto lo que hará es destruir información potencialmente valiosa que ya contiene la excepción, así que no deberías hacerlo.  

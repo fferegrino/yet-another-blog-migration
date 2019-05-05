@@ -17,13 +17,13 @@ Comenzando por lo más básico, los arreglos unidimensionales son colecciones li
   
 #### Instanciación  
 Para crear un arreglo haremos uso de la palabra reservada `new` y los corchetes cuadrados `[ ]`, también es necesario conocer el tamaño que necesitaremos, puesto que como ya lo mencioné, no es posible cambiar el tamaño una vez creado: 
-{% highlight csharp %}
+```csharp  
 char [] vocales = new char[5];
 
 int [] conteo = new int[10];
 
 object [] misObjetos = new object[3];
-{% endhighlight %}  
+```  
 Si creamos arreglos de esa manera, cada posición tendrá el valor por default del tipo de dato del arreglo... bueno, mejor usamos nuestro ejemplo:  
 
 - El arreglo de `vocales` contendrá 5 `\0`, que es el valor por default de un `char`.    
@@ -32,13 +32,13 @@ Si creamos arreglos de esa manera, cada posición tendrá el valor por default d
 
 <br />  
 Además de la instanciación tradicional, también podemos emplear la instanciación de colecciones, la cual nos permite inicializar un arreglo asignándole valores inmediatamente:  
-{% highlight csharp %}
+```csharp  
 char [] vocales = new char[5] { 'a', 'e', 'i', 'o', 'u' };
 
 int [] conteo = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
 
 object [] misObjetos = { "3", 1, 99.99 };
-{% endhighlight %}
+```
 Como podemos ver, tenemos varias opciones para inicializar arreglos unidimensionales:  
 
 1. `new char[5] { ...`, nos permite indicar el tamaño y el tipo explícitamente y posteriormente indicar los valores, si cambiáramos el `5` por un `7`sin aumentar la cantidad de valores obtendríamos un error de compilación.  
@@ -49,31 +49,31 @@ Como podemos ver, tenemos varias opciones para inicializar arreglos unidimension
 Una vez instanciado, podemos acceder a los elementos del arreglo usando nuevamente los corchetes cuadrados `[ ]` y el índice del elemento al que queremos acceder. Nota importante **los arreglos están indizados en 0** es decir, el primer elemento de un arreglo está en el índice 0.  
 
 Retomemos los arreglos del ejemplo pasado. Para acceder a la `a` dentro del arreglo `vocales` debemos acceder a la posición `0`:  
-{% highlight csharp %}
+```csharp  
 Console.WriteLine(vocales[0]); // a
-{% endhighlight %}
+```
 O, digamos que queremos reemplazar la `i` por una `t`:  
-{% highlight csharp %}
+```csharp  
 vocales[2] = 't';
 Console.WriteLine(vocales[2]); // t
-{% endhighlight %}  
+```  
 
 #### Propiedades y métodos  
 A pesar de que los arreglos implementan la interfaz `IList`, con todo y sus propiedades, la única rescatable para los arreglos unidimensionales es la propiedad `Length` (o `LongLength` si metemos más de 2^32-1 elementos en el arreglo), que nos devuelve la longitud del arreglo:
-{% highlight csharp %}
+```csharp  
 Console.WriteLine(vocales.Length); // 5
 
 Console.WriteLine(conteo.Length); // 10
 
 Console.WriteLine(misObjetos.Length); // 3
-{% endhighlight %}  
+```  
 
 ##### Posdata
 Sin importar su contenido, los arreglos siempre son tipos por referencia, por lo que es posible tener las siguientes líneas de código:
-{% highlight csharp %}
+```csharp  
 int [] arreglo = null;
 double [] nulo = null;
-{% endhighlight %}  
+```  
   
 #### Lo que sigue
 Inicialmente este post conendría todos los tipos de arreglos que permite crear C#, pero al final he decidido separarlos para hacerlo un poco más entendible, puedes visitar el siguiente sobre <a href="/post/arreglos-en-c-sharp-parte-2">arreglos multidimensionales en C#</a>.

@@ -26,7 +26,7 @@ Algunos lenguajes resuelven este problema mediante el uso de constantes con algo
 
 Mientras que C# permite la declaración de valores constantes mediante la palabra `const`, es una buena práctica hacer uso de los `enum`, que es un tipo de dato que nos permite expresar valores constantes, pero con la capacidad de ser agrupados por cómo se relacionan, por ejemplo, las opciones que tenemos para alinear un texto:  
 
-{% highlight csharp %}
+```csharp  
 public enum TextAlign
 {
     Right,
@@ -34,11 +34,11 @@ public enum TextAlign
     Center,
     Justify
 }
-{% endhighlight %}  
+```  
 
 Luego, para poder hacer uso de ellos es necesario hacer referencia al nombre de la enumeración seguido de un punto `.` y el valor que queremos que tome. De este modo se pueden usar en todos lados: como valor de retorno, como parámetros de método y dentro de sentencias de control:
 
-{% highlight csharp %}
+```csharp  
 var textAlignment = TextAlign.Center;
 
 // ...
@@ -49,20 +49,20 @@ switch (textAlignment)
         Console.WriteLine("Texto centrado");
     break;
 }
-{% endhighlight %}  
+```  
 
 En realidad, los `enum` en C# son una especie de <a href="#">azúcar sintáctica</a> para referirse a números enteros. Por default, el tipo de dato detrás de los `enum` es `int` y el valor inicial de los enums es 0 y aumenta de uno en uno, es por eso que podemos hacer algo como esto:
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine((int)textAlignment); // 2
 
 textAlignment = (TextAlign)1;
 Console.WriteLine(textAlignment); // Left
-{% endhighlight %}   
+```   
 
 Si por alguna razón necesitamos cambiar el tipo de dato asociado a la enumeración o modificar los valores debajo de cada elemento de la enumeración podemos hacer algo como esto:
 
-{% highlight csharp %}
+```csharp  
 public enum Months : short
 {
     January = 123,
@@ -71,14 +71,14 @@ public enum Months : short
     April = 120,
     // Jupiter = 100000000000000 // 100000000000000 is not a short
 }
-{% endhighlight %}  
+```  
 
 ## Combinando valores de enum
 Pero, existen ocasiones en que los valores no son mutuamente exclusivos ¿no?, ¿qué podríamos hacer si por ejemplo, quisieramos saber los días de la semana que una alarma debe funcionar? ¿o qé tal si queremos saber qué sistemas operativos conocen nuestros usuarios?  
 
 Para nuestra fortuna, podemos asignar potencias de dos (1, 2, 4, 6, 16, ...) y el operador *or* (`|`) para combinar los valores de la enumeración, así como el método `HasFlag` para saber si un valor de enumeración contiene un elemento dado.
 
-{% highlight csharp %}
+```csharp  
 public enum OperatingSystems
 {
     Windows = 1,	// ...000001
@@ -99,12 +99,12 @@ if (pl1.HasFlag(OperatingSystems.Mac))
 
 var pl2 = OperatingSystems.Other | OperatingSystems.Linux | OperatingSystems.Mac;
 Console.WriteLine(pl2); // 14
-{% endhighlight %} 
+``` 
 
 ### Flags  
 Como puedes ver, queremos mostrar los valores que contiene un `enum` combinado, únicamente obtenemos el entero que resulta de la combinación, ante lo cual podemos hacer uso del <a href="https://msdn.microsoft.com/es-MX/library/aa288454(v=vs.71).aspx" target="_blank" rel="nofollow">atributo</a> `FlagsAttribute` que se coloca sobre la declaración de un tipo y permiten permiten a la enumeración mostrarse de manera correcta:
 
-{% highlight csharp %}
+```csharp  
 [Flags]
 public enum DaysOfWeek 
 {
@@ -117,7 +117,7 @@ public enum DaysOfWeek
 
 var alarmGoesOffOn = DaysOfWeek.Mon | DaysOfWeek.Wed | DaysOfWeek.Fri;
 Console.WriteLine("Alarm goes off on: " + alarmGoesOffOn); // Alarm goes off on: Mon, Wed, Fri
-{% endhighlight %}  
+```  
 
 Es importante señalar que por si mismo, el atributo lo, único que hace es permitir que el método `ToString` devuelva una representación "amigable" de la enumeración.  
 

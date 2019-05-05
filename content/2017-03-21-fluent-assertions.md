@@ -18,13 +18,13 @@ En uno de los videos mencioné que una prueba unitaria usualmente se compone de 
 
 Ahora sí, mira este fragmento de código:  
 
-{% highlight csharp %}
+```csharp  
 string result = "That C# guy";
 
 Assert.IsTrue(result.StartsWith("That"));
 Assert.IsTrue(result.EndsWith("guy"));
 Assert.IsTrue(result.Contains("Java"));
-{% endhighlight %}  
+```  
 
 Mediante los *asserts* se está corroborando que la cadena:  
 
@@ -34,14 +34,14 @@ Mediante los *asserts* se está corroborando que la cadena:
 
 Ahora mira el siguiente usando *FluentAssertions*  
 
-{% highlight csharp %}
+```csharp  
 // Arrange
 // Act
 string result = "That C# guy";
 
 // Assert
 result.Should().StartWith("That").And.EndWith("guy").And.Contain("Java");
-{% endhighlight %}  
+```  
 
 En una simple "línea" se realizan varias comprobaciones sobre un mismo elemento, lo cual no solo es conveniente, sino que dada la naturaleza fluida de los métodos, el código se torna más legible y entendible a simple vista. Pero no solo eso, sino que los mensajes de error también se tornan más descriptivos para que el responsable de analizar los resultados de las pruebas las encuentre fácil de entender. Ya que el error mostrado es más descriptivo que si usáramos un `Assert` tradicional:  
 
@@ -56,7 +56,7 @@ En una simple "línea" se realizan varias comprobaciones sobre un mismo elemento
 
 ### Should()  
 La base de *FluentAssertions* es el método `Should` que en inglés significa *"debería"*. Sobre el valor de retorno de este se permite seguir encadenando métodos para hacer que nuestra prueba unitaria compruebe lo que deseamos, como por ejemplo en el siguiente bloque de código se comprueba la longitud de una cadena y se le añade un mensaje para mostrar en caso de que falle:  
-{% highlight csharp %}
+```csharp  
 // Normal unit test
 string actual = "That C# guy";
 Assert.AreEqual(8, actual.Length);
@@ -64,7 +64,7 @@ Assert.AreEqual(8, actual.Length);
 // With FluentAssertions
 string result = "That C# guy";
 result.Should().HaveLength(8, "because I love the number 8");
-{% endhighlight %}   
+```   
 
 Cuando la prueba falla:   
 
@@ -81,7 +81,7 @@ Cuando la prueba falla:
 
 También permite trabajar con arreglos. Nuevamente es necesario comenzar con `Should`. Para este caso se comprueba que el arreglo tenga una determinada longitud, sin embargo, también tiene opciones para comprobar el contenido del arreglo y demás propiedades de este:  
 
-{% highlight csharp %}
+```csharp  
 // Normal unit test
 var array = new int[] { 10, 5 };
 array.Should().HaveCount(3);
@@ -89,7 +89,7 @@ array.Should().HaveCount(3);
 // With FluentAssertions
 var array = new int[] { 10, 5 };
 Assert.AreEqual(3, array.Length);
-{% endhighlight %}   
+```   
 
 Cuando la prueba falla:   
 
@@ -105,7 +105,7 @@ Cuando la prueba falla:
 #### BeOfType  
 Pero no solo funciona con arreglos y cadenas, sino que también permite trabajar con objetos. Por ejemplo, en el siguiente caso estamos realizando una comprobación sobre un `object`. Con *FluentAssertions* se corrobora que sea un arreglo de enteros y que dicho arreglo contenga 10 elementos.  
 
-{% highlight csharp %}
+```csharp  
 // Normal unit test
 object thing = new int[] { 10, 5, 5 };
 var arreglo = thing as int[];
@@ -116,7 +116,7 @@ Assert.AreEqual(10, arreglo.Length);
 object array = new int[] { 10, 5, 5 };
 array.Should().BeOfType<int[]>()
     .Which.Should().HaveCount(10, "some weird reason");
-{% endhighlight %}   
+```   
 
 Cuando la prueba falla:  
 
@@ -132,7 +132,7 @@ Cuando la prueba falla:
 ### Dictionary  
 *FluentAssertions* también puede comprobar el contenido de una colección, como un `Dictionary`, además de realizar la comprobación sobre alguna propiedad de el contenido de dicha colección:  
 
-{% highlight csharp %}    
+```csharp      
 // Normal unit test        
 var computerScientists = new Dictionary<string, string>();
 Assert.IsTrue(computerScientists.ContainsValue("Grace Hopper"));
@@ -144,7 +144,7 @@ var computerScientists = new Dictionary<string, string>();
 computerScientists.Should()
     .ContainValue("Grace Hopper", "she's awesome")
     .Which.Length.Should().Be(12);
-{% endhighlight %}  
+```  
 
 Cuando la prueba falla:  
 
@@ -161,7 +161,7 @@ Cuando la prueba falla:
 
 Otro gran uso de *FluentAssertions* es cuando es necesario probar que nuestro código lanza las excepciones correctas. Usualmente con C# puro tendríamos que marcar el método de la prueba con `ExpectedException`, mientras que con nuestro paquete de NuGet basta con usar el método `ShouldThrow`.
 
-{% highlight csharp %}
+```csharp  
 // Normal unit test
 [TestMethod]
 [ExpectedException(typeof(FormatException))]
@@ -186,7 +186,7 @@ public void FluentAssertions_ShouldThrowException()
     };
     action.ShouldThrow<FormatException>("other reason");
 }
-{% endhighlight %}   
+```   
 
 Cuando la prueba falla:  
 

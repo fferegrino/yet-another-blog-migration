@@ -31,24 +31,24 @@ Una de las características más simples pero con un gran impacto es la inclusi�
 
 Y otra gran característica es la posibilidad de agregar de usar literales binarios, añadiéndole el sufijo: `0b`, con los cualest también podemos hacer uso de el separador de digitos:
 
-{% highlight csharp %}
+```csharp  
 private const double EarthDiameterInKms = 12_756;
 private const int PaleBlueDotColor = 0xA0_DF_E6;
 private const long Earth = 0b01000101_01100001_01110010_01110100_01101000;
-{% endhighlight %}  
+```  
 
 La alternativa es... bueno, no hay alternativa. En C# 6 no podemos usar el separador ni los literales binarios:
 
-{% highlight csharp %}
+```csharp  
 private const double EarthDiameterInKms = 12756;
 private const int PaleBlueDotColor = 0xA0DFE6;
 //const long Earth = 0b01000101_01100001_01110010_01110100_01101000;
-{% endhighlight %}
+```
 
 ## *Tuples*  
 Mientras que la versión anterior de C# ya daba soporte para *Tuplas*, este era un tanto limitado y hasta antinatural para el lenguaje. Usando C# 6 era necesario emplear directamente una <a href="..\genericos-c-sharp-clases">clase genérica</a>, sin embargo, ahora ya no es necesario. Ahora solo basta con usar paréntesis para agrupar un conjunto de posibles valores de retorno. Como en este caso, que se devuelven tres instancias de la clase `Coordenada` de un <a href="..\extension-methods-es">método de extensión</a>:
 
-{% highlight csharp %}
+```csharp  
 // CoordenadaExtensions.cs
 public static (Coordenada antipoda, 
     Coordenada antipodaLongitud, 
@@ -66,13 +66,13 @@ Console.WriteLine(
     $"\n\t{interesingPoints.antipoda.Descripcion}" +
     $"\n\t{interesingPoints.antipodaLatitud.Descripcion}" +
     $"\n\t{interesingPoints.antipodaLongitud.Descripcion}");
-{% endhighlight %} 
+``` 
 
 En este caso cada una de las "propiedades" de nuestra tupla tiene un nombre asignado desde la declaración del método, aunque bien pudimos haberlos dejado sin uno, al declarar el valor de retorno como `(Coordenada, Coordenada, Coordenada)`.
 
 La alternativa en la versión anterior de C# es usar la clase `Tuple` y aprovechar el beneficio de los genéricos:  
 
-{% highlight csharp %}
+```csharp  
 // CoordenadaExtensions.cs
 public static Tuple<Coordenada, Coordenada, Coordenada> 
     GetInterestingPoints(this Coordenada coordenada)
@@ -89,7 +89,7 @@ Console.WriteLine(
     $"\n\t{interesingPoints.Item1.Descripcion}" +
     $"\n\t{interesingPoints.Item2.Descripcion}" +
     $"\n\t{interesingPoints.Item3.Descripcion}");
-{% endhighlight %}    
+```    
 
 #### Importante  
 Para usar las tuplas en C# 7 es necesario agregar el paquete de NuGet `System.ValueTuple` 
@@ -102,39 +102,39 @@ Los parámetros de tipo `out` llevan ya algo de tiempo entre nosotros, sin embar
 
 Mira por ejemplo este método llamado `Deconstruct`  
 
-{% highlight csharp %}
+```csharp  
 // Coordenada.cs
 public void Deconstruct(out decimal latitud, out decimal longitud)
 {
     latitud = Latitud;
     longitud = Longitud;
 }
-{% endhighlight %} 
+``` 
 
 Para llamarlo en C# 7, basta con escribir el siguiente código:  
 
-{% highlight csharp %}
+```csharp  
 // Program.cs
 everest.Deconstruct(out decimal evLat, out decimal evLong);
 Console.WriteLine($"Latitud y longitud del Everest: {evLat} y {evLong}");
-{% endhighlight %}  
+```  
 
 Mientras que la alternativa es la de antes, declarar las variables y usarlas después:
 
-{% highlight csharp %}
+```csharp  
 // Program.cs
 decimal evLat, evLong;
 everest.Deconstruct(out evLat, out evLong);
 Console.WriteLine($"Latitud y longitud del Everest: {evLat} y {evLong}");
-{% endhighlight %}     
+```     
 
 ## Deconstructor  
 Seguramente recuerdas el método `Deconstruct` de la sección anterior. Pues bien, los métodos llamados `Deconstruct` con parámetros de tipo `out` pueden ser usados de otra manera a través de una sintaxis parecida a las tuplas:  
 
-{% highlight csharp %}
+```csharp  
 (decimal evLat1, decimal evLong1) = everestCoordinates;
 Console.WriteLine($"Latitud y longitud del Everest: {evLat1} y {evLong1}");
-{% endhighlight %} 
+``` 
 
 Como puedes ver, estamos realizando una asignación múltiple desde un solo objeto. Las claves para que esto funcione son dos:  
 
@@ -154,20 +154,20 @@ Y tiene dos *"desconstructores"*:
 ## *Expression bodied everything* y *throw expressions*    
 Junto a la versión anterior llegaron los *expression bodied members*, pero solo llegaron a unas cuantos miembros de una clase. Ahora los tenemos disponibles en más lugares, como en constructores de clase, finalizadores y, como en el siguiente ejemplo, en los *accessors* para propiedades calculadas:  
 
-{% highlight csharp %}
+```csharp  
 private string _name;
 public string Name
 {
     get => _name;
     set => _name = value ?? throw new ArgumentException($"{nameof(value)} cannot be null");
 }
-{% endhighlight %}  
+```  
 
 Espera, pero aún hay más, ¿ves la expresión que está después del <a href="..\null-coalescing">operador null coalescing</a>? sí, estamos lanzando una excepción dentro de una expresión. Esto en C# 6 no está permitido, ya que el lanzamiento de una excepción no podía ser tratado como una expresión.  
 
 La alternativa es hacer uso de los *accessors* tradicionales, y de lanzar la excepción como convencionalmente se hace:  
 
-{% highlight csharp %}
+```csharp  
 private string _name;
 public string Name
 {
@@ -179,12 +179,12 @@ public string Name
         _name = value;
     }
 }
-{% endhighlight %}  
+```  
 
 ## Local methods  
 Otra de las nuevas adiciones al lenguaje es la posibilidad de crear métodos que existan solo dentro de otros. Lo interesante de poder hacer esto es que estos métodos locales se comportan como métodos tradicionales y en ellos podemos hacer uso de *generics*, params y los argumentos del tipo `out` y `ref`. Un método local se puede declarar en cualquier lugar del código de otro, y se usa como usarías cualquier otro método:  
 
-{% highlight csharp %}
+```csharp  
 public static Coordenada AntipodaLongitud(this Coordenada actual)
 {
     var newLongitud = GetNewLongitud(actual.Longitud);
@@ -194,11 +194,11 @@ public static Coordenada AntipodaLongitud(this Coordenada actual)
         return (longitud < 0 ? 1 : -1) * Math.Abs(180 - Math.Abs(longitud));
     }
 }
-{% endhighlight %}  
+```  
 
 Hay un par de alternativas en C#, siendo la más obvia la de crear un método privado y hacer uso de este:
 
-{% highlight csharp %}
+```csharp  
 public static Coordenada AntipodaLatitud(this Coordenada actual)
 {
     var newLatitud = -actual.Latitud;
@@ -209,7 +209,7 @@ private static decimal GetNewLongitud(decimal longitud)
 {
     return (longitud < 0 ? 1 : -1) * Math.Abs(180 - Math.Abs(longitud));
 }
-{% endhighlight %}  
+```  
 
 Otra de las alternativas es hacer uso de <a href="..\func-y-action-en-c-sharp" target="_blank">Func y Action</a>, pero estos no te servirían para aprovechar los genéricos, ni los `params`... sí, es un poco limitante.
 

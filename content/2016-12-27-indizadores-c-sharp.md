@@ -20,14 +20,14 @@ Podemos ver a los corchetes cuadrados como un operador de acceso a los elementos
 ## Sintaxis  
 Para implementar un indizador en nuestros tipos de dato tenemos que seguir una sintaxis que resulta un poco extraña cuando la vez:  
 
-{% highlight csharp %}
+```csharp  
 
 public int this[int index]
 {
     get { /* Regresa un tipo entero */ }
     set { /* Establece el valor de "value" que es de tipo entero */ }
 }   
-{% endhighlight %}  
+```  
 
 En general, para crear un indizador debemos escribir lo siguiente:
 
@@ -40,7 +40,7 @@ En general, para crear un indizador debemos escribir lo siguiente:
 - *Si especificamos `set` tenemos a nuestra disposición el identificador `value` que hace referencia al valor que debe ser asignado.  
 
 Supón que tenemos una clase especificada de la siguiente manera:  
-{% highlight csharp %}
+```csharp  
 public class Indexer
 {
     public int this[string position]
@@ -56,16 +56,16 @@ public class Indexer
             Console.WriteLine("Estableciendo {0} en la posición {1}", value, position);
         }
     }
-{% endhighlight %}  
+```  
 
 Que define un indizador de tipo `int` que como índice usa un tipo `string`. Entonces al ejecutar el siguiente código:  
 
-{% highlight csharp %}
+```csharp  
 var indizador = new Indexer();
 var retorno = indizador["hola"];
 indizador["feliz"] = 2017;
 Console.WriteLine("Valor de retorno {0}", retorno);
-{% endhighlight %}  
+```  
 
 Obtendremos en la pantalla:
 
@@ -77,7 +77,7 @@ Valor de retorno 0
 
 Es importante notar que como parámetros del indizador podemos usar cualquier tipo de dato, no solo enteros o cadenas. Como en el siguiente ejemplo que se emplea un tipo `Indexer` como indizador y solo se implementa el bloque `get`:  
 
-{% highlight csharp %}
+```csharp  
 public string this[Indexer indexer]
 {
     get { return indexer.ToString(); }
@@ -85,22 +85,22 @@ public string this[Indexer indexer]
 // ...
 var otroIndizador = new Indexer();
 Console.WriteLine(indizador[otroIndizador]); // Imprime: "Indizadores.Indexer"
-{% endhighlight %}  
+```  
 
 O en este otro ejemplo, en donde se usa un tipo `double` como parámetro para un índice del tipo `Indexer`. En él se implementa únicamente el bloque `set`:
 
-{% highlight csharp %}
+```csharp  
 public Indexer this[double position]
 {
     set { Console.WriteLine("\"Insertando\" {1} en {0}", position, value); }
 }
 // ...
 indizador[123.456d] = otroIndizador; // Mostrará en pantalla: "Insertando" Indizadores.Indexer en 123.456
-{% endhighlight %}  
+```  
 
 Podemos usar cualquier cantidad de índices, así como regresar cualquier tipo de dato, por ejemplo, podemos tener un indizador que acepte 3 parámetros de tipo `int`, `bool` y `double` y regrese una cadena:  
 
-{% highlight csharp %}
+```csharp  
 public string this[int i, bool b, double d]
 {
     get { return String.Format("I'm an indexer: {0} {1} {2}", i, b, d); }
@@ -110,7 +110,7 @@ public string this[int i, bool b, double d]
 
 var resultado1 = indizador[10, false, 10];
 Console.WriteLine(resultado1); // Imprime: "I'm an indexer: 10 False 5"
-{% endhighlight %}  
+```  
 
 En cierto modo podemos ver los indizadores como una especie de métodos con algunas restricciones, entre ellas la de que sus índices no pueden ser del tipo <a href="../out-ref-c-sharp" target="_blank"><code>out</code> o <code>ref</code></a>.  
 
@@ -119,7 +119,7 @@ Al final los indizadores terminan siendo transformados en métodos por el compil
 ## ¿Por qué usarlos?  
 Imagina que tienes una clase llamada `Alphabet` que almacena todas las letras de determinado alfabeto y para acceder a ellas nos ofrece un método llamado `CharacterAt(int position)` para acceder a determinado caracter dentro del alfabeto:
 
-{% highlight csharp %}
+```csharp  
 public class Alphabet
 {
     List<char> caracteres;
@@ -136,23 +136,23 @@ public class Alphabet
 
 var griego = Alphabet.Greek;
 var segundaLetra = griego.CharacterAt(2);
-{% endhighlight %}  
+```  
 
 Hay ocasiones en que esta sintaxis (usar un método) tiene mucho sentido y le da significado al programa que está escribiendo, sin embargo, hay otras en las que es mejor usar un indizador. Por ejemplo, ¿no crees que, si usáramos un indizador, nuestro código tendría más sentido?
 
-{% highlight csharp %}
+```csharp  
 var griego = Alphabet.Greek;
 var segundaLetra = griego[2];
-{% endhighlight %}  
+```  
 
 El indizador para la clase `Alphabet` se ve así:
 
-{% highlight csharp %}
+```csharp  
 public char this[int i]
 {
     get { return caracteres[i]; }
 }
-{% endhighlight %}  
+```  
 
 ## Ejemplos    
 Además de los ya mencionados, en el framework de .NET y en algunos otros muy usados, los indizadores son uno de los elementos más empleados. Por ejemplo, uno de los lugares más comunes en donde aparecen es en los tipos de dato `string`.

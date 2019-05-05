@@ -25,37 +25,37 @@ Vamos a trabajar con esta imagen:
 
 Para comenzar a trabajar con una imagen, es necesario cargarla y con *ImageProcessor* esta tarea se realiza a través de una instancia de `ImageFactory` y un flujo de datos (en este caso un `MemoryStream`), los colocamos dentro de `using` para facilitarnos el manejo de memoria:
 
-{% highlight csharp %}
+```csharp  
 var balonBytes = File.ReadAllBytes("photo/balon.jpg");
 
 using (var inStream = new MemoryStream(balonBytes))
 using (var imageFactory = new ImageFactory(false))
 {
-{% endhighlight %}  
+```  
 
 ### Load
 
 Una vez creada la `imageFactory` podemos cargar nuestra imagen usando el método `Load`:
 
-{% highlight csharp %}
+```csharp  
 var img = imageFactory.Load(inStream);
-{% endhighlight %}  
+```  
 
 ### Resize
 
 Una vez cargada, podemos comenzar a aplicar las transformaciones. Por ejemplo, cambiar el tamaño:
 
-{% highlight csharp %}
+```csharp  
 img.Resize(new Size(300, 0));
-{% endhighlight %}
+```
 
 ### Save  
 
 Hasta este punto, tenemos la imagen modificada en memoria, así que nuestro `imageFactory` nos provee un método para guardarla en disco:
 
-{% highlight csharp %}
+```csharp  
 img.Save("photo/bolaResized.jpg");
-{% endhighlight %}  
+```  
 
 Tras lo cual nos queda la siguiente imagen:
 
@@ -65,32 +65,32 @@ Tras lo cual nos queda la siguiente imagen:
 
 Para nuestra conveniencia, *ImageProcessor* provee una API fluída (fluent API) para encadenar todos los métodos anteriores, por ejemplo, el código anterior se puede reescribir de la siguiente manera:
 
-{% highlight csharp %}
+```csharp  
 imageFactory.Load(inStream)
             .Resize(new Size(300, 0))
             .Save("photo/bolaResized.jpg");
-{% endhighlight %}   
+```   
 
 ### Quality  
 
 Otra de las transformaciones que permite es la de reducir la calidad de una imagen, esto a través del método `Quality` que recibe número con la nueva calidad de la imagen:  
 
-{% highlight csharp %}
+```csharp  
 imageFactory.Load(inStream)
             .Quality(5) // Only works with jpg
             .Save("photo/bolaLow.jpg");
-{% endhighlight %}  
+```  
 
 {% post_image bolaLow.jpg "Balón" %}  
 
 ### Format  
 Trabajar con diversos formatos de archivo a veces puede ser un poco complicado, es por eso que esta librería también permite cambiar el formato de la imagen, por ejemplo, en esta convertimos la imagen de `jpg` a `png`:
 
-{% highlight csharp %}
+```csharp  
 imageFactory.Load(inStream)
             .Format(new PngFormat { Quality = 10 })
             .Save("photo/balon.png");
-{% endhighlight %}  
+```  
 
 ## Transformaciones en la imagen  
 
@@ -101,11 +101,11 @@ Además de cosas como cambio de formatos, de tamaño y de calidad *ImageProcesso
 ### Filter  
 Al más puro estilo de Instagram, podemos aplicarle filtros a la imagen con el método `Filter`, la librería tiene ya definidos algunos filtos como sepia y escala de grises, entre otros. O si estás muy inspirado, puedes crear el tuyo propio: 
 
-{% highlight csharp %}
+```csharp  
 imageFactory.Load(inStream)
             .Filter(MatrixFilters.HiSatch)
             .Save("photo/michaArt.jpg");
-{% endhighlight %}  
+```  
 
 Y este es el resultado:  
 
@@ -113,11 +113,11 @@ Y este es el resultado:
   
 Qué sería de esta ibrería si no diera la capacidad de invertir los colores de una imagen. Esta transformación no requiere de mucha explicación, salvo que se usa el método `Filter` con el filtro `Invert`: 
 
-{% highlight csharp %}
+```csharp  
 imageFactory.Load(inStream)
             .Filter(MatrixFilters.Invert)
             .Save("photo/michaInverse.jpg");
-{% endhighlight %}  
+```  
 
 Y este es el resultado:  
 
@@ -127,13 +127,13 @@ Y este es el resultado:
 
 Aprovechando que se pueden encadenar varias transformaciones gracias a la API fluída podemos crear un pequeño instagram para Micha:
 
-{% highlight csharp %}
+```csharp  
 imageFactory.Load(inStream)
             .Filter(MatrixFilters.Sepia)
             .Tint(Color.LightSalmon)
             .Saturation(50)
             .Save("photo/michaInstagram.jpg");
-{% endhighlight %}    
+```    
 
 {% post_image michaInstagram.jpg "Micha" %}  
 
@@ -146,31 +146,31 @@ imageFactory.Load(inStream)
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-3">       
 <h3>Crop</h3>
-{% highlight csharp %}
+```csharp  
 var m = imageFactory.Load(inStream)
         .Crop(new Rectangle(100, 100, 250, 250))
         .Save("photo/motherboardCropped.jpg");
-{% endhighlight %}    
+```    
 
 {% post_image motherboardCropped.jpg "Motherboard" %}
 </div>
 <div class="pure-u-1 pure-u-md-1-3">  
 <h3>Rotate</h3>  
-{% highlight csharp %}
+```csharp  
 m.Rotate(10f)
  .Save("photo/motherboardRotated.jpg");  
  
-{% endhighlight %}    
+```    
 
 {% post_image motherboardRotated.jpg "Motherboard" %}
 </div>  
 <div class="pure-u-1 pure-u-md-1-3">  
 <h3>Flip</h3>
-{% highlight csharp %}
+```csharp  
 m.Flip(true, true)
  .Save("photo/motherboardFlipped.jpg");  
  
-{% endhighlight %}    
+```    
 
 {% post_image motherboardFlipped.jpg "Motherboard" %}
 </div>  
@@ -183,7 +183,7 @@ Usando una combinación de APIs se pueden crear aplicaciones más interesantes, 
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-3-4">
-{% highlight csharp %}
+```csharp  
 Face face = null;
 using (var inStream = new MemoryStream(robbieBytes))
 {
@@ -201,7 +201,7 @@ using (var imageFactory = new ImageFactory(false))
             .Crop(faceContainer)
             .Save("photo/robbieFace.jpg");
 }
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-4">
 {% post_image robbie3.jpg "Robbie Williams" %}
@@ -212,7 +212,7 @@ using (var imageFactory = new ImageFactory(false))
 
 O mejor aún, podemos detectar las caras aplicarle algunas transformaciones como pixelizarlas: 
 
-{% highlight csharp %}
+```csharp  
 Face[] faces;
 using (var inStream = new MemoryStream(friendsBytes))
 {
@@ -233,7 +233,7 @@ using (var imageFactory = new ImageFactory(false))
     }
     friendsImage.Save("photo/friendsAnonymous.jpg");
 }
-{% endhighlight %}
+```
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">

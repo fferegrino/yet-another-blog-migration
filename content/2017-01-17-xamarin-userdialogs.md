@@ -14,12 +14,12 @@ Creo que todos estamos de acuerdo en que Xamarin.Forms es fantástico... sin emb
 
 Una de las principales "fallas" es la falta de una forma avanzada de mostrar mensajes al usuario. Sí, sí, con Xamarin.Forms tenemos los métodos `DisplayAlert`:  
 
-{% highlight csharp %}
+```csharp  
 await DisplayAlert("Traditional alert", "Traditional message", "It's not so cool");
 
 var result = await DisplayAlert("Traditional alert", "Traditional message?", "OK", "Cancel");
 TraditionalPromptLabel.Text = string.Format("Result {0}", result);
-{% endhighlight %}  
+```  
 
 Estos métodos solamente muestran un mensaje sencillo y permiten que el usuario responda con un valor booleano, y además requieren de tener una referencia a la página en la que queremos mostrar la alerta.  
 
@@ -28,28 +28,28 @@ Es por eso que cuando queremos obtener más información de quien está usando n
 ## Mostrar un mensaje "Toast"   
 Con *UserDialogs* podemos mostrar mensajes en varias plataformas de manera que en Android lo hacemos con la popular `Toast`:  
 
-{% highlight csharp %}
+```csharp  
 UserDialogs.Instance.Toast("Toast message: <3", TimeSpan.FromMilliseconds(millis));
-{% endhighlight %}  
+```  
 
 {% post_image toast.png "Login prompt" %}
 
 ## Mostrar un error
-{% highlight csharp %}
+```csharp  
 UserDialogs.Instance.ShowError("¡Error!", millis);
-{% endhighlight %}  
+```  
 
 ## Mostrar un mensaje de éxito 
-{% highlight csharp %}
+```csharp  
 UserDialogs.Instance.ShowSuccess("¡Éxito!", millis);
-{% endhighlight %}  
+```  
 
 Pero no solo eso, también podemos recibir información a través de UserDialogs
 
 ## PromptAsync  
 Solicitar información del usuario, ya sea que estés buscando un nombre, un teléfono, un password...
 
-{% highlight csharp %}
+```csharp  
 var promptConfig = new PromptConfig();
 promptConfig.InputType = InputType.Name;
 promptConfig.IsCancellable = true;
@@ -59,46 +59,46 @@ if (result.Ok)
 {
     PromptedTextLabel.Text = result.Text;
 }
-{% endhighlight %}  
+```  
 
 {% post_image text.png "Text prompt" %}
 
 ## PromptDateAsync  
 Solicitar una fecha, presentando un control muy familiar dependiendo de la plataforma en que se ejecute:
 
-{% highlight csharp %}
+```csharp  
 var result = await UserDialogs.Instance.DatePromptAsync(
     "Select date",
     DateTime.Now);
 if (result.Ok)
     SelectedDateLabel.Text = String.Format("{0:dd MMMM yyyy}", result.SelectedDate);
-{% endhighlight %}  
+```  
 
 {% post_image calendar.png "Calendar prompt" %}
 
 ## PromptTimeAsync  
 Al igual que con la fecha, este diálogo presenta un contol para seleccionar una hora  
 
-{% highlight csharp %}
+```csharp  
 var result = await UserDialogs.Instance.TimePromptAsync(
     "Select time",
     DateTime.Now.TimeOfDay);
 if (result.Ok)
     SelectedTimeLabel.Text = String.Format("{0:hh-mm}", new DateTime(result.SelectedTime.Ticks));
-{% endhighlight %}  
+```  
 
 {% post_image time.png "Time prompt" %}
 
 ## PromptLoginAsync  
 Si quieres algo un poco más compuesto como una "pantalla" de *login*, también puedes usar esta pequeña librería:
 
-{% highlight csharp %}
+```csharp  
 var loginResult = await UserDialogs.Instance.LoginAsync("Login", "Please sign in");
 if (loginResult.Ok)
 {
     PromptedLoginLabel.Text = String.Format("{0}:{1}", loginResult.Value.UserName, loginResult.Value.Password);
 }
-{% endhighlight %}  
+```  
 
 {% post_image login.png "Login prompt" %}
 

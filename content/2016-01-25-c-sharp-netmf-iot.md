@@ -25,7 +25,7 @@ Lo que también sigue intacto es el acceso a los tipos de dato primitivos y la p
 ### Anatomía de un programa sencillo 
 Si nunca has tenido un acercamiento con la programación de dispositivos, puede que encontrarte con un programa escrito para el Netduino te sea un poco extraño, veamos por ejemplo el *"Hola mundo"* de la programación para dispositivos: Hacer parpadear un led.
 
-{% highlight csharp %}
+```csharp  
 public class Blinky
 {
     public static void Main()
@@ -41,7 +41,7 @@ public class Blinky
         }
     }
 }
-{% endhighlight %}  
+```  
   
  - Primero que nada: como en cualquier otro programa, todo debe pertenecer a una clase.
  - El método estático `Main` es nuestro punto de entrada

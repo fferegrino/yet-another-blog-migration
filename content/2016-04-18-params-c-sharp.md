@@ -26,7 +26,7 @@ Mira los ejemplos para que te quede un poco más claro:
 #### Como único parámetro
 
 Para comenzar, tomemos los siguientes métodos:
-{% highlight csharp %}
+```csharp  
 public static void Metodo1Params(params bool [] a)
 {
         Console.WriteLine("M1Params recibió " + a.Length + " booleanos");
@@ -40,36 +40,36 @@ public static void Metodo1Arrays(bool [] a)
     }
     Console.WriteLine("M1Arrays recibió " + a.Length + " booleanos");
 }
-{% endhighlight %}  
+```  
 
 Los dos realizan exactamente lo mismo, sin embargo, para ejecutar cada uno, requerimos de una sintaxis un poco distinta:
 
-{% highlight csharp %}
+```csharp  
 Metodo1Arrays(null); // Imprime: M1Arrays recibió 0 booleanos
 Metodo1Params(); // Imprime: M1Params recibió 0 booleanos
-{% endhighlight %}
+```
 
 Podemos pasar variables:
 
-{% highlight csharp %}
+```csharp  
 bool cierto = true;
 // Metodo1Arrays(cierto); // Nope, necesita un arreglo
 Metodo1Arrays(new bool[] { cierto }); // Imprime: M1Arrays recibió 1 booleanos
 Metodo1Params(cierto); // Imprime: M1Params recibió 1 booleanos
-{% endhighlight %}
+```
 
 Como puedes ver, no podemos llamar `Metodo1Arrays` indicando únicamente el argumento que queremos, nosotros tenemos que crear el arreglo para llamarlo, en el siguiente ejemplo está un poco más claro:
 
-{% highlight csharp %}
+```csharp  
 Metodo1Arrays(new []{ cierto, false, true, cierto }); // M1Arrays recibió 4 booleanos
 Metodo1Params(cierto, false, true, cierto); // M1Params recibió 4 booleanos
-{% endhighlight %}  
+```  
 
 #### En conjunto con otros
 
 Podemos declarar un método con varios parámetros, y usar `params` dentro de ellos, siempre y cuando el que marquemos sea el último parámetro de la lista.
 
-{% highlight csharp %}
+```csharp  
 public static void Metodo2Params(int a, char b, params decimal[] c)
 {
     Console.WriteLine("Metodo3Params: " + c.Length);
@@ -79,35 +79,35 @@ public static void Metodo2Arrays(int a, char b, decimal[] c)
 {
     Console.WriteLine("Metodo3Array: " + c.Length);
 }
-{% endhighlight %}  
+```  
 
 El hecho de que hayamos marcado algo con `params` no quiere decir que tengamos que no podamos simplemente enviar un arreglo en lugar de una lista de valores separados por coma:
 
-{% highlight csharp %}
+```csharp  
 var array = new decimal[] {1,2,3};
 Metodo2Arrays(1, 'A', array);
 Metodo2Params(1, 'B', array);
-{% endhighlight %}  
+```  
 
 La diferencia en la cantidad de código que tenemos que escribir se hace más notoria cuando tenemos que mandar cero elementos:
 
-{% highlight csharp %}
+```csharp  
 Metodo2Arrays(1, 'C', new decimal []{ });
 Metodo2Params(1, 'D');
-{% endhighlight %}  
+```  
 
 Y también cuando vamos a mandar varios:
 
-{% highlight csharp %}
+```csharp  
 Metodo2Arrays(1, 'E', new []{ 2.1m, 13m, 15m });
 Metodo2Params(1, 'E', 2.1m, 13m, 15m);
-{% endhighlight %}  
+```  
 
 #### Arreglos multidimensionales
 
 Y también podemos crear cosas más complejas, como usar arreglos multidimensionales como parámetros:
 
-{% highlight csharp %}
+```csharp  
 public static void PromediaCalificacionesArray(decimal [][] calificaciones)
 {
     for(int i = 0; i < calificaciones.Length;i++)
@@ -126,52 +126,52 @@ public static void PromediaCalificacionesParams(params decimal [][] calificacion
         Console.WriteLine("(Params) Calificación alumno " + i + ": " + promedio);
     }
 }
-{% endhighlight %}
+```
 
 Y las llamadas al método:
 
-{% highlight csharp %}
+```csharp  
 decimal[] alumno1 = new decimal [] { 10m, 9.2m, 7m, 3.5m, 10m };
 var alumno2 = new []{ 8.5m, 9.3m, 8.6m, 9.9m, 10m };
 
 PromediaCalificacionesArray(new []{ alumno1, alumno2 });
 PromediaCalificacionesParams(alumno1, alumno2);
-{% endhighlight %}    
+```    
 
 ### Ejemplo de la vida real
 Uno de los máximos exponentes del uso de `params` es el método estático `String.Format`, que *formatea* una cadena y a la cual le podemos pasar una lista de argumentos. La firma de dicho método es:
 
-{% highlight csharp %}
+```csharp  
 public static string Format(
 	string format,
 	params object[] args
 )
-{% endhighlight %}  
+```  
 
 ### Ejemplos de lo que no se puede hacer
 
 No podemos marcar un tipo de dato que no sea un arreglo con params, como es el caso de `char a` en el siguiente fragmento:
 
-{% highlight csharp %}
+```csharp  
 public static void Metodo1Params(params char a) // Invalido, debe ser un arreglo
-{% endhighlight %}
+```
 
 Un parámetro marcado con `params` debe ser siempre el último parámetro del método, esto para evitar confusiones a la hora de ejecutarlo:
 
-{% highlight csharp %}
+```csharp  
 public static void Metodo3Params(int a, params decimal[] b, char c)
 {
     Console.WriteLine("Metodo3Params: " + b.Length);
 }
-{% endhighlight %} 
+``` 
 
 Tampoco podemos declarar dos métodos con el mismo nombre y los mismos parámetros, ya que técnicamente la firma del método es la misma.
 
-{% highlight csharp %}
+```csharp  
 public static void Metodo4(params decimal[] b) //...
 
 public static void Metodo4(decimal[] b) //...
-{% endhighlight %}
+```
 
 ### Lo que sucede internamente
 

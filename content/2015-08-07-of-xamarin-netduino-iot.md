@@ -21,7 +21,7 @@ featured_tag: Xamarin
 <p>Speaking of hardware, I used a Netduino Plus 2, a <a href="http://www.seeedstudio.com/depot/Grove-Relay-p-769.html" target="_blank">Groove Relay</a> (to handle high voltages), some resistors and of course wire. I won't dig a lot on the wiring but if you want I could help you with that, just ask.</p>
 <p>Speaking of software, this is really a simple app, I created a class that works as an interface, it abstracts the usage of stream sockets. Taking advantage of the multithreading capabilities of the NetMF I created  thread in which a socket is always waiting for incoming connections, and when one arrives reads two bytes from it, the first one contains the operation to be performed and the second one contains data when is a writing operation. I make use of delegates to get or set the light switch status from the main thread.</p>
 
-{% highlight csharp %}
+```csharp  
 byte[] data = new byte[2];
 while (true)
 {
@@ -48,7 +48,7 @@ while (true)
         }
     }
 }
-{% endhighlight %}
+```
 
 <h3>Client (Xamarin.Forms app)</h3>
 <p>The client only has a single purpose: replace the mechanical switch. It isn't very hard to think of the UI of an app to do that.</p> 
@@ -61,7 +61,7 @@ while (true)
 
 <p>There are two important methods whithin the "interface" class:</p> 
 
-{% highlight csharp %}
+```csharp  
 public async Task<bool> GetLightSwitchStatus()
 {
     using (var s = new Sockets.Plugin.TcpSocketClient())
@@ -75,11 +75,11 @@ public async Task<bool> GetLightSwitchStatus()
         return data[0] == ByteTrue;
     }
 }
-{% endhighlight %}
+```
 
 <p>The above piece of code request the switch status from the server and returns true or false, depending on the status of the light switch.</p>
 
-{% highlight csharp %}
+```csharp  
 public async Task SetLightSwitchStatus(bool on)
 {
     using (var s = new Sockets.Plugin.TcpSocketClient())
@@ -91,7 +91,7 @@ public async Task SetLightSwitchStatus(bool on)
         s.WriteStream.Write(data, 0, 2);
     }
 }
-{% endhighlight %}
+```
 
 <p>This piece of code sends a request to the server telling which state the light swich shoud be set to. Note how all the exchange of information is done via bytes, the first byte tells the server which operation is requested while the second one contains data when necessary. In the following vídeo I show the system working, though I still haven't wired the actual light bulb (since I'm scared of the high voltage), so I placed a 12V led instead for the demo.</p>
 

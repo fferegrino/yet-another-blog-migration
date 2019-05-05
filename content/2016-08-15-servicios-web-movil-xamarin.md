@@ -21,7 +21,7 @@ Llevamos nuestros dispositivos con nosotros a donde sea. Los tenemos en casa, en
 ## Enfoque actual  
 Cuando empezamos a escribir nuestras apps con Xamarin, probablemente optamos por el enfoque sencillo de escribir el código que se conecta con la red nosotros mismos. Tal vez solamente usamos la librería *HttpClient* de Microsoft para hacer una llamada, y después *Json.net* para deserializar el resultado. O puede que nos luzcamos e incluyamos algunas otras librerías también. Puedes ver este enfoque en el post de Rob [End to End Mvvm with Xamarin](http://arteksoftware.com/end-to-end-mvvm-with-xamarin/) en donde muestra la implementación de un cliente para un servicio.  
   
-{% highlight csharp %}
+```csharp  
 namespace DtoToVM.Services  
 {
     using System;
@@ -76,7 +76,7 @@ namespace DtoToVM.Services
         }
     }
 }
-{% endhighlight %}  
+```  
 
 Este código funciona, pero no toma en cuenta ningún error en la red. Si la red estuviera caída, el servicio no respondiera u ocurriera alguna excepción, nuestra aplicación se cerraría. Evidentemente, esto no es lo óptimo.  
   
@@ -110,7 +110,7 @@ La primera cosa que vamos a necesitar es una forma para acceder a nuestros servi
 
 En nuestro caso, la interfaz se verá más así:  
 
-{% highlight csharp %}
+```csharp  
 [Headers("Accept: application/json")]
 public interface ITekConfApi  
 {
@@ -120,19 +120,19 @@ public interface ITekConfApi
     [Get("/conferences/{slug}")]
     Task<ConferenceDto> GetConference(string slug);
 }
-{% endhighlight %}  
+```  
 
 Aquí estamos declarando que nuestra API retornará *json*, y que hay dos "métodos" (recursos) que podemos llamar. El primer método es una petición HTTP GET al *endpoint* `/conferencias`. El segundo método es también una petición HTTP GET, y pasa un argumento como parte de la url para obtener una sola conferencia.  
 
 Una vez que la interfaz ha sido definida, usarla es tan simple como esta:  
 
-{% highlight csharp %}
+```csharp  
 var tekconfApi = RestService.For<ITekConfApi>("http://api.tekconf.com/v1");
 
 var conferences = await tekconfApi.GetConferences();
 
 var codemash = await tekconfApi.GetConference("codemash-2016");  
-{% endhighlight %}     
+```     
 
 ## Fast response for our users  
 
@@ -150,7 +150,7 @@ Mientras que pudimos haber escrito toda la lógica de cacheo nosotros mismos, en
 
  > Akavache es un repositorio de *clave-valor* asíncrono y persistente (i. e. escribe a disco) creado para escribir aplicaciones de escritorio y móviles en C#, basado en SQLite3. Akavache es ideal para almacenar tanto información importante (i. e. configuración de usuarios) así como información local que debe expirar.  
 
-{% highlight csharp %}
+```csharp  
 public async Task<List<ConferenceDto>> GetConferences()  
 {
     var cache = BlobCache.LocalMachine;
@@ -164,7 +164,7 @@ public async Task<List<ConferenceDto>> GetConferences()
     var conferences = await cachedConferences.FirstOrDefaultAsync();
     return conferences;
 }
-{% endhighlight %}   
+```   
 
 Podemos usar el método `GetAndFetchLatest` de Akavache para devolver inmediatamente las conferencias almacenadas, si hay alguna. Al mismo tiempo, preparamos una petición a nuestro método `GetRemoteConferencesAsync`, quién hará la llamada al servicio remoto si el periodo de tiempo indicado ha transcurrido.  
 
@@ -180,14 +180,14 @@ A pesar de que nos gustaría siempre obtener los datos de la cache, sabemos que 
   
  > Esta librería lleva las librerías de red más recientes a Xamarin a través de un tipo `HttpClient` modificado. Escribe tu aplicación usando `System.Net.Http` pero coloca esta librería e irá drásticamente más rápido.  
 
-{% highlight csharp %}
+```csharp  
 var client = new HttpClient(new NativeMessageHandler())  
 {
     BaseAddress = new Uri(apiBaseAddress)
 };
 
 return RestService.For<ITekConfApi>(client);
-{% endhighlight %}   
+```   
 
 Al pasar `NativeMessageHandler` al constructir de `HttpClient`, automáticamente estamos usando el *stack* apropiado en cada plataforma.  
   
@@ -206,7 +206,7 @@ Desde la perspectiva del usuario, no todas las peticiones al servicio son iguale
  - Priorizar peticiones 
  - Contar con peticiones especulativas  
 
-{% highlight csharp %}
+```csharp  
 public class ApiService : IApiService  
 {
     public const string ApiBaseAddress = "http://api.tekconf.com/v1";
@@ -252,34 +252,34 @@ public class ApiService : IApiService
         get { return _speculative.Value; }
     }
 }
-{% endhighlight %}  
+```  
 
 Ahora, en lugar de solamente usar `HttpClient`, tenemos una clase `ApiService` que tendrá tres instancias de `Refit`, para peticiones iniciadas por el usuario (*UserInitiated*), en segundo plano (*Background*) y especulativas (*Speculative*).  
   
 Cuando la página carga por primera vez, nosotros automáticamente trataremos de obtener información sobre las conferencias. Dado que el usuario no inició esta petición, podemos enviar esta petición a segundo plano.  
 
-{% highlight csharp %}
+```csharp  
 var conferences = await _conferencesService  
                         .GetConferences(Priority.Background)
                         .ConfigureAwait(false);
-{% endhighlight %}  
+```  
 
 Si el usuario selecciona el botón de actualizar, entonces tendríamos que correr esta petición con diferente prioridad.  
 
-{% highlight csharp %}
+```csharp  
 var conferences = await _conferencesService  
                         .GetConferences(Priority.UserInitiated)
                         .ConfigureAwait(false);
-{% endhighlight %}  
+```  
 
 Cuando las conferencias *regresan* del servicio, podríamos asumir que el usuario seleccionará una de ellas para ver sus detalles. Puesto que solo estamos especulando que esto podría ocurrir, podemos preparar una petición para obtener los detalles de las conferencias con prioridad especulativa:  
 
-{% highlight csharp %}
+```csharp  
 foreach (var slug in conferences.Select(x => x.Slug))  
 {
     _conferencesService.GetConference(Priority.Speculative, slug);
 }
-{% endhighlight %}  
+```  
 
 > Una nota de Paul Betts: "Si usas la prioridad especulativa, tienes que llamar a ResetLimit en tu app móvil para reestablecer el límite de descarga de 5MB cada que navegues entre páginas (esta no es una regla estricta, pero es una buena idea - básicamente cuando sepas que el usuario está "iniciando una nueva sesión"). La prioridad especulativa es definitivamente algo que la mayoría de apps no necesitan - imagínate una app de Reddit en donde intentes descargar cada elemento en la página, pero en realidad no quieres hacer eso, tal vez solo intentes adivinar qué es lo que el usuario quiere ver. Entonces el desarrollador puede ser flojo y decir "Descarga todo, *yolo*" y Fusillade las eliminará basándose en el contenido de cada una.  
   
@@ -301,13 +301,13 @@ Si queremos estar seguros de que no causaremos un excepción al hacer una petici
   
 Antes de hacer una petición de red, podemos revisar si el dispositivo está conectado.  
   
-{% highlight csharp %}
+```csharp  
 if (CrossConnectivity.Current.IsConnected)  
 {
     conferences = await _apiService.Background.GetConferences();
 }
 return conferences;
-{% endhighlight %}  
+```  
 
 ### Akavache  
 Ya vimos cómo Akavache nos permite continuar trabajando mientras estamos offline al cachear los resultados de consultas localmente. Al combinar Akavache y las llamadas especulativas de Fusillade, podemos cachear proactivamente tantos datos como podemos mientras permanece conectado. Cuando no haya red, la app continuará funcionando en modo de solo lectura.  
@@ -327,7 +327,7 @@ PM> Install-Package Polly
 
 Polly nos permite manejar fácilmente este tipo de errores de manera consistente y coherente. En este ejemplo, trataremos de conectarnos al servicio 5 veces, con una espera que incrementa exponencialmente 2, 4, 8, 16, 32 segundos entre intentos. Esto debería darle tiempo al dispositivo de reestablecer la conexión y continuar con las peticiones.  
 
-{% highlight csharp %}
+```csharp  
 conferences = await Policy  
       .Handle<WebException>()
       .WaitAndRetry
@@ -336,7 +336,7 @@ conferences = await Policy
         sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
       )
       .ExecuteAsync(async () => await getConferencesTask);
-{% endhighlight %}  
+```  
 
 ### AsyncErrorHandler  
  

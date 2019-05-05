@@ -57,9 +57,9 @@ Archivo `CalcPage.cs`
 Es importante establecer la pantalla de inicio de nuestra aplicación y para el caso de Xamarin.Forms se debe especificar a través de una propiedad. Dicha propiedad se llama `MainPage` y se encuentra en la clase `App` (dentro de `App.cs`).  
   
 En la solución dentro de `start` la propiedad `MainPage` es inicializada con una página creada ahí mismo, debemos cambiarla por una referencia a nuestra `CalcPage`:  
-{% highlight csharp %}
+```csharp  
 MainPage = new CalcPage();
-{% endhighlight %}
+```
 
 ##### Código
 Archivo `App.cs`
@@ -71,7 +71,7 @@ Nuestra página actúa como un contenedor para los elementos de la interfaz, sin
 Una calculadora sencilla no requiere de mucho pensar, los botones están ordenados en filas y columnas, lo cual parece un trabajo para un `Grid`.  
   
 Un `Grid` está compuesto de filas y columnas, las cuales en Xamarin.Forms se especifican a través de `RowDefinition` o `ColumnDefinition`. Mira el siguiente código:  
-{% highlight csharp %}
+```csharp  
 var layout = new Grid();
 
 // Filas:
@@ -81,7 +81,7 @@ layout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUni
 // Columnas:
 layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-{% endhighlight %}
+```
 
 En el código anterior se crea un nuevo `Grid` llamado `layout` y se le añaden dos columnas y dos filas. Algo importante a notar es que para las columnas se les establece la propiedad `Width` y para las filas a propiedad `Height`. El hecho de que se use `GridUnitType.Star` (o `*`) indica que el tamaño de las columnas será proporcional entre ellas.  
   
@@ -90,9 +90,9 @@ Para el ejercicio, crea un grid con filas y columnas que representen el siguient
 {% post_image grid.png "Grid" %}
   
 Una vez creado el *layout* es importante especificarle a nuestra página que debe usarlo como contenido, esto se hace normalmente al final del constructor de la página con la siguiente línea de código:  
-{% highlight csharp %}
+```csharp  
 Content = _layout;
-{% endhighlight %}
+```
 
 ##### Código
 Archivo `CalcPage.cs`
@@ -102,24 +102,24 @@ Una vez creado el contenedor para nuestros elementos (nuestro *layout*), es mome
 Usaremos botones para los dígitos y los operadores y un *label* para mostrar el resultado.  
 
 La inicialización de controles es bastante sencilla, por ejemplo, para crear el botón que será el '0' en nuestra calculadora tenemos que escribir el siguiente código:  
-{% highlight csharp %}
+```csharp  
 _b0 = new Button { Text = "0" };
-{% endhighlight %}
+```
 
 Una vez creado el control debemos añadirlo al *layout* contenedor para que se muestre en la pantalla. Recordemos que nuestro *layout* se compone de filas y columnas, así que debemos asignarle una fila y una columna en donde mostrarse a nuestro control, la clase `Grid` nos permite asignarlos con los métodos estáticos `SetColumn` y `SetRow`. En el código siguiente, se le asigna la columna 1 y la fila 4 al botón `_b0`:  
-{% highlight csharp %}
+```csharp  
 Grid.SetColumn(_b0, 1);
 Grid.SetRow(_b0, 4);
-{% endhighlight %}
+```
 Para posteriormente añadirlo al *layout* con:  
-{% highlight csharp %}
+```csharp  
 _gridLayout.Children.Add(_b0);
-{% endhighlight %}
+```
 
 Para el caso de la etiqueta en donde se mostrará el resultado, haremos uso del método `SetColumnSpan` para indicarle a nuestro control que debe usar más de una columna dentro del *layout* que lo contiene. En este caso, le estamos indicando a `_resultDisplay` que debe ocupar 4 columnas:  
-{% highlight csharp %}
+```csharp  
 Grid.SetColumnSpan(_resultDisplay, 4);
-{% endhighlight %}
+```
 
 También existe `SetRowSpan` si lo que deseamos es que el control ocupe más de una fila.
 
@@ -130,9 +130,9 @@ Archivo `CalcPage.cs`
 En una calculadora como la que estamos haciendo se requiere de interacción de los usuarios y en Xamarin.Forms las interacciones son manejadas a través de eventos. Cada uno de los controles que añadimos a una página pueden tener uno o más eventos que son "lanzados" por interacciones con el usuario (o con otros elementos de nuestro programa), como programadores es necesario indicar qué eventos queremos manejar y cómo los vamos a manejar.  
   
 Para nuestra calculadora vamos a manejar el evento `Clicked` de los botones, dicho evento es lanzado cada vez que el usuario da "click" sobre el botón. Manejar eventos es cosa sencilla en C#, lo que tenemos que hacer es asignar (con el operador `+=`) un manejador al evento del control que deseamos. En el siguiente fragmento de código se especifica un manejador para el evento `Clicked` de `_b0`:  
-{% highlight csharp %}
+```csharp  
 _b0.Clicked += OnNumericButtonClicked;
-{% endhighlight %}
+```
 
 El manejador `OnNumericButtonClicked` no es más que un método que tiene como tipo de retorno `void` y recibe dos argumentos:  
 
@@ -140,7 +140,7 @@ El manejador `OnNumericButtonClicked` no es más que un método que tiene como t
  - `EventArgs e` que son algunos argumentos extra sobre el evento lanzado 
 
 Como ejemplo acá abajo está la implementación del método para los botones del teclado numérico de nuestra calculadora. En la primera línea se hace un *cast* de `sender` a `Button` lo cual es válido porque como comenté: en `sender` viene el control que lanzó el evento.   
-{% highlight csharp %}
+```csharp  
 void OnNumericButtonClicked(object sender, EventArgs e)
 {
 	Button botonClickeado = (Button)sender;
@@ -153,7 +153,7 @@ void OnNumericButtonClicked(object sender, EventArgs e)
 		segundoNumero = botonClickeado.Text;
 	}
 }
-{% endhighlight %}
+```
 
 Los manejadores pueden ser compartidos entre muchos controles, así que no tienes que crear un manejador para cada control que uses en tu aplicación. Así que ahora es tu turno de crear toda la lógica de la calculadora usando los controles y los manejadores de eventos. Si te encuentras un poco perdido puedes echarle un ojo al archivo que te indico más abajo para comenzar.
 
@@ -162,7 +162,7 @@ Archivo `CalcPage.cs`
 
 ## Parte 6 - Un pequeño truco  
 Podrás pensar que nuestra calculadora está (casi) terminada, pero no. Si la echas a andar a como la tenemos hasta ahora te darás cuenta que la calculadora no ocupa la pantalla entera... un pequeño bug. Para resolverlo haremos uso de otro tipo de *layout* que envuelva a nuestro *layout* original. Para la ocasión haremos uso de un `RelativeLayout` que nos permite mayor flexibilidad a la hora de controlar cómo se muestran los elementos y por ende, requiere de mayor configuración. Reemplaza la asignación `Content = _layout;` por el siguiente fragmento de código:  
-{% highlight csharp %}
+```csharp  
 // Trick to make our calculater fullscreen
 var relativeLayout = new RelativeLayout();
 relativeLayout.Children.Add(_layout, // <= Original layout
@@ -171,7 +171,7 @@ relativeLayout.Children.Add(_layout, // <= Original layout
 	Constraint.RelativeToParent(p => p.Width),
 	Constraint.RelativeToParent(p => p.Height));
 Content = relativeLayout;
-{% endhighlight %}
+```
 
 # Siguientes pasos  
 Como probablemente te habrás dado cuenta, la aplicación no está completa, le falta implementar algunos manejadores y toda la lógica de la calculadora.  Esa es tu misión, si decides aceptarla.  
