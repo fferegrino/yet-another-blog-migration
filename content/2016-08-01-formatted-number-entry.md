@@ -24,7 +24,7 @@ This doesn't sound too complicated (and it isn't). Using an `Entry` we can easil
 
  I don't want to wire/unwire the event handler every time I use it, so let's create a control that inherits from `Entry` and override the `OnPropertyChanged` method:
 
-{% highlight csharp %}
+```csharp  
 public class FormattedNumberEntry : Entry
 {
     protected override void OnPropertyChanged(string propertyName = null)
@@ -46,11 +46,11 @@ public class FormattedNumberEntry : Entry
         base.OnPropertyChanged(propertyName);
     }
 }
-{% endhighlight %}  
+```  
 
 By the way, you see that `DumbParse` method there? it is just that, a dumb parsing method that ignores non-digit chars:
 
-{% highlight csharp %}
+```csharp  
 public static int DumbParse(string input)
 {
     var number = 0;
@@ -65,7 +65,7 @@ public static int DumbParse(string input)
     }
     return number;
 }
-{% endhighlight %}  
+```  
   
 This is the final result:
 
@@ -99,7 +99,7 @@ See how the cursor jumps to the end (or start, depends on the platform)? the sam
 ### iOS 
 For iOS we will subscribe to the `EditingChanged` event and work all our magic there:
 
-{% highlight csharp %}
+```csharp  
 public class FormattedNumberEntryRenderer : EntryRenderer
 {
     protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
@@ -115,11 +115,11 @@ public class FormattedNumberEntryRenderer : EntryRenderer
             Control.EditingChanged += Control_EditingChanged;
         }
     }
-{% endhighlight %}  
+```  
 
 Now, in the `Control_EditingChanged`: 
 
-{% highlight csharp %}
+```csharp  
 var element = ((FormattedNumberEntry)Element);
 // Oh boy, thank you internet: http://stackoverflow.com/a/34922332
 
@@ -154,7 +154,7 @@ if (newPosition != null) // before we fail miserably
 
 // 9. Start listening for changes on our control’s Text property
 element.ShouldReactToTextChanges = true;
-{% endhighlight %}  
+```  
 
 Now works great: 
 
@@ -163,7 +163,7 @@ Now works great:
 ### Android
 For Android we will subscribe to the `AfterTextChanged` event and create all the formatting there:
 
-{% highlight csharp %}
+```csharp  
 public class FormattedNumberEntryRenderer : EntryRenderer
 {
     protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
@@ -179,11 +179,11 @@ public class FormattedNumberEntryRenderer : EntryRenderer
             Control.AfterTextChanged += Control_AfterTextChanged;
         }
     }
-{% endhighlight %}  
+```  
 
 And then in the `Control_AfterTextChanged` implementation:
 
-{% highlight csharp %}
+```csharp  
 var element = ((FormattedNumberEntry)Element);
 
 // 1. Stop listening for changes on our control Text property
@@ -213,7 +213,7 @@ Control.SetSelection(cursorPosition - change);
 
 // 9. Start listening for changes on our control’s Text property
 element.ShouldReactToTextChanges = true;
-{% endhighlight %}   
+```   
 
 Here is the final result
 
@@ -223,7 +223,7 @@ Here is the final result
 
 For the Windows platforms we need to handle the `TextChanged` event:
 
-{% highlight csharp %}
+```csharp  
 public class FormattedNumberEntryRenderer : EntryRenderer
 {
     protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
@@ -239,11 +239,11 @@ public class FormattedNumberEntryRenderer : EntryRenderer
             Control.TextChanged += Control_TextChanged;
         }
     }
-{% endhighlight %}  
+```  
 
 Then in `Control_Text` changed:  
 
-{% highlight csharp %}
+```csharp  
 var element = ((FormattedNumberEntry)Element);
 
 // 1. Stop listening for changes on our control Text property
@@ -275,7 +275,7 @@ Control.SelectionStart = cursorPosition + change;
 
 // 9. Start listening for changes on our control’s Text property
 element.ShouldReactToTextChanges = true;
-{% endhighlight %}  
+```  
 
 And *voilà*:
 

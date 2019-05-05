@@ -49,20 +49,20 @@ Esta es la colección ideal cuando únicamente queremos corroborar que un elemen
 
 He visto muchas veces código como el siguiente:  
 
-{% highlight csharp %}
+```csharp  
 var descuentos = new List<double> { 10, 15, 30 };
 var miDescuento = 5d;
 // ...  
 
 if(descuentos.Contains(miDescuento)) // ...
-{% endhighlight %}  
+```  
 
 Cuando bien podríamos obtener una mejora en el desempeño usando un `HashSet`, ya que no importa cuantos elementos contiene el set, obtendremos la respuesta *de inmediato*, mientras que si usamos una `List`, el tiempo que se tarda depende de cuantos elementos contenga:
 
-{% highlight csharp %}
+```csharp  
 var descuentos = new HashSet<double> { 10, 15, 30 };
 if (descuentos.Contains(miDescuento)) // no hay necesidad de buscar
-{% endhighlight %}  
+```  
 
 ## Dictionary<TKey, TVal>  
 El diccionario almacena pares de valores: una llave y un objeto asociado. 

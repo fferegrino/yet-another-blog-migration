@@ -14,7 +14,7 @@ Comencemos hablando de perritos, o de *Canis lupus familiaris* para ser más exa
 
 Toma, por ejemplo, la clase `CanisLupusFamiliaris` (perro doméstico), que tiene dos métodos, nota que uno está marcado como `virtual` y otro no. 
 
-{% highlight csharp %}
+```csharp  
 public class CanisLupusFamiliaris // Perro doméstico
 {
     public virtual void Ladrar()
@@ -27,11 +27,11 @@ public class CanisLupusFamiliaris // Perro doméstico
         Console.WriteLine("Error: sin información");
     }
 }
-{% endhighlight %}  
+```  
 
 Y una clase derivada, llamada `Chihuahua`, que como sabrás, es un perro doméstico. El Chihuahua, al ser algo más específico tiene su propia manera de ladrar y mover las orejas, define sus propios métodos:
 
-{% highlight csharp %}
+```csharp  
 public class Chihuahua : CanisLupusFamiliaris
 {
     public void Ladrar()
@@ -44,13 +44,13 @@ public class Chihuahua : CanisLupusFamiliaris
         Console.WriteLine("Mueve sus orejas peludas");
     }
 }
-{% endhighlight %}  
+```  
 
 ### `new`, `override` 
 
 Sin embargo, el `Chihuahua` no es el único perro, también tenemos un `GranDanes`, que nuevamente, es un perro doméstico y hereda de `CanisLupusFamiliaris`. Pero, a diferencia de la clase anterior, esta implementa su forma de ladrar y de mover la cola de manera distinta:
 
-{% highlight csharp %}
+```csharp  
 public class GranDanes : CanisLupusFamiliaris
 {
     public override void Ladrar()
@@ -63,7 +63,7 @@ public class GranDanes : CanisLupusFamiliaris
         Console.WriteLine("Mueve sus orejas gigantezcas");
     }
 }
-{% endhighlight %}  
+```  
 
 Si te das cuenta, aparecieron dos palabras en la definición de los métodos: `new` y `override` 
 
@@ -95,12 +95,12 @@ Considera el siguiente programa, en donde declaramos un perro de la clase base y
 
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
-{% highlight csharp %}
+```csharp  
 CanisLupusFamiliaris canis = new CanisLupusFamiliaris();
 Console.WriteLine("Canis genérico:");
 canis.Ladrar();
 canis.MoverOrejas();
-{% endhighlight %}  
+```  
       </div>
       <div class="pure-u-1 pure-u-md-10-24">
 <pre>
@@ -116,12 +116,12 @@ En el siguiente bloque creamos un `Chihuahua` pero lo asignamos a un objeto de l
 
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
-{% highlight csharp %}
+```csharp  
 CanisLupusFamiliaris chihuahuaCanis = new Chihuahua();
 Console.WriteLine("Chihuahua (Canis):");
 chihuahuaCanis.Ladrar();
 chihuahuaCanis.MoverOrejas();
-{% endhighlight %}  
+```  
       </div>
       <div class="pure-u-1 pure-u-md-10-24">
 <pre>
@@ -137,12 +137,12 @@ En el siguiente bloque creamos un `Chihuahua`, ahora si asignándolo a un objeto
 
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
-{% highlight csharp %}
+```csharp  
 Chihuahua chihuahua = new Chihuahua();
 Console.WriteLine("Chihuahua:");
 chihuahua.Ladrar();
 chihuahua.MoverOrejas();
-{% endhighlight %} 
+``` 
       </div>
       <div class="pure-u-1 pure-u-md-10-24">
 <pre>
@@ -158,12 +158,12 @@ En el siguiente bloque creamos un `GranDanes`, asignándolo a un objeto de la cl
 
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
-{% highlight csharp %}
+```csharp  
 CanisLupusFamiliaris granDanesCanis = new GranDanes();
 Console.WriteLine("Gran danes (Canis):");
 granDanesCanis.Ladrar();
 granDanesCanis.MoverOrejas();
-{% endhighlight %}  
+```  
       </div>
       <div class="pure-u-1 pure-u-md-10-24">
 <pre>
@@ -179,12 +179,12 @@ En el siguiente bloque creamos un `GranDanes`, asignándolo a una clase de su ti
   
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
-{% highlight csharp %}
+```csharp  
 GranDanes granDanes = new GranDanes();
 Console.WriteLine("Gran danes:");
 granDanes.Ladrar();
 granDanes.MoverOrejas();
-{% endhighlight %}  
+```  
       </div>
       <div class="pure-u-1 pure-u-md-10-24">
 <pre>

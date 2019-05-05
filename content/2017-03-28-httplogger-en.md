@@ -26,7 +26,7 @@ If you decide to use the single parameter constructor, the default actions will 
 
 For example, I've created a Xamarin.Forms that makes a request to the <a href="https://pokeapi.co/" target="_blank">Pokéapi</a>  and both the request and response are shown on the screen device, to accomplish this task I created a couple of methods:  
 
-{% highlight csharp %}
+```csharp  
 async Task ResponseAction(HttpResponseMessage httpResponseMessage)
 {
     string content = null;
@@ -95,22 +95,22 @@ async Task RequestAction(HttpRequestMessage httpRequestMessage)
         LabelRequest.FormattedText = fs;
     });
 }
-{% endhighlight %}   
+```   
 
 These two methods take all the data and presents it on screen in a *friendly* manner. To make use of them it is necessary pass them through the constructor of our `HttpLoggingHandler`, and then pass the instance of our *logging handler* to the constructor of `HttpClient`:  
 
-{% highlight csharp %}
+```csharp  
 var loggingHandler = new HttpLoggingHandler(new HttpClientHandler(), 
                                             RequestAction, 
                                             ResponseAction);
 var client = new HttpClient(loggingHandler);
-{% endhighlight %}  
+```  
 
 Then we can make all the requests we want in the same way we used to:  
 
-{% highlight csharp %}
+```csharp  
 await client.GetStringAsync("https://pokeapi.co/api/v2/pokemon/1/");
-{% endhighlight %}  
+```  
 
 The above code will show the following in your screen device:  
 
@@ -120,7 +120,7 @@ The above code will show the following in your screen device:
 It is probable that you want to use this component to log only when you're debugging, so you can combine it with Paul Betts' <a href="https://www.nuget.org/packages/modernhttpclient/" target="_blank">modernhttpclient</a> to increase the speed of request on your release builds. I usually add some `#if` directives to make use of the logger only when debugging:
 
 
-{% highlight csharp %}
+```csharp  
 HttpClient client;
 #if DEBUG
 var loggingHandler = new HttpLoggingHandler(new HttpClientHandler(), 
@@ -130,7 +130,7 @@ client = new HttpClient(loggingHandler);
 #else
 client = new HttpClient(new NativeMessageHandler());
 #endif
-{% endhighlight %}  
+```  
 
 To use the logger, all you need to do is install the <a href="https://www.nuget.org/packages/HttpLogger/" target="_blank">NuGet package</a>.
 

@@ -20,22 +20,22 @@ Los pasos a realizar son los siguientes:
  - Agregar el paquete de NuGet: Microsoft.AspNetCore.Rewrite
  - Agregar el siguiente código en el archivo Startup.cs, línea 44 
 
-{% highlight csharp %}
+```csharp  
 // Enforce SSL
 services.Configure<MvcOptions>(options =>
 {
 	options.Filters.Add(new RequireHttpsAttribute());
 });
-{% endhighlight %}
+```
 
   - Agregar el siguiente código en el archivo Startup.cs, línea 81
 
 
-{% highlight csharp %}
+```csharp  
 // Requires using Microsoft.AspNetCore.Rewrite;
 var options = new RewriteOptions()
    .AddRedirectToHttps();
-{% endhighlight %}
+```
 
  - Habilitar SSL en las propiedades del sitio web, en la pestaña de debug. 
 
@@ -44,16 +44,16 @@ var options = new RewriteOptions()
  - Agregar el siguiente código en el archivo ApplicationUser.cs, línea 12
 
 
-{% highlight csharp %}
+```csharp  
 public virtual string TfaKey { get; set; }
-{% endhighlight %}
+```
 
  - Agregar el siguiente código en el archivo 00000000000000_CreateIdentitySchema.cs, línea 60
 
 
-{% highlight csharp %}
+```csharp  
 TfaKey = table.Column<string>(maxLength: 32, nullable: true),
-{% endhighlight %}
+```
 
 ## Preparar la aplicación para que soporte sesiones
 
@@ -61,7 +61,7 @@ TfaKey = table.Column<string>(maxLength: 32, nullable: true),
  - Agregar el siguiente código en el archivo Startup.cs, línea 60
 
 
-{% highlight csharp %}
+```csharp  
 // Add session support
 services.AddSession(options =>
 {
@@ -69,14 +69,14 @@ services.AddSession(options =>
 	options.IdleTimeout = TimeSpan.FromSeconds(10);
 	options.CookieHttpOnly = true;
 });
-{% endhighlight %}
+```
 
  - Agregar el siguiente código en el archivo Startup.cs, línea 98
 
 
-{% highlight csharp %}
+```csharp  
 app.UseSession();
-{% endhighlight %}
+```
 
 ## Agregar código de Google Authenticator  
 
@@ -94,28 +94,28 @@ Código de <a href="http://www.domstamand.com/two-factor-authentication-in-asp-n
  - Agregar el siguiente código en el archivo Startup.cs, línea 57
 
 
-{% highlight csharp %}
+```csharp  
 .AddTokenProvider(GoogleAuthenticatorProvider.ProviderName, typeof(GoogleAuthenticatorProvider))
-{% endhighlight %}
+```
 
 ## Preparar la interfaz para el 2FA
 
  - Agregar el siguiente código en el archivo IndexViewModel.cs, línea 17
 
 
-{% highlight csharp %}
+```csharp  
 public string TwoFactorAuthenticatorQrCode { get; set; }
-{% endhighlight %}
+```
 
  - Agregar el siguiente código en el archivo ManageController.cs, líneas 64, 123 y 168
 
 
-{% highlight csharp %}
+```csharp  
 TwoFactorAuthenticatorQrCode = TempData["AuthenticatorQr"]?.ToString(),
-{% endhighlight %}
+```
 
 
-{% highlight csharp %}
+```csharp  
 // POST: /Manage/RequestTwoFactorAuthentication
 [HttpPost]
 [ValidateAntiForgeryToken]
@@ -134,17 +134,17 @@ public async Task<IActionResult> RequestTwoFactorAuthentication()
   }
   return RedirectToAction(nameof(Index), "Manage");
 }
-{% endhighlight %}
+```
 
-{% highlight csharp %}
+```csharp  
 user.TfaKey = null;
 await _userManager.UpdateAsync(user);
-{% endhighlight %}
+```
 
 20. Reemplazar el código del `<dd></dd>` de la autenticación de dos factores por 
 
 
-{% highlight csharp %}
+```csharp  
 @if (Model.TwoFactorAuthenticatorQrCode != null)
 {
 	<img src="@Model.TwoFactorAuthenticatorQrCode" />
@@ -167,7 +167,7 @@ else
 		</form>
 	}
 }
-{% endhighlight %}
+```
 
 ## Listo 
 

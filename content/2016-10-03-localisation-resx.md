@@ -80,7 +80,7 @@ Procura utilizar las mismas llaves en todos los archivos, es importante para que
 
 Y bueno, después de tanta ceremonia, podemos usar nuestras cadenas multilenguaje en el código:  
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine(String.Format(Resources.Strings.CurrentLanguage,
     currentThread.CurrentUICulture.ToString()));
 Console.WriteLine(Resources.Strings.Hello);
@@ -88,17 +88,17 @@ Console.WriteLine(Resources.Strings.Hello);
 // ... 
 
 Console.WriteLine(Resources.Strings.ChangeLanguage);
-{% endhighlight %}   
+```   
 
 Si ejecutas el programa es muy probable que veas los textos en inglés, pero eso es fácil de cambiar.
 
 ### Cambiando el idioma con Thread.CurrentUICulture
 Para cambiar el idioma de la interfaz de nuestras aplicaciones, es muy común utilizar la propiedad `CurrentUICulture` del hilo principal (`Thread.CurrentThread`), esta propiedad es del tipo `CultureInfo`. `CultureInfo` puede ser creada a partir de una cadena de texto en donde se especifique el idioma y la región de que se requiera, por ejemplo, para cambiar el idioma de la aplicación a con español de México:  
 
-{% highlight csharp %}
+```csharp  
 var language = new CultureInfo("es-MX");
 Thread.CurrentThread.CurrentUICulture = language;
-{% endhighlight %} 
+``` 
 
 Nuevamente, la lista completa de valores idioma-región posibles la puedes consultar en  <a href="https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx" target="_blank">este enlace</a>.  
 

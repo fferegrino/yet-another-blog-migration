@@ -13,11 +13,11 @@ featured_tag: AprendeCSharp
 Una vez que conocemos lo que es un delegado, y lo que son Func y Action, es momento de llegar a un tema que se convierte en algo muy sencillo, además es de mis cosas favoritas en C#: Las **expresiones lambda**. Comenzaré por dar un ejemplo de su uso: 
   
 Es decir, suponiendo que tenemos el método del ejemplo pasado.
-{% highlight csharp %}
+```csharp  
 void RealizaOperacionSecreta(List<string> palabras, Func<string, bool> filtro)
-{% endhighlight %}
+```
 Para el que escribimos un método para usarlo como filtro:
-{% highlight csharp %}
+```csharp  
 public static bool SoloConU(string s)
 {
 	return s.StartsWith("u");
@@ -26,14 +26,14 @@ public static bool SoloConU(string s)
 // ...
 // Ejemplo de uso:
 RealizaOperacionSecrete(palabras, SoloConU);
-{% endhighlight %}
+```
 En realidad, no es necesario escribir tanto, el método ```SoloConU```, puede ser reemplazado en el código por:  
-{% highlight csharp %}
+```csharp  
 RealizaOperacionSecrete(palabras, (s) => { return s.StartsWith("u"); });
 
 // O simplemente por:
 RealizaOperacionSecrete(palabras, s => s.StartsWith("u"));
-{% endhighlight %}
+```
 Por definición, las expresiones lambda son "métodos anónimos para crear tipos delegados y árboles de expresión", nos enfocaremos en lo primero. El método <code>SoloConU</code> es usado solamente una vez en nuestro programa y es por eso que es un buen candidato a ser reemplazado por un método anónimo (entre otras cosas, sin nombre). Y es que podría muchas veces resultarnos bastante engorroso tener que escribir le método completo para hacer referencia a él solamente una vez dentro de todo nuestro código.
 
 #### Crear una expresión lambda  
@@ -50,35 +50,35 @@ Existen otras consideraciones que podemos tomar en cuenta si queremos reducir a�
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 // Versión normal
 (a) => { return a.ToString(); }
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 // Versión "simplificada"
 a => { return a.ToString(); }
-{% endhighlight %}
+```
 	</div>
 </div>
 Si la expresión lambda consta de una **única sentencia**, y esta es una **operación de retorno**, podemos omitir los corchetes, la palabra clave ```return``` y el ```;``` de fin de sentencia: 
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 a => { return a.ToString(); }
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 a => a.ToString()
-{% endhighlight %}
+```
 	</div>
 </div>  
 
 #### Usos más frecuentes  
-{% highlight csharp %}
+```csharp  
 // Eventos
 accessButton.Clicked += (sender, args) => { DoAccess(); };
 
@@ -87,7 +87,7 @@ var solteros = 	personas
 				.Where(persona => persona.EsSoltero)
 				.OrderBy(persona => persona.Nombre)
 				.Select (persona => new Soltero { Nombre = persona.Nombre });
-{% endhighlight %}
+```
 De los usos más frecuentes de las expresiones lambda, podemos encontrar la asignación de manejadores de evento y en conjunto con Linq. Herramientas de las que les hablaré más adelante.
 
 **Este es el fin de la serie de posts** que comenzó con <a href="/delegados-en-c-sharp" target="_blank">delegados en C#</a> continuando con <a href="/func-y-action-en-c-sharp" target="_blank">func y action en C#</a>. Hay otro tema en el tintero, que son los árboles de expresiones, pero aún está en preparación.

@@ -16,16 +16,16 @@ He de aceptarlo, una de las cosas que más dudas me causaba cuando inicié a pro
 Resulta que `string` y `System.String` (o simplemente `String`) son lo mismo, es decir, en nuestro código podemos fácilmente intercambiar ambas palabras sin problema alguno. Por poner otro ejemplo, usando el alias para `Int32`, podemos escribir de cualquiera de las dos siguientes maneras y el código significará lo mismo.  
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 int abc = 123;
 Int32 xyz = 123;
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 Int32 abc = 123;
 int xyz = 123;
-{% endhighlight %}
+```
 	</div>
 </div>  
 
@@ -69,18 +69,18 @@ Puede que te estés preguntando eso, y la verdad es que no sé. Muchos sugieren 
 Al significar lo mismo en términos de programación su uso es cuestión de gustos, pero yo prefiero usar el alias para declarar variables, tipos de dato de retorno y parámetros de método. Mientras que prefiero usar el nombre "completo" para hacer referencia a métodos y constantes de cada tipo, por ejemplo  
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 // Yo prefiero...
 int abc = Int32.Parse("123");
 string emptyString = String.Empty;
-{% endhighlight %}
+```
 	</div>
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 // ... a esto
 Int32 abc = int.Parse("123");
 String xyz = string.Empty;
-{% endhighlight %}
+```
 	</div>
 </div>  
 

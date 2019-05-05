@@ -32,25 +32,25 @@ Closures in Swift are our good (not so) old Func and Action types in C#. You don
 ## Of vars and properties  
 In Swift exist properties which are almost, almost like properties in C#, you can see this when using the "stored properties":
 
-{% highlight swift %}
+```swift  
 class AxesDrawer
 {
     var color = UIColor.blueColor()
     var minimumPointsPerHashmark: CGFloat = 40
-{% endhighlight %}  
+```  
 
 Which are somewhat like the "automplmemented properties" in C#
 
-{% highlight csharp %}
+```csharp  
 class AxesDrawer 
 {
     public UIColor Color { get; set; }
     public CGFloat MinimumPointsPerHashmark { get; set; }
-{% endhighlight %}  
+```  
 
 In both languages you can have computed properties:  
 
-{% highlight swift %}
+```swift  
 // Swift
 class AxesDrawer 
 {
@@ -63,9 +63,9 @@ class AxesDrawer
             _color = newValue 
         } 
     }
-{% endhighlight %}  
+```  
 
-{% highlight csharp %}
+```csharp  
 // C#
 class AxesDrawer 
 {
@@ -75,11 +75,11 @@ class AxesDrawer
         get { return _color; } 
         set { _color = value; } 
     }
-{% endhighlight %}  
+```  
 
 Another cool feature that I would enjoy in C# are the property observers (`willSet` and `didSet`) which behavior we can mimic in C# using computed properties but the code does not look as clean as with Apple's language:
 
-{% highlight csharp %}
+```csharp  
 public double _scale = 0.9;
 public double Scale
 {
@@ -91,13 +91,13 @@ public double Scale
         // didSet code 
     }
 }
-{% endhighlight %}  
+```  
 
 
 ## Implementing protocols
 When implementing protocols, there is a weird thing that happens: At first I thought that Protocols in Swift where like Interfaces in C#... turns out they are not! When using protocols there are some methods or properties that you are not obligated to implement whereas when using an interface you are required to implement all the members defined within it, so the guys at Xamarin came up with this weird solution where you need to implement an *EMPTY* interface that has nothing but metadata that you can use to mimic the protocols behavior (<a href="https://developer.xamarin.com/api/type/MonoTouch.UIKit.IUITextViewDelegate/" target="_blank">see here</a>). For example, take a look at the approach to create a delegate for the UITextField and respond to a protocol's member call:
 
-{% highlight csharp %}
+```csharp  
 public partial class TweetTableViewController : UITableViewController, IUITextFieldDelegate
 {
     // ...
@@ -106,7 +106,7 @@ public partial class TweetTableViewController : UITableViewController, IUITextFi
     public bool ShouldReturn(UITextField textField)
     {
         // Delegate code
-{% endhighlight %}  
+```  
 
 ## Swift's extensions to types  
 When it comes to extend the capabilities of classes, Swift offers a more range of movement than C# since you can add properties, constructors and make a class adopt a protocol. C# only allows to "extend" vía static methods, no other members can be added to a given type.
@@ -118,7 +118,7 @@ Every time you save your interface in Xcode it'll be synced to Xamarin Studio wi
 
 The Xamarin approach will create a WhateverViewController.designer.cs containing a partial definition of your `UIViewController` derivate class, in it all the outlets and actions of your view controller will be stored, each of them with a certain attribute (for outlets the attribute is `[Outlet]`) that tells the designer what they are used for. You are not supposed to mess with this file, however, if you need to take an outlet out of there you can do so... as long as you place it somewhere else without the designer attribute, as I did when I had to perform an action as soon as a view was assigned:  
 
-{% highlight csharp %}
+```csharp  
 FaceView _faceView;
 [Outlet]
 protected FaceView FaceView
@@ -134,7 +134,7 @@ protected FaceView FaceView
         UpdateUI();
     }
 }
-{% endhighlight %}  
+```  
 
 Despite the fact of that you must be switching between the Xcode designer and Xamarin's IDE you should worry no more, you are in good hands when it comes to design the interface of your app. 
 
@@ -145,27 +145,27 @@ Just as you can create custom controls using Swift or Obj-C you can create custo
 
 Make sure that your custom view implements a public constructor that takes an `IntPtr` instance as a parameter:
 
-{% highlight csharp %}
+```csharp  
 public FaceView (IntPtr handle) : base (handle)
 {
 }
-{% endhighlight %} 
+``` 
 
 Also, make sure to register your custom views to be visible at design time in the editor, using the appropiate attributes `Register` and `DesignTimeVisible`:
 
-{% highlight csharp %}
+```csharp  
 [Register("FaceView"), DesignTimeVisible(true)]
 public class FaceView : UIView
 {
-{% endhighlight %}  
+```  
 
 If you want your properties to be available for modification at design time you will need to mark them with yet another couple of attributes (`Export` and `Browsable`):
 
-{% highlight csharp %}
+```csharp  
 [Export("Color"), Browsable(true)]
 public UIColor Color
 { // ...
-{% endhighlight %}  
+```  
 
 ## CoreData  
 Uh, for what I've been reading CoreData isn't that easy to use with Xamarin... yet it is possible. I didn't try to do the assignments, mainly because I find it too specific for my purposes at the moment. If you want to try, maybe this links points to a sample that uses this feature in Xamarin: <a href="https://developer.xamarin.com/samples/monotouch/ThreadedCoreData/" target="_blank">ThreadedCoreData sample</a>.

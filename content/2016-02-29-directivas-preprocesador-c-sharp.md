@@ -17,13 +17,13 @@ A pesar de que C# no tenga un preprocesador de código dedicado (tal como lo tie
 ### Sintaxis  
 La sintaxis de una directiva es simple: comienza por el símbolo `#` seguido inmediatamente por la instrucción para el compilador. Por ejemplo:
 
-{% highlight csharp %}
+```csharp  
 #define esta_es_una_directiva
 #region Directivas
 #if esta_es_una_directiva
 #endif
 #endregion
-{% endhighlight %}
+```
 
 ### Instrucciones disponibles  
 Podemos dividir las directivas dentro estas categorías:  
@@ -33,19 +33,19 @@ Primero que nada: En C#, un símbolo de compilación es una palabra (distinta de
 
 Pero nosotros también podemos definirlos mediante el uso de la directiva `#define [símbolo]` y borrar la definición mediante `#undef [símbolo]`. Mira el siguiente código:
 
-{% highlight csharp %}
+```csharp  
 #define HOLA
 #define mundo
 #define PIZZA
 #undef mundo
-{% endhighlight %}
+```
 
 En este caso para el archivo quedarán definidos los símbolos `HOLA` y `PIZZA`, estas definiciones se hacen con una sola intención, que veremos más adelante. Hay que señalar que las definiciones deben ser las primeras instrucciones en cada archivo.
 
 #### Compilación condicional    
 Las directivas `#if`, `#else`, `#elif` y `#endif` permiten modificar el código que el compilador toma en cuenta para la compilación, funcionan de modo similar a un `if` en C#: `#if [condición]`, salvo que las condiciones simplemente son si determinado símbolo está definido o no, por ejemplo:
 
-{% highlight csharp %}
+```csharp  
 #if HOLA && mundo
 Console.WriteLine("Hola mundo");
 #elif HOLA
@@ -59,7 +59,7 @@ Console.WriteLine("...");
 #if (HOLA || mundo) && PIZZA
 Console.WriteLine("Hola o mundo y ¡pizza!");
 #endif
-{% endhighlight %}
+```
 
 El resultado de la ejecución es
  
@@ -73,18 +73,18 @@ Los usos de la compilación condicional son muy variados, desde indicar que cier
 #### Generar errores y warnings  
 Podemos usar las directivas `#error` y `#warning` para hacer que el compilador "encuentre" errores y advertencias en nuestro código. La sintaxis es la siguiente: `#error [mensaje]` y `#warning [mensaje]`, por ejemplo:    
 
-{% highlight csharp %}
+```csharp  
 #warning It is dangerous to go alone!
 #error Hola! soy un error de compilación
-{% endhighlight %}  
+```  
 
 Pero, ¿para qué querríamos provocar errores o *warnings* en nuestro código? yo creo que nadie. Sin embargo, usando la compilación condicional podemos "impedir" que el código se compile a menos que alguna configuración se cumpla, es por eso que normalmente estas directivas vienen rodeadas de `#if`, `#endif` o `#elif`:    
 
-{% highlight csharp %}
+```csharp  
 #if !DEBUG
 #error Whoops, este código solamente puede ser usado en configuración debug
 #endif
-{% endhighlight %}
+```
 
 #### Supresión de *warnings*  
 Del mismo modo que podemos crear *warnings*, también podemos instruir al compilador a que ignore algunas de estas mediante el uso de la directiva `#pragma warning disable ([identificador de advertencias])`.  
@@ -96,45 +96,45 @@ Nunca ha sido bueno ignorar las advertencias en nuestro código ... sin embargo 
  
  Cuando deshabilitamos el reconocimiento de advertencias con la directiva anterior, el efecto permanece hasta el fin del archivo, pero podemos deshabilitar dicho efecto usando la directiva `#pragma warning restore ([identificador de advertencias])`. Tomemos como ejemplo esta porción de código que como te podrás imaginar, provoca unas cuantas advertencias. 
 
-{% highlight csharp %}
+```csharp  
 int x = 0;
 return;
 int zero = 0;
 if (1 != null) ;
-{% endhighlight %}
+```
 
 {% post_image warnings.png "Warnings" %}  
 
 Podemos deshabilitar las advertencias una por una:
-{% highlight csharp %}
+```csharp  
 #pragma warning disable 219
             int x = 0;
-{% endhighlight %}
+```
 
 Varias a la vez:
 
-{% highlight csharp %}
+```csharp  
 #pragma warning disable 162,219
             int zero = 0;
-{% endhighlight %}
+```
 
 O simplemente todas a la vez:
 
-{% highlight csharp %}
+```csharp  
 #pragma warning disable
             if (1 != null) ;
-{% endhighlight %}
+```
   
 #### Organización de código  
 Estas son es seguramente las directivas con las que más frecuentemente te has encontrado, y es que su uso es mucho más común que las otras, su finalidad es agrupar físicamente bloques de código dentro de nuestro archivo fuente, además de que algunos IDE permiten colapsar el texto entre ella. Es importante decir que su inclusión no modifica el comportamiento del compilador.
 
 Por ejemplo:  
 
-{% highlight csharp %}
+```csharp  
 #region Super bloque de código
 Console.WriteLine("Hola");
 #endregion
-{% endhighlight %}  
+```  
 
 Que en Visual Studio se ve así:
 

@@ -26,7 +26,7 @@ Por ejemplo, estas dos operaciones con Linq hacen lo mismo:
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 from lecture in db.Lectures
 group lecture by lecture.TeacherId into grouped
 join teacher in db.Teachers 
@@ -34,10 +34,10 @@ join teacher in db.Teachers
 where teacher.LastName == "Williams"
 select new { TeacherId = grouped.Key, 
              Name = teacher.GivenName };
-{% endhighlight %}
+```
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 db.Lectures
 .GroupBy (lecture => lecture.TeacherId)
 .Join (db.Teachers,
@@ -46,7 +46,7 @@ db.Lectures
 .Where (an => an.Teacher.LastName == "Williams")
 .Select (an => new { TeacherId = an.Grouped.Key,
                      Name = an.Teacher.GivenName });
-{% endhighlight %}
+```
 </div>
 </div>  
   
@@ -65,15 +65,15 @@ Con ellos se puede modelar los resultados de una consulta en un [tipo anónimo](
 
 Solo por decir, así como en la consulta se crea un tipo anónimo con
 
-{% highlight csharp %}
+```csharp  
 new { TeacherId = grouped.Key, Name = teacher.GivenName };
-{% endhighlight %}  
+```  
 
 Igual se pudo haber creado un objeto de `Teacher` con  
 
-{% highlight csharp %}
+```csharp  
 new Teacher { TeacherId = grouped.Key, GivenName = teacher.GivenName };
-{% endhighlight %}  
+```  
   
 ## Operadores de agregación  
 Promedios, sumas, mínimos... de todo. Usualmente metemos esto dentro de un `for` más unas cuantas variables auxiliares y tenemos el resultado, con Linq, eso se acaba.  
@@ -81,9 +81,9 @@ Promedios, sumas, mínimos... de todo. Usualmente metemos esto dentro de un `for
 ### Conteo (Count)     
 Supongamos que queremos contar la cantidad de profesores cuyo nombre comienza con `L`, entonces debemos utilizar el método `Count` (no está disponible en la sintaxis de consulta), y se hace de la siguiente manera:
 
-{% highlight csharp %}
+```csharp  
 var profesoresConL = db.Teachers.Count(p => p.GivenName.StartsWith("L"));
-{% endhighlight %}  
+```  
   
 La llamada al método `Count` se puede hacer sin parámetros o pasando un `Func` que actúa como condicional  para indicar qué elementos dentro de la colección deben ser considerados para la cuenta.  
   
@@ -92,25 +92,25 @@ La llamada al método `Count` se puede hacer sin parámetros o pasando un `Func`
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var edadMasMenos30 = db.Teachers
     .Where (t => t.Age < 30)
     .Sum (t => t.Age);
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var menosDe30Total1 = (from t in db.Teachers
                         where t.Age < 30
                         select t.Age).Sum ();
-{% endhighlight %}  
+```  
 </div>  
 </div>  
 
 ### Mínimos y máximos (Min, Max) 
 No todos los profesores tienen correo electrónico, ¿tendrá algo que ver con la edad? con los métodos `Min` y `Max` podemos obtener los valores máximos y mínimos dentro de un conjunto de resultados:  
   
-{% highlight csharp %}
+```csharp  
 var edadMinSinEmail = (from t in db.Teachers
                         where t.Email == ""
                         select t).Min (t => t.Age);
@@ -118,12 +118,12 @@ var edadMinSinEmail = (from t in db.Teachers
 var edadMaxSinEmail = db.Teachers
     .Where (t => t.Email == "")
     .Max (t => t.Age);  
-{% endhighlight %}  
+```  
   
 ### Promedio (Average) 
 Mmm... ¿Qué tal si probamos con los promedios de edad?, podemos usar el método `Average` para obtenerlo, primero filtramos los resultados para después obtener el promedio:  
   
-{% highlight csharp %}
+```csharp  
 var promedioEdadSMail = (from t in db.Teachers
     where t.Email == ""
     select t).Average (t => t.Age);
@@ -131,7 +131,7 @@ var promedioEdadSMail = (from t in db.Teachers
 var promedioEmailCMail = db.Teachers
     .Where (t => t.Email != "")
     .Average (t => t.Age);
-{% endhighlight %}   
+```   
 
 También existe una función llamada `Aggregate` que nos da flexibilidad para integrar nuestra propia funcionalidad de agregación.
 
@@ -141,23 +141,23 @@ Otro lugar en donde metíamos un `bool`, un ciclo `for`, un condicional y proble
 ### Todos los elementos (All) 
 Podemos usar el método `All` para verificar que todos los elementos dentro del conjunto cumplen con la condición especificada, **si todos cumplen la condición**, el método nos regresará `true`. Por ejemplo, si quisiéramos saber si todos los maestros tienen más de 18 años:  
   
-{% highlight csharp %}
+```csharp  
 bool todosMayores = db.Teachers.All(teacher => teacher.Age > 18);
-{% endhighlight %}   
+```   
 
 ### Algún elemento (Any)
 Contrario a `All`, el método `Any` devolverá `true` cuando exista **al menos un elemento que cumpla con la condición** que se le pasa como argumento. Por ejemplo, si queremos saber si existe algún maestro que se llame Cosme Fulanito:  
   
-{% highlight csharp %}
+```csharp  
 bool existeCosmeFulanito = db.Teachers.Any(teacher => teacher.GivenName == "Cosme"
                             && teacher.LastName == "Fulanito");
-{% endhighlight %}   
+```   
 
 Otra de las funciones de `Any` es evitarnos el "molesto" condicional de `.Count > 0`. Porque si llamamos `Any` sin pasar ningún condicional, este nos devolverá `true` siempre que nuestra secuencia contenga algún elemento. Digamos que antes de seguir queremos saber si hay clases registradas:
   
-{% highlight csharp %}
+```csharp  
 bool hayClases = db.Lectures.Any();  
-{% endhighlight %}   
+```   
 
 ## Ordenamiento (OrderBy, orderby) 
 Con Linq también es posible ordenar nuestros conjuntos de datos. Solo hay que recordar que generalmente el ordenamiento operará solo de manera temporal y que el ordenamiento no permanecerá una vez que hemos dejado de trabajar con los datos.
@@ -166,18 +166,18 @@ Para ordenar podemos usar tanto la cláusula `orderby` y especificarle la propie
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var maestrosOrdenados1 = db.Teachers
     .OrderBy(t => t.LastName.Length);
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var maestrosOrdenados2 = 
         from t in db.Teachers
         orderby t.LastName.Length
         select t;
-{% endhighlight %}  
+```  
 </div>  
 </div> 
 
@@ -185,24 +185,24 @@ También tenemos disponible la cláusula `descending` y el método `OrderByDesce
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 .OrderByDescending(t => t.LastName.Length);
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 orderby t.LastName.Length descending
-{% endhighlight %}  
+```  
 </div>  
 </div> 
  
 ¿Pero qué ocurre cuando queremos tomar en cuenta dos propiedades para realizar el ordenamiento? pues para eso podemos usar el método `ThenBy` o `ThenByDescending` para especificar otra condición de ordenamiento.
 
-{% highlight csharp %}
+```csharp  
 var maestrosOrdenados3 = db.Teachers
     .OrderBy(t => t.LastName.Length)
     .ThenByDescending(t => t.GivenName);
-{% endhighlight %}  
+```  
   
 ## Operadores de partición  
 Los operadores de partición son especialmente útiles para paginar los resultados, estos permiten considerar (o no considerar) cierta cantidad de elementos al inicio de la secuencia que los contiene.  
@@ -210,22 +210,22 @@ Los operadores de partición son especialmente útiles para paginar los resultad
 ### Toma (Take)  
 El método `Take` recibe un entero como parámetro que especifica la cantidad de elementos que son requeridos de toda la secuencia sobre la que opera, en caso de que haya menos de los requeridos únicamente devolverá los que encontró. Por ejemplo, si quisiéramos tomar los primeros 5 maestros más jóvenes, menores de 20 años:
 
-{% highlight csharp %}
+```csharp  
 var cincoMenores20 = (from t in db.Teachers
                       where t.Age < 20
                       orderby t.Age
                       select t).Take (5);
-{% endhighlight %}  
+```  
   
 ### Salta (Skip)  
 Podríamos verlo como el contrario de `Take`, ya que `Skip` igualmente toma un entero, pero este entero indica cuántos elementos de la secuencia debe ignorar antes de comenzar a tomar en cuenta. Supongamos que necesitamos tomar todos los maestros mayores de 30 años, comenzando por los mayores, pero ignorar a los primeros 4:
 
-{% highlight csharp %}
+```csharp  
 var otrosMaestros = db.Teachers
     .Where(t=> t.Age > 30)
     .OrderByDescending(t => t.Age)
     .Skip(4);
-{% endhighlight %}  
+```  
 
 También existe un método que se llama `TakeWhile` y otro que se llama `SkipWhile`, ambos requieren de una condición sobre la que se decidirá a partir de cuándo comenzar a tomar (o dejar de ignorar) los elementos de la secuencia.  
 

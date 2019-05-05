@@ -16,48 +16,48 @@ La reflexión nos permite acceder a la información de un tipo en tiempo de ejec
 
 Sin embargo, una vez que se compila, el programa no tiene idea de los tipos de dato, métodos y demás complejidades del programa, por ejemplo, el siguiente programa no sabe que `zero` es del tipo `string`:
 
-{% highlight csharp %}
+```csharp  
 var zero = "0";
-{% endhighlight %}  
+```  
 
 No es sino hasta que empleamos la reflexión que el programa tiene acceso a esta información a través de un tipo `Type`:  
 
-{% highlight csharp %}
+```csharp  
 Type type = zero.GetType();
 Console.WriteLine(type); // System.String
-{% endhighlight %}    
+```    
 
 También se puede acceder al ensamblado al que pertenece el tipo `String`:
 
-{% highlight csharp %}
+```csharp  
 Assembly assembly = type.Assembly;
 Console.WriteLine(type.Assembly); // mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-{% endhighlight %}  
+```  
 
 Y a partir de un ensamblado podemos obtener todos sus tipos con el método `GetTypes`, en este caso, además de obteneros, también los estamos filtrando, seleccionando solo aquellos cuyo nombre comience con "Int32":
 
-{% highlight csharp %}
+```csharp  
 foreach (var ty in assembly.GetTypes()
     .Where(ty.Name.StartsWith("Int32")))
 {
     Console.WriteLine(ty);
 }
-{% endhighlight %}  
+```  
 
 Otro de las cosas que podemos hacer empleando la reflexión, es instanciar tipos de dato a partir de una instancia de `Type` y la clase `Activator`:
 
-{% highlight csharp %}
+```csharp  
 var int32Type = assembly.GetType("System.Int32");
 
 var createdInt  = Activator.CreateInstance(int32Type);
 Console.WriteLine(createdInt); // 0
-{% endhighlight %}  
+```  
 
 Como ya habíamos visto antes, mediante los <a href="../atributos-c-sharp" target="_blank">atributos en C#</a> podemos proveer a los programas de metadatos, como es la clase `Smartphone` (cuya implementación puedes <a href="https://github.com/ThatCSharpGuy/aprende-c-sharp/blob/master/Reflexion/Smartphone.cs#L10" target="_blank">encontrar aquí</a>). 
 
 El siguiente ejemplo de código obtiene todos los atributos de la propiedad `Carrier`:
 
-{% highlight csharp %}
+```csharp  
 var phone = new Smartphone();
 phone.IsLocked = true;
 phone.Carrier = "Entel";
@@ -70,7 +70,7 @@ foreach (var att in carrierProperty.GetCustomAttributes())
 {
     Console.WriteLine(att);
 }
-{% endhighlight %}  
+```  
 
 El resultado de ejecutar el código anterior es:  
 
@@ -84,21 +84,21 @@ Que son los atributos que tiene la propiedad `Carrier`.
 
 Y si queremos, podemos hacer cosas un poco más complejas. Por ejemplo, si deseamos encontrar todas las propiedades que tengan `DisplayAttribute` podemos buscarlas con <a href="../linq-en-c-sharp">Linq</a>:
 
-{% highlight csharp %}
+```csharp  
 var propertiesWithDisplayName = from prop in t.GetProperties()
                                 where prop.GetCustomAttributes<DisplayAttribute>().Any()
                                 select prop;
-{% endhighlight %} 
+``` 
 
 Para luego mostrar los valores de una manera "amigable":
 
-{% highlight csharp %}
+```csharp  
 foreach (var property in propertiesWithDisplayName)
 {
     var attr = property.GetCustomAttribute<DisplayAttribute>();
     Console.WriteLine(attr.Name + ": " + property.GetValue(phone));
 }
-{% endhighlight %}  
+```  
 
 Ejecutar el código anterior dará como resultado:
 
@@ -109,15 +109,15 @@ Bloqueado: true
 
 Ya para terminar, otra de las posiblidades que nos da la reflexión en C# es la de modificar los valores de una variable o propiedad en tiempo de ejecución con solo tener su nombre. Toma en cuenta el código siguiente, en donde se solicita al usuario ingresar el nombre de una propiedad y se busca dicha propiedad en el tipo `Smartphone`:
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine("Escribe el nombre de la propiedad a modificar:");
 var propertyName = Console.ReadLine();
 var propertyToModify = phoneType.GetProperty(propertyName);
-{% endhighlight %}  
+```  
 
 Después se verifica que la propiedad exista (el método `GetProperty` regresa `null` si no encuentra una propiedad con el nombre indicado) y si existe, solicitamos el nuevo valor para la propiedad:
 
-{% highlight csharp %}
+```csharp  
 if (propertyToModify != null)
 {
     Console.WriteLine("Escribe el valor:");
@@ -128,13 +128,13 @@ else
 {
     Console.WriteLine("La propiedad " + propertyName + " no existe");
 }
-{% endhighlight %}  
+```  
 
 Para efectuar la conversión debemso recurrir, nuevamente, a la reflexión. A través del método `SetValue` y la clase `Convert`: 
 
-{% highlight csharp %}
+```csharp  
 propertyToModify.SetValue(phone, Convert.ChangeType(value, propertyToModify.PropertyType));
-{% endhighlight %}  
+```  
 
 ## Usos de la reflexión
 Si tu trabajo es el de ser un desarrollador de aplicaciones para usuario final, tal vez no le veas mucho uso a esta poderosa característica, sin embargo, usándola se puede

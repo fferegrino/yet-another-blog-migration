@@ -57,29 +57,29 @@ Basándonos en los roles anteriores, el flujo de programación de una aplicació
 
 1. Creas las abstracciones que definen el comportamiento de los servicios. Siguiendo con el ejemplo de los alimentos, imagínate una interfaz `IAlimento`, que defina la propiedad `Nombre` o, el método `Consumir()`:  
   
-{% highlight csharp %}
+```csharp  
 
-{% endhighlight %}  
+```  
 
 
 2. Implementas dicho comportamiento para cada servicio, digamos que  tenemos los alimentos `Pizza` y `Hamburguesa`, que implementan la interfaz 
 
-{% highlight csharp %}
+```csharp  
 
-{% endhighlight %}  
+```  
 
 
 3. Creas los clientes que consumirán dichos servicios, por ejemplo, `Persona`, siempre especificando una manera de inyectar las dependencias, ya sea a través del constructor o un método.    
 
-{% highlight csharp %}
+```csharp  
 
-{% endhighlight %}  
+```  
 
 4. Se configura el inyector, el inyector es el único que tiene conocimiento sobre todas las dependencias, ya sea que usemos un framework o lo hagamos "a mano" 
 
-{% highlight csharp %}
+```csharp  
 
-{% endhighlight %}  
+```  
 
 En este proceso me parece que hay dos partes que requieren de un poco de trabajo:  
 

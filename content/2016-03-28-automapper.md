@@ -21,7 +21,7 @@ Supongamos que tenemos un servicio web que sirve para consultar información sob
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 public class BookEntity
 {
     public int Id { get; set; }
@@ -31,10 +31,10 @@ public class BookEntity
     public int Edition { get; set; }
     public AuthorEntity Author { get; set; }
 }
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 public class AuthorEntity
 {
     public int Id { get; set; }
@@ -45,7 +45,7 @@ public class AuthorEntity
 }
   
 
-{% endhighlight %}  
+```  
 </div>  
 </div>
 
@@ -53,7 +53,7 @@ Responder a la petición de un usuario con dichas clases, representaría dar má
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 public class BookModel
 {
     public string FullTitle { get; set; }
@@ -62,10 +62,10 @@ public class BookModel
     public string AuthorName { get; set; }
     public DateTime TimeSent { get; set; }
 }
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 public class AuthorModel
 {
     public string Name { get; set; }
@@ -74,18 +74,18 @@ public class AuthorModel
 }
   
   
-{% endhighlight %}  
+```  
 </div>  
 </div>
 
 Ahora bien, podríamos pensar en hacerlo manualmente:
 
-{% highlight csharp %}
+```csharp  
 var modeloAutor = new AuthorModel();
 modeloAutor.Name = entidadAutor.Name;
 modeloAutor.Age = entidadAutor.Age;
 modeloAutor.BooksCount = entidadAutor.Books != null ? entidadAutor.Books.Count : 0;
-{% endhighlight %}  
+```  
 
 Pero no es una tarea sencilla si nuestros objetos comienzan a crecer en tamaño o complejidad... y ni hablar de lo aburrido que puede llegar a ser escribir cada mapeo "a mano". 
 
@@ -97,19 +97,19 @@ AutoMapper es un mapeador objeto-objeto que "convierte" un objeto de un tipo a o
 ### Configuración
 Para comenzar a usar AutoMapper demebos configurarlo, para lo cual utilizaremos una instancia de la clase `MapperConfiguration`, a través del que configuraremos el mapeo:
 
-{% highlight csharp %}
+```csharp  
 var automappingConfiguration = new AutoMapper.MapperConfiguration(config =>
 {
     // Configurar mapeo
-{% endhighlight %}  
+```  
 
 #### Convenciones  
 
 A partir de aquí se tiene que configurar cada mapeo objeto-objeto individualmente, necesitaremos dos tipos de dato una *fuente* y un *destino*, utilizando la variable `config` y su método `CreateMap` es como se realiza la tarea. Por ejemplo, para configurar el mapeo de `AuthorEntity` (la fuente) a `AuthorModel` (el destino) basta con una sola línea:
 
-{% highlight csharp %}
+```csharp  
 config.CreateMap<AuthorEntity, AuthorModel>();
-{% endhighlight %}  
+```  
 
 Esto se debe a que para este mapeo utiliza las convenciones definidas por AutoMapper:  
   
@@ -123,14 +123,14 @@ Esto se debe a que para este mapeo utiliza las convenciones definidas por AutoMa
  
  Si tenemos unpar de objetos que requieren de un mapeo más complejo, tenemos a nuestra disposición algunos métodos adicionales, que nos ayudarán a configurar a mayor profundidad AutoMapper, toma por ejemplo las dos entidades `BookEntity` (la fuente) a `BookModel` (el destino):
  
-{% highlight csharp %}
+```csharp  
 config.CreateMap<BookEntity, BookModel>()
     .ForMember(dest => dest.AuthorName, 
         opt => opt.ResolveUsing(entity => entity.Author.Name))
     .ForMember(dest => dest.FullTitle,
         opt => opt.ResolveUsing(entity => entity.Title + " " + entity.Subtitle))
     .ForMember(dest => dest.TimeSent, opt => opt.Ignore());
-{% endhighlight %}  
+```  
  
 Veamos por partes lo que está sucediendo en el código anterior:
 
@@ -145,19 +145,19 @@ Para este ejemplo no se requiere de una configuración más compleja, sin embarg
 
 Una vez que hemos <a href="#configuracion">configurado</a> el mapeo, debemos llamar al método `CreateMapper` de la clase `MapperConfiguration`
 
-{% highlight csharp %}
+```csharp  
 var mapper = automappingConfiguration.CreateMapper();
-{% endhighlight %}  
+```  
 
 la cual nos devolverá una instancia de un objeto que implementa `IMapper`, que es a través del cual se realizará cada mapeo. Luego, con esta instancia a nuestra disposición, bastará con llamar a `Map` pasándole una instancia de la fuente (desde la que queremos mapear) y el tipo del destino (al que queremos llegar):
 
-{% highlight csharp %}
+```csharp  
 // De AuthorEntity a AuthorModel
 var modeloAutor = mapper.Map<AuthorModel>(entidadAutor);
 
 // De BookEntity a BookModel
 var modeloLibro = mapper.Map<BookModel>(bookEntity);
-{% endhighlight %}
+```
 
 Como podrás ver, podemos centralizar bastante la tarea de mapeo, y es que en tu aplicación **basta con tener una sola referencia a `IMapper`**, así que es lo normal que únicamente la asignes una vez y la reutilizes a través de una propiedad estática o un patrones de diseño de aplicaciones como DI o singleton.
 

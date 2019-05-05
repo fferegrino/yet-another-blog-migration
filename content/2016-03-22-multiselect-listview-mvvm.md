@@ -20,7 +20,7 @@ Para llevar a cabo la tarea, debemos tomar en cuenta que necesitaremos de alguna
 ### El modelo  
 Para este ejemplo vamos a mostrar una lista de Pokemons y permitiremos al usuario seleccionar varios de ellos a través de una lista, la clase de nuestro modelo es la siguiente:
 
-{% highlight csharp %}
+```csharp  
 public class Pokemon 
 {
     public int Id { get; set; }
@@ -28,18 +28,18 @@ public class Pokemon
     public double Weight { get; set; }
     public double Height { get; set; }
 }
-{% endhighlight %}  
+```  
 
 ### SelectableItemWrapper&lt;T&gt;
 Adicionalmente al modelo, también es necesario esta clase auxiliar que como el nombre lo indica, es una envoltura para nuestro modelo, la definición es la siguiente:
 
-{% highlight csharp %}
+```csharp  
 public class SelectableItemWrapper<T>
 {
     public bool IsSelected { get; set; }
     public T Item { get; set; }
 }
-{% endhighlight %}    
+```    
 
 La propiedad `IsSelected` servirá para determinar si el usuario seleccionó el ítem o no, mientras que `Item` contendrá el modelo.
 
@@ -52,10 +52,10 @@ Para la primera, donde estarán todos los Pokemon, debemos modificar un poco la 
 
 Declararemos la lista y pondremos la colección `Pokemons`, definida más adelante en el ViewModel, como la fuente de ítems:
 
-{% highlight csharp %}
+```csharp  
 var list = new ListView();
 list.SetBinding(ListView.ItemsSourceProperty, "Pokemons");
-{% endhighlight %}  
+```  
 
 Como sabemos, ahora cada uno de los elementos de la colección será una celda en la lista.
 
@@ -66,23 +66,23 @@ Es por eso que se crean tres etiquetas para mostrar la información y en este ca
 
 Tu puedes diseñar tu celda como quieras, pero es importante que dentro de ella *bindees* o ligues una propiedad booleana, como `IsToggled` o `Checked`, a la propiedad `IsSelected` de la clase `SelectableItemWrapper`. Bastará con una línea así:
 
-{% highlight csharp %}
+```csharp  
 // Important:
 sw.SetBinding(Switch.IsToggledProperty, "IsSelected");
-{% endhighlight %}  
+```  
 
 Es importante señalar que dicho *binding* está definido en la implementación de la celda y no en el código de la vista.
 
 ### Volviendo a la vista
 Ya de vuelta en la vista, podemos hacer uso de la celda en nuestra `ListView`, podemos definir los otros *bindings*:
 
-{% highlight csharp %}
+```csharp  
 var template = new DataTemplate(typeof(PokemonSelectableCell));
 template.SetBinding(PokemonSelectableCell.NameProperty, "Item.Name");
 template.SetBinding(PokemonSelectableCell.WeightProperty, "Item.Weight");
 template.SetBinding(PokemonSelectableCell.HeightProperty, "Item.Height");
 list.ItemTemplate = template;
-{% endhighlight %}  
+```  
 
 Podrás notar que la ruta del *binding* no es "directa", si no que primero nos estamos refiriendo a la propiedad `Item` y luego a las propiedades "reales" y esto es porque estamos *bindeando* un `SelectableItemWrapper<Pokemon>` y no una instancia de `Pokemon`. 
 
@@ -94,7 +94,7 @@ Para el ViewModel requeriremos dos colecciones:
  
  Sus definiciones son las siguientes:
  
- {% highlight csharp %}
+ ```csharp  
 private ObservableCollection<SelectableItemWrapper<Pokemon>> _pokemons;
 public ObservableCollection<SelectableItemWrapper<Pokemon>> Pokemons
 {
@@ -108,13 +108,13 @@ public ObservableCollection<Pokemon> SelectedPokemons
     get { return _selectedPokemons; }
     private set { _selectedPokemons = value; RaisePropertyChanged(); }
 }
-{% endhighlight %}  
+```  
 
 La primera, `Pokemons` es una `ObservableCollection` de `SelectableItemWrapper` de `Pokemon` ya que es la contiene los elementos que serán seleccionables. Mientras que la segunda es una colección como cualquier otra.
 
 Entonces, en el ViewModel podemos obtener todos los elementos seleccionados usando Linq:
 
-{% highlight csharp %}
+```csharp  
 ObservableCollection<Pokemon> GetSelectedPokemons()
 {
     var selected = Pokemons
@@ -123,11 +123,11 @@ ObservableCollection<Pokemon> GetSelectedPokemons()
         .ToList();   
     return new ObservableCollection<Pokemon>(selected);
 }
-{% endhighlight %}  
+```  
 
 Marcar o desmarcar todos los elementos como seleccionados:
 
-{% highlight csharp %}
+```csharp  
 void SelectAll(bool select)
 {
     foreach (var p in Pokemons)
@@ -135,7 +135,7 @@ void SelectAll(bool select)
         p.IsSelected = select;
     }
 }
-{% endhighlight %}  
+```  
 
 Y todo, desde el ViewModel. Recuerda, puedes <a href="https://github.com/ThatCSharpGuy/MultiPokeList" target="_blank">ver el código fuente</a>. Y también puedes ver un ejemplo de la app terminada:
 

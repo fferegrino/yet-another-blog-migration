@@ -26,7 +26,7 @@ Si decides usar el constructor que recibe un solo parámetro, se usará el compo
 
 Por ejemplo, he creado una app con Xamarin.Forms que se conecta a la <a href="https://pokeapi.co/" target="_blank">Pokéapi</a> y tanto la petición como la respuesta se muestran en la pantalla del dispositivo, para lograr dicha tarea tuve que crear un par de métodos:  
 
-{% highlight csharp %}
+```csharp  
 async Task ResponseAction(HttpResponseMessage httpResponseMessage)
 {
     string content = null;
@@ -95,22 +95,22 @@ async Task RequestAction(HttpRequestMessage httpRequestMessage)
         LabelRequest.FormattedText = fs;
     });
 }
-{% endhighlight %}   
+```   
 
 Que lo que hacen es tomar los datos y presentarlos en pantalla de una manera *amigable*. Para poner en uso estos métodos, es necesario pasárselos al constructor de la `HttpLoggingHandler`, y a su vez, pasarle la instancia del *logging handler* al `HttpClient`:  
 
-{% highlight csharp %}
+```csharp  
 var loggingHandler = new HttpLoggingHandler(new HttpClientHandler(), 
                                             RequestAction, 
                                             ResponseAction);
 var client = new HttpClient(loggingHandler);
-{% endhighlight %}  
+```  
 
 Luego, podemos seguir realizando las peticiones como siempre las hemos hecho:  
 
-{% highlight csharp %}
+```csharp  
 await client.GetStringAsync("https://pokeapi.co/api/v2/pokemon/1/");
-{% endhighlight %}  
+```  
 
 Lo cual, mostrará el siguiente resultado en pantalla:  
 
@@ -120,7 +120,7 @@ Lo cual, mostrará el siguiente resultado en pantalla:
 Es probable que quieras hacer uso de este componente para hacer logging cuando estás debuggeando, así que puedes combinarlo con <a href="https://www.nuget.org/packages/modernhttpclient/" target="_blank">modernhttpclient</a> de Paul Betts para cuando compilas tus apps para ser publicadas en producción, usualmente yo agrego unas sentencias `#if` para conseguirlo:  
 
 
-{% highlight csharp %}
+```csharp  
 HttpClient client;
 #if DEBUG
 var loggingHandler = new HttpLoggingHandler(new HttpClientHandler(), 
@@ -130,7 +130,7 @@ client = new HttpClient(loggingHandler);
 #else
 client = new HttpClient(new NativeMessageHandler());
 #endif
-{% endhighlight %}  
+```  
 
 Para instalarlo basta con instalar el <a href="https://www.nuget.org/packages/HttpLogger/" target="_blank">paquete de NuGet</a> HttpLoggingHandler.
 

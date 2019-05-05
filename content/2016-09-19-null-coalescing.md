@@ -14,30 +14,30 @@ Pese a estar desarrollando en C# desde hace tiempo, tengo que aceptar que hay al
 
 Este operador es básicamente una especie de <a href="../../tv/azucar-sintactica" target="_blank">azúcar sintáctica</a> para escribir una **asignación condicional** de tipos por referencia. En otras palabras (en código), observa las siguientes líneas:
 
-{% highlight csharp %}
+```csharp  
 string personName;
 if (inputName == null)
     personName = "no name";
 else
     personName = inputName;
 Console.WriteLine(personName);
-{% endhighlight %}  
+```  
 
 Si `inputName` es `null`, el valor de `personName` será *"no name"* para cuando el método `WriteLine`, todo eso en 4 líneas. Pero esta no es la única forma de realizar la asignación dependiendo del valor, también podríamos haber hecho uso del <a href="https://msdn.microsoft.com/en-us/library/be21c7hw(VS.94).aspx" target="_blank">operador ternario</a>:  
 
-{% highlight csharp %}
+```csharp  
 personName = inputName == null ? "no name" : inputName;
 Console.WriteLine(personName);
-{% endhighlight %}  
+```  
 
 ### Null coalescing
 
 Que producirá el mismo resultado si `inputName == null`, todo en 1 sola línea... sin embargo esta sigue sin ser la manera más corta de realizar una asignación de este tipo, la más corta se consigue a través del operador `??`, llamado **null coalescing** (o de uso combinado de NULL, en español):
 
-{% highlight csharp %}
+```csharp  
 personName = inputName ?? "no name";
 Console.WriteLine(personName);
-{% endhighlight %}  
+```  
 
 Y listo, realiza la misma acción que los dos bloques de código anteriores, pero en menor cantidad de caracteres.
 
@@ -47,9 +47,9 @@ Si aún no has inferido su funcionamiento, es el siguiente: la asignación comie
 
 Otra de sus particularidades es que permite ser *encadenado*: si colocamos un operador tras otro, se aplicará el mismo principio de buscar desde la izquierda el primer valor no nulo para ser asignado:  
 
-{% highlight csharp %}
+```csharp  
 personName = inputName ?? GetRandomName() ?? TryGetName() ?? "no name";
-{% endhighlight %}
+```
 
 Si esta misma asignación se intentara haecer con sentencias `if` o con operadores ternarios, la cantidad de código a escribir aumentaría considerablemente.
 
@@ -57,18 +57,18 @@ Si esta misma asignación se intentara haecer con sentencias `if` o con operador
 
 Uno de sus usos es junto a los <a href="../tipos-nullables-en-c-sharp">tipos nullables</a>: 
 
-{% highlight csharp %}
+```csharp  
 int? teamAPoints = null;
 int? teamBPoints = 5;
 
 var difference = (teamAPoints ?? 0) - (teamBPoints ?? 0);
 Console.WriteLine("Difference " + difference);
-{% endhighlight %}  
+```  
 
 ### Carga diferida
 También suele ser muy frecuente que este operador sea usado para implementar la *carga diferida* o <a href="https://es.wikipedia.org/wiki/Lazy_loading" target="_blank">lazy loading</a> o el patrón *singleton*:
 
-{% highlight csharp %}
+```csharp  
 private static Random _random;
 public static Random Random
 {
@@ -77,7 +77,7 @@ public static Random Random
         return _random ?? (_random = new Random(DateTime.Now.Second));
     }
 }
-{% endhighlight %}  
+```  
 
 Para la primera vez que llamemos a `Random`, se ejecutará la parte derecha de la instrucción y para llamadas subsecuentes, únicamente nos devolverá eñ valor de `_random`.
 
@@ -85,16 +85,16 @@ Para la primera vez que llamemos a `Random`, se ejecutará la parte derecha de l
 
 Es importante señalar que para que el operador funcione, los tipos a evaluar deben ser del mismo tipo (o al menos tener conversión implícita) ya que de otro modo, el compilador nos mostrará un error e impedirá la ejecución del programa. El siguiente segmento de código es inválido, ya que `personName` es una cadena y `teamAPoints` es *nullable de int*
 
-{% highlight csharp %}
+```csharp  
 var invalid = personName ?? teamAPoints;
-{% endhighlight %}  
+```  
 
 ### En C# 6  
 Las cosas buenas no acaban ahí, este operador cobra mayor relevancia cuando lo combinamos con una de las nuevas funciones de C#, <a href="../c-sharp-seis/#null-conditional-operator" target="_blank"><em>null-conditional operator</em></a> (`?.`) podemos la funcionalidad que deseamos y sin usar tantas líneas de código:
 
-{% highlight csharp %}
+```csharp  
 var randomOrNot = MainClass.Random?.Next(0, 10) ?? 0;
-{% endhighlight %}  
+```  
 
 ### Ventajas  
 Para ser honesto, aunque todo depende de quién lo mira, al operador `??` le encuentro únicamente ventajas:  

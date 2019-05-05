@@ -13,9 +13,9 @@ featured_tag: AprendeCSharp
 
 Los Workbooks son una especie de documentos "vivos" con los que puedes compilar y ejecutar código en C#. Con ellos, aprender a programar a .NET cobra un nuevo significado. Mira, por ejemplo, cómo se ve un “Hola mundo“ en ellos:
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine("Hola mundo");
-{% endhighlight %}
+```
 
 ### Interfaz
 Vamos a ver algunos elementos de la interfaz antes de adentrarnos de lleno en el tema. Estos son los controles que te encontrarás muy seguido:
@@ -32,18 +32,18 @@ Otro de los elementos con los que seguramente estarás muy familiarizado es el *
 
 También podemos declarar variables y asignarlas para el documento:
 
-{% highlight csharp %}
+```csharp  
 int entero; // declaración
 float flotante = 10f; // Asignación
 decimal x = (decimal)flotante * 3;
 decimal y = x / 6;
-{% endhighlight %}
+```
 
 ### Declaración de clases
 
 Inclusive podemos crear clases completas
 
-{% highlight csharp %}
+```csharp  
 public class Pokemon
 {
   public int Id { get; set; }
@@ -51,14 +51,14 @@ public class Pokemon
   public int Height { get; set; }
   public int Weight { get; set; }
 }
-{% endhighlight %}
+```
 
 Y luego, instanciarlas:
 
-{% highlight csharp %}
+```csharp  
 var p1 = new Pokemon();
 p1.Name = "Pikachu";
-{% endhighlight %}
+```
 
 ### NuGet
 
@@ -66,48 +66,48 @@ Oh, y también puedes insertar paquetes de *NuGet*, para hacerlo, tienes que ir 
 
 Una vez agregado el paquete aparecerán unas directivas para preprocesador que le indican al Wokbook que haremos uso de dichos paquetes:
 
-{% highlight csharp %}
+```csharp  
 #r "System.Net.Http.Primitives"
 #r "System.Net.Http.Extensions"
 #r "Newtonsoft.Json"
-{% endhighlight %}
+```
 
 A partir de entonces podemos hacer uso de estas, ¡pero hey! no olvides los `using`
 
-{% highlight csharp %}
+```csharp  
 using Newtonsoft;
 using System.Net.Http;
 using System.Net.Http.Headers;
-{% endhighlight %}
+```
 
 Ahora sí, vamos a consultar la PokéAPI. Configuramos el cliente:
 
-{% highlight csharp %}
+```csharp  
 var client = new HttpClient();
 client.BaseAddress = new Uri("http://pokeapi.co/api/v2/");
 client.DefaultRequestHeaders.Accept.Clear();
 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-{% endhighlight %}
+```
 
 Y realizamos las llamadas. ¿por qué no buscas a tu Pokémon favorito modificando la variable `pkmn`? (no olvides presionar ctrl o cmd \+ ↩︎ para ejecutar el código:
 
-{% highlight csharp %}
+```csharp  
 var pkmn = "jirachi";
 var response = await client.GetAsync("pokemon/" + pkmn);
-{% endhighlight %}
+```
 
 ¡Oh! lo olvidaba, ¿ves eso que sale debajo de nuestro código cada vez que lo ejecutamos? no es nada más que otra de las maravillas de los Workbooks, que realiza la evaluación de la última expresión y la presenta en pantalla, además de que nos da varias opciones para visualizar la información:
 
 Ahora sí, de vuelta al código:
 
-{% highlight csharp %}
+```csharp  
 if(response.IsSuccessStatusCode)
 { // ... Read the string.
 	    string result = await response.Content.ReadAsStringAsync();
         var poke = await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<Pokemon>(result);
 	    Console.WriteLine($"{poke.Id:000} {poke.Name}: H: {poke.Height} and W: {poke.Weight}");
 }
-{% endhighlight %}
+```
 
 ### ¿Cómo son los Workbooks?
 

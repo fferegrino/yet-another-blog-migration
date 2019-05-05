@@ -16,7 +16,7 @@ Seguramente ya conocerás que en C# para crear una instancia de un objeto es nec
 
 Para comenzar, a explicar los inicializadores, fíjate en la definición de la siguiente clase:
 
-{% highlight csharp %}
+```csharp  
 class Person
 {
     public Person(string name)
@@ -37,48 +37,48 @@ class Person
     public Person Mom { get; set; }
     public List<string> Abilities { get; set; }
 }
-{% endhighlight %}
+```
 
 Podemos ver que para crear una persona, es necesario llamar al constructor pasándole un nombre, y dos instancias de esa misma clase, por ejemplo:
 
-{% highlight csharp %}
+```csharp  
 var dad = new Person("Roberto");
 var mom = new Person("Carla");
-{% endhighlight %}
+```
 
 Para asignar las propiedades `Age` y `Abilities` son asignadas en instrucciones por separado y una vez que el objeto ha sido creado:
 
-{% highlight csharp %}
+```csharp  
 mom.Age = 55;
 mom.Abilities = new List<string>();
-{% endhighlight %}
+```
 
 Hasta aquí, todo normal, pero lo que permite la inicialización de objetos es hacer uso de los constructores y además de asignar "al mismo tiempo" las propiedades o campos publicos que contiene el objeto, estén o no definidos en el constructor usado. Esto significa que para la clase `Person` podemos asignar `Age` y `Abilities` dentro de la misma instrucción:
 
-{% highlight csharp %}
+```csharp  
 var son = new Person("Omar", dad, mom) 
 { 
     Age = 21, 
     Abilities = new List<string>(), 
 };
-{% endhighlight %}  
+```  
 
 Las asignaciones de cada propiedad deben estar separadas con una coma y pueden ser asignadas en la misma o diferentes líneas.
 
 En este caso, estamos empleando el constructor de la clase seguido por la asignación de propiedades dentro de las llaves `{` `}`, pero haciéndolo en una sola instrucción, en lugar de usar tres instrucciones separadas, como se haría tradicionalmente:
 
-{% highlight csharp %}
+```csharp  
 var son = new Person("Omar", dad, mom);
 son.Age = 21;
 son.Abilities = new List<string>();
-{% endhighlight %}
+```
 
 **El comportamiento no se modifica, usando el inicializador de objetos primero es construido el objeto** (usando el constructor) **y después son asignadas las propiedades** en el orden en el que están escritas dentro de las llaves.
 
 ### Anidación de inicializadores  
 Es posible anidar inicializadores, pudiendo escribir código cómo este:
 
-{% highlight csharp %}
+```csharp  
 var aunt = new Person("Claudia")
 {
     Age = 50,
@@ -92,50 +92,50 @@ var aunt = new Person("Claudia")
         }
     }
 };
-{% endhighlight %}
+```
 
 ### Inicializadores y tipos anónimos
 Como <a href="http://thatcsharpguy.com/post/anonimos-en-c-sharp/">anteriormente escribí</a>, el inicializador de objetos cobra mucha importancia cuando trabajamos con tipos anónimos, y es que esta es la única manera de trabajar con ellos:
 
-{% highlight csharp %}
+```csharp  
 var album = new { Title = "Kindred", Artist = "Passion Pit" };
 var gift = new { Item = album, To = aunt };
-{% endhighlight %}
+```
 
 ## Inicialización de colecciones  
 Al igual que con los objetos, también existe un inicializador para colecciones, la cual permite crear e insertar valores en un arreglo, lista o cualquier otra colección. Por ejemplo, si creamos una lista de cadenas, y luego añadimos cadenas en ella, normalmente el código se vería así:
 
-{% highlight csharp %}
+```csharp  
 List<string> abilities = new List<string>();
 abilities.Add("programación");
 abilities.Add("futbol");
 abilities.Add("dormir");
-{% endhighlight %}
+```
 
 Sin embargo, usando el inicializador de colecciones podemos escribir lo mismo utilizando un inicializador:
 
-{% highlight csharp %}
+```csharp  
 List<string> abilities = new List<string> { "programación", "futbol", "dormir", };
-{% endhighlight %}
+```
 
 Si, por ejemplo, estamos trabajando con un arreglo simple, podemos omitir el uso del operador `new`, y hacer esto:
 
-{% highlight csharp %}
+```csharp  
 string[] abilities = { "programación", "futbol", "dormir" };
-{% endhighlight %}
+```
 
 Además, <a href="http://thatcsharpguy.com/post/arreglos-en-c-sharp-parte-1/">como ya lo había explicado</a> en los <a href="http://thatcsharpguy.com/post/arreglos-en-c-sharp-parte-2/">posts sobre arreglos</a>, se pueden programar cosas como esta:
 
-{% highlight csharp %}
+```csharp  
 int [,] oddArray =  { { 1, 2 }, { 3, 4 }, { 5, 6 } };
-{% endhighlight %}
+```
 
 Es importante señalar que entre cada elemento de nuestra colección debe existir una `,` que las separe.
 
 ## Combinando inicializadores  
 Podemos usar esta sintaxis siempre que la creamos conveniente, por ejemplo, si deseamos crear un objeto de nuestra clase Person con habilidades establecidas desde la instanciación de la clase, podemos hacer esto:
 
-{% highlight csharp %}
+```csharp  
 var daughter = new Person("Lucille", dad, mom)
 {
     Age = 10,
@@ -145,11 +145,11 @@ var daughter = new Person("Lucille", dad, mom)
         "pintura"
     }
 }
-{% endhighlight %}
+```
 
 O, si por otro lado, queremos crear una colección de personas:
 
-{% highlight csharp %}
+```csharp  
 var classAttendance = new List<Person>
 {
     new Person("Rafa") { Age = 10},
@@ -157,7 +157,7 @@ var classAttendance = new List<Person>
     new Person("Javi") { Age = 10 },
     new Person("Dalia") { Age = 11 },
 };
-{% endhighlight %}
+```
 
 ### Un último detalle
 Si eres muy fijado, te habrás dado cuenta que hay veces en que después del último elemento o asignación en un inicializador existe una coma `,`, como en el último fragmento de código visto (`new Person("Dalia") { Age = 11 },`). Podrías pensar que es un error de sintaxis... pero no es así, y es que debido a que este es un "error" que puede ser cometido frecuentemente por los programadores cuando se borra el último elemento en una lista o un objeto, se decidió permitir que el último elemento esté seguido por la coma.

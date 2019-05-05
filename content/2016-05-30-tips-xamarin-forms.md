@@ -22,9 +22,9 @@ Me tomé la libertad de reacomodar y agrupar tips relacionados, pero quiero deja
 ## General  
 **HABILITA** la compilación de XAML si estás usándolo para tus vistas:
 
-{% highlight csharp %}
+```csharp  
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-{% endhighlight %}   
+```   
 
 **NO USES** *bindings* cuando asignaciones estáticas sean suficientes.
 
@@ -47,7 +47,7 @@ Me tomé la libertad de reacomodar y agrupar tips relacionados, pero quiero deja
 
 **TOMA EN CUENTA** las propiedades `Spacing` (`ColumnSpacing` / `RowSpacing` en `Grid`) y `Padding`. En lugar de esto:
 
-{% highlight xml %}
+```xml  
 <StackLayout>
     <ContentView Padding="10,10,10,5">
         <Label Text="1"/>
@@ -59,17 +59,17 @@ Me tomé la libertad de reacomodar y agrupar tips relacionados, pero quiero deja
         <Label Text="3"/>
     </ContentView>
 </StackLayout>
-{% endhighlight %}   
+```   
 
 Haz esto:
 
-{% highlight xml %}
+```xml  
 <StackLayout Padding="10" Spacing="5">
     <Label Text="1"/>
     <Label Text="2"/>
     <Label Text="3"/>
 </StackLayout>
-{% endhighlight %}   
+```   
 
 **PREFIERE** usar `LayoutOptions.Fill` (o `LayoutOptions.FillAndExpand`). Estos son los valores por default y la *mayoría* de las veces no deben ser modificados.
 
@@ -83,7 +83,7 @@ Haz esto:
 
 En lugar de esto:
 
-{% highlight csharp %}
+```csharp  
 var page = new ContentPage();
 var stackLayout = new StackLayout();
 var image = new Image { Source = "person.png" };
@@ -94,11 +94,11 @@ page.Content = stackLayout;
 navigationPage.Push(page);
 stackLayout.Children.Add(image);
 stackLayout.Children.Add(label);
-{% endhighlight %}  
+```  
 
 Haz esto:
 
-{% highlight csharp %}
+```csharp  
 var page = new ContentPage();
 var stackLayout = new StackLayout();
 var image = new Image { Source = "person.png" };
@@ -109,7 +109,7 @@ stackLayout.Children.Add(label);
 page.Content = stackLayout;
 
 navigationPage.Push(page);
-{% endhighlight %}  
+```  
 
 XAML ya agrega los controles en el orden *correcto*.
 

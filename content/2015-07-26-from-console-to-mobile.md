@@ -42,7 +42,7 @@ At school I was often asked to write small console apps to practice programming 
 </table>
 <p>I'll use the implementation from Dot Net Perls, which is a nice static method that we can easily call in our program. Now, in a console app we ask the user for input with <code>Console.ReadLine()</code> in this case we'd use something like this:</p> 
 
-{% highlight csharp	%}
+```csharp  
 static void Main()
 {
 	Console.WriteLine("First string:");
@@ -52,7 +52,7 @@ static void Main()
 	int distance = Compute(str1, str2);
 	Console.WriteLine("Distance: " + distance);
 }
-{% endhighlight %}
+```
 
 {% post_image sample-c-app.gif "Sample app" %}
 
@@ -117,7 +117,7 @@ static void Main()
 <h4>Adding controls</h4>
 Look at this: 
 
-{% highlight csharp	%}
+```csharp  
 // Class constructor
 public App()
 {
@@ -136,22 +136,22 @@ public App()
         }
     };
 }
-{% endhighlight %}  
+```  
 
 <p>It is easy to understand what is happening over there, <code>MainPage</code> tells the app that a <code>ContentPage</code> should be the first thing te user see. At the same time, that <code>ContentPage</code> has a <code>StackLayout</code> (as its name suggest, whatever we put in that layout will appear stacked in the order we add them to it).  The <code>Children</code> property is initialized jsut to a <code>Label</code> with an alignment rpoperty and a <code>Text</code> property set to the string "Welcome to Xamarin Forms!". We can start from here to buid our app. Erase everything inside the <code>App</code> constructor we'll write something useful:</p>
 
 <p>Start by creating a new <code>ContentPage</code>, and name it <code>xevenshteinMainPage</code>, and a new <code>StackLayout</code> and name it <code>mainLayout</code>.</p>
 
-{% highlight csharp	%}
+```csharp  
 public App()
 {
 	ContentPage xevenshteinMainPage = new ContentPage();
 	StackLayout mainLayout = new StackLayout();
-{% endhighlight %}
+```
 
 <p>Next let's create some controls, we'll create two <code>Entry</code>, three <code>Label</code> and a <code>Button</code>, we'll declare the controls outside the <code>App</code> constructor since we'll need them outside the constructor. Always try to give your controls and variables meaningful names. Add this code above the class constructor:</p>
 
-{% highlight csharp	%}
+```csharp  
 Button computeButton;
 Label firstStringLabel, secondStringLabel, computationResultLabel;
 Entry firstStringEntry, secondStringEntry;
@@ -159,11 +159,11 @@ Entry firstStringEntry, secondStringEntry;
 // Class constructor
 public App()
 {
-{% endhighlight %}
+```
 
 <p>By this point we have done a lot, but our controls aren't created yet, the following code will do so. Notice that some controls are created using property initializing, it allows us to set some properties at the time of instantiation instead of doing it later. The following code is supposed to be after the creation of the <code>mainLayout</code>.</p>
 
-{% highlight csharp	%}	
+```csharp  	
 	// ... Above is the instatiation of mainLayout
 	
     computeButton = new Button { Text = "Compute" };
@@ -172,11 +172,11 @@ public App()
     computationResultLabel = new Label { Text = "No distance calculated yet" };
     firstStringEntry = new Entry();
     secondStringEntry = new Entry();
-{% endhighlight %}
+```
 
 <p>Our controls are created now! but they don't appear on the page if we run the app. That is because we haven't told our code to show them. In the following code we tell the code to add them to the view, see how we are using the <code>Children</code> property of the <code>mainLayout</code> to add the controls in the order we want them to appear, later, we set the <code>mainLayout</code> as the content of the <code>xevenshteinMainPage</code> and a line below we also set the  <code>xevenshteinMainPage</code> as the <code>MainPage</code> for our app.</p>
 
-{% highlight csharp	%}
+```csharp  
 	// ... Above is the instatiation of secondStringEntry
 	
 	mainLayout.Children.Add(firstStringLabel);
@@ -188,13 +188,13 @@ public App()
 
     xevenshteinMainPage.Content = mainLayout;
     MainPage = xevenshteinMainPage;
-{% endhighlight %}
+```
 
 <img src="http://i.giphy.com/l41lLKZiUBR2tK2By.gif" alt="App shows controls but no behavior" />
 
 <p>By this point the controls we've created appear when running the app, when we interact with them some events get fired, it is time for us to handle an event and add behaviour to the app. In particular, we want to know when the user presses the "Compute" button, thus we must add an event handler to the click event, inside the event handler we will perform the calculation and show the result on the screen. We do so by creating a method that receives two parameters (<code>object</code> and <code>EventArgs</code>), after that using the <code>+=</code> operator we add it to the <code>Clicked</code> check out the following piece of code.</p>
 
-{% highlight csharp %}
+```csharp  
 //
 	computeButton.Clicked += ComputeButton_Clicked;
 }
@@ -206,7 +206,7 @@ void ComputeButton_Clicked (object sender, EventArgs e)
 	int distance = Xevenshtein.Algorithm.LevenshteinDistance.Compute(str1, str2);
 	computationResultLabel.Text = "Distance: " + distance;
 }
-{% endhighlight %}
+```
 
 <img src="http://i.giphy.com/3o85xmAGsOX5wlZX7W.gif" alt="App shows controls but no behavior" />
 

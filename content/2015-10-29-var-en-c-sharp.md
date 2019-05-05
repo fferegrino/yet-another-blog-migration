@@ -12,7 +12,7 @@ tags: AprendeCSharp
 featured_tag: AprendeCSharp
 
 Como programadores hay muchas ventajas que nos otorga C#, ya sea a la hora de escribir nuestros programas o a la hora de ponerlos a funcionar. En este post les voy a hablar acerca de una de las ventajas al escribir nuestros programas, pero para eso, veamos antes este código:  
-{% highlight csharp %}
+```csharp  
 var numeroElementos = 5;
 var otroNumero = 5L;
 var nombre = "Paquito";
@@ -20,7 +20,7 @@ var x = nombre + numeroElementos;
 var y = numeroElementos + otroNumero;
 var sb =  new StringBuilder();
 var buenEstudiante =  new Persona("Estudiante");
-{% endhighlight %}  
+```  
 **¿Uhhhh?** ¿entonces qué significa `var`?  
 
 ### var  
@@ -46,30 +46,30 @@ Tambén podríamos pensar que `var` funciona solo para tipos primitivos del leng
 Si bien es posible usar `var` para cualquier instanciación de una variable como en los casos anteriores, no es común usarla ya que a lo mucho nos está ahorrando algunas letras por cada variable. Sin embargo hay casos en los que su uso se vuelve bastante relevante y hasta necesario.  
 <br />
 Un caso en el que es bastánte práctico usarlo es cuando estamos trabajando con LINQ (LINQ es un tema que merece su propio post, y lo tendrá), ya que muchas veces no es tan claro el resultado de una sentencia LINQ, por lo tanto es común encontrar declaraciones como:
-{% highlight csharp %}
+```csharp  
 var listaMenores = personas.Where(p => p.Edad < 10).ToList();
 
 var listaMayores = from p in personas
 				   where p.Edad > 10
 				   select p;
-{% endhighlight %}  
+```  
 
 Un caso en el que es **completamente necesario** el uso de `var` es cuando dentro de nuestro código usamos tipos anónimos, en pocas palabras un tipo anónimo es un objeto creado "al vuelo" sin declarar una clase. Aunque estos, al igual que LINQ, merecen su propio post (que también haré).  
 
 ### Limitaciones
 El *tipado implícito* tiene algunas limitantes, una de ellas parecería ser bastante obvia, y esta es que no se puede escribir una declaración como:
-{% highlight csharp %}
+```csharp  
 var indeciso = null;
-{% endhighlight %}  
+```  
 Ya que el compilador no puede inferir el tipo de `null`, si lo intentamos obtendremos un bonito error de compilación.
 La segunda limitante es que únicamente podemos usar `var` para variables locales, es decir, únicamente dentro de la implementación de nuestros métodos. En otras palabras, no podemos hacer algo como:
-{% highlight csharp %}
+```csharp  
 class Persona 
 {
 	var Edad = 10;
 	
 	public Persona( // ...
-{% endhighlight %}  
+```  
     
 ### Desventajas
 La única gran desventaja que veo en esta caracterísitca es que si se abusa de ellos y en combinación con tipos de dato complejos podemos escribir código potencialmente inentendible, al grado que ni nosotros mismos podamos entender lo que escribimos.  

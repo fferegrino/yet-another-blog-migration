@@ -13,12 +13,12 @@ featured_tag: AprendeCSharp
 
 ¿A qué suena cuando se dice que algo es anónimo? … pues eso mismo es aplicable a los tipos anónimos en C#. En este post te voy a contar sobre ellos, pero antes comencemos por ver el siguiente fragmento de código:
 
-{% highlight csharp %}
+```csharp  
 class Student
 {
     public string Name { get; set; }
 }
-{% endhighlight %}  
+```  
 
 `Student` es un ejemplo de un tipo que **no es anónimo**, porque  pues bueno… tiene un nombre. Para usarlo basta con instanciarlo de esta manera: `var estudianteConocido = new Student() { Name = "Roberto" };` y listo.
 
@@ -26,10 +26,10 @@ class Student
 
 Ahora veamos un ejemplo de algo que **sí es anónimo** (y prepárate para leer muchas veces la palabra "anónimo"):
 
-{% highlight csharp %}
+```csharp  
 var estudianteDesconocido = new { Name = "Rigoberto" };
 var estudianteDesconocido2 = new { Nombre = "Pedro", Edad = "12" };
-{% endhighlight %}  
+```  
 
 Pareciera una declaración normal pero es importante notar que no podemos decir de qué tipo es nuestra variable `estudianteDesconocido` o `estudianteDesconocido2` puesto que son anónimos, también por eso se <a href="/post/var-en-c-sharp/">usa var para declararlo</a>.  
 
@@ -48,13 +48,13 @@ Así pues:
 
 Podemos ahorrarnos el indicar los nombres de las propiedades directamente si utilizamos variables para inicializar el tipo anónimo:
 
-{% highlight csharp %}
+```csharp  
 double x = 9.1;
 float y = 3.2;
 
 var point1 = new { x, y };
 var point2 = new { x, SuperY = y };
-{% endhighlight %}  
+```  
 
 La variable `point1` tendrá una propiedad llamada `x` de tipo double y otra llamada `y` del tipo float. Inclusive podemos combinar las formas de inicializar, en este caso `point2` tiene como propiedades `x` y `SuperY`.
 
@@ -63,27 +63,27 @@ Una de las grandes dudas que te podrían surgir es si esto no viola el hecho de 
 
 Podemos comprobarlo fácilmente. El compilador nos marcará un error si intentamos hacer algo como esto:
 
-{% highlight csharp %}
+```csharp  
 // "Teacher" no es una propiedad de estudianteDesconocido
 estudianteDesconocido.Teacher = "Andrés";
-{% endhighlight %}  
+```  
 
 O algo como esto:
 
-{% highlight csharp %}
+```csharp  
 // Son tipos diferentes
 estudianteDesconocido = estudianteDesconocido2;
-{% endhighlight %}  
+```  
 
 ### Propiedades de solo lectura  
 Las propiedades que un *anónimo* contiene son siempre de solo lectura, es decir que son solo asignables al momento de la inicialización y no podemos cambiar sus valores en otro punto del programa; esto tiene una explicación que tiene que ver con la <a href="http://blogs.msdn.com/b/sreekarc/archive/2007/04/03/immutable-the-new-anonymous-type.aspx" target="_blank">inmutabilidad de los anónimos</a>.  
 
 Explicado en código es decir que no podemos hacer algo como esto:
 
-{% highlight csharp %}
+```csharp  
 // Nay, las propiedades en un anónimo son de solo lectura
 estudianteDesconocido.Name = "Nuevo nombre";
-{% endhighlight %} 
+``` 
  
 
 ### Restricciones  
@@ -97,11 +97,11 @@ Al ser tipos derivados de `object` los tipos anónimos tienen métodos que resul
 #### ToString
 Al llamar `ToString` el resultado será una cadena que contiene todas y cada una de las propiedades que contiene así como sus valores. Por ejemplo, llamar:
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine(estudianteDesconocido);
 Console.WriteLine(estudianteDesconocido2);
 Console.WriteLine(point2);
-{% endhighlight %}  
+```  
 
 Mostrará en pantalla `{ Name = Rigoberto }`, `{ Nombre = Pedro, Edad = 12 }`, `{ x = 9.1, SuperY = 3.2 }` respectivamente.  
 
@@ -114,20 +114,20 @@ Es posible comparar los tipos anónimos contra cualquier otro tipo, sin embargo 
 
 Esto tal vez requiere un ejemplo en código, así que, considera las declaraciones de tipos anónimos siguientes:
 
-{% highlight csharp %}
+```csharp  
 var p1 = new { X = 1, Y = 0 };
 var p2 = new { X = 1, Y = 0 };
 var p3 = new { Y = 0, X = 1 };
 var p4 = new { X = 5, Y = 2 };
-{% endhighlight %}  
+```  
 
 Todas tienen propiedades con nombre similar `X` y `Y`, pero únicamente `p1` y `p2` son iguales en propiedades y en valores. `p3` y `p1` son iguales en valores pero no en orden. `p1` y `p4` son iguales en orden pero no en valores.
 
-{% highlight csharp %}		
+```csharp  		
 Console.WriteLine(p1.Equals(p2)); // True
 Console.WriteLine(p1.Equals(p3)); // False
 Console.WriteLine(p1.Equals(p4)); // False
-{% endhighlight %}  
+```  
 
 ### Uso  
 Bueno... pero ¿para qué sirven?
@@ -135,11 +135,11 @@ Bueno... pero ¿para qué sirven?
 #### LINQ  
 Los anónimos son tipos que otorgan a <a href="/post/linq-en-c-sharp/">LINQ (otra de las herramientas de C#)</a> un gran poder, y es que usandola junto con las consultas se pueden crear tipos "al vuelo" para usarlos dentro de nuestro código, este es un ejemplo sencillo de uso:
 
-{% highlight csharp %}
+```csharp  
 var olderStudents = from s in students
                     where s.Age > 10
                     select new { FullName = s.Name + " " + s.Surname, s.Age };
-{% endhighlight %}
+```
 
 #### Debuguear  
 Dada la facilidad y limpieza con la que se pueden declarar, los anónimos son comunmente usados para cuando se debugea, como recordamos, al llamar `ToString` en un anónimo, este nos mostrará una lista de sus propiedades junto con sus valores.  

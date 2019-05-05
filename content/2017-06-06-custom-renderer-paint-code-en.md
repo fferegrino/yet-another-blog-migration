@@ -61,15 +61,15 @@ Before we're done for a minute with PaintCode, select the tab at the top that ha
 
 First thing we're going to do with the code, is create a class that will be the reference for our control. In this case, I called it `SharpView` but no matter what name you chose, it must inherit from `View`:  
 
-{% highlight csharp %}
+```csharp  
 public class SharpView : View
 {
 }
-{% endhighlight %}  
+```  
 
 To it you need to add all the properties you wish, in this case we'll be adding just one (`FillColor`) as it'll be a reference to the fill color of our drawing.
 
-{% highlight csharp %}
+```csharp  
     public static readonly BindableProperty FillColorProperty =
         BindableProperty.Create(nameof(FillColor), typeof(Color), typeof(SharpView), default(Color));
 
@@ -78,17 +78,17 @@ To it you need to add all the properties you wish, in this case we'll be adding 
         get { return (Color)GetValue(FillColorProperty); }
         set { SetValue(FillColorProperty, value); }
     }
-{% endhighlight %}  
+```  
 
 Lastly, we must set a few default properties, these will improve our control appearance and they can always be overridden if we want to:
 
-{% highlight csharp %}
+```csharp  
     public SharpView()
     {
         BackgroundColor = Color.Transparent;
         HorizontalOptions = LayoutOptions.Center;
     }
-{% endhighlight %}  
+```  
 
 And we're don with the Forms project.
 
@@ -100,22 +100,22 @@ In the iOS project, we'll be creating two new classes: the "native" control and 
 
 Lets start with the native control. Create a new class that inherits from `UIView`, we're going to call it `UISharpView`:  
 
-{% highlight csharp %}
+```csharp  
 public class UISharpView : UIView
 {
 }
-{% endhighlight %}  
+```  
 
 We need to add at least one constructor that takes a `CGRect` as an argument, this argument will be passed on to the base class and our control will take its size from it:
 
-{% highlight csharp %}
+```csharp  
     public UISharpView(CGRect rect) 
         : base(rect) { }
-{% endhighlight %}  
+```  
 
 We must add a property that corresponds to the `FillColor` property in our Forms control, the name can be different, but to keep some consistency, lets name it `FillColor` too. If you see, inside this property there is a call to the `SetNeedsDisplay` method, it will force the control to be redrawn every time the property's value changes:
 
-{% highlight csharp %}
+```csharp  
     UIColor _fillColor = UIColor.FromRGB(60, 138, 63);
 
     public UIColor FillColor
@@ -123,7 +123,7 @@ We must add a property that corresponds to the `FillColor` property in our Forms
         get { return _fillColor; }
         set { _fillColor = value; SetNeedsDisplay(); }
     }
-{% endhighlight %}  
+```  
 
 Now, lets go back to PaintCode for a second, we need to retrieve the drawing's code. In the export panel make sure that "iOS > C# Xamarin" is selected:   
 
@@ -132,28 +132,28 @@ Now, lets go back to PaintCode for a second, we need to retrieve the drawing's c
 
 Once selected, copy all lines of code to this newly created class. You may need to add a couple of `using` sentences for it to compile. To finish, override the `OnDraw` method, in it call the method you've just copied from PaintCode (in this case it is called `DrawSharpCanvas`), and pass the fill color and the frame dimensions to it as parameters:
 
-{% highlight csharp %}
+```csharp  
     public override void Draw(CGRect rect)
     {
         DrawSharpCanvas(FillColor, rect.Width, rect.Height);
     }
-{% endhighlight %}  
+```  
 
 ### *Custom renderer*
 
 Now it's the time to implement the *custom renderer*. First off, lets create a new class that inherits from `ViewRenderer<TAbstraction, TNative>`, I'll be calling it `SharpViewRenderer` and it'll have the Forms class as `TAbstraction` and `UISharpView` as `TNative`. Don't forget the `ExportRenderer` attribute:  
 
-{% highlight csharp %}
+```csharp  
 [assembly: ExportRenderer(typeof(SharpView), typeof(SharpViewRenderer))]
 namespace SharpPaintCode.iOS.Controls
 {
     public class SharpViewRenderer : ViewRenderer<SharpView, UISharpView>
     {
-{% endhighlight %}  
+```  
 
 Inside it, lets create an instance of `UISharpView` and set it as the element that is to be shown on screen, this is done by overriding the `OnElementChanged` method. We'll take the size from the `WidthRequest` and `HeightRequest` `Element`s properties. For the fill color, we'll also use the `FillColor`:
 
-{% highlight csharp %}
+```csharp  
     protected override void OnElementChanged(ElementChangedEventArgs<SharpView> e)
     {
         base.OnElementChanged(e);
@@ -169,11 +169,11 @@ Inside it, lets create an instance of `UISharpView` and set it as the element th
             }
         }
     }
-{% endhighlight %}  
+```  
 
 Finally, we need to add a way to modify the `FillColor` of the native control when we modify it from the Forms project. To do that, inside the *renderer* we must override the `OnElementPropertyChanged` and inside it we we'll change the native fill color property:
 
-{% highlight csharp %}
+```csharp  
     protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if(e.PropertyName.Equals(nameof(SharpView.FillColor)))
@@ -181,7 +181,7 @@ Finally, we need to add a way to modify the `FillColor` of the native control wh
         else
             base.OnElementPropertyChanged(sender, e);
     }
-{% endhighlight %}  
+```  
 
 And that's all about the iOS project.
 
@@ -193,23 +193,23 @@ Similarly, in this project we'll have to create a "native" view and a *renderer.
 
 In Android we'll create our native control class, following the good practices of the Android platform, we'll call it `SharpView`, in this case it has to inherit from `View`, just make sure it inherits from `Android.Views.View` and not from `Xamarin.Forms.View`:
 
-{% highlight csharp %}
+```csharp  
 public class SharpView : View
 {
 }
-{% endhighlight %}  
+```  
 
 This class must have at least one constructor that takes a `Context` instance, this instance will be passed on to the base class:
 
-{% highlight csharp %}
+```csharp  
     public SharpView(Context context) : base(context)
     {
     }
-{% endhighlight %}  
+```  
 
 Now, in this case we need to add a new property, `FillColor` so that we can set the drawing's fill color, you should note that inside this property the method `Invalidate` gets called, this method will force our control to be redrawn: 
 
-{% highlight csharp %}
+```csharp  
     public Color _fillColor = Color.Argb(255, 60, 138, 63);
     public Color FillColor
     {
@@ -220,7 +220,7 @@ Now, in this case we need to add a new property, `FillColor` so that we can set 
             Invalidate();
         }
     }
-{% endhighlight %}  
+```  
 
 Now, again, pay attention to this following step: PaintCode doesn't support Xamarin.Android yet, but for us it makes no difference as Java and Xamarin's C# are similar enough to translate it ourselves. To star, open again PaintCode and make sure "Android > Java" is selected in the export code panel:   
 
@@ -248,12 +248,12 @@ canvas.drawPath(sharpSymbolPath, paint);    →   canvas.DrawPath(sharpSymbolPat
 
 Once the code compiles again, inside the native control, we need to override the `OnDraw` method to set it to use the `DrawSharpCanvas` we added inside the `SharpKit` class, pass the color and dimensions of your control to it:  
 
-{% highlight csharp %}
+```csharp  
     protected override void OnDraw(Canvas canvas)
     {
         SharpKit.DrawSharpCanvas(canvas, _fillColor.ToArgb(), Width, Height);
     }
-{% endhighlight %}  
+```  
 
 Now, lets add the *custom renderer*.
 
@@ -261,7 +261,7 @@ Now, lets add the *custom renderer*.
 
 Again, inside the Android project we need to add a new class that inherits from `ViewRenderer<TAbstraction, TNative>`, lets get creative and name it `SharpViewRenderer`, it'll have `SharpView` (from the central project) as `TAbstraction` and `SharpView` (from the Android project) as `TNative`, for this singular case, we'll use aliases to not confuse the controls:  
 
-{% highlight csharp %}
+```csharp  
 using FormsSharpView = SharpPaintCode.Controls.SharpView;
 using NativeSharpView = SharpPaintCode.Droid.Controls.Native.SharpView;
 
@@ -270,11 +270,11 @@ namespace SharpPaintCode.Droid.Controls
 {
     public class SharpViewRenderer : ViewRenderer<FormsSharpView, NativeSharpView>
     {
-{% endhighlight %}  
+```  
 
 The next step is to create an instance of `NativeSharpView` and set it as the on-screen control for our custom control. For it to happen, override the `OnElementChanged` and create such instance, pass to it the `Context` property and set the `FillColor` from the beginning:  
 
-{% highlight csharp %}
+```csharp  
     protected override void OnElementChanged(ElementChangedEventArgs<FormsSharpView> e)
     {
         base.OnElementChanged(e);
@@ -289,11 +289,11 @@ The next step is to create an instance of `NativeSharpView` and set it as the on
             }
         }
     }
-{% endhighlight %}  
+```  
 
 We need also a way to modify the native's `FillColor` from our Forms control, and to do it, override the `OnElementPropertyChanged`, inside it, change the property if the property being changed is called `FillColor`:
 
-{% highlight csharp %}
+```csharp  
     protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName.Equals(nameof(FormsSharpView.FillColor)))
@@ -305,7 +305,7 @@ We need also a way to modify the native's `FillColor` from our Forms control, an
             base.OnElementPropertyChanged(sender, e);
         }
     }
-{% endhighlight %}  
+```  
 
 And, that's it for our custom control.  
 

@@ -78,7 +78,7 @@ Es sencillo como puedes ver, las partes esenciales son:
 
 Reemplaza los valores como desees, y no olvides poner tu código dentro de `<![CDATA[` y `]]>`, mira, este es el que yo he creado: 
 
-{% highlight xml %}
+```xml  
 <CodeSnippet Format="1.0.0">
     <Header>
         <Title>I love C# snippet</Title>
@@ -92,7 +92,7 @@ Reemplaza los valores como desees, y no olvides poner tu código dentro de `<![C
         </Code>
     </Snippet>
 </CodeSnippet>
-{% endhighlight %}
+```
 
 Es hora de copiarlo en el directorio desde el que serán cargados e iniciar Visual Studio (hasta el día de hoy sigue siendo necesario reiniciar el IDE cada vez que cambiamos un *snippet*).
 
@@ -104,7 +104,7 @@ Vamos a crear algo un poco más complejo, algo que permita reemplazar valores de
 
 Lo importante es añadir un hijo llamado `Declarations` como hijo de `Snippet`. Dentro de `Declarations` es donde debemos definir los reemplazos que vamos a necesitar. Existen dos tipos de reemplazos `Literal` y `Object`, por ahora vamos a quedarnos solo con `Literal`, así que añade un elemento d este tipo dentro de `Declarations`, a su vez, `Literal` debe tener como hijos los elementos `ID` y `Default`. Suena bastante complicado... y por eso pongo un ejemplo de lo que digo:  
 
-{% highlight xml %}
+```xml  
 <CodeSnippet Format="1.0.0">
     <Header>
         <Title>I love ?? snippet</Title>
@@ -124,7 +124,7 @@ Lo importante es añadir un hijo llamado `Declarations` como hijo de `Snippet`. 
         </Code>
     </Snippet>
 </CodeSnippet>
-{% endhighlight %}
+```
   
 Como puedes ver, dentro del código del fragmento está el `ID` que puse dentro de la declaración del reemplazo, la novedad es que el ID está delimitado por `$` lo cual indica que es un valor que será reemplazado.  
 

@@ -29,15 +29,15 @@ Podemos ver esta estructura como una especie de caja para nuestros tipos por val
 
 #### Trabajando con Nullable&lt;T&gt;  
 La sintaxis de estos tipos no es muy complicada, y es que además de la declaración convencional:  
-{% highlight csharp %}
+```csharp  
 Nullable<int> enteroNullable = null;
 Nullable<double> puedeValerNull = 9.9;
-{% endhighlight %}
+```
 También podemos usar el símbolo (<code>?</code>) en la declaración de la variable para indicar que se trata de un tipo nullable:  
-{% highlight csharp %}
+```csharp  
 int? enteroNullable = null;
 double? puedeValerNull = 9.9;
-{% endhighlight %}
+```
 Aunque en este punto debemos ser cuidadosos, ya que la sintaxis es un poco confusa, ya sabemos, <code>Nullable</code> es una estructura y las estructuras no pueden tener un valor `null`...  ¿entonces qué sucede al momento de asignar un valor a `enteroNullable` en  el código anterior?  
 Como dije anteriormente, los tipos nullables son como una caja, al asignarle <code>null</code> estamos creando una caja que puede contener un <code>int</code> pero que al momento estamos dejando vacía. Podemos entonces trabajar con nuestra variable:  
 
@@ -46,18 +46,18 @@ Como dije anteriormente, los tipos nullables son como una caja, al asignarle <co
 
 ##### Obteniendo un el valor (o una excepción)  
 Para obtener el valor contenido dentro de un *nullable*, tenemos a nuestra disposición la propiedad <code>Value</code>, que debemos usar con cuidado, puesto que en caso de que el *nullable* no tenga un valor asignado, lanzará una exepción del tipo `InvalidOperationException`. 
-{% highlight csharp %}
+```csharp  
 enteroNullable = null;
 // int enteroExcepcional = enteroNullable.Value; 
 // Este código lanza una excepcion ^
 
 enteroNullable = 5;
 int sinExcepciones = enteroNullable.Value;
-{% endhighlight %}    
+```    
 
 ##### Comprobando si tiene un valor  
 Si lo que queremos es evitarnos manejar exepciones, conocer si nuestra variable tiene un valor asignado con la propiedad `HasValue` 
-{% highlight csharp %}
+```csharp  
 if(enteroNullable.HasValue)
 {
 	Console.WriteLine("La caja está llena");
@@ -66,7 +66,7 @@ else
 {
 	Console.WriteLine("La caja está vacía :(");
 }
-{% endhighlight %}    
+```    
   
 ##### Obteniendo un valor por default  
 Si lo que de verdad nos interesa es obtener un valor de nuestra variable, podemos usar `GetValueOrDefaut`, que es un método que podemos usar para asegurarnos que no nos encontraremos con una exepción al consultar el valor. Lo que nos devolverá el método es:  
@@ -74,7 +74,7 @@ Si lo que de verdad nos interesa es obtener un valor de nuestra variable, podemo
  - El valor contenido dentro del *nullable*, si tiene alguno
  - El valor por default del tipo de nuestro *nullable*, si este no tiene alguno o el valor que usemos como parámetro en nuestro método `GetValueOrDefaut`.
  
-{% highlight csharp %}
+```csharp  
 enteroNullable = null;
 
 int defaultValue = enteroNullable.GetValueOrDefault();
@@ -86,7 +86,7 @@ int noTanDefaultValue = enteroNullable.GetValueOrDefault(8);
 enteroNullable = 100; // Le asignamos un valor a la variable
 int realValue = enteroNullable.GetValueOrDefault();
 // realValue == 100
-{% endhighlight %}      
+```      
   
 <br />
 Ahora sí: en futuros post seguré explorando algunos detalles escenciales de C#, como arreglos, métodos y clases.

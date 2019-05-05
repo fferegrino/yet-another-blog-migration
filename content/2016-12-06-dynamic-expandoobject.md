@@ -17,19 +17,19 @@ Como sabrás, un lenguaje fuertemente tipado requiere que los tipos de las varia
 
 En C# creamos un tipo de dato "débilmente tipado" con la palabra reservada `dynamic`, lo cual le indica al compilador que no debe preocuparse por esa variable. Por ejemplo:
 
-{% highlight csharp %}
+```csharp  
 dynamic entero = 0;
 dynamic cadena = "Hola";
 dynamic cadena2 = "mundo";
-{% endhighlight %}  
+```  
 
 Nosotros podemos inferir que `entero` es del tipo `int`, y que `cadena` y `cadena2` son *strings*, sin embargo, para nuestro compilador esto es desconocido ya que como son `dynamic` esto solo se resolverá hasta que el programa se esté ejecutando.  
 
 Es por eso que al llamar al método *inexistente* `Abcdefg` dentro de la clase Int32, el compilador no genera ningun error: 
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine(entero.Abcdefg()); // RuntimeException
-{% endhighlight %}
+```
 
 Sin embargo, si ejecutamos esa línea obtendremos una excepción, indicandonos que dicho método no existe dentro de ese objeto.  
 
@@ -37,54 +37,54 @@ Sin embargo, si ejecutamos esa línea obtendremos una excepción, indicandonos q
 
 Puedes comprobar que todos tienen un tipo de dato asociado si llamas al método `GetType` sobre los tipos de dato dinámicos:
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine(entero.GetType()); // Imprime "System.Int32"
 Console.WriteLine(cadena.GetType()); // Imprime "System.String"
-{% endhighlight %}  
+```  
 
 ## Compatibilidad con otros tipos de dato  
 Estos tipos de dato son compatibles con otros... en tanto los tipos que "ocultan" sean compatibles, por ejemplo, podemos concatenarlos, confiando en que todos tendrá una implementación del método `ToString`:
 
-{% highlight csharp %}
+```csharp  
 string holaMundo = cadena + " " + cadena2+ " " + entero;
 Console.WriteLine(holaMundo); // Imprime "Hola mundo 0"
-{% endhighlight %}
+```
 
 ## Mutabilidad 
 Las variables *dinámicas* pueden cambiar completamente su contenido sin causar ningún problema, por ejemplo, podemos convertir `entero` en una instancia de `MainClass`:
 
-{% highlight csharp %}
+```csharp  
 entero = new MainClass();
 Console.WriteLine(entero.GetType()); // Imprime "Dynamics.MainClass"
-{% endhighlight %}  
+```  
 
 ## ExpandoObject para crear tipos dinámicos
 Nosotros también podemos crear tipos dinámicos haciendo uso de la clase `ExpandoObject` que es una clase "especial" que nos ofrece el framework. Es importante que lo declares como `dynamic` ya que de no hacerlo, el compilador lo tratará como fuertemente tipado
 
-{% highlight csharp %}
+```csharp  
 dynamic expando = new ExpandoObject();
 //ExpandoObject expando = new ExpandoObject(); // Esto lo convierte en fuertemente tipado
 Console.WriteLine(expando.GetType());  
-{% endhighlight %}  
+```  
 
 A partir de ahí podemos asignar propiedades de acuerdo a nuestras necesidades:  
 
-{% highlight csharp %}
+```csharp  
 expando.Clase = entero;
 expando.HolaMundo = holaMundo;
 expando.expando = expando;
-{% endhighlight %}  
+```  
 
 Al ser un tipo de dato en C# también se pueden usar como argumentos para un método o como tipos de retorno, por ejemplo, el siguiente:  
 
-{% highlight csharp %}
+```csharp  
 private static void WorkWithDynamic(dynamic d)
 {
   Console.WriteLine(d.Clase + " : " + d.Clase.GetType());
   Console.WriteLine(d.HolaMundo + " : " + d.HolaMundo.GetType());
   Console.WriteLine(d.expando + " : " + d.expando.GetType());
 }
-{% endhighlight %}  
+```  
 
 Entonces al llamar a `WorkWithDynamic(expando);`, obtendremos:
 
@@ -100,19 +100,19 @@ Como ya te imaginarás esto puede traer muchas ventajas pero a la vez muchos dol
 ### En servicios web
 Hay ocasiones en las que crear una clase para consumir un servicio web puede ser excesivo, este es otro de los usos que le podemos dar a los tipos dinámicos. Por ejemplo, si consultamos la PokéAPI, y usamos Newtonsoft.Json, podemos usar un tipo dinámico para acceder a sus propiedades: 
 
-{% highlight csharp %}
+```csharp  
 dynamic item = Newtonsoft.Json.JsonConvert.DeserializeObject(responseString);
-{% endhighlight %}  
+```  
 
 Ahora en `item` tendremos una versión de la respuesta en *json* pero en .NET, solo que el compilador no sabe. No es sino hasta que se ejecuta que podemos acceder a las propiedades. Si te fijas bien, los nombres son idénticos a lo que regresa la API:
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine("Names for " + item.name + " (datatype " + item.GetType() + ")");
 foreach (var name in item.names)
 {
   Console.WriteLine("\t" + name.language.name + ": " + name.name);
 }
-{% endhighlight %}  
+```  
 
 Obtendremos la siguiente respuesta:  
 

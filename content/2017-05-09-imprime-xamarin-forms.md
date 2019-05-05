@@ -20,7 +20,7 @@ Si ya has generado reportes desde cualquier otra plataforma sabes que una de las
 
 En esta aplicación demo (<a href="https://github.com/ThatCSharpGuy/formsprinting" target="_blank">que puedes obtener en GitHub</a>) te permite añadir productos y generar después un ticket de compra. Para ello cree dos clases `Orden` y `Producto`, a lo cual llamaremos el Modelo.
 
-{% highlight csharp %}
+```csharp  
 public class Orden
 {
     public int IdOrden { get; set; }
@@ -34,7 +34,7 @@ public class Producto
     public string Nombre { get; set; }
     public double Total { get; set; }
 }
-{% endhighlight %}  
+```  
 
 
 ## Template  
@@ -49,15 +49,15 @@ Esto creará un archivo `.cshtml` el cual debemos tratar como cualquier otro arc
 
 Usualmente las plantillas Razor tienen asociada una clase de la cual se toman los datos para ser mostrados. En la primera (después de la declaración de los `using`) línea, se debe especificar cuál es esta clase. Esto se realiza mediante la instrucción `@model`:  
 
-{% highlight csharp %}
+```csharp  
 @model Ticket
-{% endhighlight %}  
+```  
 
 #### Es un documento normal  
 
 Al seguir siendo un documento `html` no olvides especificar los *tags* *html*, *head* y demás. Oh, y también nota la especificación de la etiquieta *link*, esto lo veremos más adelante:
 
-{% highlight xml %}
+```xml  
 <!DOCTYPE html>  
 <html lang="en">  
     <head>
@@ -67,7 +67,7 @@ Al seguir siendo un documento `html` no olvides especificar los *tags* *html*, *
         <!-- contenido -->
     </body>
 </html>  
-{% endhighlight %}  
+```  
 
 #### El contenido  
 
@@ -75,7 +75,7 @@ Ahora sí, vamos a crear el contenido. En este punto hay algo que debes comprend
 
 Para acceder a los valores del modelo vamos a hacer uso de la propiedad `Model` del template, para hacer referencia a esta propiedad debemos anteponer el símbolo `@` (nota también la etiqueta *img*):  
 
-{% highlight xml %}
+```xml  
 		<table class="header">
 			<tr>
 				<td>
@@ -85,11 +85,11 @@ Para acceder a los valores del modelo vamos a hacer uso de la propiedad `Model` 
 				<td><img src="logo.png" width="100px"></td>
 			</tr>
 		</table>
-{% endhighlight %}  
+```  
 
 Las plantillas Razor también permiten usar sentencias de control como `foreach` para darle forma al documento:  
 
-{% highlight csharp %}
+```csharp  
 		<table>
 			<thead>
 				<tr>
@@ -111,7 +111,7 @@ Las plantillas Razor también permiten usar sentencias de control como `foreach`
 				</tr>
 			</tfoot>
 		</table>
-{% endhighlight %}  
+```  
 
 Hasta aquí llega la creación de la plantilla, ahora vamos a ver cómo se usa.
 
@@ -119,7 +119,7 @@ Hasta aquí llega la creación de la plantilla, ahora vamos a ver cómo se usa.
 
 Para hacer uso de la plantilla hay que crear in objeto de la clase asociada (en este caso es `TicketTemplate`), establecer su propiedad `Model` a una instancia del modelo que vamos a asociar con ella. Después, con el método `GenerateString` provocamos que se genere la plantilla y obtengamos una cadena de ella.  
 
-{% highlight csharp %}
+```csharp  
 var order = new Orden()
 {
     // Propiedades
@@ -129,19 +129,19 @@ var template = new TicketTemplate();
 template.Model = ticket;
 
 var rendered = template.GenerateString();
-{% endhighlight %}  
+```  
 
 La cadena `rendered` contiene el html de la plantilla, pero que ya contiene la información del modelo asociado. El siguiente paso es ayudarnos de la clase `HtmlWebViewSource` y del `WebView`. 
 
 La clase `HtmlWebViewSource` permite establecer la fuente de datos de un `WebView` a una cadena que contiene el código que debe mostrarse dentro de él, así que si quieres mostrar una previsualización de tu documento, mostrar el `WebView` es una buena idea.
 
-{% highlight csharp %}
+```csharp  
 var htmlSource = new HtmlWebViewSource();
 htmlSource.Html = rendered;
 
 var browser = new WebView();
 browser.Source = htmlSource;
-{% endhighlight %}  
+```  
 
 ## Enviando la impresión  
 
@@ -149,18 +149,18 @@ Enviar la impresión al dispositivo conectado es una tarea que es distinta para 
 
 Comenzamos por crear la interfaz `IPrinter`, que contará con un único método que recibirá el `WebView` que contiene nuestra plantilla generada:  
 
-{% highlight csharp %}
+```csharp  
 public interface IPrintService
 {
     void Print(WebView viewToPrint);
 }
-{% endhighlight %}  
+```  
 
 ### En iOS 
 
 La implementación de iOS consiste en tomar el `WebView` que recibe y obtener el control nativo (UIWebView). De ahí, obtener una instancia de `PrintInfo`, y es aquí en donde puedes configurar la impresión: tipo de colores, impresión a dos lados, etcétera. Por último, debes obtener la instancia compartida de  `PrintController`, la cual se debe presentar al usuario.
 
-{% highlight csharp %}
+```csharp  
 public class IosPrinter : IPrinter
 {
     public void Print(WebView viewToPrint)
@@ -179,13 +179,13 @@ public class IosPrinter : IPrinter
         printController.Present(true, (printInteractionController, completed, error) => { });
     }
 }
-{% endhighlight %}  
+```  
 
 ### En Android  
 
 En Android también hay que obtener la vista nativa (se llama `WebView` también, pero usé un <a href="http://thatcsharpguy.com/post/creando-propios-alias/" target="_blank">alias</a> para renombrarlo a `DroidWebView`). Luego hay que obtener un `PrintDocumentAdapter`, puedes escribir el tuyo propio para establecer las propiedades de la impresión... pero por ahora usaremos el que nos da por default el `WebView` nativo.  Después hay que obtener el servicio de `PrintManager` y finalmente solicitar la impresión.
 
-{% highlight csharp %}
+```csharp  
 public class DroidPrinter
 {
     public void Print(WebView viewToPrint)
@@ -204,16 +204,16 @@ public class DroidPrinter
         }
     }
 }
-{% endhighlight %}  
+```  
 
 ### En el proyecto de Forms  
 
 Para ejecutarlo en el proyecto de Forms basta con obtener una referencia del servicio de dependencias y llamar al método `Print`:  
 
-{% highlight csharp %}
+```csharp  
 var printService = DependencyService.Get<IPrinter>();
 printService.Print(browser);
-{% endhighlight %}  
+```  
 
 ## Para terminar  
 

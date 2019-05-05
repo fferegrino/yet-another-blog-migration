@@ -24,7 +24,7 @@ Las expresiones permiten inspeccionar el código que forma determinada expresió
 
 Los tipos `Expression` fueron creados con la intención de ser usados <a href="..\func-y-action-en-c-sharp">con delegados</a>, así que para comenzar a usarlos es necesario especificar qué tipo de delegado está esperando la expresión. Por ahora nosotros vamos a crear un método que inspeccione una expresión lambda que recibe un entero como argumento y devuelve un valor booleano:  
 
-{% highlight csharp %}
+```csharp  
 void Inspecciona(Expression<Func<int, bool>> expression)
 {
     Console.WriteLine("== Examinando \"" + expression + "\" ==");
@@ -48,7 +48,7 @@ void Inspecciona(Expression<Func<int, bool>> expression)
         return;
     }
 }
-{% endhighlight %}  
+```  
 
 Lo sé, en el código de arriba ocurren muchas cosas, vamos a ver las más importantes:  
 
@@ -60,18 +60,18 @@ Lo sé, en el código de arriba ocurren muchas cosas, vamos a ver las más impor
 ### Árboles de expresiones  
 En este punto es cuando surgen los árboles de expresiones, si te das cuenta, podemos ir formando un árbol a partir de una expresión lambda, para tratar de demostrar este punto, mira los siguientes ejemplos: 
 
-{% highlight csharp %}
+```csharp  
 Inspecciona((a) => true);
 // Resultado:
 //== Examinando "a => True" ==
 //Expresión: Lambda
 //El cuerpo de la expresión es constante
 //	Valor: True
-{% endhighlight %}  
+```  
 
 {% post_image constant.png "Constant expression" %}
 
-{% highlight csharp %}
+```csharp  
 Inspecciona((a) => a % 2 == 0);
 // Resultado:
 //== Examinando "a => ((a % 2) == 0)" ==
@@ -80,11 +80,11 @@ Inspecciona((a) => a % 2 == 0);
 //Sus componentes son:
 //	Left: (a % 2) (Modulo)
 //	Right: 0 (Constant)
-{% endhighlight %}  
+```  
 
 {% post_image binarysimple.png "Simple binary expresion" %}
 
-{% highlight csharp %}
+```csharp  
 Inspecciona((a) => a % 5 == 0 && Math.Pow(a, 2) % 3 == 0);
 // Resultado:
 //== Examinando "a => (((a % 5) == 0) AndAlso ((Pow(Convert(a, Double), 2) % 3) == 0))" ==
@@ -93,7 +93,7 @@ Inspecciona((a) => a % 5 == 0 && Math.Pow(a, 2) % 3 == 0);
 //Sus componentes son:
 //	Left: ((a % 5) == 0) (Equal)
 //	Right: ((Pow(Convert(a, Double), 2) % 3) == 0) (Equal)
-{% endhighlight %}  
+```  
 
 {% post_image binarycomplex.png "Complex binary expresion" %}  
 
@@ -110,7 +110,7 @@ En cierto sentido podrías ver a una `Expression<TDelegate>` como un bloque de c
 ### Cuidado  
 Para finalizar el post quisiera hacer un servicio público a la comunidad que trabaja con Entity Framework o LINQ to SQL. Y es que, cuando trabajamos escribiendo código, a veces nos agrada facilitarnos la vida reusando código como en el siguiente ejemplo:  
 
-{% highlight csharp %}
+```csharp  
 // Filtro:
 private bool ClienteAprobado(ClubUser user)
 {
@@ -119,13 +119,13 @@ private bool ClienteAprobado(ClubUser user)
 
 // Uso de filtro:
 var usuariosAprobados = _context.Users.Where(ClienteAprobado);
-{% endhighlight %}  
+```  
 
 El enorme error del ejemplo anterior es que no está haciendo gran uso delos mecanismos que nos ofrece EF o L2S, sino que está cargando todos los registros a memoria y realizando el filtrado sobre los objetos, lo cual puede resultar muy costoso. Esto sucede porque el método que estamos empleando como filtro no se puede convertir a una `Expression` examinable, es solo un método.
 
 La solución es simple y nos permitirá seguir reusando el código. Bastará con modificar el método que usamos como filtro para que devuelva una `Expression`:  
 
-{% highlight csharp %}
+```csharp  
 // Filtro:
 private Expression<Func<ClubUser, bool>> ClienteAprobado()
 {
@@ -134,6 +134,6 @@ private Expression<Func<ClubUser, bool>> ClienteAprobado()
 
 // Uso de filtro:
 var usuariosAprobados = _context.Users.Where(ClienteAprobado());
-{% endhighlight %} 
+``` 
 
 Y listo, ahora si estaremos usando al máximo los beneficios de los frameworks :)

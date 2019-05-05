@@ -16,15 +16,15 @@ Uno de los lugares en donde las excepciones están a la orden del día es cuando
 
 Por poner un ejemplo, imagina que quieres *convertir* un `string` a un `int`. Normalmente usarías el método `Parse` de la clase `int`:
 
-{% highlight csharp %}
+```csharp  
 var valor = int.Parse("0");
-{% endhighlight %}  
+```  
 
 Pero si revisas la <a href="https://msdn.microsoft.com/es-es/library/b3h1hf19(v=vs.110).aspx#Anchor_1" target="_blank">documentación</a> del método, verás que este puede lanzar 3 excepciones, entonces, para preparar nuestro programa, debemos manejarlas de alguna manera.
 
 Para este post considera el siguiente arreglo de cadenas: 
 
-{% highlight csharp %}
+```csharp  
 var values = new[]
 {
     "1",
@@ -35,11 +35,11 @@ var values = new[]
     "2147483647",
     "0.1"
 };
-{% endhighlight %}  
+```  
 
 Y para intentar procesarlas emplearemos un ciclo `foreach`, usando `Parse` para tratar de convertir y capturando las excepciones según sea el caso:
 
-{% highlight csharp %}
+```csharp  
 foreach (var value in values)
 {
     var intValue = -1;
@@ -62,7 +62,7 @@ foreach (var value in values)
                             " (El valor es más grande que un entero)");
     }
 }
-{% endhighlight %}  
+```  
 
 El resultado de ejecutar el código anterior es el siguiente:  
 
@@ -78,7 +78,7 @@ Cadena "0.1" resultado: -1 (Error de formato)
 
 Sin embargo, habrá ocasiones en que no nos interese saber qué excepción ocurrió, entonces podrías usar un `catch` sin especificar la excepción:
 
-{% highlight csharp %}
+```csharp  
 foreach (var value in values)
 {
     var intValue = -1;
@@ -92,7 +92,7 @@ foreach (var value in values)
         Console.WriteLine("Cadena \"" + value + "\" resultado: " + intValue + " (Ocurrió un error)");
     }
 }
-{% endhighlight %}  
+```  
 
 El resultado de ejecutar el código es este:  
 
@@ -109,7 +109,7 @@ Cadena "0.1" resultado: -1 (Ocurrió un error)
 ## TryCatch  
 Pero, en realidad no es necesario que captures una excepción en el caso de `Parse`, hay muchas clases que ofrecen una opción "segura" de convertir un tipo de dato en otro. Para esto podemos usar los métodos `Try...`, como `TryParse` en el caso de `int`:
 
-{% highlight csharp %}
+```csharp  
 foreach (var value in values)
 {
     int intValue;
@@ -118,7 +118,7 @@ foreach (var value in values)
     else
         Console.WriteLine("Cadena \"" + value + "\" resultado: " + intValue + " (Ocurrió un error)");
 }
-{% endhighlight %}  
+```  
 
 El resultado es el siguiente:
 

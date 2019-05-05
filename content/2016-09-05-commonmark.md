@@ -31,11 +31,11 @@ Visita el post del [blog](http://thatcsharpguy.com/post/commonmark) para **saber
 ### Convert (Strings)
 Si lo único que quieres es convertir En realidad la api de CommonMark es una de las más sencillas, el siguiente bloque de código convierte una cadena de texto (Markdown) en otra cadena de texto (HTML):
 
-{% highlight csharp %}
+```csharp  
 var file = File.ReadAllText("input.md");
 var exp = CommonMark.CommonMarkConverter.Convert(file);
 Console.WriteLine(exp);
-{% endhighlight %}  
+```  
 
 El resultado:  
 
@@ -47,13 +47,13 @@ El resultado:
 ### Convert (Streams)
 Habrá ocasiones en las que necesitemos convertir archivos completos y hacerlo usando *streams* de datos, para esto, el método `Convert` tiene otra sobrecarga que permite realizar esta tarea. Previamente necesitamos abrir los flujos de datos (yo recomiendo hacerlo con <a href="../usos-using-2">el bloque using</a>):
 
-{% highlight csharp %}
+```csharp  
 using (var reader = new StreamReader("input.md"))
 using (var writer = new StreamWriter("output.html"))
 {
     CommonMark.CommonMarkConverter.Convert(reader, writer);
 }
-{% endhighlight %}  
+```  
 
 Tras lo cual, si abrimos el archivo `output.html` con un navegador, veremos algo como lo siguiente:  
 
@@ -65,16 +65,16 @@ Sin embargo, de esta forma lo único que estamos haciendo es escribiendo algunas
 Para nuestra suerte, el desarrollador de CommonMark, nos permite configurar la forma en la que se *renderea*
  el resultado de la conversión. Esto, a través de la clase `CommonMarkSettings` y un derivado de `HtmlFormatter`:
 
-{% highlight csharp %}
+```csharp  
 class CustomHtmlFormatter : CommonMark.Formatters.HtmlFormatter
 {
     // ... 
-{% endhighlight %}  
+```  
 
 #### WriteInline  
 El método `WriteInline`, que permite modificar la manera en que se *renderea* un elemento en HTML. en el ejemplo siguiente se modifica la forma en la que se escriben las etiquetas `a` para que los enlaces se abran en una nueva pestaña:
 
-{% highlight csharp %}
+```csharp  
     protected override void WriteInline(Inline inline, bool isOpening, bool isClosing, out bool ignoreChildNodes)
     {
         if (inline.Tag == InlineTag.Link) // Es enlace
@@ -101,13 +101,13 @@ El método `WriteInline`, que permite modificar la manera en que se *renderea* u
             base.WriteInline(inline, isOpening, isClosing, out ignoreChildNodes);
         }
     }
-{% endhighlight %}   
+```   
 
 #### WriteBlock
 
 Pero esta es solo una opción de configuración, ya que por otro lado podemos sobrescribir el método `WriteBlock` para escribir bloques completos. En este caso, usaremos el método para escribir un documento HTML válido:  
 
-{% highlight csharp %}
+```csharp  
     protected override void WriteBlock(Block block, bool isOpening, bool isClosing, out bool ignoreChildNodes)
     {
         // Si es un tag de apertura y es Document
@@ -126,7 +126,7 @@ Pero esta es solo una opción de configuración, ya que por otro lado podemos so
         // LLamamos a la implementación por default para procesar los otros nodos
         base.WriteBlock(block, isOpening, isClosing, out ignoreChildNodes);
     }
-{% endhighlight %}
+```
 
 Tras lo cual, podrías tener algo como esto:
 

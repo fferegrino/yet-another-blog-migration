@@ -19,21 +19,21 @@ En esta ocasión mostraré cómo crear un reporte de las clases (`lectures`) que
 ## Creando un documento
 Para crear un documento es necesario utilizar el método estático `Create` especificando la ruta del archivo. La sentencia `using` es importante para asegurarnos que cuando terminemos de usar el documento, se liberen sus recursos de manera adecuada:  
 
-{% highlight csharp %} 
+```csharp   
 using (var document = DocX.Create("Prueba.docx"))
 {
     // Dentro de este bloque tenemos disponible el documento
     // ...
-{% endhighlight %}
+```
 
 ## Guardando un documento  
 Una vez creado el documento y después de que hemos terminado de trabajar con él debemos guardar nuestros cambios, esto se hace mediante una llamada a su método `Save`, con lo cual todos los cambios hechos en el documento serán aplicados sobre el archivo. Es importante que llames al método dentro del bloque `using` (de otro modo obtendrás un error de compilación).  
 
-{% highlight csharp %}
+```csharp  
     // ...
     document.Save();
 }
-{% endhighlight %}
+```
 
 Cabe señalar que también tenemos a nuestra disposición el método `SaveAs` que permite especificar una ruta distinta a la que usamos para crear nuestro documento.  
   
@@ -44,17 +44,17 @@ Si ejecutamos el código hasta este momento veremos un documento vacío llamado 
 ## Añadiendo texto  
 El texto dentro de un documento de DocX está organizado en párrafos, y por eso debemos añadir párrafos a nuestro documento, para ello debemos tomar nuestro documento y llamar el método `InsertParagraph`.  
 
-{% highlight csharp %}
+```csharp  
 var reportParagraph = document.InsertParagraph();
-{% endhighlight %}
+```
 
 El método devuelve una referencia al párrafo que añadió al documento, a partir de aquí podemos añadirle texto a dicho párrafo, y por ende, al documento. Para agregar texto debemos usar el método `Append` de la clase `Paragraph`, este método funciona de manera similar a un `StringBuilder` ya que podemos *"encadenar"* las llamadas para separar partes del código:  
 
-{% highlight csharp %}
+```csharp  
 reportParagraph.Append("Este es un reporte perteneciente a las clases que imparte " + teacher.GivenName + " " +
                     teacher.LastName + ", generado en " + DateTime.Now.ToShortDateString() + ". ")
     .Append("El profesor/ra " + teacher.LastName + " imparte actualmente " + lectures.Length + " asignaturas.");
-{% endhighlight %}  
+```  
   
 Hasta este momento, el resultado de ejecutar el código es un documento que contiene el texto arriba indicado, se ve más o menos así:  
   
@@ -65,14 +65,14 @@ El texto sin formato está bien, ¿pero sabes qué es mejor?
   
 DocX tiene una API peculiar para aplicar el formato, ya que todo es a través de métodos que se llaman sobre la instancia de `Pharagraph`. El formato deseado se aplica al texto que acaba de ser "escrito" con `Append`, por ejemplo:  
 
-{% highlight csharp %}
+```csharp  
 reportParagraph.Append ("Este es un reporte perteneciente a las clases que imparte ");
 reportParagraph.Append (teacher.GivenName + " " + teacher.LastName).Bold().Append(", generado en ");
 reportParagraph.Append (DateTime.Now.ToShortDateString ()).Italic().Append (". ")
     .Append ("El profesor/ra ").Append(teacher.LastName).Font(new FontFamily("Arial Black"))
     .Append(" imparte actualmente ")
     .Append(lectures.Length + " asignaturas.").Color(Color.Blue).Italic().Bold();
-{% endhighlight %}  
+```  
 
 En el código de arriba están pasando varias cosas:  
   
@@ -91,10 +91,10 @@ Además de estas opciones de formato también podemos subrayar, cruzar, cambiar 
 ## Títulos  
 Una de las mejores funciones que tiene Word es la posibilidad de añadir títulos a los documentos, y DocX no se queda atrás. Como ya vimos, es necesario añadir un párrafo, agregarle texto e indicarle qué tipo de encabezado deseamos  
 
-{% highlight csharp %}
+```csharp  
 var titleParagraph = document.InsertParagraph();
 titleParagraph.Append("Reporte " + LastName).Heading(HeadingType.Heading1);
-{% endhighlight %}  
+```  
 
 Y acá está el resultado:  
   
@@ -103,19 +103,19 @@ Y acá está el resultado:
 ## Encabezado y pie de página  
 Para darle un poco más de formalidad al documento, vamos a añadirle un pie de página y un encabezado, otra vez debemos añadir párrafos. Antes que nada, es necesario llamar a dos métodos para preparar el terreno.
 
-{% highlight csharp %}
+```csharp  
 document.AddHeaders();
 document.AddFooters();
-{% endhighlight %}  
+```  
 
 Una vez hecho esto, podemos comenzar:
 
-{% highlight csharp %}
+```csharp  
 var header = document.Headers.odd.InsertParagraph();
 header.Append ("Reporte - DocX").Font(new FontFamily("Courier New"));
 
 document.Footers.odd.PageNumbers = true;
-{% endhighlight %}  
+```  
 
 En este caso estamos agregando el texto "Reporte - DocX" al encabezado y un número de página al pie de página:  
 
@@ -131,26 +131,26 @@ En este caso estamos agregando el texto "Reporte - DocX" al encabezado y un núm
 ## Tablas
 La inserción de tablas se hace también a través de un método y especificando el número de filas y columnas que se requieren, para este caso requeriremos únicamente 3 columnas y colocaremos una fila de encabezados, también le añadiremos un poco de estilos y bordes para que se vea mejor el "reporte":
 
-{% highlight csharp %}
+```csharp  
 var table = document.InsertTable (1, 3);
 
 table.AutoFit = AutoFit.Window;
 var border = new Border (BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
 table.SetBorder (TableBorderType.InsideH, border); // ... más bordes
-{% endhighlight %}  
+```  
 
 De ahí accedemos a la fila `0` y a sus celdas mediante la propiedad `Cells`, cada celda funciona como un nuevo documento, por lo que debemos trabajar con los párrafos como anteriormente:
 
-{% highlight csharp %}
+```csharp  
 var tableHeaders = table.Rows[0];
 tableHeaders.Cells[0].InsertParagraph().Append("ID").Bold();
 tableHeaders.Cells[1].InsertParagraph().Append("Clase").Bold();
 tableHeaders.Cells[2].InsertParagraph().Append("Nivel").Bold();
-{% endhighlight %}  
+```  
 
 Después con un ciclo sobre `lectures`, agregamos todos los datos:
 
-{% highlight csharp %}
+```csharp  
 foreach (var lecture in lectures) 
 {
     var tableRow = table.InsertRow();
@@ -158,7 +158,7 @@ foreach (var lecture in lectures)
     tableRow.Cells[1].InsertParagraph().Append(lecture.Name);
     tableRow.Cells[2].InsertParagraph().Append(lecture.Level);
 }
-{% endhighlight %}  
+```  
 
 Y el resultado:  
 
@@ -173,12 +173,12 @@ Por ejemplo, tenemos un documento llamado `template.docx`, lo abriremos con DocX
 
 {% post_image template.png "Template" %}
 
-{% highlight csharp %}
+```csharp  
 template.ReplaceText("esta entrada", "este post sobre DocX");
 template.ReplaceText("querido", "querido y respetable");
 template.ReplaceText("Facebook", "Twitter");
 template.ReplaceText("correo electrónico", "feregrino@thatcsharpguy.com");
-{% endhighlight %}      
+```      
         
 {% post_image out.png "Salida" %}        
 

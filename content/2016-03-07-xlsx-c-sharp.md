@@ -17,24 +17,24 @@ En esta ocasión mostraré cómo crear un pequeño reporte de las clases y maest
 ## Creando un libro  
 Para crear un libro de excel usaremos la clase `ExcelPackage` junto con un objeto de la clase `FileInfo`, la documentación no indica que debemos emplear nuestro código dentro de un bloque `using`, pero para evitar sorpresas, creamos el documento dentro de uno:
 
-{% highlight csharp %}
+```csharp  
 FileInfo prueba = new FileInfo("prueba.xlsx");
 using (ExcelPackage excel = new ExcelPackage(prueba))
 {
     var workbook = excel.Workbook;
     // ... 
-{% endhighlight %}  
+```  
   
 Podemos ver a la clase `ExcelPackage` como un contenedor de nuestro libro, al que podemos acceder a través de la propiedad `Workbook`. 
 
 ## Guardando un documento  
 Al igual que con DocX, una vez creado el documento y después de que hemos terminado de trabajar con él debemos guardar nuestros cambios, esto se hace mediante una llamada a su método `Save`, con lo cual todos los cambios hechos en el documento serán aplicados sobre el archivo. 
 
-{% highlight csharp %}
+```csharp  
     // ...
     excel.Save();
 }
-{% endhighlight %}
+```
 
 Cabe señalar que también tenemos a nuestra disposición el método `SaveAs` que permite guardar una copia del documento con el que estamos trabajando, hay otra sobrecarga que inclusive nos eprmite establecer una contraseña para el archivo.  
   
@@ -50,34 +50,34 @@ Para insertar datos en nuestro libro de Excel necesitamos primero agregar una ho
 
 El método `Add` regresa una referencia a la hoja recién añadida y es precisamente usando esa referencia como vamos a añadir la información.  
 
-{% highlight csharp %}
+```csharp  
 var teacherWorksheet = wb.Worksheets.Add("Maestros");
-{% endhighlight %}  
+```  
 
 ### Celdas
 Partiendo de la referencia a `teacherWorksheet` podemos ahora si trabajar con las celdas (`Cells`) de esa hoja, la forma de hacerlo es como lo haríamos manualmente en el documento, es decir, mediante el sistema de coordenadas compuesto por letras y números. Por ejemplo, si queremos añadir los nombres de las columnas para nuestros datos:
 
-{% highlight csharp %}
+```csharp  
 teacherWorksheet.Cells["A1"].Value = "ID";
 teacherWorksheet.Cells["B1"].Value = "Nombre";
 teacherWorksheet.Cells["C1"].Value = "Apellidos";
 teacherWorksheet.Cells["D1"].Value = "Email";
 teacherWorksheet.Cells["E1"].Value = "Edad";
-{% endhighlight %}
+```
 
 Usamos la propiedad `Value` de nuestras celdas es como podemos asignarles un valor, la propiedad es de tipo `object` por lo que podemos poner ahí lo que sea.  
   
 Pero, como queremos distinguir los encabezados del resto de los datos, ¿por qué no los ponemos en **negritas**?
 
-{% highlight csharp %}
+```csharp  
 teacherWorksheet.Cells["A1:E1"].Style.Font.Bold = true; 
-{% endhighlight %}
+```
 
 Como puedes ver, `Cells` también nos ayuda a recuperar todo un rango de celdas, para así poder trabajar con todas ellas de una sola vez.
 
 Ya por último en un ciclo `foreach` insertamos cada uno de los valores en su correspondiente celda
 
-{% highlight csharp %}
+```csharp  
 int cell = 2;
 foreach (var teacher in Database.Teachers)
 {
@@ -86,7 +86,7 @@ foreach (var teacher in Database.Teachers)
     // ... más asignaciones
     cell++;
 } 
-{% endhighlight %}
+```
 
 Tras lo cual obtendremos algo como esto:  
   
@@ -100,7 +100,7 @@ Ahora veremos cómo agregar una página de resumen, en la cual mostraremos algun
 ### Combinando y centrando celdas  
 Primero añadimos una nueva hoja al libro, después vamos a unir las celdas `A1` y `B1`, ponerlas en negritas y centrar el texto para el "título" de la hoja de resumen. Todo eso es posible con el siguiente código:
 
-{% highlight csharp %}
+```csharp  
 var summaryWorksheet = wb.Worksheets.Add("Resumen");
 
 var titleCell = summaryWorksheet.Cells["A1:B1"]; // Tomamos un rango de celdas
@@ -108,7 +108,7 @@ titleCell.Merge = true;
 titleCell.Style.Font.Bold = true;
 titleCell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 titleCell.Value = "Resumen";
-{% endhighlight %}  
+```  
 
 Que nos dejará con el siguiente resultado:
 
@@ -117,11 +117,11 @@ Que nos dejará con el siguiente resultado:
 ### Formulas  
 Para añadir fórmulas debemos usar la propiedad `Formula` de las celdas, lo que si es importante es hacer referencia a ellas a través de su nombre original en inglés.
 
-{% highlight csharp %}
+```csharp  
 summaryWorksheet.Cells["B2"].Formula = "AVERAGE(Maestros!E2:E31)";  
 // ...
 summaryWorksheet.Cells["B3"].Formula = "COUNTIF(Maestros!D2:D31,\"\")";
-{% endhighlight %}  
+```  
 
 En este caso estamos usando AVERAGE para sacar el promedio de edad y COUNTIF para contar la cantidad de maestros sin correo electrónico.  
 
@@ -130,17 +130,17 @@ En este caso estamos usando AVERAGE para sacar el promedio de edad y COUNTIF par
 ## Usando LINQ
 Una cosa que relamente es genial de EPPlus es que nos permite usar LINQ para trabajar con las hojas y celdas de nuestros libros, por ejemplo, para obtener una referencia a una hoja de trabajo existente podemos buscarla por su nombre usando el método `Single`:
 
-{% highlight csharp %}
+```csharp  
 var teacherWorksheet = wb.Worksheets.Single(ws => ws.Name == "Maestros"); 
-{% endhighlight %}  
+```  
 
 Y ahora, con la referencia `teacherWorksheet` consultamos sus celdas, nuevamente usando LINQ:
 
-{% highlight csharp %}
+```csharp  
 var cellsWithYoungTeachers = from cell in teacherWorksheet.Cells["E:E"].Skip(1)
                              where ((int)cell.Value) < 20
                              select cell;
-{% endhighlight %}  
+```  
 
 En el código anterior estamos:  
    
@@ -151,14 +151,14 @@ En el código anterior estamos:
 ## Modificando el formato de las celdas
 Después podemos iterar sobre la colección recién creada y darle un estilo diferente a las celdas que coincidieron con las condiciones que especificamos:
 
-{% highlight csharp %}
+```csharp  
 foreach (var cell in cellsWithYoungTeachers)
 {
     cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
     cell.Style.Fill.BackgroundColor.SetColor(Color.BlueViolet);
     cell.Style.Font.Color.SetColor(Color.Snow);
 }
-{% endhighlight %}  
+```  
 
 Que nos dejará el resultado siguiente:
 
@@ -171,21 +171,21 @@ Adicionalmente a añadir nuestro propio formato, esta librería también permite
 
 Primero que nada, y como siempre, obtenemos una referencia a la hoja sobre la que vamos a trabajar y después determinamos sobre qué rango de columnas vamos a trabajar y creamos un objeto `ExcelAddress`. Para nuestro caso es sobre la columna de edad de los maestros que es la E:
 
-{% highlight csharp %}
+```csharp  
 var teacherWorksheet = wb.Worksheets.Single(ws => ws.Name == "Maestros");
 var ageCellsStringAddress = "$E$2:$E$31";
 var ageCellsAddress = new ExcelAddress(ageCellsStringAddress);
-{% endhighlight %}  
+```  
 
 Una vez que tenemos determinado el rango, accedemos a la propiedad `ConditionalFormatting` para agregar un nuevo formato condicional, en este caso usaremos una escala de dos colores: 
 
-{% highlight csharp %}
+```csharp  
 var formatting = teacherWorksheet.ConditionalFormatting.AddTwoColorScale(ageCellsAddress);
-{% endhighlight %} 
+``` 
 
 Lo siguiente es configurar el formato condicional, usaremos fórmulas para obtener el valor mínimo y máximo de las edades de los profesores:
 
-{% highlight csharp %}
+```csharp  
 formatting.LowValue.Type = eExcelConditionalFormattingValueObjectType.Formula;
 formatting.LowValue.Formula = "MIN(" + ageCellsAddress + ")";
 formatting.LowValue.Color = Color.LightGreen;
@@ -193,7 +193,7 @@ formatting.LowValue.Color = Color.LightGreen;
 formatting.HighValue.Type = eExcelConditionalFormattingValueObjectType.Formula;
 formatting.HighValue.Formula = "MAX(" + ageCellsAddress + ")";
 formatting.HighValue.Color = Color.Green;
-{% endhighlight %}  
+```  
 
 Tras lo cual el libro se verá así:
 
@@ -204,24 +204,24 @@ Así como podemos crear hojas desde cero, también podemos leer las ya existente
 
 Así que supongamos que cargaremos maestros a la base con un archivo llamado `teachers.xlsx`, bastaría con abrirlo:
 
-{% highlight csharp %}
+```csharp  
 FileInfo uploaded = new FileInfo("teachers.xlsx");
 using (ExcelPackage excel = new ExcelPackage(uploaded))
 {
     // ...
-{% endhighlight %}  
+```  
 
 Buscar la la hoja que necesitamos y contar las filas que contiene:
 
-{% highlight csharp %}
+```csharp  
     var teacherWorksheet = excel.Workbook.Worksheets.Single(ws => ws.Name == "Maestros");
     var cells = teacherWorksheet.Cells;
     int rowCount = cells["A:A"].Count();
-{% endhighlight %}  
+```  
 
 Y leer los datos accediendo a las celdas y su propiedad `Value`:
 
-{% highlight csharp %}
+```csharp  
     for (int i = 1; i <= rowCount; i++)
     {
         Console.WriteLine(
@@ -231,7 +231,7 @@ Y leer los datos accediendo a las celdas y su propiedad `Value`:
             cells["D" + i].Value.ToString() + "\t" 
             );
     }
-{% endhighlight %}  
+```  
 
 En este caso los datos leídos se imprimen a consola, pero sería sencillo insertarlos en una base de datos o hacer algun tipo de procesamiento con ellos.
 

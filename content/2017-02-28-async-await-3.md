@@ -18,7 +18,7 @@ En este post veremos cómo es que podemos ejecutar tareas asíncronas de manera 
 Nuevamente para seguir trabajando con este post tal vez quieras descargar la aplicación <a href="https://github.com/ThatCSharpGuy/AsyncAwait" target="_blank">demo que puedes encontrar en GitHub</a>. Para demostrar cómo podemos cancelar las tareas vamos a hacer uso deuna `ProgressBar` y unos cuantos botones. En este caso vamos a crear una tarea infinita que moverá de 0 a 100% la barra de progreso, esta es la tarea que vamos a cancelar con las técnicas que veremos en este post:
 
 
-{% highlight csharp %}
+```csharp  
 public static async Task SlowTask(IProgress<double> progress, CancellationToken token)
 {
     while (true)
@@ -37,7 +37,7 @@ public static async Task SlowTask(IProgress<double> progress, CancellationToken 
         }
     }
 }
-{% endhighlight %}  
+```  
 
 Un momento... aquí hay un par de cosas nuevas: La interfaz `IProgress<T>` y  la clase `CancellationToken`, comenzaremos por la primera.  
 
@@ -48,7 +48,7 @@ Lo primero que se te podría ocurrir es usar <a href="..\delegados-en-c-sharp" t
 
 Esta interfaz define un solo método: `Report` que como su nombre lo indica nos sirve para reportar el progreso de una tarea desde una tarea asíncrona. En este caso, en el siguiente código se muestra la implementación de `IReport<double>` del ejemplo:  
 
-{% highlight csharp %}
+```csharp  
 public partial class AdvancedPage : ContentPage, IProgress<double>
 {
     public void Report(double value)
@@ -59,13 +59,13 @@ public partial class AdvancedPage : ContentPage, IProgress<double>
             IntegerReport.Text = (value * 100).ToString();
         });
     }
-{% endhighlight %}  
+```  
 
 Entonces, para ejecutar la tarea tenemos que llamarla así:  
 
-{% highlight csharp %}
+```csharp  
 var task = UltraComplexLibrary.SlowTask(this);
-{% endhighlight %}  
+```  
 
 En donde `this` es una instancia de la clase `AdvancedPage`.  
 
@@ -78,41 +78,41 @@ Este tipo de *tokens* se deben obtener de una *fuente*, en este caso de la clase
 
 Crear una *fuente* de *tokens* es sencillo, basta con usar el operador `new`:
 
-{% highlight csharp %}
+```csharp  
 CancellationTokenSource CancellationTokenSource;
 // ...
 CancellationTokenSource = new CancellationTokenSource();
-{% endhighlight %}  
+```  
 
 Y para obtener un *token* es necesario llamar a la propiedad `Token`, entonces la llamada a nuestra tarea cancelable queda como sigue:  
 
-{% highlight csharp %}
+```csharp  
 var task = UltraComplexLibrary.SlowTask(this, CancellationTokenSource.Token);
-{% endhighlight %}  
+```  
 
 ### Cancelando la tarea  
 El primer paso para cancelar una tarea es llamar al método `Cancel` sobre la *fuente*. Ya sea que lo llamemos directamente nosotros, o especifiquemos que se cancele después de cierta cantidad de tiempo:
 
 
-{% highlight csharp %}
+```csharp  
 CancellationTokenSource.Cancel();  
 CancellationTokenSource.CancelAfter(3000);
-{% endhighlight %}  
+```  
 
 Ahora que dentro de nuestra tarea tenemos un *token* tenemos dos maneras principales para cancelarla:  
 
  - La primera: Es menos agresiva, es consultar al token si es que se ha solicitado su cancelación mediante la propiedad `IsCancellationRequested`. La tarea se termina cuando se llega a un `return`.  
 
-{% highlight csharp %}
+```csharp  
 if (token.IsCancellationRequested)
     return;
-{% endhighlight %}  
+```  
 
  - La segunda: que es muy agresiva ya que implica lanzar una excepción si se ha solicitado que el token sea cancelado mediante el método `ThrowIfCancellationRequested`. La tarea se termina cuando se produce una exepción no controlada.
 
-{% highlight csharp %}
+```csharp  
 token.ThrowIfCancellationRequested();
-{% endhighlight %}  
+```  
 
 Si optas por el caso de la excepción no olvides agregar el código pertinente para manejarla en tu código y que no haga que falle por completo tu aplicación.
 

@@ -23,7 +23,7 @@ Y si bien este no es un gran problema, puesto que pude haber <a href="https://de
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 // C#
 public class CheckView : UIView
 {
@@ -34,10 +34,10 @@ public class CheckView : UIView
     // Code    
 }
   
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight objectivec %}
+```objectivec  
 // Objective-C
 @interface CheckView : UIView
 @property (nonatomic, weak) M13Checkbox *checkbox;
@@ -49,7 +49,7 @@ public class CheckView : UIView
     // Code
 @end
 
-{% endhighlight %}  
+```  
 </div>  
 </div>
 
@@ -59,18 +59,18 @@ En C# no es necesario crear una interfaz para definir una clase, basta con defin
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 // C#
 checkView = new CheckView(checkViewFrame);
 _titleLabel = new UILabel(labelFrame);
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight objectivec %}
+```objectivec  
 // Objective-C
 checkView = [[CheckView alloc] initWithFrame:checkViewFrame];
 _titleLabel = [[UILabel alloc] initWithFrame:labelFrame];
-{% endhighlight %}  
+```  
 </div>  
 </div>
 
@@ -81,7 +81,7 @@ La primera diferencia es que nosotros no tenemos que usar `alloc` para reservar 
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 // C#
 
 // Static method
@@ -97,10 +97,10 @@ public void Draw(CGRect rect)
 // Constructor
 public M13Checkbox(GCRect frame, string title)
 { // ...
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight objectivec %}
+```objectivec  
 // Objective-C
 
 // Class method
@@ -116,7 +116,7 @@ public M13Checkbox(GCRect frame, string title)
 // Initializer
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title
 { // ...
-{% endhighlight %}  
+```  
 </div>  
 </div>
 
@@ -130,24 +130,24 @@ Por otro lado, en C# no existe un método para inicializar un objeto, sino que s
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 // C#
 Checkbox.GetDefaultShape().Fill();
 
 fillColor.GetRGBA(out r, out g, out b, out a);
 
 bezierPath.AddCurveToPoint(new CGPoint((0.17625 * height), // ...
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight objectivec %}
+```objectivec  
 // Objective-C
 [[checkbox getDefaultShape] fill];
 
 [fillColor getRed:&r green:&g blue:&b alpha:&a];
 
 [bezierPath addCurveToPoint: CGPointMake((0.17625 * height), // ...
-{% endhighlight %}  
+```  
 </div>  
 </div>
 
@@ -161,22 +161,22 @@ En Obj-C vemos que se usa `&` para indicar que un valor es pasado a un método c
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 // C#
 CGRect boxRect = new CGRect(Checkbox.StrokeWidth, 
     (Frame.Size.Height * Constants.CheckVerticalExtension), 
     (Frame.Size.Height * Constants.BoxSize) - Checkbox.StrokeWidth, 
     (Frame.Size.Height * Constants.BoxSize) - Checkbox.StrokeWidth);
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight objectivec %}
+```objectivec  
 // Objective-C
 CGRect boxRect = CGRectMake(checkbox.strokeWidth, 
     (self.frame.size.height * kCheckVerticalExtension), 
     (self.frame.size.height * kBoxSize) - checkbox.strokeWidth, 
     (self.frame.size.height * kBoxSize) - checkbox.strokeWidth);
-{% endhighlight %}  
+```  
 </div>  
 </div>
 
@@ -188,20 +188,20 @@ La segunda es que en C# no existe la posibilidad de definir valores constantes u
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 // C#
 UIColor fillColor = null;
 UIColor strokeColor = null;
 UIColor checkColor = null;
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight objectivec %}
+```objectivec  
 // Objective-C
 UIColor *fillColor = nil;
 UIColor *strokeColor = nil;
 UIColor *checkColor = nil;
-{% endhighlight %}  
+```  
 </div>  
 </div>
 
@@ -211,7 +211,7 @@ Para tener una referencia a `UIColor` no es necesario el sufijo `*`, puesto que 
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 // C#
 public enum CheckboxState
 {
@@ -219,10 +219,10 @@ public enum CheckboxState
     Checked,
     Mixed
 }
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight objectivec %}
+```objectivec  
 // Objective-C
 typedef NS_ENUM(NSInteger, M13CheckboxState) {
     M13CheckboxStateUnchecked = NO, //Default
@@ -230,7 +230,7 @@ typedef NS_ENUM(NSInteger, M13CheckboxState) {
     M13CheckboxStateMixed
 };
   
-{% endhighlight %}   
+```   
 </div>  
 </div>  
 
@@ -238,7 +238,7 @@ En C# no es posible asociar los valores de un *enum* con booleanos, como en Obje
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 // C#
 if (Checkbox.CheckboxState == CheckboxState.Unchecked)
 {
@@ -248,10 +248,10 @@ else
 {
     fillColor = Checkbox.TintColor;
 }
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight objectivec %}
+```objectivec  
 // Objective-C
 if (checkbox.checkState == M13CheckboxStateUnchecked) {
     fillColor = checkbox.uncheckedColor;
@@ -261,7 +261,7 @@ if (checkbox.checkState == M13CheckboxStateUnchecked) {
   
   
   
-{% endhighlight %}  
+```  
 </div>  
 </div>
 

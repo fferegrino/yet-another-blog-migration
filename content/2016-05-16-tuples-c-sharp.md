@@ -28,65 +28,65 @@ Podemos ver a `Tuple` (o tupla) como un auxiliar para el programador, que **perm
  
 A través de los tipos `T#` se define el contenido de la clase, siendo así que para crear una tupla que contiene un entero y dos cadenas debemos usar:  
 
-{% highlight csharp %}
+```csharp  
 var t = new Tuple<int, string, string>(1, "A", "B");
-{% endhighlight %}
+```
 
 O, por ejemplo, si quisiéramos crear algo más complejo como una clase que contiene un entero, un decimal, un objeto, otro entero, un booleano y un flotante, tendríamos que hacer algo como esto:    
 
-{% highlight csharp %}
+```csharp  
 var t1 = new Tuple<int, decimal, object, int, bool, float>(3, 1.5m, new { emoji = ":grin:" }, 5, true, 7.5f);
-{% endhighlight %}
+```
 
 Uhhmm, la sintaxis se pone un poco complicada, ¿no? para eliminar esta sintaxis complicada, podemos usar el método estático `Create` de la clase `Tuple` para crear tuplas:  
 
-{% highlight csharp %}
+```csharp  
 var t1 = Tuple.Create(3, 1.5m, new { emoji = ":grin:" }, 5, true, 7.5f);
-{% endhighlight %}
+```
 
 Este método, inferirá de los tipos de dato a partir de los parámetros pasados como argumentos.
 
 ## Accediendo a los miembros
 Una vez creada la clase (ya sea con el constructor o el método estático), podemos acceder a cada uno de los datos a través de las propiedades llamadas  `Item#`, donde # es el número de la propiedad a la que nos referimos:  
 
-{% highlight csharp %}
+```csharp  
 Console.WriteLine(t.Item1); // 1 -> int
 Console.WriteLine(t.Item2 + " - " + t.Item3 ); // "A - B" -> string
-{% endhighlight %}
+```
 
 Es importante señalar que las propiedades de la clase `Tuple` son de solo lectura, y que una vez asignadas en el constructor, no pueden ser modificadas:  
 
-{% highlight csharp %}
+```csharp  
 // t1.Item4 = 7; // Error, solo lectura
-{% endhighlight %}
+```
 
 ## Ejemplos de uso  
 
 ### Como parámetros de método
 Podríamos pensar en un método como este: 
   
-{% highlight csharp %}
+```csharp  
 string MegaMetodoArgumentos(int studentId, int classroomId, string type, decimal sum, bool active)
-{% endhighlight %}
+```
 
 Para llamarlo necesitaríamos escribir algo como esto:  
 
-{% highlight csharp %}
+```csharp  
 MegaMetodoArgumentos(10, 3, "MX", 3.1m, true);
-{% endhighlight %}
+```
 
 O, también podríamos haber escrito el método de la siguiente manera:  
 
-{% highlight csharp %}
+```csharp  
 string MegaMetodoTuple(Tuple<int, int, string, decimal, bool> args)
-{% endhighlight %}
+```
 
 E invocarlo así:  
 
-{% highlight csharp %}
+```csharp  
 var tuple = Tuple.Create(10, 3, "MX", 3.1m, true);
 MegaMetodoTuple(tuple);  
-{% endhighlight %}
+```
 
 ### Como valores de retorno
 
@@ -94,18 +94,18 @@ El beneficio se nota más cuando se usa una tupa como valor de retorno, imaginem
 
 Podríamos usar [parámetros de salida](http://thatcsharpguy.com/post/out-ref-c-sharp/):  
 
-{% highlight csharp %}
+```csharp  
 private static void SplitColors(string hex, out int r, out int g, out int b)
 {
     r = Int32.Parse(hex.Substring(0, 2), NumberStyles.HexNumber);
     g = Int32.Parse(hex.Substring(2, 2), NumberStyles.HexNumber);
     b = Int32.Parse(hex.Substring(4, 2), NumberStyles.HexNumber);
 }
-{% endhighlight %}
+```
 
 Pero también podríamos usar una tupla como valor de retorno:  
 
-{% highlight csharp %}
+```csharp  
 private static Tuple<int, int, int> SplitColors(string hex)
 {
     int r = Int32.Parse(hex.Substring(0, 2), NumberStyles.HexNumber);
@@ -113,24 +113,24 @@ private static Tuple<int, int, int> SplitColors(string hex)
     int b = Int32.Parse(hex.Substring(4, 2), NumberStyles.HexNumber);
     return Tuple.Create(r, g, b);
 }
-{% endhighlight %}
+```
 
 Entonces para llamarlo, simplemente necesitaríamos escribir lo siguiente:  
 
-{% highlight csharp %}
+```csharp  
 string color = "3C8A3F";
 var colors = SplitColors(color);
 Console.WriteLine("{0} es R:{1} G:{2} B:{3}", color, colors.Item1, colors.Item2, colors.Item3);
-{% endhighlight %}
+```
 
 ## Tuplas de 8 elementos
 Si volvemos a las definiciones de las clases `Tuple` puedes ver que existen hasta 8 versiones genéricas disponibles. Sin embargo, la octava una peculiaridad: el octavo valor no se almacena dentro de "Item8", sino dentro de otra tupla (a la que accedemos desde la propiedad `Rest`):  
 
-{% highlight csharp %}
+```csharp  
 var megaTuple = Tuple.Create(1, 2, 3, 4, 5, 6, 7, 8);
 //Console.WriteLine(miniTuple.Item8); // Item8 no existe, entonces tenemos que usar Rest:
 Console.WriteLine(megaTuple.Rest.Item1); 
-{% endhighlight %}
+```
 
 ## Ejemplo de la vida real
 Mmm... en realidad no existe alguna api dentro del framework de .NET que haga uso de tuplas, pero en específico se recomienda para:

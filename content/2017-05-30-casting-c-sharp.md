@@ -16,12 +16,12 @@ Son las palabras `implicit` y `explicit`, estas palabras sirven para declarar co
 
 Para crear una conversión se usa la sintaxis:  
 
-{% highlight csharp %}
+```csharp  
 public static [implicit|explicit] operator <tipo destino>(<tipo origen> identificador)
 {
     return <instancia de tipo destino>    
 }
-{% endhighlight %}  
+```  
 
  - La especificación de una conversión siempre es `static`.
  - Se usa `implicit` cuando queremos que la conversión suceda "silenciosamente", mientras que usamos `explicit` cuando queremos que el programador se vea forzado a especificar la conversión
@@ -30,30 +30,30 @@ public static [implicit|explicit] operator <tipo destino>(<tipo origen> identifi
 
 Pero qué mejor que verlo con un ejemplo: Imagina que tienes una clase llamada `Persona`:  
 
-{% highlight csharp %}
+```csharp  
 public class Persona
 {
     public string Nombre { get; set; }
-{% endhighlight %}  
+```  
 
 ### Conversión explícita  
 
 Podrías especificar una conversión explícita de un tipo de dato `string` a `Persona`: 
 
-{% highlight csharp %}
+```csharp  
     public static explicit operator Persona(string nombre)
     {
         return new Persona {Nombre = nombre};    
     }
-{% endhighlight %}  
+```  
 
 De este modo, se podrían crear objetos del tipo persona de esta manera:  
 
-{% highlight csharp %}
+```csharp  
 Persona p2 = (Persona)"Seto Kaiba";
 var p3 = (Persona)"Joey Wheeler";
 //Persona p4 = "Téa Gardner";
-{% endhighlight %}  
+```  
 
 Tanto `p2` y `p3` son objetos del tipo persona, por otro lado `p4` no es una sintaxis válida, ya que en la especificación de la conversión, nosotros establecimos que la conversión debe ser explícita, es decir, indicada por el programador.  
 
@@ -61,20 +61,20 @@ Tanto `p2` y `p3` son objetos del tipo persona, por otro lado `p4` no es una sin
 
 Por otro lado, podrías especificar una conversión implícita para convertir de `Persona` a `string`:
 
-{% highlight csharp %}
+```csharp  
     public static implicit operator string(Persona p)
     {
         return p.Nombre;
     }
-{% endhighlight %}  
+```  
 
 De este modo, el siguiente código es válido:
 
-{% highlight csharp %}
+```csharp  
 string nombreP1 = p1;
 string nombreP2 = p2;
 var nombreP3 = (string)p3;
-{% endhighlight %}  
+```  
 
 En este caso, no es necesario especificar la conversión (<a href="..\var-en-c-sharp">a menos que estemos usando <code>var</code></a>), puesto que esta se realiza automáticamente.
 
@@ -82,7 +82,7 @@ En este caso, no es necesario especificar la conversión (<a href="..\var-en-c-s
 
 Entre los ejemplos de conversiones, los más comunes son los que convierten entre unidades de medida. Considera un tipo de dato `Yarda` y otro `Metro`, ambos con conversiones explícitas especificadas de la siguiente manera:  
 
-{% highlight csharp %}
+```csharp  
 // Metro
 public static explicit operator Metro(Yarda m)
 {
@@ -96,7 +96,7 @@ public static explicit operator Yarda(Metro m)
     var yarda = new Yarda(m.Valor * 0.9144m);
     return yarda;
 }
-{% endhighlight %}  
+```  
 
 Además de otro par de conversiones para transformar de decimal a `Metro` o `Yarda` (recuerda siempre que el código está <a href="https://github.com/ThatCSharpGuy/aprende-c-sharp/tree/master/Casteo" target="_blank">disponible para ser descargado</a> y puedas probarlo y modificarlo tu mismo).
 
@@ -104,12 +104,12 @@ Entonces podemos hacer algo como esto después de especificar todas las conversi
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 var metro1 = new Metro(5);
 var yarda1 = new Yarda(5);
 Console.WriteLine(metro1);
 Console.WriteLine(yarda1);
-{% endhighlight %} 
+``` 
 	</div>
     <div class="pure-u-1-2"> 
 <pre>
@@ -123,12 +123,12 @@ Resultado:
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 Metro metro2 = 10;
 Yarda yarda2 = 10;
 Console.WriteLine(metro2);
 Console.WriteLine(yarda2);
-{% endhighlight %}  
+```  
 	</div>
     <div class="pure-u-1-2">
 <pre>
@@ -142,12 +142,12 @@ Resultado:
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 Yarda yarda3 = (Yarda)metro2;
 Metro metro3 = (Metro)yarda2;
 Console.WriteLine(metro3);
 Console.WriteLine(yarda3);
-{% endhighlight %} 
+``` 
 	</div>
     <div class="pure-u-1-2"> 
 <pre>
@@ -161,12 +161,12 @@ Resultado:
 
 <div class="pure-g">
     <div class="pure-u-1-2">
-{% highlight csharp %}
+```csharp  
 Metro metro4 = (Metro)yarda3;
 Yarda yarda4 = (Yarda)metro3;
 Console.WriteLine(metro4);
 Console.WriteLine(yarda4);
-{% endhighlight %}  
+```  
 	</div>
     <div class="pure-u-1-2">
 <pre>

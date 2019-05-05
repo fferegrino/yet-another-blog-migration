@@ -22,7 +22,7 @@ Con Linq también podemos realizar agrupamientos de datos, esta función está d
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var classesPerTeacherQuery =
     from lecture in db.Lectures
     group lecture by lecture.TeacherId into grp
@@ -31,10 +31,10 @@ var classesPerTeacherQuery =
         TeacherId = grp.Key,
         LectureCount = grp.Count()
     };
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var classesPerTeacherMethod = db.Lectures
     .GroupBy(lecture => lecture.TeacherId)
     .Select(grp =>
@@ -43,7 +43,7 @@ var classesPerTeacherMethod = db.Lectures
             TeacherId = grp.Key,
             LectureCount = grp.Count()
         });
-{% endhighlight %}  
+```  
 </div>  
 </div>  
 
@@ -51,7 +51,7 @@ En este caso estamos agrupando las clases por maestro, a través de su llave `Te
   
 En un ejemplo más complejo podríamos agrupar las clases que da cada maestro y luego agruparlas por nivel para después imprimirlas en pantalla:
 
-{% highlight csharp %}
+```csharp  
 var groupedLecturesPerLevelAndTeacher =
     from lecture in db.Lectures
     group lecture by lecture.TeacherId into group1
@@ -66,7 +66,7 @@ var groupedLecturesPerLevelAndTeacher =
                     Lectures = group2.ToList()
                  }
     };
-{% endhighlight %}  
+```  
 
 En este caso se puede decir que estamos haciendo un agrupamiento anidado: Primero estamos agrupando las `Lecture`s por el maestro que las imparte, el resultado de esta agrupación lo estamos colocando en `group1`, después, mediante la cláusula `select` estamos creando un nuevo tipo que tiene como propiedades `TeacherId` y `Level` que es creado a de la agrupación de las clases por la propiedad `Level` (que ponemos en `group2`) para posteriormente crear una colección de objetos con `LevelName` y `Lectures`.
 
@@ -79,7 +79,7 @@ En las consultas anteriores sobre `db.Lectures` únicamente tenemos acceso a `Te
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var q5 =
     from l in db.Lectures
     group l by l.TeacherId into grouped
@@ -90,10 +90,10 @@ var q5 =
         TeacherId = t.Id,
         LectureCount = grouped.Count()
     };
-{% endhighlight %}  
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% highlight csharp %}
+```csharp  
 var q5alt = db.Lectures
     .GroupBy(l => l.TeacherId)
     .Join(db.Teachers, grouped => grouped.Key, t => t.Id,
@@ -103,7 +103,7 @@ var q5alt = db.Lectures
         TeacherId = t.Id,
         LectureCount = grouped.Count()
     });
-{% endhighlight %}  
+```  
 </div>  
 </div>  
 
@@ -120,58 +120,58 @@ Como vimos antes, podemos usar `Take` para obtener una cantidad fija de elemento
   
 Por ejemplo, vamos a trabajar con un conjunto de maestros ordenados por su apellido:
 
-{% highlight csharp %}
+```csharp  
 var q6 = from l in db.Teachers
             orderby l.LastName descending
             select l;
-{% endhighlight %}  
+```  
 
 ### First
 
 Si queremos obtener el primer maestro:
 
-{% highlight csharp %}
+```csharp  
 var maestro1 = q6.First();
-{% endhighlight %} 
+``` 
 
 `First` también acepta una condicional, digamos que queremos obtener el primer maestro que tiene como nombre "Cosme Fulanito":
 
-{% highlight csharp %}
+```csharp  
 var cosmeFulanito = q6.First(m => m.GivenName == "Cosme" && m.LastName == "Fulanito");
-{% endhighlight %} 
+``` 
 
 Con este tipo de operaciones debemos ser muy cuidadosos, porque en el ejemplo pasado, al no existir un maestro llamado "Cosme Fulanito", el método `First` lanza una excepción del tipo `InvalidOperationException`, lo cual ocurre si el conjunto sobre el que operamos no contiene elemento alguno que cumpla la condición (o si no indicamos condición basta con que el conjunto esté vacío).  
   
 Para evitar la excepción podemos usar el método `FirstOrDefault` el cual regresará el valor por default del elemento del conjunto sobre el que trabajamos, hay que recordar que el valor por default de un tipo por referencia es `null`:
 
-{% highlight csharp %}
+```csharp  
 var cosmeFulanito2 = q6.FirstOrDefault(m => m.GivenName == "Cosme" && m.LastName == "Fulanito");
-{% endhighlight %} 
+``` 
 
 ### Single
 
 Adicionalmente a `First`, también existe el método `Single` y `SingleOrDefault` **pero solamente deben ser usados cuando el conjunto sobre el que operan únicamente contiene 1 solo elemento**, ya que de otro modo obtendremos una espantosa excepción, por ejemplo, si ejecutáramos `Single` sobre `q6` obtendríamos una excepción porque tenemos más de 1 maestro en nuestra base de datos falsa:
 
-{% highlight csharp %}
+```csharp  
 var maestro3 = q6.Single(); // Excepción porque q6 contiene más de 1 elemento
-{% endhighlight %} 
+``` 
  
 Tal vez te estés preguntando para qué existe `Single` si ya existe `First` y yo al igual que muchos coincido en que todo es cuestión de semántica en nuestro código. Si queremos dejar claro que una consulta a la base de datos, a un XML o a cualquier otra cosa a través de Linq debe siempre regresar un solo resultado debemos usar `Single`, si esperamos obtener el primer resultado de un conjunto más grande debemos usar `First`.  
   
 ### ElementAt  
 No no siempre vamos a necesitar el primer elemento de una colección, tal vez estemos buscando el segundo, el décimo o el noningentésimo... uno nunca sabe. Para realizar esta tarea tenemos a nuestra mano el método `ElementAt` que obtiene el elemento colocado en la posición especificada mediante un entero:  
 
-{% highlight csharp %}
+```csharp  
 var maestroSegundo = q6.ElementAt(2);
 
 var maestroDecimo = q6.ElementAt(10);
-{% endhighlight %} 
+``` 
 
 En este caso también debemos ser cuidadosos ya que, si nuestro conjunto no contiene al menos la cantidad de elementos necesaria para cumplir nuestra petición, obtendremos otra excepción, en este caso una del tipo `ArgumentOutOfRangeException`, así pues que cuando se solicita al maestro 900 obtendremos el error:
  
-{% highlight csharp %}
+```csharp  
 var maestroNoningentesimo = q6.ElementAt(900); // Excepción ¡porque q6 no tiene 900 maestros!
-{% endhighlight %} 
+``` 
     
 #### Lo que sigue  
 Aún quedan algunas cuantas herramientas de Linq por demostrar, entre ellas las intersecciones, uniones y demás operaciones sobre conjuntos que se pueden realizar. Sin duda espero haberte convencido (o demostrado) que el poder de esta característica que nos ofrece .NET es bastante bueno y que no debe pasarse por alto cuando desarrollas. Como siempre, recuerda que todo el código fuente de este post está en la información (cerca del título).

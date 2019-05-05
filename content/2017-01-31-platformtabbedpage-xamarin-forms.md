@@ -23,13 +23,13 @@ PM> Install-Package PlatformTabbedPage
 
 Después, tienes que crear una página que derive de `PlatformTabbedPage`:  
 
-{% highlight csharp %}
+```csharp  
 public class HomeTabbedPage : PlatformTabbedPage
-{% endhighlight %}  
+```  
 
 Y como normalmente haces con las `TabbedPage` originales, añadir las páginas hijo en el constructor. Es **muy importante** que notes cómo es que el ícono no termina en ".png", ya que de otro modo las tabs no funcionarán correctamente en iOS:  
 
-{% highlight csharp %}
+```csharp  
     public HomeTabbedPage()
     {
         BarBackgroundColor = App.BarBackgroundColors[3];
@@ -42,7 +42,7 @@ Y como normalmente haces con las `TabbedPage` originales, añadir las páginas h
         Children.Add(new BasicContentPage("Info") { Icon = "info" });
     }
 }
-{% endhighlight %}  
+```  
 
 Y obtendremos algo como esto (del lado izquierdo es la app creada con una `TabbedPage` tradicional):
 
@@ -75,13 +75,13 @@ Entre las cosas que quise personalizar están el color del elemento seleccionado
 ### Creación del renderer  
 Comenzamos por definir una clase que derive del tipo de página que vamos a personalizar  
 
-{% highlight csharp %}
+```csharp  
 public class PlatformTabbedPage : TabbedPage
-{% endhighlight %}  
+```  
 
 Luego definimos las propiedades, con su respectiva `BindableProperty` para permitir que se establezcan *bindings* a ellas: 
 
-{% highlight csharp %}
+```csharp  
 public static readonly BindableProperty SelectedColorProperty =
     BindableProperty.Create(nameof(SelectedColor), typeof(Color), typeof(PlatformTabbedPage), default(Color));
 
@@ -108,7 +108,7 @@ public BarBackgroundApplyTo BarBackgroundApplyTo
     get { return (BarBackgroundApplyTo)GetValue(BarBackgroundApplyToProperty); }
     set { SetValue(BarBackgroundApplyToProperty, value); }
 }
-{% endhighlight %}  
+```  
 
 La descripción de las propiedades es la siguiente:  
  
@@ -124,21 +124,21 @@ Ahora sí, vamos a ver la implementación en cada plataforma:
 
 En iOS vamos a crear un *renderer* que derive de `TabbedRenderer`:  
 
-{% highlight csharp %}
+```csharp  
 public class PlatformTabbedPageRenderer : TabbedRenderer
-{% endhighlight %}  
+```  
 
 Después definimos unas cuantas propiedades una para acceder al la instancia en forms de `PlatformTabbedPage` y otro par para almacenar los colores por default de la `UITabBar` original:  
 
-{% highlight csharp %}
+```csharp  
 PlatformTabbedPage FormsTabbedPage => Element as PlatformTabbedPage;
 UIColor DefaultTintColor;
 UIColor DefaultBarBackgroundColor;
-{% endhighlight %}  
+```  
 
 Si alguna vez has escrito un *custom renderer* ya sabrás que el método `OnElementChanged` es llamado cada vez que se va a renderizar en pantalla el control, es por eso que dentro de él asignamos (y desasignamos) un evento que nos permitirá estar al tanto de cuando las propiedades de la barra cambien en el proyecto de forms.
 
-{% highlight csharp %}
+```csharp  
 if (e.OldElement != null)
 {
     e.OldElement.PropertyChanged -= OnElementPropertyChanged;
@@ -147,27 +147,27 @@ if (e.NewElement != null)
 {
     e.NewElement.PropertyChanged += OnElementPropertyChanged;
 }
-{% endhighlight %}  
+```  
 
 Además de recuperar los colores por default del TabBar en caso de que los necesitemos más adelante.
 
-{% highlight csharp %}
+```csharp  
 DefaultTintColor = TabBar.TintColor;
 DefaultBarBackgroundColor = TabBar.BackgroundColor;
-{% endhighlight %}  
+```  
 
 Una vez hecho esto llamamos a un par de métodos que nos servirán para asignar los colores que deseamos.
 
-{% highlight csharp %}
+```csharp  
 SetTintedColor();
 SetBarBackgroundColor();
-{% endhighlight %}  
+```  
 
 Ahora toca el turno de "rellenar" los íconos, y digo "rellenar" porque en realidad es necesario que hayas creado un par de íconos por cada tab, uno que se muestre por default y otro que se muestre cuando la tab está seleccionada.  
 
 El truco aquí radica en que la API de iOS permite establecer dos imágenes una seleccionada y otra deseleccionada, y eso es precisamente lo que hace este renderer: toma el ícono, le añade el sufijo "_active" y lo coloca como la imagen que debe mostrarse cuando el elemento está seleccionado:  
 
-{% highlight csharp %}
+```csharp  
 if (FormsTabbedPage != null)
 {
     for (int i = 0; i < TabBar.Items.Length; i++)
@@ -191,37 +191,37 @@ if (FormsTabbedPage != null)
         }
     }
 }
-{% endhighlight %}  
+```  
 
 Y básicamente eso es todo, no se requiere de más gracias a la API que nos otorga iOS y a la la propiedad `SelectedImage`.
 
 ## Android  
 Para Android el *renderer* del que debemos derivar es `TabbedPageRenderer`... sí, distinto al de iOS:  
 
-{% highlight csharp %}
+```csharp  
 public class PlatformTabbedPageRenderer : TabbedPageRenderer
-{% endhighlight %}    
+```    
 
 Se necesitan unas cuantas propiedades para preservar los colores por default:
 
-{% highlight csharp %}
+```csharp  
 PlatformTabbedPage FormsTabbedPage => Element as PlatformTabbedPage;
 AndroidColor _selectedColor = AndroidColor.Black;
 AndroidColor DefaultUnselectedColor = FormsColor.Gray.Darken().ToAndroid();
 static AndroidColor BarBackgroundDefault;
 AndroidColor _unselectedColor = DefaultUnselectedColor;
-{% endhighlight %}  
+```  
 
 En Android una página de pestñas está compuesta normalmente por un par de elementos independientes: un `ViewPager` y un `TabLayout` que se coordinan entre ellos para funcionar como un solo control, al ser parte central de este *renderer*  también necesitamos tener una referencia a ellos a nivel de clase:  
 
-{% highlight csharp %}
+```csharp  
 ViewPager _viewPager;
 TabLayout _tabLayout;
-{% endhighlight %}  
+```  
 
 Ahora, dentro del importantísimo método `OnElementChanged` obtendremos las referencias el par de controles declarados arriba. El renderer contiene ambos, sin embargo no los tiene directamente accesibles si no que son del tipo `View`, es por eso que se usa `is` para identificarlos y después hacer el *cast* de manera segura:
 
-{% highlight csharp %}
+```csharp  
 for (int i = 0; i < ChildCount; i++)
 {
     var v = GetChildAt(i);
@@ -230,33 +230,33 @@ for (int i = 0; i < ChildCount; i++)
     else if (v is TabLayout)
         _tabLayout = (TabLayout)v;
 }
-{% endhighlight %}  
+```  
 
 Obtenemos el color por default y establecemos los colores de la barra:   
 
-{% highlight csharp %}
+```csharp  
 BarBackgroundDefault = (_tabLayout.Background as ColorDrawable)?.Color ?? Android.Graphics.Color.Green;
 SetSelectedColor();
 SetBarBackgroundColor();
-{% endhighlight %}  
+```  
 
 A diferencia de iOS, en Android tendremos que hacer uso de un par de métodos que son llamados cada vez que se selecciona/deselecciona una *tab*, es por eso que también son asignados dentro de el método principal:
 
-{% highlight csharp %}
+```csharp  
 _tabLayout.TabSelected += TabLayout_TabSelected;
 _tabLayout.TabUnselected += TabLayout_TabUnselected;
-{% endhighlight %}  
+```  
 
 Por último establecemos el color de todos los íconos en la barra de pestañas, y marcamos cono seleccionado el primer elemento mediante un pequeño método auxiliar:  
 
-{% highlight csharp %}
+```csharp  
 SetupTabColors();
 SelectTab(0);
-{% endhighlight %}  
+```  
 
 Ahora si, la "magia" de los métodos que son llamados cuando se slecciona o deselecciona una pestaña: básicamente consiste en aplicar un filtro de color al ícono de la tab seleccionada, y dependiendo de qué método se haya llamado aplicar el color adecuado:  
 
-{% highlight csharp %}
+```csharp  
 private void TabLayout_TabUnselected(object sender, TabLayout.TabUnselectedEventArgs e)
 {
     var tab = e.Tab;
@@ -268,7 +268,7 @@ private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs
     var tab = e.Tab;
     tab.Icon?.SetColorFilter(_selectedColor, PorterDuff.Mode.SrcIn);
 }
-{% endhighlight %}  
+```  
 
 Y eso es todo... básicamente el renderer de Android es un poco más complicado que el de iOS, pero nada que sea del otro mundo.  
 

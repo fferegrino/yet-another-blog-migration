@@ -43,14 +43,14 @@ Hay que quitar la referencia al *Storyboard* por default, esto se logra borrando
 
 Hay que indicarle a la aplicación que su delegado es el archivo `AppDelegate`:  
 
-{% highlight csharp %}
+```csharp  
 	static void Main(string[] args)
 	{
 		NSApplication.Init();
 		NSApplication.SharedApplication.Delegate = new AppDelegate();
 		NSApplication.Main(args);
 	}
-{% endhighlight %}   
+```   
 
 ### 6. Edita el archivo AppDelegate.cs  
 
@@ -58,17 +58,17 @@ La primera modificación es cambiar la clase base de `NSApplicationDelegate` a `
 
 El segundo cambio es sobrescribir la propiedad `NSWindow`, vamos a hacer una propiedad con un campo de respaldo:   
 
-{% highlight csharp %}
+```csharp  
 NSWindow _window;
 public override NSWindow MainWindow
 {
     get { return _window; }
 }
-{% endhighlight %}  
+```  
 
 Ahora, en el constructor de la clase vamos a inicializar la `NSWindow` anterior. Básicamente se trata de establecer las opciones para la ventana en la que se mostrará nuestra aplicación: 
 
-{% highlight csharp %}
+```csharp  
 public AppDelegate()
 {
     var style = NSWindowStyle.Closable | NSWindowStyle.Resizable | NSWindowStyle.Titled;
@@ -78,18 +78,18 @@ public AppDelegate()
     _window.Title = "Who is in space?";
     _window.TitleVisibility = NSWindowTitleVisibility.Hidden;
 }
-{% endhighlight %}  
+```  
 
 Y por último, como en iOS, hay que sobrescribir el método `DidFinishLaunching` para que cargue la aplicación de Forms.
 
-{% highlight csharp %}
+```csharp  
 public override void DidFinishLaunching(NSNotification notification)
 {
     Forms.Init();
     LoadApplication(new App());
     base.DidFinishLaunching(notification);
 }
-{% endhighlight %}  
+```  
 
 ## Esto es importante
 

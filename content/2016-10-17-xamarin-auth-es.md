@@ -53,7 +53,7 @@ Bien, hemos terminado el papeleo, ahora, a escribir código:
 
 Comenzaremos por crear una interfaz que especifique algunas de las propiedades comunes a la hora de realizar la autenticación:
 
-{% highlight csharp %}
+```csharp  
 public interface IKeys
 {
     string ClientId { get; }
@@ -67,11 +67,11 @@ public interface IKeys
     string ConsumerKey { get; }
     string CallbackUrl { get; }
 }
-{% endhighlight %}  
+```  
 
 Ahora es cuando tenemos que usar los valores obtenidos en la fase de "El Papeleo", creamos una clase por cada servicio conectado, fijate cómo es que las clases implementan la interfaz IKey:
 
-{% highlight csharp %}	
+```csharp  	
 public class FacebookKeys : IKeys
 {
     public string ClientId { get; } = "XXXXXXXXX"; // El valor de App ID en el Dashobard
@@ -98,22 +98,22 @@ public class TwitterKeys : IKeys
     public string RequestTokenUrl => "https://api.twitter.com/oauth/request_token";
     public string CallbackUrl => "https://mobile.twitter.com/home";
     //
-{% endhighlight %}  
+```  
 
 Además de un <a href="../c-sharp-enums" target="_blank">tipo <code>enum</code></a> que represente a los servicios que podemos usar, usamos un `enum` para evitar usar cadenas mágicas en el código: 
 
-{% highlight csharp %}
+```csharp  
 public enum Services
 {
     GitHub,
     Facebook,
     Twitter
 }
-{% endhighlight %}  
+```  
 
 Dado que Xamarin.Auth hace uso de APIs nativas de cada platforma, sus métodos son únicamente accesibles en los proyectos "cliente" y no desde el núcleo de nuestra aplicación, es por eso que para interactuar con ella indepentiéntemente de la plataforma, necesitamos hacer uso de una interfaz: 
 
-{% highlight csharp %}
+```csharp  
 public interface IAccountManagerService
 {
     List<Services> Accounts { get; }
@@ -122,11 +122,11 @@ public interface IAccountManagerService
 
     void EraseAll();
 }
-{% endhighlight %}  
+```  
 
 La pantalla de autorización es una nueva `Activity` o un nuevo `UIViewController`, dependiendo de la plataforma, y como desde Forms no tenemos acceso a estas clases, de nuevo creamos una solución independiente de la plataforma. En este caso lo haremos a través de un <a href="https://developer.xamarin.com/guides/xamarin-forms/custom-renderer/contentpage/" target="_blank"><i>Custom renderer</i></a> de una `ContentPage`:
 
-{% highlight csharp %}
+```csharp  
 public class AuthorizePage : ContentPage
 {
     public Services Service { get; private set; }
@@ -136,7 +136,7 @@ public class AuthorizePage : ContentPage
         Service = service;
     }
 }
-{% endhighlight %}  
+```  
 
 Como puedes ver, tiene una propiedad llamada `Service` del tipo `Service`, a través de la cual especificaremos a cuál de los servicios nos vamos a conectar. Más adelante demostraré el uso de este tipo de páginas.
 
@@ -145,7 +145,7 @@ Una vez terminado el código multiplataforma, vamos a trabajar con los proyectos
 
 Comenzaremos por implementar la interfaz `IAccountManagerService` a través de la que interactuaremos con el servicio de gestión de cuentas de Xamarin.Auth:
 
-{% highlight csharp %}
+```csharp  
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -202,17 +202,17 @@ namespace Authy.Droid.AccountManagement
 		}
 	}
 }
-{% endhighlight %}  
+```  
 
 Para esta ocasión estaremos usando otra de las herramientas de XF, el <a href="https://developer.xamarin.com/guides/xamarin-forms/dependency-service/" target="_blank">DependencyService</a>, así que no te olvides de colocar la siguiente línea en tu archivo:
 
-{% highlight csharp %}
+```csharp  
 [assembly: Xamarin.Forms.Dependency(typeof(AccountsImplementation))]
-{% endhighlight %}  
+```  
 
 Después, es momento de implementar el *custom renderer* de la página con la que vamos a solicitar la autorización: 
 
-{% highlight csharp %}
+```csharp  
 using System;
 using Authy.AccountManagement;
 using Xamarin.Forms;
@@ -327,7 +327,7 @@ namespace Authy.Droid.AccountManagement
 	}
 
 }
-{% endhighlight %}
+```
 
 Lo que el código anterior hace es declarar dos formas de obtener la autorización (`OAuth2Authenticator` y `OAuth2Authenticator`), también delcara una variable del tipo `IKeys`. 
 
@@ -342,31 +342,31 @@ Ese es todo el código que necesitas para los proyectos "cliente". Ahora, de vue
 ## De vuelta en Xamarin.Forms  
 Cuando solicitemos permiso para usar determinado servicio, lo único que debemos hacer es crear una nueva página en Forms y navegar hacia ella:
 
-{% highlight csharp %}
+```csharp  
 await Navigation.PushAsync(new AuthorizePage(Services.Facebook));
-{% endhighlight %}  
+```  
 
 Para corroborar si el usuario ha otorgado permiso debemos obtener las cuentas que tenemos guardadas en el dispositivo usando la implementación de la clase `IAccountManagerService` del servicio de dependencias:
 
-{% highlight csharp %}
+```csharp  
 _services = DependencyService.Get<IAccountManagerService>();
-{% endhighlight %}  
+```  
 
 Y luego revisar la propiedad `Accounts` buscando si existe el servicio que deseamos:
 
-{% highlight csharp %}
+```csharp  
 var accounts = _services.Accounts;
 if (accounts.Contains(Services.Facebook))
 { // ...
-{% endhighlight %}  
+```  
 
 Si sabemos que el usuario nos ha autorizado, podemos acceder a los tokens, claves y demás información de permisos mediante el método `GetPropertyFromAccount`:
 
-{% highlight csharp %}
+```csharp  
 var screen_name = _services.GetPropertyFromAccount(Services.Twitter, "screen_name");
 var oauth_consumer_key = _services.GetPropertyFromAccount(Services.Twitter, "oauth_consumer_key");
 var oauth_token_secret = _services.GetPropertyFromAccount(Services.Twitter, "oauth_token_secret");
-{% endhighlight %}  
+```  
 
 ## Demo
 Puedes ver el vídeo de la app que usa el código explicado en el código anterior:  

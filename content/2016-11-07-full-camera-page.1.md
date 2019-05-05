@@ -19,16 +19,16 @@ Today I decided to retake that project, but this time trying to isolate the code
 
 Let's start by creating the Xamarin.Forms page that will serve as our point of interaction with the custom code:  
 
-{% highlight csharp %}
+```csharp  
 public class CameraPage : ContentPage
 {
     public delegate void PhotoResultEventHandler(PhotoResultEventArgs result);
     public event PhotoResultEventHandler OnPhotoResult;
-{% endhighlight %}  
+```  
 
 Business as usual, create a class deriving from `ContentPage`. I have added an event handler as I want to access the picture taken by the user. Now let's throw in some methods to call whenever an user performs an action in our camera page (in this case, the user will be allowed to take a photo or cancel the action):
 
-{% highlight csharp %}
+```csharp  
 public void SetPhotoResult(byte[] image, int width = -1, int height = -1)
 {
     OnPhotoResult?.Invoke(new PhotoResultEventArgs(image, width, height));
@@ -38,16 +38,16 @@ public void Cancel()
 {
     OnPhotoResult?.Invoke(new PhotoResultEventArgs());
 } 
-{% endhighlight %}  
+```  
 
 For reference, see the properties inside the `PhotoResultEventArgs` class:
 
-{% highlight csharp %}
+```csharp  
 public bool Success { get; private set; }
 public int Width { get; private set; }
 public int Height { get; private set; }
 public byte[] Image { get; private set; }
-{% endhighlight %}  
+```  
 
 Now, time to move on to the platform specifics. 
 
@@ -56,16 +56,16 @@ Now, time to move on to the platform specifics.
 
 To be honest, this implementation is the easiest by far. Start off by creating a class that inherits from `PageRenderer`, and to add the `ExportRenderer` attribute:
 
-{% highlight csharp %}
+```csharp  
 [assembly: ExportRenderer(typeof(CameraPage), typeof(CameraPageRenderer))]
 namespace FullCameraPage.iOS
 {
 	public class CameraPageRenderer : PageRenderer
-{% endhighlight %}  
+```  
 
 Now, an this is very important, you need to override the `ViewDidLoad` method, since it gets called as soon as our page is loaded by the iOS mechanisms. For the sake of organisation let's split the code in several other methods:  
 
-{% highlight csharp %}
+```csharp  
 public override async void ViewDidLoad()
 {
     base.ViewDidLoad();
@@ -74,22 +74,22 @@ public override async void ViewDidLoad()
     AuthorizeCameraUse();
     SetupLiveCameraStream();
 }
-{% endhighlight %}  
+```  
 
 ### SetupUserInterface 
 As the name states, here is where you need to build the UI. As you may have guessed, it is all done by code, but don't worry, it is very easy... as long as your UI isn't so complex, but you can do whatever you need here.  
 
 For this sample the UI will consist of a couple of buttons and a surface where the live preview from the camera is going to be shown, so you need to declare them on a class-level scope:  
 
-{% highlight csharp %}
+```csharp  
 VectorButton takePhotoButton;
 VectorButton cancelPhotoButton;
 UIView liveCameraStream;
-{% endhighlight %}  
+```  
 
 To set the items in place you need to think as if you were working with a relative layout, meaning that you need to set the position of each item within the screen. For example, look at how the live camera preview view is positioned:
 
-{% highlight csharp %}
+```csharp  
 private void SetupUserInterface()
 {
     // Code ommited ...
@@ -101,12 +101,12 @@ private void SetupUserInterface()
     View.Add(liveCameraStream);
     // Code ommited ...
 }
-{% endhighlight %}  
+```  
 
 ### SetupEventHandlers
 Now that the UI has been built, let's hook up the event handlers to each control, luckly for this sample there are only two buttons on screen: one to take the picture and the other to cancel the whole thing.
 
-{% highlight csharp %}
+```csharp  
 cancelPhotoButton.TouchUpInside += (s, e) =>
 {
     (Element as CameraPage).Cancel();
@@ -121,20 +121,20 @@ takePhotoButton.TouchUpInside += async (s, e) =>
                                            (int)imageInfo.Size.Width,
                                            (int)imageInfo.Size.Height);
 };
-{% endhighlight %}  
+```  
 
 The property `Element` contains a reference to the page associated to the renderer, and is our way to interact with our Forms project. As for the method `CapturePhoto`... we'll see it later. 
 
 ## AuthorizeCameraUse  
 Now it's time to ask the user for its permission to access the camera: 
 
-{% highlight csharp %}
+```csharp  
 var authorizationStatus = AVCaptureDevice.GetAuthorizationStatus(AVMediaType.Video);
 if (authorizationStatus != AVAuthorizationStatus.Authorized)
 {
     await AVCaptureDevice.RequestAccessForMediaTypeAsync(AVMediaType.Video);
 }
-{% endhighlight %}  
+```  
 
 But wait a minute, before executing the code above, make sure you have added the key `Privacy - Camera Usage Description` to the Info.plist in your project.  
 
@@ -145,46 +145,46 @@ Start by declaring at class-level scope an `AVCaptureSession`, `AVCaptureDeviceI
 
 Then, inside the `SetupLiveCameraStream` method, initialize the capture session, create a preview layer with the same size as our `liveCameraStream`, and add it as a sublayer of it:
 
-{% highlight csharp %}
+```csharp  
     captureSession = new AVCaptureSession();
     var videoPreviewLayer = new AVCaptureVideoPreviewLayer(captureSession)
     {
         Frame = liveCameraStream.Bounds
     };
     liveCameraStream.Layer.AddSublayer(videoPreviewLayer);
-{% endhighlight %}    
+```    
 
 Next, "create" a capture device (you can configure it to work according to your needs). And then, from it create the an input source for the capture session:
 
-{% highlight csharp %}
+```csharp  
     var captureDevice = AVCaptureDevice.DefaultDeviceWithMediaType(AVMediaType.Video);
     ConfigureCameraForDevice(captureDevice);
     captureDeviceInput = AVCaptureDeviceInput.FromDevice(captureDevice);
-{% endhighlight %}  
+```  
 
 We have an input (the camera of the device), now we need an output which is going to be a jpeg photograph:
 
-{% highlight csharp %}
+```csharp  
     var dictionary = new NSMutableDictionary();
     dictionary[AVVideo.CodecKey] = new NSNumber((int)AVVideoCodec.JPEG);
     stillImageOutput = new AVCaptureStillImageOutput()
     {
         OutputSettings = new NSDictionary()
     };
-{% endhighlight %}  
+```  
 
 Finalize by setting the input and output of the capture session and starting it: 
 
-{% highlight csharp %}
+```csharp  
     captureSession.AddOutput(stillImageOutput);
     captureSession.AddInput(captureDeviceInput);
     captureSession.StartRunning();
-{% endhighlight %}
+```
 
 ### CapturePhoto
 At last, the icing on the cake, the code to capture the photo. The code is pretty simple: Take the output and capture a still image from it, as we only need the bytes we get an `NSData` containing the taken photo. 
 
-{% highlight csharp %}
+```csharp  
 public async Task<NSData> CapturePhoto()
 {
     var videoConnection = stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
@@ -192,7 +192,7 @@ public async Task<NSData> CapturePhoto()
     var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
     return jpegImageAsNsData;
 }
-{% endhighlight %}
+```
 
 ## In Xamarin.Android    
 <small><a href="https://github.com/ThatCSharpGuy/Forms-FullCameraPage/blob/master/Droid/CameraPageRenderer.cs" target="_blank">Here is the source code for this section.</a></small>    
@@ -200,37 +200,37 @@ This implementation isn't as clean as it is in iOS. Mainly because Android puts 
 
 As with the iOS implementation, start by creating a new class and make it derive from `PageRenderer` and also make it implement the `TextureView.ISurfaceTextureListener` interface. Don't forget the `ExportRender` attribute:
 
-{% highlight csharp %}
+```csharp  
 [assembly: Xamarin.Forms.ExportRenderer(typeof(CameraPage), typeof(CameraPageRenderer))]
 namespace FullCameraPage.Droid
 {
     public class CameraPageRenderer : PageRenderer, TextureView.ISurfaceTextureListener
-{% endhighlight %}  
+```  
 
 Then, override the `OnElementChanged` method (if you have creaated custom renderers before this method may be familar to you), this method is going to be called everytime the a `CamerPage` is shown on screen:
 
-{% highlight csharp %}
+```csharp  
 protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Page> e)
 {
     base.OnElementChanged(e);
     SetupUserInterface();
     SetupEventHandlers();
-{% endhighlight %}  
+```  
 
 ### SetupUserInterface  
 In this method we are supposed to create the camera page itself, you can do it by creating an *axml* file and calling all the Android inflating stuff... Or, like in this sample, you can create it by code.
 
 For this sample, we'll need a `RelativeLayout` to work as a container, a `TextureView` to display the live feed from the camera, and a `Button` (a `PaintCodeButton` actually) to snap the photograph. Declare all them at class-level scope: 
 
-{% highlight csharp %}
+```csharp  
 RelativeLayout mainLayout;
 TextureView liveView;
 PaintCodeButton capturePhotoButton;
-{% endhighlight %}  
+```  
 
 Now, proceed to create them and add them to the screen, for example, see how we can create the container layout and add the `TextureView` to it:  
 
-{% highlight csharp %}
+```csharp  
 void SetupUserInterface()
 {
     mainLayout = new RelativeLayout(Context);
@@ -250,11 +250,11 @@ void SetupUserInterface()
 
     AddView(mainLayout);
 }
-{% endhighlight %}  
+```  
 
 Before continuing, there is another method (`OnLayout`) we need to override to give our main layout it's size (and acommodate the UI accordingly): 
 
-{% highlight csharp %}
+```csharp  
 protected override void OnLayout(bool changed, int l, int t, int r, int b)
 {
     base.OnLayout(changed, l, t, r, b);
@@ -268,23 +268,23 @@ protected override void OnLayout(bool changed, int l, int t, int r, int b)
     capturePhotoButton.SetX( mainLayout.Width / 2 - 60);
     capturePhotoButton.SetY(mainLayout.Height - 200);
 }
-{% endhighlight %}  
+```  
 
 ### SetupEventHandlers  
 As I said, Android relies mostly on event listeners rather than handlers, so the code for this method is pretty simple. We need to set an event handler for the "sutter" button and assign the listener that will be aware of the `SurfaceTexture` status (remember that our page render implements an interface?):  
 
-{% highlight csharp %}
+```csharp  
 capturePhotoButton.Click += async (sender, e) =>
 {
     var bytes = await TakePhoto();
     (Element as CameraPage).SetPhotoResult(bytes, liveView.Bitmap.Width, liveView.Bitmap.Height);
 };
 liveView.SurfaceTextureListener = this;
-{% endhighlight %}  
+```  
 
 And one more thing, let's to override the default behavior of the "back" button, so that it acts as a cancel button for the camera:
 
-{% highlight csharp %}
+```csharp  
 public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
 {
     if (keyCode == Keycode.Back)
@@ -294,27 +294,27 @@ public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
     }
     return base.OnKeyDown(keyCode, e);
 }
-{% endhighlight %}   
+```   
 
 ### TextureView.ISurfaceTextureListener implementation  
 Now is time to implement the core of our page. Start by writing the code for the `OnSurfaceTextureAvailable` where we will prepare the output for the camera, but first we'll need a camera, right?
 
 At class-level scope declare a `Camera`:  
 
-{% highlight csharp %}
+```csharp  
 Android.Hardware.Camera camera;
-{% endhighlight %}
+```
  
 Inside the method, open the camera (by default it'll try to open the back camera of the device) and get its parameters. We need them to select the right preview size, because we want things to look great in our app:
 
-{% highlight csharp %}
+```csharp  
 camera = Android.Hardware.Camera.Open();
 var parameters = camera.GetParameters();
-{% endhighlight %} 
+``` 
 
 Once we have the parameters at hand, we can get the avaliable `PreviewSizes` and get the one that fits our preview surface. In this case I'm using a simple <a href="#">linq expression</a> to get the best preview size based on aspect ratio:
 
-{% highlight csharp %}
+```csharp  
 var aspect = ((decimal)height) / ((decimal)width);
 
 var previewSize = parameters.SupportedPreviewSizes
@@ -323,42 +323,42 @@ var previewSize = parameters.SupportedPreviewSizes
 
 parameters.SetPreviewSize(previewSize.Width, previewSize.Height);
 camera.SetParameters(parameters);
-{% endhighlight %} 
+``` 
 
 Finish by setting our surface as the preview texture, at this point the only thing left to do is to start the camera:
 
-{% highlight csharp %}
+```csharp  
 camera.SetPreviewTexture(surface);
 StartCamera();
-{% endhighlight %} 
+``` 
 
 The other method we need to write code into is `OnSurfaceTextureDestroyed` in order to stop the camera, so just write the following inside and it'll be all:  
 
-{% highlight csharp %}
+```csharp  
 StopCamera();
 return true;
-{% endhighlight %} 
+``` 
 
 ### StartCamera and StopCamera
 These two methods are quite simple too, for `StartCamera` we only need to rotate the preview to make it look right in the screen (in this case I'm setting it to be viewed vertically), and then finally, start the camera:   
 
-{% highlight csharp %}
+```csharp  
 camera.SetDisplayOrientation(90);
 camera.StartPreview();
-{% endhighlight %} 
+``` 
 
 The `StopCamera` method stops the preview and releases the camera, so that other apps can access to it:   
 
-{% highlight csharp %}
+```csharp  
 camera.StopPreview();
 camera.Release();
-{% endhighlight %} 
+``` 
 
 ### TakePhoto
 
 In order to get a photo, the only thing we need to do is get an sitll image from the live feed presented in the `TextureView`, here is the code to do so and then return the image in bytes:
 
-{% highlight csharp %}
+```csharp  
 camera.StopPreview();
 var ratio = ((decimal)Height) / Width;
 var image = Bitmap.CreateBitmap(liveView.Bitmap, 0, 0, liveView.Bitmap.Width, (int)(liveView.Bitmap.Width * ratio));
@@ -371,13 +371,13 @@ using (var imageStream = new System.IO.MemoryStream())
 }
 camera.StartPreview();
 return imageBytes;
-{% endhighlight %} 
+``` 
 
 And that's it, after all that code, you can now make use of this camera page. Keep reading to find a sample usage code:
 
 ## Usage in Forms  
 
-{% highlight csharp %}
+```csharp  
 var cameraPage = new CameraPage();
 cameraPage.OnPhotoResult += CameraPage_OnPhotoResult;
 Navigation.PushModalAsync(cameraPage);  
@@ -388,7 +388,7 @@ async void CameraPage_OnPhotoResult(Pages.PhotoResultEventArgs result)
     if (!result.Success)
         return;
     Image.Source = ImageSource.FromStream(() => new MemoryStream(result.Image));
-{% endhighlight %}  
+```  
 
 If you <strong><a href="https://github.com/ThatCSharpGuy/Forms-FullCameraPage" target="_blank">download the source code</a></strong> and run it, you will see something like this:
 

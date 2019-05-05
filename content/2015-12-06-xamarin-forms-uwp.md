@@ -36,13 +36,13 @@ Add a reference to the project where the forms application is, for us, such proj
 
 It is time to get our hands into the code: Open the `App.xaml.cs` file that was created with the UWP app, look for this handler assignation `rootFrame.NavigationFailed += OnNavigationFailed;`. Below this line we must initialize the Xamarin.Forms module (every platform specific project that uses Xamarin.Forms has to do this as one of the first things in the app lifecycle), to do so, simply call the `Init` method:  
 
-{% highlight csharp %}
+```csharp  
 rootFrame = new Frame();
 
 rootFrame.NavigationFailed += OnNavigationFailed;
 
 Xamarin.Forms.Forms.Init(e); // Added support for Forms
-{% endhighlight %}  
+```  
 <br />
 Then, we must get rid of the default UI inside the  `MainPage.xaml`, we won't be using it since Forms has got us covered. Delete all code (it might be just a grid) within the `<Page>` and `</Page>` tags.  
 
@@ -50,9 +50,9 @@ Then, we must get rid of the default UI inside the  `MainPage.xaml`, we won't be
 
 Then, we need to change our page type to a special kind of Xamarin.Forms page. First add this *"attribute"* inside the `<Page>` tag:
 
-{% highlight xml %}
+```xml  
 xmlns:forms="using:Xamarin.Forms.Platform.UWP" 
-{% endhighlight %}
+```
 I double-quoted *attribute* since the line above isn't exactly an *attribute*, it is a *namespace*, somewhat like an `using` directive but for xaml. Once we have added the namespace, replace the page `<Page ` and `</Page>` for `<forms:WindowsPage ` and `</forms:WindowsPage>`, as you can see we're using the `forms` namespace.
 
 {% post_image final-result.png "Final result" %}  
@@ -62,20 +62,20 @@ And that's it for the XAML part, press `F7` to jump to the code-behind.
 
 First things first, since our MainPage isn't a `Page` but a `WindowsPage`, replace the inheritance `: Page` for `: WindowsPage`  
 
-{% highlight csharp %}
+```csharp  
 public sealed partial class MainPage : WindowsPage  // bye, bye ": Page"
-{% endhighlight %}  
+```  
 
 Even though replacing the inheritance in this page isn't needed (because the other partial definition of the class has it), I always do it, it gives me clarity of what type the page is.  
 
 <br />
 Next... the big step: load your Forms page, this is done inside the `MainPage` constructor and after the elements of the page have been initialized:  
 
-{% highlight csharp %}
+```csharp  
 this.InitializeComponent();
 
 LoadApplication(new Xevenshtein.App()); // Call to Xamarin.Forms 
-{% endhighlight %}  
+```  
 
 And that's it, now you have a nice UWP app in a few steps. 
 <br />

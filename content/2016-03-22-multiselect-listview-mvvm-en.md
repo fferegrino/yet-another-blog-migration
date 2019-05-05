@@ -20,7 +20,7 @@ To make this task possible, we should make use of some auxiliary classes that I 
 ### The Model  
 For this example, we will be showing a list of Pokemons and allow the user to select some of them through a list, the model class is the following:
 
-{% highlight csharp %}
+```csharp  
 public class Pokemon 
 {
     public int Id { get; set; }
@@ -28,18 +28,18 @@ public class Pokemon
     public double Weight { get; set; }
     public double Height { get; set; }
 }
-{% endhighlight %}  
+```  
 
 ### SelectableItemWrapper&lt;T&gt;
 Apart from the model, there is a need from an auxiliary class that you can tell by the name, acts as wrapper for the model, its definition is the following:
 
-{% highlight csharp %}
+```csharp  
 public class SelectableItemWrapper<T>
 {
     public bool IsSelected { get; set; }
     public T Item { get; set; }
 }
-{% endhighlight %}    
+```    
 
 The `IsSelected` property will be used to determine whether the user had selected an item or not, while `Item` will contain the model.
 
@@ -52,9 +52,9 @@ For the first one, where all the Pokemons will be shown, we will have to modify 
 
 The list will be declared in XAML and the collection `Pokemons` will be set as the `ItemSource` property:
 
-{% highlight xml %}
+```xml  
 <ListView ItemsSource="{Binding Pokemons}">
-{% endhighlight %}  
+```  
 
 As we know, now every element in the collection will be a row in the list.
 
@@ -65,24 +65,24 @@ That is why in order to show the information three labels are created, and for t
 
 You can design the cell as you want, but it is important that inside of it you bind a boolean property, such as `IsToggled` o `Checked`, to the property `IsSelected` of the `SelectableItemWrapper` class. For this example, a line like this should be enough:
 
-{% highlight csharp %}
+```csharp  
 // Important:
 sw.SetBinding(Switch.IsToggledProperty, "IsSelected");
-{% endhighlight %}  
+```  
 
 I should remark that the binding is defined within the cell implementation, and not in the view where the bindings are usually defined.
 
 ### Back to the View
 Now, again back to the view, we can use the cell in our `ListView`, we can define other bindings:
 
-{% highlight xml %}
+```xml  
 <ListView.ItemTemplate>
     <DataTemplate>
         <c:PokemonSelectableCell 
             Name="{Binding Item.Name}" 
             Weight="{Binding Item.Weight}" 
             Height="{Binding Item.Height}" />
-{% endhighlight %}  
+```  
 
 You can notice that te binding routes aren't "direct", instead we are referring first to an `Item` before the *real* properties, that is because we are binding to a `SelectableItemWrapper<Pokemon>`, not to a `Pokemon`. 
 
@@ -94,7 +94,7 @@ For the ViewModel we require two collections:
  
 Here are the definitions for them:
  
- {% highlight csharp %}
+ ```csharp  
 private ObservableCollection<SelectableItemWrapper<Pokemon>> _pokemons;
 public ObservableCollection<SelectableItemWrapper<Pokemon>> Pokemons
 {
@@ -108,13 +108,13 @@ public ObservableCollection<Pokemon> SelectedPokemons
     get { return _selectedPokemons; }
     private set { _selectedPokemons = value; RaisePropertyChanged(); }
 }
-{% endhighlight %}  
+```  
 
 The first one, `Pokemons` is an `ObservableCollection` of `SelectableItemWrapper` of `Pokemon` because it holds all the selectable items. Whereas the second one is just another collection. Like the ones we are used to.
 
 Therefore, in the ViewModel we can get all the selected items using a simple Linq query:
 
-{% highlight csharp %}
+```csharp  
 ObservableCollection<Pokemon> GetSelectedPokemons()
 {
     var selected = Pokemons
@@ -123,11 +123,11 @@ ObservableCollection<Pokemon> GetSelectedPokemons()
         .ToList();   
     return new ObservableCollection<Pokemon>(selected);
 }
-{% endhighlight %}  
+```  
 
 Or mark all or none items as selected:
 
-{% highlight csharp %}
+```csharp  
 void SelectAll(bool select)
 {
     foreach (var p in Pokemons)
@@ -135,7 +135,7 @@ void SelectAll(bool select)
         p.IsSelected = select;
     }
 }
-{% endhighlight %}  
+```  
 
 And all of that, from the ViewMdoel. Remember, you can always  <a href="https://github.com/ThatCSharpGuy/MultiPokeList" target="_blank">check the source code</a>. By the way, look at the finished app:
 
