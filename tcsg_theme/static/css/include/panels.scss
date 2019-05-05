@@ -1,0 +1,39 @@
+.panel {
+    border: 1px solid #CCCEDB;
+    background-color: lighten(#CCCEDB, 10%);
+    
+    
+    
+    div.panel-title{
+        background-color: #EEEEF2;
+        background-image: url(#{$image-site-path}/title-panel-dots.png);
+        background-position: center;
+        background-repeat:  repeat-x;
+        color: #000;
+        padding: 1px 0;
+        font-size: $base-font-size - 2;
+         span.title {
+            background-color: #CCCEDB;
+            padding: 0 10px;
+         }
+    }
+    
+    &.active,
+    &.active-on-hover:hover {
+        div.panel-title {
+            color: #fff;
+            background-color: $accent-color;
+            span.title {
+                background-color: $accent-color;
+            }
+        }
+    }
+    
+    div.panel-content {
+        padding: 10px;
+    }
+}
+
+.gutter{
+    padding: 10px;
+}

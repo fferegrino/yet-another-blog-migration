@@ -1,0 +1,79 @@
+// Cards:
+.card {
+	width: 299px;
+	height: 157px;
+	.inner-card{	
+		width: 299px;
+		height: 157px;
+		background-position: center;
+        > div {
+			color: white;
+			background-color:  rgba(0,0,0, 0.7);
+			width: 279px;
+			height: 137px;
+			padding: 10px;
+			visibility: hidden;
+			opacity: 0;
+			transition: visibility 0s, opacity 0.3s linear;
+		}
+		small {
+			color: white;
+			background-color: black;
+		}
+		&:hover{
+			box-shadow: 
+				0 1px 3px rgba(0,0,0, 0.22),
+				0 1px 2px rgba(0,0,0, 0.48); 
+				
+			div {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+		
+	}
+    
+    &.feedback{
+        .inner-card{
+            div{
+				visibility: visible;
+				opacity: 1;
+                color: $text-color;
+                background-color: $ui-background-color;
+            }
+            
+            
+		&:hover{
+			box-shadow: 
+				0 1px 3px rgba(0,0,0, 0.22),
+				0 1px 2px rgba(0,0,0, 0.48); 
+				
+		  }
+        }
+    }
+}
+
+
+// Tags:
+.regions {
+	list-style-type: none;
+	
+	li a {
+		border: 2px solid $grey-color;
+		color: $grey-color;
+		display: block;
+		padding: 5px 5px;
+		font-size: 20px;
+		margin: 10px 0;
+	}
+	
+	li a:hover {
+		text-decoration: none;
+		border: 2px solid #999;
+		color: #999;
+		display: block;
+		padding: 5px 5px;
+		font-size: 20px;
+		margin: 10px 0;
+	}
+}

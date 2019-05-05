@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% include "post/post_meta.html" %}
+<h1 class="post-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+  title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2></h1>
+<div class="post-content">
+{# TODO: Create pdf guide template
+{% if page.pdfguide %}
+    {% include post-guide.html %}    
+{% endif %}
+#}
+    <article>
+        {{ article.content }}
+    </article>
+    <div class="post-contact">
+      {% include "post/post_footer.html" %}
+    </div>
+</div>
+{% endblock %}
