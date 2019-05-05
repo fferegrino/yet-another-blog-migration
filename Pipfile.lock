@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "9889a8465f2f9368bd8bc81f635b9cad8da3ea095efb0b1511b59a8e67e7c67c"
+            "sha256": "72258c91f6f1336b3161027e18ce4d74857e6e165860cc99d6241ed7eb4e8e7d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -91,6 +91,13 @@
             ],
             "index": "pypi",
             "version": "==4.0.1"
+        },
+        "pelican-alias": {
+            "hashes": [
+                "sha256:e548c8245127bd540d53d9b1a95c8fb6958184f819d13f996f208f45f7237c4f"
+            ],
+            "index": "pypi",
+            "version": "==1.1"
         },
         "pygments": {
             "hashes": [
