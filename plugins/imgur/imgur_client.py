@@ -16,7 +16,7 @@ class ImgurClient:
         self.account = None
         self.access_token = None
 
-    def _auth_headers(self, extras={}):
+    def _auth_headers(self, **extras):
         authed_header = {
             'Authorization': f'Bearer {self.access_token}'
         }
@@ -41,6 +41,15 @@ class ImgurClient:
         else:
             raise Exception(parsed_result['data']['error'])
 
+    def get_user(self, username):
+        username = username or self.account.username
+        url = BASE_URL.format(resource=f'3/account/{username}')
+
+        result = requests.get(url, headers=self._auth_headers())
+        if result.ok:
+            return json.loads(result.text)['data']
+        return None
+
     def get_albums(self,username=None):
         username = username or self.account.username
         url = BASE_URL.format(resource=f'3/account/{username}/albums/')
@@ -48,3 +57,25 @@ class ImgurClient:
 
         return json.loads(response.text)['data']
         
+    def create_album(self, title, description):
+        url = BASE_URL.format(resource='3/album')
+        data = {
+            'title':title,
+            'description': description
+        }
+        response = requests.post(url, data=data, headers=self._auth_headers(**{
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }))
+
+        if response.ok:
+            return True
+        return False
+
+    def upload_image(self, image_path, title=None, description=None, album=None):
+        url = BASE_URL.format(resource='3/upload')
+        with open(image_path, 'rb') as bfile:
+            response = requests.post(url, files= {'image': bfile}, data={}, headers=self._auth_headers())
+            json_response = json.loads(response.text)
+            if response.ok:
+                return json_response['data']['id']
+            return None
