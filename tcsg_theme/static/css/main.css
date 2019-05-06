@@ -249,8 +249,10 @@ pre {
       color: white; }
       .header-menu ul li a {
         color: white; }
-      .header-menu ul li.youtube {
-        background-color: #b31217; }
+        .header-menu ul li.youtube {
+          background-color: #b31217; }
+          .header-menu ul li.datascience {
+            background-color: #6E00FF; }
       .header-menu ul li.csharp {
         background-color: #3C8A3F; }
       .header-menu ul li.xamarin {
