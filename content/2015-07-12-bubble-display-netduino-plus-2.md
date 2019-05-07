@@ -39,6 +39,6 @@ public class Program
         }
     }
 }
-```
+```  
 <h4>Sugerencia de armado</h4>
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/qaOH1" data-context="false"><a href="//imgur.com/a/qaOH1">Bubble Display set up</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>

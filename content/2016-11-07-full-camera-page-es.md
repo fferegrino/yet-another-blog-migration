@@ -152,7 +152,7 @@ Entonces dentro de `SetupLiveCameraStream`, inicializa una sesión de captura, c
         Frame = liveCameraStream.Bounds
     };
     liveCameraStream.Layer.AddSublayer(videoPreviewLayer);
-```    
+```  
 
 Después, "crea" un dispositivo de captura (que puedes configurar de acuerdo a tus necesidades). Y entonces de éste dispositivo crea una entrada para la sesión de captura:
 
@@ -179,7 +179,7 @@ Terminamos estableciendo la entrada y salida de la sesión de captura y la inici
     captureSession.AddOutput(stillImageOutput);
     captureSession.AddInput(captureDeviceInput);
     captureSession.StartRunning();
-```
+```  
 
 ### CapturePhoto
 Finalmente la cereza del pastel. El código para capturar la foto. En sí, el código es bastante simple: Toma la salida y obten una imagen fija de ella, ya que nosotros solo necesitamos los bytes (`NSData`) que contenga la foto tomada: 
@@ -192,7 +192,7 @@ public async Task<NSData> CapturePhoto()
     var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
     return jpegImageAsNsData;
 }
-```
+```  
 
 ## In Xamarin.Android    
 <small><a href="https://github.com/ThatCSharpGuy/Forms-FullCameraPage/blob/master/Droid/CameraPageRenderer.cs" target="_blank">Aquí está el código fuente para esta sección.</a></small>      
@@ -295,7 +295,7 @@ public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
     }
     return base.OnKeyDown(keyCode, e);
 }
-```   
+```  
 
 ### TextureView.ISurfaceTextureListener implementation  
 Ahora toca implementar el núcleo de la página. Comienza por escribir el código para el método `OnSurfaceTextureAvailable` en donde vamos a preparar la salida de la cámara... pero primero necesitamos una cámara, ¿cierto?  
@@ -303,14 +303,14 @@ A nivel de clase declara una `Camera`:
 
 ```csharp  
 Android.Hardware.Camera camera;
-```
+```  
  
 Dentro del método abre la cámara (por default tomará la cámara trasera del dispositivo) y obtén sus parámetros. Los necesitamos para elegir el tamaño de previsualización correcto porque queremos que se vea bien en nuestra app:  
 
 ```csharp  
 camera = Android.Hardware.Camera.Open();
 var parameters = camera.GetParameters();
-``` 
+```  
 
 Una vez que tenemos los parámetros a mano, podemos obtener los `PreviewSizes` y de ellos elegir el que mejor se ajusta a nuestras necesidades. En este caso estoy usando una simple <a href="#">expresión linq</a> para obtener el mejor tamaño de acuerdo a la relación de aspecto:  
 
@@ -323,21 +323,21 @@ var previewSize = parameters.SupportedPreviewSizes
 
 parameters.SetPreviewSize(previewSize.Width, previewSize.Height);
 camera.SetParameters(parameters);
-``` 
+```  
 
 Termina estableciendo el valor de `surface` como la textura de previsualización, una vez hecho esto, lo único que queda por hacer es iniciar la cámara:  
 
 ```csharp  
 camera.SetPreviewTexture(surface);
 StartCamera();
-``` 
+```  
 
 Hay otro método en el que debemos escribir código, este es `OnSurfaceTextureDestroyed` en donde debemos detener el uso de la cámara, así que únicamente escribe el código siguiente en él:  
 
 ```csharp  
 StopCamera();
 return true;
-``` 
+```  
 
 ### StartCamera and StopCamera  
 Este par de métodos son bastante simples también, para `StartCamera` únicamente tenemos que rotar la previsualización para hacer que se vea correctamente en la pantalla (en este caso está establecido para que se vea verticalmente), y terminamos iniciando la cámara:  
@@ -345,14 +345,14 @@ Este par de métodos son bastante simples también, para `StartCamera` únicamen
 ```csharp  
 camera.SetDisplayOrientation(90);
 camera.StartPreview();
-``` 
+```  
 
 El métodod `StopCamera` detiene la previsualización y libera la cámara para que otras aplicaciones puedan acceder a ella:  
 
 ```csharp  
 camera.StopPreview();
 camera.Release();
-``` 
+```  
 
 ### TakePhoto
 Para tomar una foto, lo que hay que hacer es obtener una imagen fija de lo que se muestra en el video en vivo dentro de la `TextureView`, aquí está el código para hacerlo y regresar los bytes correspondientes:    
@@ -370,7 +370,7 @@ using (var imageStream = new System.IO.MemoryStream())
 }
 camera.StartPreview();
 return imageBytes;
-``` 
+```  
 
 Y así es como después de tanto código podemos hacer uso de la cámara. Sigue leyendo para encontrar un ejemplo de uso:  
 

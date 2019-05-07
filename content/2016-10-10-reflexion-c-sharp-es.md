@@ -25,7 +25,7 @@ No es sino hasta que empleamos la reflexión que el programa tiene acceso a esta
 ```csharp  
 Type type = zero.GetType();
 Console.WriteLine(type); // System.String
-```    
+```  
 
 También se puede acceder al ensamblado al que pertenece el tipo `String`:
 
@@ -88,7 +88,7 @@ Y si queremos, podemos hacer cosas un poco más complejas. Por ejemplo, si desea
 var propertiesWithDisplayName = from prop in t.GetProperties()
                                 where prop.GetCustomAttributes<DisplayAttribute>().Any()
                                 select prop;
-``` 
+```  
 
 Para luego mostrar los valores de una manera "amigable":
 

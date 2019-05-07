@@ -40,7 +40,7 @@ Para ilustrar esta última categoría, tomemos el siguiente ejemplo:
 
 <div class="pure-g">
 <div class="pure-u-1-2">
-```csharp    
+```csharp  
 struct Tiempo 
 {
 	public int Minutos;
@@ -49,10 +49,10 @@ struct Tiempo
 // ...  
 Tiempo t1 = new Tiempo();
 Tiempo t2 = t1;
-```	
+```  
 </div>
 <div class="pure-u-1-2">
-```csharp    
+```csharp  
 class Tiempo 
 {
 	public int Minutos;
@@ -61,15 +61,15 @@ class Tiempo
 // ...  
 Tiempo t1 = new Tiempo();
 Tiempo t2 = t1;
-```	
+```  
 </div>  
 </div>  
 <div class="pure-g">
 <div class="pure-u-1-2">
-{% post_image value-type.png Tipos por valor %}
+<img src="/images/tipos-dato-c-sharp__value-type.png" title="Tipos por valor" />
 </div>
 <div class="pure-u-1-2">
-{% post_image reference-type.png Tipos por valor %}
+<img src="/images/tipos-dato-c-sharp__reference-type.png" title="Tipos por valor" />
 </div>  
 </div>  
 <br />

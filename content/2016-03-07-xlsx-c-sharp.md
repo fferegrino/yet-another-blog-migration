@@ -34,13 +34,13 @@ Al igual que con DocX, una vez creado el documento y después de que hemos termi
     // ...
     excel.Save();
 }
-```
+```  
 
 Cabe señalar que también tenemos a nuestra disposición el método `SaveAs` que permite guardar una copia del documento con el que estamos trabajando, hay otra sobrecarga que inclusive nos eprmite establecer una contraseña para el archivo.  
   
 Si ejecutamos el código hasta este momento veremos un archivo `.xlsx` llamado "prueba.xlsx" en la carpeta donde está nuestra aplicación, en mi caso es dentro de `bin\Debug`, y es porque al crear nuestro documento únicamente empleamos el nombre de un archivo, pero bien pudimos usar una ruta absoluta para guardarlo en otro lugar.  
   
-{% post_image new-xlsx.png "Documento vacío" %}  
+<img src="/images/xlsx-c-sharp__new-xlsx.png" title=""Documento vacío"" />
 
 ## Agregando información  
 Queremos generar un reporte con todos los maestros en una hoja de Excel y así es una de las maneras en que se puede hacer usando EPPlus
@@ -63,7 +63,7 @@ teacherWorksheet.Cells["B1"].Value = "Nombre";
 teacherWorksheet.Cells["C1"].Value = "Apellidos";
 teacherWorksheet.Cells["D1"].Value = "Email";
 teacherWorksheet.Cells["E1"].Value = "Edad";
-```
+```  
 
 Usamos la propiedad `Value` de nuestras celdas es como podemos asignarles un valor, la propiedad es de tipo `object` por lo que podemos poner ahí lo que sea.  
   
@@ -71,7 +71,7 @@ Pero, como queremos distinguir los encabezados del resto de los datos, ¿por qu�
 
 ```csharp  
 teacherWorksheet.Cells["A1:E1"].Style.Font.Bold = true; 
-```
+```  
 
 Como puedes ver, `Cells` también nos ayuda a recuperar todo un rango de celdas, para así poder trabajar con todas ellas de una sola vez.
 
@@ -86,11 +86,11 @@ foreach (var teacher in Database.Teachers)
     // ... más asignaciones
     cell++;
 } 
-```
+```  
 
 Tras lo cual obtendremos algo como esto:  
   
-{% post_image sample-1.png "Documento vacío" %}
+<img src="/images/xlsx-c-sharp__sample-1.png" title=""Documento vacío"" />
 
 Podemos agregar más hojas a nuestro libro, también añadiremos una hoja para guardar las Clases impartidas por los maestros.
 
@@ -112,7 +112,7 @@ titleCell.Value = "Resumen";
 
 Que nos dejará con el siguiente resultado:
 
-{% post_image sample-2.png "Documento vacío" %}  
+<img src="/images/xlsx-c-sharp__sample-2.png" title=""Documento vacío"" />
   
 ### Formulas  
 Para añadir fórmulas debemos usar la propiedad `Formula` de las celdas, lo que si es importante es hacer referencia a ellas a través de su nombre original en inglés.
@@ -125,7 +125,7 @@ summaryWorksheet.Cells["B3"].Formula = "COUNTIF(Maestros!D2:D31,\"\")";
 
 En este caso estamos usando AVERAGE para sacar el promedio de edad y COUNTIF para contar la cantidad de maestros sin correo electrónico.  
 
-{% post_image sample-3.png "Documento vacío" %}
+<img src="/images/xlsx-c-sharp__sample-3.png" title=""Documento vacío"" />
 
 ## Usando LINQ
 Una cosa que relamente es genial de EPPlus es que nos permite usar LINQ para trabajar con las hojas y celdas de nuestros libros, por ejemplo, para obtener una referencia a una hoja de trabajo existente podemos buscarla por su nombre usando el método `Single`:
@@ -162,7 +162,7 @@ foreach (var cell in cellsWithYoungTeachers)
 
 Que nos dejará el resultado siguiente:
 
-{% post_image sample-4.png "Celdas coloreadas" %}
+<img src="/images/xlsx-c-sharp__sample-4.png" title=""Celdas coloreadas"" />
 
 Además de poder modificar el relleno de una celda también tenemos acceso a personalizar el borde, fuente y alineación. 
 
@@ -181,7 +181,7 @@ Una vez que tenemos determinado el rango, accedemos a la propiedad `ConditionalF
 
 ```csharp  
 var formatting = teacherWorksheet.ConditionalFormatting.AddTwoColorScale(ageCellsAddress);
-``` 
+```  
 
 Lo siguiente es configurar el formato condicional, usaremos fórmulas para obtener el valor mínimo y máximo de las edades de los profesores:
 
@@ -197,7 +197,7 @@ formatting.HighValue.Color = Color.Green;
 
 Tras lo cual el libro se verá así:
 
-{% post_image sample-5.png "Formato condicional" %}
+<img src="/images/xlsx-c-sharp__sample-5.png" title=""Formato condicional"" />
 
 ## Leyendo celdas  
 Así como podemos crear hojas desde cero, también podemos leer las ya existentes. Esto es particularmente útil cuando vas a solicitar información a los usuarios a través de un libro de Excel. 

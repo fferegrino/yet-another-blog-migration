@@ -95,7 +95,7 @@ async Task RequestAction(HttpRequestMessage httpRequestMessage)
         LabelRequest.FormattedText = fs;
     });
 }
-```   
+```  
 
 Que lo que hacen es tomar los datos y presentarlos en pantalla de una manera *amigable*. Para poner en uso estos métodos, es necesario pasárselos al constructor de la `HttpLoggingHandler`, y a su vez, pasarle la instancia del *logging handler* al `HttpClient`:  
 
@@ -114,7 +114,7 @@ await client.GetStringAsync("https://pokeapi.co/api/v2/pokemon/1/");
 
 Lo cual, mostrará el siguiente resultado en pantalla:  
 
-{% post_image screen.jpg "Screenshot" %}  
+<img src="/images/nugets__httplogger__screen.jpg" title=""Screenshot"" />
 
 ## Uso en producción  
 Es probable que quieras hacer uso de este componente para hacer logging cuando estás debuggeando, así que puedes combinarlo con <a href="https://www.nuget.org/packages/modernhttpclient/" target="_blank">modernhttpclient</a> de Paul Betts para cuando compilas tus apps para ser publicadas en producción, usualmente yo agrego unas sentencias `#if` para conseguirlo:  

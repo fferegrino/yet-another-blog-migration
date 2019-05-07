@@ -47,10 +47,10 @@ En una simple "línea" se realizan varias comprobaciones sobre un mismo elemento
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image normalf.png "Normal 8 char test" %}
+<img src="/images/nugets__fluentassertions__normalf.png" title=""Normal 8 char test"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image faf.png "FluentAssertions 8 char test" %}
+<img src="/images/nugets__fluentassertions__faf.png" title=""FluentAssertions 8 char test"" />
 </div>  
 </div>  
 
@@ -64,16 +64,16 @@ Assert.AreEqual(8, actual.Length);
 // With FluentAssertions
 string result = "That C# guy";
 result.Should().HaveLength(8, "because I love the number 8");
-```   
+```  
 
 Cuando la prueba falla:   
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image normal8chars.png "Normal 8 char test" %}
+<img src="/images/nugets__fluentassertions__normal8chars.png" title=""Normal 8 char test"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image fa8chars.png "FluentAssertions 8 char test" %}
+<img src="/images/nugets__fluentassertions__fa8chars.png" title=""FluentAssertions 8 char test"" />
 </div>  
 </div>  
 
@@ -89,16 +89,16 @@ array.Should().HaveCount(3);
 // With FluentAssertions
 var array = new int[] { 10, 5 };
 Assert.AreEqual(3, array.Length);
-```   
+```  
 
 Cuando la prueba falla:   
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image normalshouldhave3integers.png "Normal should have 3 integers" %}
+<img src="/images/nugets__fluentassertions__normalshouldhave3integers.png" title=""Normal should have 3 integers"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image fashouldhave3integers.png "FluentAssertions should have 3 integers" %}  
+<img src="/images/nugets__fluentassertions__fashouldhave3integers.png" title=""FluentAssertions should have 3 integers"" />
 </div>  
 </div>  
 
@@ -116,23 +116,23 @@ Assert.AreEqual(10, arreglo.Length);
 object array = new int[] { 10, 5, 5 };
 array.Should().BeOfType<int[]>()
     .Which.Should().HaveCount(10, "some weird reason");
-```   
+```  
 
 Cuando la prueba falla:  
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image normalarray10elements.png "Normal should be array of 10 elements" %}
+<img src="/images/nugets__fluentassertions__normalarray10elements.png" title=""Normal should be array of 10 elements"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image faarray10elements.png "FluentAssertions should be array of 10 elements" %}  
+<img src="/images/nugets__fluentassertions__faarray10elements.png" title=""FluentAssertions should be array of 10 elements"" />
 </div>  
 </div>  
 
 ### Dictionary  
 *FluentAssertions* también puede comprobar el contenido de una colección, como un `Dictionary`, además de realizar la comprobación sobre alguna propiedad de el contenido de dicha colección:  
 
-```csharp      
+```csharp  
 // Normal unit test        
 var computerScientists = new Dictionary<string, string>();
 Assert.IsTrue(computerScientists.ContainsValue("Grace Hopper"));
@@ -150,10 +150,10 @@ Cuando la prueba falla:
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image normaldictshouldcontain.png "Normal dictionary" %}
+<img src="/images/nugets__fluentassertions__normaldictshouldcontain.png" title=""Normal dictionary"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image fadictshouldcontain.png "FluentAssertions dictionary" %}  
+<img src="/images/nugets__fluentassertions__fadictshouldcontain.png" title=""FluentAssertions dictionary"" />
 </div>  
 </div>  
 
@@ -186,16 +186,16 @@ public void FluentAssertions_ShouldThrowException()
     };
     action.ShouldThrow<FormatException>("other reason");
 }
-```   
+```  
 
 Cuando la prueba falla:  
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image normalexception.png "Normal exception management" %}
+<img src="/images/nugets__fluentassertions__normalexception.png" title=""Normal exception management"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image faexception.png "FluentAssertions exception management" %}  
+<img src="/images/nugets__fluentassertions__faexception.png" title=""FluentAssertions exception management"" />
 </div>  
 </div>  
 

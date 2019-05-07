@@ -26,7 +26,7 @@ public static void RealizaOperacionSecreta(List<string> palabras, Func<string, b
 			Console.WriteLine(s);
 	}			
 }
-```
+```  
 #### Func
 Un momento... ese NO ES UN DELEGADO... ¿o si?. En realidad sí lo es, ```Func``` es un molde para crear delegados, podemos usar ese molde para evitarnos la fatiga de declarar un delegado para cada ocasión que necesitemos uno ```Func``` hace uso de los genéricos para especificar los parámetros de entrada y el tipo de retorno del delegado. En este caso, podemos decir que: ```delegate bool Filtro(string s)``` equivale a ```Func<string, bool>```.
 Para dejar un poco más claras las cosas colocaré algunos ejemplos en código:
@@ -34,7 +34,7 @@ Para dejar un poco más claras las cosas colocaré algunos ejemplos en código:
 delegate int Cuenta(string a, int b); // Sería igual usar Func<string, int, int>
 delegate char Separa(); // Es igual a usar Func<char>
 delegate float Uhh(char a, int b, string c, double d); // Es igual a usar Func<char, int, string, double, float>
-```
+```  
 Siempre el último tipo de dato especificado dentro de los ```< >``` será el tipo de retorno, por eso que si solo se especifica uno, este será el tipo de retorno del método. Podemos usarlo para crear delegados con hasta 16 parámetros de entrada.
   
 Volviéndo al ejemplo... Podríamos entonces hacer uso del método de la siguiente manera:
@@ -58,7 +58,7 @@ public static bool SoloConU(string s)
 {
 	return s.StartsWith("u");
 }
-```
+```  
 El resultado de la ejecución es el siguiente, y es que está usando como filtros la función que le estamos pasando:
 <pre>
 Palabras mayores a 3 caracteres
@@ -86,7 +86,7 @@ public static void RealizaOperacionSecreta(List<string> palabras, Func<string, b
 			Console.WriteLine(s);
 	}			
 }
-```
+```  
 #### En resumen
 <code>Func</code> es un molde para crear delegados de manera rápida, especificando los parámetros de entrada y el tipo de retorno mediante el uso de los ```< >```, <code>Action</code> cumple con la misma tarea, salvo que no tiene un tipo de retorno. En el siguiente post hablaré de las expresiones lambda una forma más elegante y simple de definir la implementación de delegados. Recuerda nuevamente que el enlace al código está en <a href="#post-meta">información del post</a>. En un post siguiente les hablaré de las expresiones lambda, otra manera de trabajar con delegados.
 

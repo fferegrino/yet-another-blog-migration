@@ -22,13 +22,13 @@ Estos fragmentos de código se cargan de un directorio cuando arranca Visual, y 
 #### Funcionamiento  
 Su funcionamiento es sencillo, mientras estamos editando escribimos el atajo y presionamos dos veces la tecla <kbd>tab</kbd>, tras lo cual como por arte de magia aparecerá el fragmento de código completo:
 
-{% post_image cw.gif "Console.WriteLine snippet" %}
+<img src="/images/code-snippets__cw.gif" title=""Console.WriteLine snippet"" />
 
 En este caso, si revisas bien, el atajo usado fue `cw`, que podríamos interpretar como la `C` de `Console` y la `w` de `WriteLine`, el hecho de que sea así solo es una coincidencia o un gran acierto del creado, pero no es necesario que el atajo tenga que ver con el código que genera, más adelante, cuando veamos cómo crear tus propios fragmentos, verás por qué lo digo.
 
 También hay fragmentos de código que contienen partes editables dentro de ellos, de tal manera que podamos personalizarlo con el contexto de la aplicación que estamos desarrollando. Por ejemplo, mira este:
 
-{% post_image prop.gif "Prop" %}
+<img src="/images/code-snippets__prop.gif" title=""Prop"" />
 
 El atajo usado fue `prop` y una vez insertado, señaló dos partes del código a las cuales accedemos presionando <kbd>tab</kbd> nuevamente, en este caso permite editar el tipo de la propiedad y su nombre, para finalizar la edición presionamos enter.
 
@@ -39,19 +39,19 @@ En <a href="https://msdn.microsoft.com/en-us/en-en/library/z41h7fat.aspx" rel="n
   
  - `#region` que podemos usar para crear una agrupación física de líneas de código en nuestro archivo
 
-{% post_image region.gif "Region directive" %}
+<img src="/images/code-snippets__region.gif" title=""Region directive"" />
 
  - `ctor` que se usa para crear un constructor de la clase en la que se declara
 
-{% post_image ctor.gif "Constructor" %}
+<img src="/images/code-snippets__ctor.gif" title=""Constructor"" />
 
  - `for` crea un ciclo for con valores editables para la variable de iteración y sobre la que se va a comprobar el ciclo  
 
-{% post_image for.gif "Constructor" %}
+<img src="/images/code-snippets__for.gif" title=""Constructor"" />
 
  - `foreach` crea un ciclo "para cada", nos permite editar el tipo de dato y los nombres de los objetos
 
-{% post_image foreach.gif "Constructor" %}
+<img src="/images/code-snippets__foreach.gif" title=""Constructor"" />
 
  - `prop` que crea una propiedad autoimplementada  
  
@@ -92,7 +92,7 @@ Reemplaza los valores como desees, y no olvides poner tu código dentro de `<![C
         </Code>
     </Snippet>
 </CodeSnippet>
-```
+```  
 
 Es hora de copiarlo en el directorio desde el que serán cargados e iniciar Visual Studio (hasta el día de hoy sigue siendo necesario reiniciar el IDE cada vez que cambiamos un *snippet*).
 
@@ -124,11 +124,11 @@ Lo importante es añadir un hijo llamado `Declarations` como hijo de `Snippet`. 
         </Code>
     </Snippet>
 </CodeSnippet>
-```
+```  
   
 Como puedes ver, dentro del código del fragmento está el `ID` que puse dentro de la declaración del reemplazo, la novedad es que el ID está delimitado por `$` lo cual indica que es un valor que será reemplazado.  
 
-{% post_image lovesth.gif "I love other things" %}  
+<img src="/images/code-snippets__lovesth.gif" title=""I love other things"" />
   
 ##### Cambiando la ruta de los fragmentos  
 Si lo que quieres es cambiar la ruta de tus fragmentos a otra carpeta dentro de tu PC, puedes acceder al Administrador de Fragmentos de Código que está en el menú Herramientas, dar clic en Añadir y seleccionar la carpeta de la que deseas que se carguen los fragmentos. En mi caso, lo tengo configurado de esa manera porque uso GitHub para sincronizar algunos de los fragmentos que uso, si quieres verlos, <a href="https://github.com/fferegrino/fantastic-broccoli" target="_blank">visita el repositorio</a>.  

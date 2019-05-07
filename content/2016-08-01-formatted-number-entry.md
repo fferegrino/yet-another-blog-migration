@@ -78,7 +78,7 @@ Thhat's it, we're done.
 
 Even though we may think that our mission was accomplished, our brand new control lacks of a good user experience. For example, see what happens when the user tries to erase a number located in the middle:
 
-{% post_image careterror.png "Error" %}  
+<img src="/images/xamarin-forms__formattednumberentry__careterror.png" title=""Error"" />
 
 See how the cursor jumps to the end (or start, depends on the platform)? the same happens after writing a number. Let's fix that.
 
@@ -158,7 +158,7 @@ element.ShouldReactToTextChanges = true;
 
 Now works great: 
 
-{% post_image iosgood.gif "iOS working goooooood" %}
+<img src="/images/xamarin-forms__formattednumberentry__iosgood.gif" title=""iOS working goooooood"" />
 
 ### Android
 For Android we will subscribe to the `AfterTextChanged` event and create all the formatting there:
@@ -217,7 +217,7 @@ element.ShouldReactToTextChanges = true;
 
 Here is the final result
 
-{% post_image androidgood.gif "Android working goooooood" %}
+<img src="/images/xamarin-forms__formattednumberentry__androidgood.gif" title=""Android working goooooood"" />
 
 ### Universal Windows Platform  
 
@@ -279,7 +279,7 @@ element.ShouldReactToTextChanges = true;
 
 And *voilà*:
 
-{% post_image uwpgood.gif "Android working goooooood" %}
+<img src="/images/xamarin-forms__formattednumberentry__uwpgood.gif" title=""Android working goooooood"" />
 
 ## Wrapping up  
 I know, I know, it might seem like a lot of code for such a *simple* task, yet, I couldn't find how to do it "natively" let alone using Forms. This kind of small details improve the user experience of our apps and aren't too complicated to implement. As always, feel free to browse the code (<a href="https://github.com/ThatCSharpGuy/FormattedNumberEntry" target="_blank">available on GitHub</a>) or *tweemail* me if in doubt.  

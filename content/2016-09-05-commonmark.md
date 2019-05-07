@@ -101,7 +101,7 @@ El método `WriteInline`, que permite modificar la manera en que se *renderea* u
             base.WriteInline(inline, isOpening, isClosing, out ignoreChildNodes);
         }
     }
-```   
+```  
 
 #### WriteBlock
 
@@ -126,7 +126,7 @@ Pero esta es solo una opción de configuración, ya que por otro lado podemos so
         // LLamamos a la implementación por default para procesar los otros nodos
         base.WriteBlock(block, isOpening, isClosing, out ignoreChildNodes);
     }
-```
+```  
 
 Tras lo cual, podrías tener algo como esto:
 

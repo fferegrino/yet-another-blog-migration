@@ -83,7 +83,7 @@ Explicado en código es decir que no podemos hacer algo como esto:
 ```csharp  
 // Nay, las propiedades en un anónimo son de solo lectura
 estudianteDesconocido.Name = "Nuevo nombre";
-``` 
+```  
  
 
 ### Restricciones  
@@ -123,7 +123,7 @@ var p4 = new { X = 5, Y = 2 };
 
 Todas tienen propiedades con nombre similar `X` y `Y`, pero únicamente `p1` y `p2` son iguales en propiedades y en valores. `p3` y `p1` son iguales en valores pero no en orden. `p1` y `p4` son iguales en orden pero no en valores.
 
-```csharp  		
+```csharp  
 Console.WriteLine(p1.Equals(p2)); // True
 Console.WriteLine(p1.Equals(p3)); // False
 Console.WriteLine(p1.Equals(p4)); // False
@@ -139,7 +139,7 @@ Los anónimos son tipos que otorgan a <a href="/post/linq-en-c-sharp/">LINQ (otr
 var olderStudents = from s in students
                     where s.Age > 10
                     select new { FullName = s.Name + " " + s.Surname, s.Age };
-```
+```  
 
 #### Debuguear  
 Dada la facilidad y limpieza con la que se pueden declarar, los anónimos son comunmente usados para cuando se debugea, como recordamos, al llamar `ToString` en un anónimo, este nos mostrará una lista de sus propiedades junto con sus valores.  

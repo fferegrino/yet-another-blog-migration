@@ -24,7 +24,7 @@ Dentro de este post voy a asumir que ya tienes un entendimiento básico de cómo
 
 Como ya sabrás, el <a href="organizacion-codigo-visual-studio">código en Visual Studio</a> se organiza en proyectos, y esta es la organización de los proyectos para esta pequeña app:
 
-{% post_image codeorg.png "Code organization" %}  
+<img src="/images/mvvm__codeorg.png" title=""Code organization"" />
 
 La separación de MVVM se puede observar en que el proyecto `Mvvmdex.Views` se relaciona con `Mvvmdex.ViewModels` y a su vez este último se relaciona con `Mvvmdex.Models`, **nunca hay relacion directa entre las vistas y los modelos**.
 
@@ -54,7 +54,7 @@ public async Task<Pokemon> SearchForPokemon(string pokemonName)
 		return null;
 	}
 }
-```   
+```  
 
 ## ViewModels
 
@@ -228,7 +228,7 @@ Sin embargo, los bindings no son solo de una dirección (*viewmodel* → vista),
 
 ```xml  
 <SearchBar Grid.Row="0" SearchCommand="{Binding BuscaPokemonCommand}" Text="{Binding SearchTerms}" />
-```
+```  
 
 Entonces cada vez que el usuario cambie el texto de la caja de búsqueda, la propiedad `SearchTerms` del *viewmodel* también cambiará. Y no solo eso, sino que también el control tiene enlazado el comando `BuscaPokemonCommand`, el comando se ejecutará cuando el usuario decida buscar Pokémons.  
 

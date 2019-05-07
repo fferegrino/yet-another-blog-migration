@@ -24,7 +24,7 @@ Me tomé la libertad de reacomodar y agrupar tips relacionados, pero quiero deja
 
 ```csharp  
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-```   
+```  
 
 **NO USES** *bindings* cuando asignaciones estáticas sean suficientes.
 
@@ -59,7 +59,7 @@ Me tomé la libertad de reacomodar y agrupar tips relacionados, pero quiero deja
         <Label Text="3"/>
     </ContentView>
 </StackLayout>
-```   
+```  
 
 Haz esto:
 
@@ -69,7 +69,7 @@ Haz esto:
     <Label Text="2"/>
     <Label Text="3"/>
 </StackLayout>
-```   
+```  
 
 **PREFIERE** usar `LayoutOptions.Fill` (o `LayoutOptions.FillAndExpand`). Estos son los valores por default y la *mayoría* de las veces no deben ser modificados.
 

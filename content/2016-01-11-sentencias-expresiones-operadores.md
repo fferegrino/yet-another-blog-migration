@@ -64,7 +64,7 @@ Cuando usamos el operador `new` para instanciar un objeto, el constructor de la 
 ```csharp  
 i++;
 --i;
-```
+```  
 Los operadores `++` y `--` son denominados de incremento y decremento, el resultado de la expresión varía en función de la posición en la que estén colocados respecto al operando (que en nuestro caso es `i`).  
 
  - Antes del operando: es el valor del operando antes de ser incrementado/decrementado

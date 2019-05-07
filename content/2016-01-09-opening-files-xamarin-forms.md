@@ -63,10 +63,10 @@ First of all: you must create a file association inside your application manifes
 
 <div class="pure-g">
 <div class="pure-u-lg-1-3">
-{% post_image appxmanifest.png "The appxmanifest file" %}
+<img src="/images/opening-files-xamarin-forms__appxmanifest.png" title=""The appxmanifest file"" />
 </div>
 <div class="pure-u-lg-1-3">
-{% post_image file-assoc.png "Add new File Type Association" %}
+<img src="/images/opening-files-xamarin-forms__file-assoc.png" title=""Add new File Type Association"" />
 </div>  
 </div>
 <br />
@@ -249,7 +249,7 @@ Now, since `net.daringfireball.markdown` is not a known type for iOS, we have to
 
 There is a few lines we need to add in order to make this work, like adding `.md` as a file extension for the files... just to be sure, open the `Info.plist` with an XML editor and make sure it looks <a href="https://github.com/fferegrino/xf-file-receiver/blob/master/FileReceiver.iOS/Info.plist#L52" target="blank">somewhat like this in code</a> or take a look at the following image.
 
-{% post_image file-assoc-ios.png "Add new File Type Association in iOS" %}  
+<img src="/images/opening-files-xamarin-forms__file-assoc-ios.png" title=""Add new File Type Association in iOS"" />
   
 Now, the most fun part, the code.  
   

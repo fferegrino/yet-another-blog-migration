@@ -112,7 +112,7 @@ var concatenados = coleccion1.Concat(coleccion2);
 var unidos = coleccion1.Union(coleccion2);
 PrintInline(concatenados);
 PrintInline(unidos);
-``` 
+```  
 
 Imprimirá
 ```csharp  

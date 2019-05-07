@@ -23,7 +23,7 @@ Solo una cosa antes de comenzar, recuerda que esta no es todavía una versión e
 
 El primer paso es agregar un proyecto del tipo Cocoa App:  
 
-{% post_image createproject.jpg "Create project" %} 
+<img src="/images/xamarin-forms__mac__createproject.jpg" title=""Create project"" />
 
 ### 2. Agrega Xamarin.Forms
 
@@ -37,7 +37,7 @@ Agrega una referencia de tu proyecto de Mac al proyecto principal de tu aplicaci
 
 Hay que quitar la referencia al *Storyboard* por default, esto se logra borrando la entrada `NSMainStoryboardFile` en el archivo `Info.plist`, puedes usar el editor gráfico en la pestaña Avanzado.  
 
-{% post_image infoplist.jpg "Archivo Info.plist" %} 
+<img src="/images/xamarin-forms__mac__infoplist.jpg" title=""Archivo Info.plist"" />
 
 ### 5. Edita el archivo Main.cs  
 
@@ -50,7 +50,7 @@ Hay que indicarle a la aplicación que su delegado es el archivo `AppDelegate`:
 		NSApplication.SharedApplication.Delegate = new AppDelegate();
 		NSApplication.Main(args);
 	}
-```   
+```  
 
 ### 6. Edita el archivo AppDelegate.cs  
 

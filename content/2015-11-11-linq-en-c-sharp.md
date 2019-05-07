@@ -16,7 +16,7 @@ SELECT Name, Surname, Age
 FROM Students
 WHERE Age > 10
 ORDER BY Name
-```
+```  
 Durante mucho tiempo, el poder de las consultas se mantuvo únicamente para las bases de datos, sin embargo, en el 2007 Microsoft liberó junto con la versión 3.5 de su framework, una herramienta llamada **LINQ** que proviene de **L**anguage **IN**tegrated **Q**uery (personalmente prefiero escribir Linq con minúsculas... cuestión de gustos).
 <br />
 <br />
@@ -32,7 +32,7 @@ List<Student> students = new List<Student>
     new Student { Age = 11, Name = "Laura", Surname = "Rodríguez" },
     new Student { Age = 9, Name = "Francisco", Surname="Jímenez" },
 };
-```
+```  
 Formar una consulta simple es bastante sencillo, y muy parecido a lo que haríamos en SQL, lo que necesitamos hacer es:  
 
  1. Nombrar una variable que contendrá temporalmente cada uno de los elementos contenidos en la colección sobre la que vamos a ejecutar la consulta. Para nuestro caso, la llamarémos <code>s</code>.
@@ -45,7 +45,7 @@ Para ejecutar la consulta del inicio del post sobre nuestra lista de alumnos, de
 var olderStudents = from s in students
                     where s.Age > 10
                     select s;
-```
+```  
 Es fácil identificar las partes que la componen:  
 
  - <code>from s</code> hace referencia a la *variable temporal* de la que les contaba un poco antes.
@@ -60,15 +60,15 @@ Una cosa que es importante saber es que el **declarar una consulta Linq no impli
 Para explicar con un ejemplo, volviendo a nuestra consulta <code>olderStudents</code>, sabemos que solamente uno de los objetos cumple con la condición establecida de <code>s.Age > 10</code>, es por eso que cuando queremos contar los elementos con <code>Count()</code>, el resultado es <code>1</code>:
 ```csharp  
 Console.WriteLine(olderStudents.Count()); // 1
-```
+```  
 Ahora, si agregamos un nuevo elemento a nuestra lista original <code>students</code>:
 ```csharp  
 students.Add(new Student { Age = 23, Name = "Antonio", Surname = "Feregrino" });
-```
+```  
 Y volvemos a contar los objetos dentro de de nuestra consulta <code>olderStudents</code>, el resultado será <code>2</code>:
 ```csharp  
 Console.WriteLine(olderStudents.Count()); // 2
-```
+```  
 A esta característica se le conoce como **ejecución retrasada** o **deferred execution**. Podemos evitar esto al convertir nuestra consulta a una colección *estática*, como una lista o un arreglo utilizando los métodos que nos entrega Linq, como <code>ToList</code> o <code>ToArray</code>. Al hacer esto se ejecutará la consulta y se perderá la referencia a esta, con lo que cualquier modificación que sufran los orígenes de datos, no afectará nuestro resultado. Esto se logra así desde la declaración de la consulta, o más adelante llamando <code>ToList</code> o <code>ToArray</code> sobre la consulta.
 ```csharp  
 // Al momento de la declaración
@@ -78,7 +78,7 @@ List<Student> olderStudentList = (from s in students
 
 // En cualquier otro momento		  
 var olderStudentsArray = olderStudents.ToArray();
-```   
+```  
 
 #### Lo que sigue  
 Las consultas simples, como la que se usa en este post, son solo la punta del iceberg de todo lo que se puede hacer con Linq, en futuros post veremos las posibilidades que tenemos para hacer consultas más complejas para obtener promedios, sumas, mínimos, hacer uniones, agrupamientos, intersecciones, distinciones... en fin, una enorme cantidad de cosas. Además de que veremos qué son los tipos anónimos en C#.

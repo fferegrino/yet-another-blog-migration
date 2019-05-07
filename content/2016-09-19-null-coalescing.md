@@ -49,7 +49,7 @@ Otra de sus particularidades es que permite ser *encadenado*: si colocamos un op
 
 ```csharp  
 personName = inputName ?? GetRandomName() ?? TryGetName() ?? "no name";
-```
+```  
 
 Si esta misma asignación se intentara haecer con sentencias `if` o con operadores ternarios, la cantidad de código a escribir aumentaría considerablemente.
 

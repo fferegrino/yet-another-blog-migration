@@ -109,7 +109,7 @@ var metro1 = new Metro(5);
 var yarda1 = new Yarda(5);
 Console.WriteLine(metro1);
 Console.WriteLine(yarda1);
-``` 
+```  
 	</div>
     <div class="pure-u-1-2"> 
 <pre>
@@ -147,7 +147,7 @@ Yarda yarda3 = (Yarda)metro2;
 Metro metro3 = (Metro)yarda2;
 Console.WriteLine(metro3);
 Console.WriteLine(yarda3);
-``` 
+```  
 	</div>
     <div class="pure-u-1-2"> 
 <pre>

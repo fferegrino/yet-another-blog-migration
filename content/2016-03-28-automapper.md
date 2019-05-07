@@ -157,7 +157,7 @@ var modeloAutor = mapper.Map<AuthorModel>(entidadAutor);
 
 // De BookEntity a BookModel
 var modeloLibro = mapper.Map<BookModel>(bookEntity);
-```
+```  
 
 Como podrás ver, podemos centralizar bastante la tarea de mapeo, y es que en tu aplicación **basta con tener una sola referencia a `IMapper`**, así que es lo normal que únicamente la asignes una vez y la reutilizes a través de una propiedad estática o un patrones de diseño de aplicaciones como DI o singleton.
 

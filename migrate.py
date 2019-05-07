@@ -3,7 +3,7 @@ import os
 import re
 from glob import glob
 
-POST_IMAGE_REGEX = re.compile(r'\{% post_image\s+([a-zA-Z0-9-\.]+)\s+([\w\.\"\s]+)\s+%\}')
+POST_IMAGE_REGEX = re.compile(r'\{%\s+post_image\s+([a-zA-Z0-9-\.]+)\s+([\w\.\"\s]+)\s+%\}')
 
 for full_path in glob("/Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy/en/_posts/*"):
     file_name = ntpath.basename(full_path)
@@ -27,7 +27,7 @@ for full_path in glob("/Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy
                 if len(parts) == 2:
                     if current_prop:
                         if current_values:
-                            properties[current_prop] = ', '.join(current_values) 
+                            properties[current_prop] = ', '.join(current_values)
                         current_values = []
                     current_prop = parts[0].strip()
                     value_content = parts[1].strip("\" ")
@@ -38,6 +38,9 @@ for full_path in glob("/Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy
                     if current_prop and list_content:
                         current_values.append(list_content)
 
+            if current_values:
+                properties[current_prop] = ', '.join(current_values)
+
             for line in lines[i + 1:]:
                 clean_line = line.strip()
                 if clean_line.startswith('{% highlight'):
@@ -46,15 +49,17 @@ for full_path in glob("/Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy
                 elif clean_line == '{% endhighlight %}':
                     body.append('```  ')
                 else:
-                    body.append(line)
+                    if re.search(POST_IMAGE_REGEX, clean_line):
+                        images_path = properties.get('images_folder', name[11:])
 
+                        parts = '__'.join([part for part in images_path.split('/') if part.strip()])
 
-        if current_values:
-            properties[current_prop] = ', '.join(current_values) 
-                
+                        l = re.sub(POST_IMAGE_REGEX, f'<img src="/images/{parts}__' + r'\1" title="\2" />', clean_line)
+                        body.append(l)
+                    else:
+                        body.append(line)
 
     headers = [f'{k}: {v}' for k, v in properties.items()]
-
 
     content = '\n'.join(headers) + '\n\n' + '\n'.join(body)
 

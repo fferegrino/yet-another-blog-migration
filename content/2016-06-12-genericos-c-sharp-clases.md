@@ -21,7 +21,7 @@ La declaración de tipos genéricos se realiza casi como cualquier otro tipo, co
 
 ```csharp  
 public class Box<T>
-```   
+```  
 
 En la cual le estamos indicando que usaremos un marcador llamado `T`. Que se lee como "Box de T". Luego entonces dentro de la declaración de la clase podemos reutilizar el marcador `T` tantas veces como queramos:
 

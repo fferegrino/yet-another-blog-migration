@@ -32,7 +32,7 @@ Con *UserDialogs* podemos mostrar mensajes en varias plataformas de manera que e
 UserDialogs.Instance.Toast("Toast message: <3", TimeSpan.FromMilliseconds(millis));
 ```  
 
-{% post_image toast.png "Login prompt" %}
+<img src="/images/xamarin-forms__userdialogs__toast.png" title=""Login prompt"" />
 
 ## Mostrar un error
 ```csharp  
@@ -61,7 +61,7 @@ if (result.Ok)
 }
 ```  
 
-{% post_image text.png "Text prompt" %}
+<img src="/images/xamarin-forms__userdialogs__text.png" title=""Text prompt"" />
 
 ## PromptDateAsync  
 Solicitar una fecha, presentando un control muy familiar dependiendo de la plataforma en que se ejecute:
@@ -74,7 +74,7 @@ if (result.Ok)
     SelectedDateLabel.Text = String.Format("{0:dd MMMM yyyy}", result.SelectedDate);
 ```  
 
-{% post_image calendar.png "Calendar prompt" %}
+<img src="/images/xamarin-forms__userdialogs__calendar.png" title=""Calendar prompt"" />
 
 ## PromptTimeAsync  
 Al igual que con la fecha, este diálogo presenta un contol para seleccionar una hora  
@@ -87,7 +87,7 @@ if (result.Ok)
     SelectedTimeLabel.Text = String.Format("{0:hh-mm}", new DateTime(result.SelectedTime.Ticks));
 ```  
 
-{% post_image time.png "Time prompt" %}
+<img src="/images/xamarin-forms__userdialogs__time.png" title=""Time prompt"" />
 
 ## PromptLoginAsync  
 Si quieres algo un poco más compuesto como una "pantalla" de *login*, también puedes usar esta pequeña librería:
@@ -100,7 +100,7 @@ if (loginResult.Ok)
 }
 ```  
 
-{% post_image login.png "Login prompt" %}
+<img src="/images/xamarin-forms__userdialogs__login.png" title=""Login prompt"" />
 
 ## Inyección de dependencias  
 Como mencioné anteriormente el mecanismo de diálogos que provee Forms por default requieren de tener una referencia a la página en la que estamos trabajando, sin embargo *UserDialogs* no, y eso lo hace ideal para usarlo en conjunto con una solución de <a href="http://thatcsharpguy.com/tv/inyeccion-dependencias/" target="_blank">inyección de dependencias</a>.

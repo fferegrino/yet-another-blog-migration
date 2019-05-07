@@ -19,11 +19,11 @@ Seguramente has visto cosas como `Console.WriteLine`, `Math.Pow` o inclusive `St
 ```csharp  
 var resultado1 = Math.Pow(2, 3);
 Console.WriteLine(String.Format("Resultado de resultado1 : {0}", resultado1));
-```
+```  
 
 Puede ser que en tu aplicación exista la necesidad de emplear muchos métodos estáticos y tener que escribir el nombre completo (incluyéndo el nombre de la clase) sea muy engorroso y tedioso. Pues C# 6 alivia un poco de ese tedio, al permitirnos hacer algo como esto:
 
-```csharp              
+```csharp  
 var resultado2 = Pow(2, 3);
 WriteLine(String.Format("Resultado de resultado2: {0}", resultado2));
 ```  
@@ -33,7 +33,7 @@ Como puedes ver, los nombres de las clases `Console` y `Math` han desaparecido..
 ```csharp  
 using static System.Math;         
 using static System.Console;
-```
+```  
 
 Las declaraciones anteriores permiten que todos los métodos de `Math` y `Console` sean accesibles en nuestra clase. Hacer esto es opcional, si te fijas bien, he dejado `String.Format(...` como estaba, pero podríamos convertirlo en un simple `Format` si agregamos `using static System.Console;`.  
  
@@ -46,7 +46,7 @@ En el siguiente ejemplo, la cadena `"Resultado de resultado1"`, contiene *códig
    
 ```csharp  
 WriteLine(String.Format("Resultado de resultado1 : {0}", resultado1));
-```
+```  
 
 En C# 6 podemos usar el operador `nameof` que toma un método, tipo o variable y regresa su nombre simple en forma de una cadena: 
 
@@ -86,7 +86,7 @@ Ahora es posible inicializar una <a rel="nofollow" target="_blank" href="https:/
 
 ```csharp  
 public int Age { get; set; } = 0;
-``` 
+```  
 
 También es posible realizar la asignación de un valor a las propiedades autoimplementadas que únicamente definen un `get` para acceder a ellas, estas son conocidas como de solo lectura o *"getter-only auto-properties"*, para nuestro ejemplo asumiremos que el nombre de una persona no puede ser cambiado y es por eso que se define como de solo lectura. Decidimos también que el valor por default sea "Cosme Fulanito":  
 
@@ -111,7 +111,7 @@ Para posteriormente ejecutarlo mediante una llamada como esta:
 WriteLine(defaultPerson.SayHi());
 
 WriteLine(juanito.SayHi(defaultPerson.Name));
-```
+```  
 
 No may mucho que decir de esta característica, puesto que si se conoce el funcionamiento de las lambdas, usarlas de esta manera no es nada del otro mundo.  
   

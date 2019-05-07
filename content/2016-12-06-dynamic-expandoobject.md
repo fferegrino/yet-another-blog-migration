@@ -29,7 +29,7 @@ Es por eso que al llamar al método *inexistente* `Abcdefg` dentro de la clase I
 
 ```csharp  
 Console.WriteLine(entero.Abcdefg()); // RuntimeException
-```
+```  
 
 Sin embargo, si ejecutamos esa línea obtendremos una excepción, indicandonos que dicho método no existe dentro de ese objeto.  
 
@@ -48,7 +48,7 @@ Estos tipos de dato son compatibles con otros... en tanto los tipos que "ocultan
 ```csharp  
 string holaMundo = cadena + " " + cadena2+ " " + entero;
 Console.WriteLine(holaMundo); // Imprime "Hola mundo 0"
-```
+```  
 
 ## Mutabilidad 
 Las variables *dinámicas* pueden cambiar completamente su contenido sin causar ningún problema, por ejemplo, podemos convertir `entero` en una instancia de `MainClass`:
