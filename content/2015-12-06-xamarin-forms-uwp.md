@@ -52,7 +52,7 @@ Then, we need to change our page type to a special kind of Xamarin.Forms page. F
 
 ```xml  
 xmlns:forms="using:Xamarin.Forms.Platform.UWP" 
-```
+```  
 I double-quoted *attribute* since the line above isn't exactly an *attribute*, it is a *namespace*, somewhat like an `using` directive but for xaml. Once we have added the namespace, replace the page `<Page ` and `</Page>` for `<forms:WindowsPage ` and `</forms:WindowsPage>`, as you can see we're using the `forms` namespace.
 
 {% post_image final-result.png "Final result" %}  

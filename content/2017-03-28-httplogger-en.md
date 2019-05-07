@@ -95,7 +95,7 @@ async Task RequestAction(HttpRequestMessage httpRequestMessage)
         LabelRequest.FormattedText = fs;
     });
 }
-```   
+```  
 
 These two methods take all the data and presents it on screen in a *friendly* manner. To make use of them it is necessary pass them through the constructor of our `HttpLoggingHandler`, and then pass the instance of our *logging handler* to the constructor of `HttpClient`:  
 

@@ -52,7 +52,7 @@ static void Main()
 	int distance = Compute(str1, str2);
 	Console.WriteLine("Distance: " + distance);
 }
-```
+```  
 
 {% post_image sample-c-app.gif "Sample app" %}
 
@@ -147,7 +147,7 @@ public App()
 {
 	ContentPage xevenshteinMainPage = new ContentPage();
 	StackLayout mainLayout = new StackLayout();
-```
+```  
 
 <p>Next let's create some controls, we'll create two <code>Entry</code>, three <code>Label</code> and a <code>Button</code>, we'll declare the controls outside the <code>App</code> constructor since we'll need them outside the constructor. Always try to give your controls and variables meaningful names. Add this code above the class constructor:</p>
 
@@ -159,11 +159,11 @@ Entry firstStringEntry, secondStringEntry;
 // Class constructor
 public App()
 {
-```
+```  
 
 <p>By this point we have done a lot, but our controls aren't created yet, the following code will do so. Notice that some controls are created using property initializing, it allows us to set some properties at the time of instantiation instead of doing it later. The following code is supposed to be after the creation of the <code>mainLayout</code>.</p>
 
-```csharp  	
+```csharp  
 	// ... Above is the instatiation of mainLayout
 	
     computeButton = new Button { Text = "Compute" };
@@ -172,7 +172,7 @@ public App()
     computationResultLabel = new Label { Text = "No distance calculated yet" };
     firstStringEntry = new Entry();
     secondStringEntry = new Entry();
-```
+```  
 
 <p>Our controls are created now! but they don't appear on the page if we run the app. That is because we haven't told our code to show them. In the following code we tell the code to add them to the view, see how we are using the <code>Children</code> property of the <code>mainLayout</code> to add the controls in the order we want them to appear, later, we set the <code>mainLayout</code> as the content of the <code>xevenshteinMainPage</code> and a line below we also set the  <code>xevenshteinMainPage</code> as the <code>MainPage</code> for our app.</p>
 
@@ -188,7 +188,7 @@ public App()
 
     xevenshteinMainPage.Content = mainLayout;
     MainPage = xevenshteinMainPage;
-```
+```  
 
 <img src="http://i.giphy.com/l41lLKZiUBR2tK2By.gif" alt="App shows controls but no behavior" />
 
@@ -206,7 +206,7 @@ void ComputeButton_Clicked (object sender, EventArgs e)
 	int distance = Xevenshtein.Algorithm.LevenshteinDistance.Compute(str1, str2);
 	computationResultLabel.Text = "Distance: " + distance;
 }
-```
+```  
 
 <img src="http://i.giphy.com/3o85xmAGsOX5wlZX7W.gif" alt="App shows controls but no behavior" />
 

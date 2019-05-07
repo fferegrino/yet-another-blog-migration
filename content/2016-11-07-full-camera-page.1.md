@@ -152,7 +152,7 @@ Then, inside the `SetupLiveCameraStream` method, initialize the capture session,
         Frame = liveCameraStream.Bounds
     };
     liveCameraStream.Layer.AddSublayer(videoPreviewLayer);
-```    
+```  
 
 Next, "create" a capture device (you can configure it to work according to your needs). And then, from it create the an input source for the capture session:
 
@@ -179,7 +179,7 @@ Finalize by setting the input and output of the capture session and starting it:
     captureSession.AddOutput(stillImageOutput);
     captureSession.AddInput(captureDeviceInput);
     captureSession.StartRunning();
-```
+```  
 
 ### CapturePhoto
 At last, the icing on the cake, the code to capture the photo. The code is pretty simple: Take the output and capture a still image from it, as we only need the bytes we get an `NSData` containing the taken photo. 
@@ -192,7 +192,7 @@ public async Task<NSData> CapturePhoto()
     var jpegImageAsNsData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
     return jpegImageAsNsData;
 }
-```
+```  
 
 ## In Xamarin.Android    
 <small><a href="https://github.com/ThatCSharpGuy/Forms-FullCameraPage/blob/master/Droid/CameraPageRenderer.cs" target="_blank">Here is the source code for this section.</a></small>    
@@ -294,7 +294,7 @@ public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
     }
     return base.OnKeyDown(keyCode, e);
 }
-```   
+```  
 
 ### TextureView.ISurfaceTextureListener implementation  
 Now is time to implement the core of our page. Start by writing the code for the `OnSurfaceTextureAvailable` where we will prepare the output for the camera, but first we'll need a camera, right?
@@ -303,14 +303,14 @@ At class-level scope declare a `Camera`:
 
 ```csharp  
 Android.Hardware.Camera camera;
-```
+```  
  
 Inside the method, open the camera (by default it'll try to open the back camera of the device) and get its parameters. We need them to select the right preview size, because we want things to look great in our app:
 
 ```csharp  
 camera = Android.Hardware.Camera.Open();
 var parameters = camera.GetParameters();
-``` 
+```  
 
 Once we have the parameters at hand, we can get the avaliable `PreviewSizes` and get the one that fits our preview surface. In this case I'm using a simple <a href="#">linq expression</a> to get the best preview size based on aspect ratio:
 
@@ -323,21 +323,21 @@ var previewSize = parameters.SupportedPreviewSizes
 
 parameters.SetPreviewSize(previewSize.Width, previewSize.Height);
 camera.SetParameters(parameters);
-``` 
+```  
 
 Finish by setting our surface as the preview texture, at this point the only thing left to do is to start the camera:
 
 ```csharp  
 camera.SetPreviewTexture(surface);
 StartCamera();
-``` 
+```  
 
 The other method we need to write code into is `OnSurfaceTextureDestroyed` in order to stop the camera, so just write the following inside and it'll be all:  
 
 ```csharp  
 StopCamera();
 return true;
-``` 
+```  
 
 ### StartCamera and StopCamera
 These two methods are quite simple too, for `StartCamera` we only need to rotate the preview to make it look right in the screen (in this case I'm setting it to be viewed vertically), and then finally, start the camera:   
@@ -345,14 +345,14 @@ These two methods are quite simple too, for `StartCamera` we only need to rotate
 ```csharp  
 camera.SetDisplayOrientation(90);
 camera.StartPreview();
-``` 
+```  
 
 The `StopCamera` method stops the preview and releases the camera, so that other apps can access to it:   
 
 ```csharp  
 camera.StopPreview();
 camera.Release();
-``` 
+```  
 
 ### TakePhoto
 
@@ -371,7 +371,7 @@ using (var imageStream = new System.IO.MemoryStream())
 }
 camera.StartPreview();
 return imageBytes;
-``` 
+```  
 
 And that's it, after all that code, you can now make use of this camera page. Keep reading to find a sample usage code:
 

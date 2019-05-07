@@ -201,7 +201,7 @@ For the Android renderer we must derive from the `TabbedPageRenderer` class, yes
 
 ```csharp  
 public class PlatformTabbedPageRenderer : TabbedPageRenderer
-```    
+```  
 
 Again, we need some properties to store the default colors:
 

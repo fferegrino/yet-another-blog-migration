@@ -48,7 +48,7 @@ while (true)
         }
     }
 }
-```
+```  
 
 <h3>Client (Xamarin.Forms app)</h3>
 <p>The client only has a single purpose: replace the mechanical switch. It isn't very hard to think of the UI of an app to do that.</p> 
@@ -75,7 +75,7 @@ public async Task<bool> GetLightSwitchStatus()
         return data[0] == ByteTrue;
     }
 }
-```
+```  
 
 <p>The above piece of code request the switch status from the server and returns true or false, depending on the status of the light switch.</p>
 
@@ -91,7 +91,7 @@ public async Task SetLightSwitchStatus(bool on)
         s.WriteStream.Write(data, 0, 2);
     }
 }
-```
+```  
 
 <p>This piece of code sends a request to the server telling which state the light swich shoud be set to. Note how all the exchange of information is done via bytes, the first byte tells the server which operation is requested while the second one contains data when necessary. In the following vídeo I show the system working, though I still haven't wired the actual light bulb (since I'm scared of the high voltage), so I placed a 12V led instead for the demo.</p>
 

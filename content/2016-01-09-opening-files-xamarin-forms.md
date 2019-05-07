@@ -26,7 +26,7 @@ public class IncomingFile
 	public string Name { get; set; }
 	public string Content { get; set; }
 }
-```
+```  
 
 Next, create a page (in this sample `FilePage.xaml`) with two labels (for the file name and file content), give them a name and add the next method in the code behind: 
 
@@ -36,7 +36,7 @@ public void SetIncomingFile(IncomingFile file)
 	FileName.Text = file.Name;
 	FileContent.Text = file.Content;
 }
-```
+```  
 
 Then, in your Forms app starting point (generally App.cs) create a property of type IncomingFile, don't just use an autoimplemented property, create a backing field for it. Somewhat like this:
 ```csharp  
@@ -51,7 +51,7 @@ public IncomingFile IncomingFile
 		(MainPage as FilePage).SetIncomingFile (_incomingFile);
 	}
 }
-```
+```  
 
 Notice how everytime the IncomingFile property is modified, the method `SetIncomingFile` of `FilePage` is called. We will be using this property to set the file from within each platform code. So, let's dive right into it.
 
@@ -175,7 +175,7 @@ As with Windows, in Android you must tell the OS that your app is ready to recei
         <data android:pathPattern=".*\\.md" />
     </intent-filter>
 </activity>
-```
+```  
 		
  - Using class level attributes
 		
@@ -193,7 +193,7 @@ As with Windows, in Android you must tell the OS that your app is ready to recei
         DataMimeType = "*/*",
         DataPathPattern = ".*\\.md"
     )]
-```
+```  
 
 For this sample let's take the attribute approach. Then, once the `MainActivity.cs` file is open, separate the `LoadApplication` method and the instantiation of the Forms app: 
 
@@ -257,7 +257,7 @@ As with the Windows version of our app, we need to separate the call to `LoadApp
 
 ```csharp  
 FileReceiver.App _app;
-``` 
+```  
 
 Now, inside the `FinishedLaunching` method, instantiate the `_app` field and call `LoadApplication` using it as a parameter:
 ```csharp  

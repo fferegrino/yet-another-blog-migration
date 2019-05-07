@@ -35,7 +35,7 @@ As Tesseract and XLabs require platform specific code to work, we must find a wa
 First of all, grab a reference to the container with  
 ```csharp  
 var container = TinyIoCContainer.Current;
-```
+```  
 The container is like a bucket where we "put" pieces of code that will be used within our application. Then, we must put code in that bucket, we do so by calling the <code>Register</code> method of the container:  
 ```csharp  
 container.Register<IDevice>(AndroidDevice.CurrentDevice);
@@ -43,12 +43,12 @@ container.Register<ITesseractApi>((cont, parameters) =>
 {
 	return new TesseractApi(ApplicationContext, AssetsDeployment.OncePerInitialization);
 });
-```
+```  
 With the first line the device where the app is running gets registered (alongside with all its available features), whereas with the second line we are registering the implementation of the Tesseract API, for Android we must pass in the constructor a reference to the application context where the application is running. For this example it is set to <code>ApplicationContext</code> in the <code>MainActivity.cs</code>.  
 Finally we have yet to register our <code>container</code> in the XLabs <code>Resolver</code>:
 ```csharp  
 Resolver.SetResolver(new TinyResolver(container));
-```
+```  
 By the way, do not forget to add the following <code>using</code> statements at the top of your file
 ```csharp  
 using TinyIoC;
@@ -57,7 +57,7 @@ using Tesseract.Droid;
 using XLabs.Ioc;
 using XLabs.Ioc.TinyIOC;
 using XLabs.Platform.Device;
-```
+```  
 
 
 ##### iOS
@@ -72,11 +72,11 @@ container.Register<ITesseractApi>((cont, parameters) =>
 {
 	return new TesseractApi();
 });
-```
+```  
 Again, register the <code>container</code> in the <code>Resolver</code>
 ```csharp  
 Resolver.SetResolver(new TinyResolver(container));
-``` 
+```  
 Here are the <code>using</code> statements for the <code>AppDelegate.cs</code> file
 ```csharp  
 using TinyIoC;
@@ -96,12 +96,12 @@ private Image _takenImage;
 
 private readonly ITesseractApi _tesseractApi;
 private readonly IDevice _device;
-```
+```  
 The last two lines are interfaces which abstract the platform specific features that we registered a few lines above. In the constructor of the <code>HomePage</code> we'll call the <code>Resolve</code> method on our resolver class to get a references to the implementations for each platform:
 ```csharp  
 _tesseractApi = Resolver.Resolve<ITesseractApi>();
 _device = Resolver.Resolve<IDevice>();
-```
+```  
 Then build the UI, I placed the three controls within a <code>StackLayout</code>, and wire the only event:
 ```csharp  
 _takePictureButton.Clicked += TakePictureButton_Clicked;

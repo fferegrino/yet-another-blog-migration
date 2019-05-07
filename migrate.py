@@ -1,11 +1,16 @@
 import ntpath
 import os
+import re
 from glob import glob
+
+POST_IMAGE_REGEX = re.compile(r'\{% post_image\s+([a-zA-Z0-9-\.]+)\s+([\w\.\"\s]+)\s+%\}')
 
 for full_path in glob("/Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy/en/_posts/*"):
     file_name = ntpath.basename(full_path)
     name, ext = os.path.splitext(file_name)
     properties = {}
+
+    body = []
 
     with open(full_path, 'r') as r:
         markdown = r.read()
@@ -33,12 +38,25 @@ for full_path in glob("/Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy
                     if current_prop and list_content:
                         current_values.append(list_content)
 
+            for line in lines[i + 1:]:
+                clean_line = line.strip()
+                if clean_line.startswith('{% highlight'):
+                    language = clean_line[len('{% highlight'):-2].strip()
+                    body.append(f'```{language}  ')
+                elif clean_line == '{% endhighlight %}':
+                    body.append('```  ')
+                else:
+                    body.append(line)
+
+
         if current_values:
             properties[current_prop] = ', '.join(current_values) 
                 
 
-    headers = [f'{k}: {v}' for k, v in properties.items() ]
-    content = '\n'.join(headers) + '\n\n' + '\n'.join(lines[i + 1:])
+    headers = [f'{k}: {v}' for k, v in properties.items()]
+
+
+    content = '\n'.join(headers) + '\n\n' + '\n'.join(body)
 
     with open(f'content/{name}.md', 'w') as w:
         w.write(content)

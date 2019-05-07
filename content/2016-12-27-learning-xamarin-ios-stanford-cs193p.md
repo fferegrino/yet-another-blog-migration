@@ -149,7 +149,7 @@ Make sure that your custom view implements a public constructor that takes an `I
 public FaceView (IntPtr handle) : base (handle)
 {
 }
-``` 
+```  
 
 Also, make sure to register your custom views to be visible at design time in the editor, using the appropiate attributes `Register` and `DesignTimeVisible`:
 

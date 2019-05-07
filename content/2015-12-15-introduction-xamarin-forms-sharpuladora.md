@@ -53,7 +53,7 @@ In the solution inside  `sart` the property `MainPage` is set with a page create
 
 ```csharp  
 MainPage = new CalcPage();
-```
+```  
 
 ##### Code
 File: `App.cs`
@@ -76,7 +76,7 @@ layout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUni
 // Columns:
 layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-```
+```  
 
 In the code above we create a new `Grid` called `layout` and then it gets added a pair of rows and columns. Something to notice here is that a `Width` is specified for the columns and a `Height` is specified for the rows. The fact that we use `GridUnitType.Star` (or `*`) indicates that the size of the columns will be proportional to each other.  
   
@@ -88,7 +88,7 @@ Once we have created the layout, it is important to tell our page to use it as a
 
 ```csharp  
 Content = _layout;
-```
+```  
 
 ##### Code
 File: `CalcPage.cs`
@@ -102,7 +102,7 @@ Initializing controls is pretty simple, for example, to create the button that w
  
 ```csharp  
 _b0 = new Button { Text = "0" };
-```
+```  
 
 Once the control has been created we must add it to the containing layout to be shown in the screen. Remember that in this case the layout is made of rows and columns, so we must set a column number and column number where it must appear on the screen,
 the `Grid` class allows us to set those values via the static `SetColumn` y `SetRow` methods. In the code below the first column and the fourth row are set to the button `_b0`:  
@@ -116,13 +116,13 @@ Next, we add it to the layout by using this line:
   
 ```csharp  
 _gridLayout.Children.Add(_b0);
-```
+```  
 
 For the label where the result will be shown, we will use the `SetColumnSpan` methods to indicate that our control that it has to span across more than one column within the layout. In this case, we are setting ca column span of 4 to the `_resultDisplay` label:  
   
 ```csharp  
 Grid.SetColumnSpan(_resultDisplay, 4);
-```
+```  
 
 We also can use `SetRowSpan` if we want a control to use more than one row.
 
@@ -158,7 +158,7 @@ void OnNumericButtonClicked(object sender, EventArgs e)
 		segundoNumero = botonClickeado.Text;
 	}
 }
-```
+```  
 
 The handlers can be shared among several controls, so you do not have to create a handler for each control you use in your application. Now is your turn to build all the calculator's logic using the controls and the event handlers. If you get stuck, you can always take a look to the file indicated below to get you started.
 
@@ -177,7 +177,7 @@ relativeLayout.Children.Add(_layout, // <= Original layout
 	Constraint.RelativeToParent(p => p.Width),
 	Constraint.RelativeToParent(p => p.Height));
 Content = relativeLayout;
-```
+```  
 
 # What's next?
 As you have realized, this application is not finished, we have to implement some handlers and all the calculator's logic. Your mission, should you choose to accept it, is to finish building the *Sharpuladora*. You can check the book from Charles Petzold <a href=" https://developer.xamarin.com/guides/cross-platform/xamarin-forms/creating-mobile-apps-xamarin-forms/" target="_blank">Xamarin.Forms Book Preview 2</a>.

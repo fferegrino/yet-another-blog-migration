@@ -39,7 +39,7 @@ public class SelectableItemWrapper<T>
     public bool IsSelected { get; set; }
     public T Item { get; set; }
 }
-```    
+```  
 
 The `IsSelected` property will be used to determine whether the user had selected an item or not, while `Item` will contain the model.
 
@@ -94,7 +94,7 @@ For the ViewModel we require two collections:
  
 Here are the definitions for them:
  
- ```csharp  
+```csharp  
 private ObservableCollection<SelectableItemWrapper<Pokemon>> _pokemons;
 public ObservableCollection<SelectableItemWrapper<Pokemon>> Pokemons
 {

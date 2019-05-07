@@ -213,7 +213,7 @@ Control.SetSelection(cursorPosition - change);
 
 // 9. Start listening for changes on our control’s Text property
 element.ShouldReactToTextChanges = true;
-```   
+```  
 
 Here is the final result
 
