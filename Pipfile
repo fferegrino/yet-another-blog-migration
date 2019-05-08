@@ -11,6 +11,7 @@ webassets = "*"
 markdown = "*"
 pelican-alias = "*"
 requests = "*"
+click = "*"
 
 [requires]
 python_version = "3.6"
