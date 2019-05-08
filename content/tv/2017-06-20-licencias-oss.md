@@ -6,6 +6,7 @@ excerpt: Las licencias de código libre son lo que en realidad hace al código l
 featured_image: featured.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Antes de comenzar quisiera decirles que de ninguna manera tengo la intención ni estoy capacitado para dar asistencia legal. Este video es con fines informativos nada más.
 

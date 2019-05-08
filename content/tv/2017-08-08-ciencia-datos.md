@@ -6,6 +6,7 @@ excerpt: La ciencia de datos se encarga de transformar los datos en información
 featured_image: featured.png
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 La ciencia de datos, bueno, de entrada, es una de esas "palabras rimbombantes" que en la actualidad todos están usando para describir un montón de cosas.
 

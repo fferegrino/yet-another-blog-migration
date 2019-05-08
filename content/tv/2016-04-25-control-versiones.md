@@ -7,6 +7,7 @@ excerpt: El control de versiones es una forma de organizar los elementos de una 
 featured_image: featured.png
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 El control de versiones es una forma de organizar los elementos de una *cosa* cuyo contenido es modificado con el paso del tiempo, y digo cosa porque realmente se puede aplicar el control de versiones a cualquier cosa, al menos digital. Inclusive si has hecho algo así:  
 

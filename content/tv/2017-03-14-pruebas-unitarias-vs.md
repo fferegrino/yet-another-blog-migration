@@ -6,5 +6,6 @@ excerpt: Aprende a crear pruebas unitarias usando C#
 featured_image: featured.jpg
 tags: AprendeCSharp, VisualStudio, Tv
 featured_tag: AprendeCSharp
+template: video
 
 ¿Aún no sabes qué son las pruebas unitarias? <a href="..\pruebas-unitarias" target="_blank">ve mi otro vídeo</a>

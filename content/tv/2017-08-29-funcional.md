@@ -6,6 +6,7 @@ excerpt: Como su nombre lo indica, está centrada en funciones, las cuales son t
 featured_image: featured.png
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 La programación funcional es otro paradigma de programación, sí, justo como la programación reactiva o la orientada a objetos. Esta tiene sus raices fuertemente cimentadas en el cálculo lambda, introducido en 1930 por Alonzo Church, pero fue hasta 1958, con la especificación de Lisp que surgió el primer lenguaje con una norción funcional. Este paradigma de programación estuvo generalmente relegado a la academia, sin embargo, en la actualidad, está comenzando a abarcar más terreno en otras áreas.
 

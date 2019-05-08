@@ -7,6 +7,7 @@ featured_image: featured.png
 tweet_id: 944945874316218368
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 - Mi opinión de la escuela, después de haber pasado más 15 años de estudiar voluntariamente, debe servir para tres cosas y las voy a decir en orden de importancia:
 	- enseñar los temas de los que se trata es decir, que si el curso es de matemáticas, aprendas matemáticas.

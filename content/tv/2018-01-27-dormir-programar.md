@@ -5,6 +5,7 @@ excerpt: No dormir no es una medalla de honor, y el hecho de no dormir lo sufici
 tweet_id: 957991779667718144
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Este es un video más como de opinión, y quisiera comenzar diciendo esto: no dormir no es una medalla de honor, y el hecho de no dormir lo suficiente por estar trabajando o haciendo tarea no debe presumirse como un logro. Esto podría sonar raro, pero me parece que es algo muy común en el el ambiente de la programación de aplicaciones, aunque también lo he escuchado en otras profesiones, como entre los médicos. 
 

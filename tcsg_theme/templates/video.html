@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="video-wrapper">
+    <iframe width="992" height="558" src="https://www.youtube.com/embed/{{ article.youtube }}" frameborder="0" allowfullscreen></iframe>
+</div>
+<br />
+<h1 class="post-title">{{ article.title }} <small><div class="g-ytsubscribe" data-channelid="UC8KCb358oioQMcJ5pUfs8UQ" data-layout="default" data-count="default"></div></small></h1>
+<div class="post-content">
+    <article>
+        {{ article.content }}
+    </article>
+    <div class="post-contact">
+        {% include "post/post_footer.html" %}
+    </div>
+
+    <script src="https://apis.google.com/js/platform.js"></script>
+</div>
+{% endblock %}

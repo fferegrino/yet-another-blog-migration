@@ -7,6 +7,7 @@ featured_image: featured.png
 tweet_id: 942879414903300096
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Las expresiones lambda o funciones lambda, o, por su nombre correcto: las funciones anónimas son bloques de código que NO están asociados con un identificador... es decir, en tiempo de ejecución no tienen un nombre asociado. Como por ejemplo estas que son funciones (o métodos) pero si tienen un nombre:
 

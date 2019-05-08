@@ -6,5 +6,6 @@ excerpt: Así es como aplico el patrón MVC en algunos de los proyectos que desa
 featured_image: implementacion.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Obtén el código que describí en el video: <a href="https://github.com/ThatCSharpGuy/agenda-mvc" target="_blank">enlace</a>.

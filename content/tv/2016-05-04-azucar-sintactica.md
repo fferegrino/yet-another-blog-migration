@@ -7,6 +7,7 @@ excerpt: El azúcar sintáctico no es más que eso, un endulzante que en teoría
 featured_image: featured.png
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 > El azúcar sintáctico no es más que eso: un endulzante que en teoría debe mejorar nuestra experiencia cuando escribimos código.
 

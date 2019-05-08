@@ -7,6 +7,7 @@ featured_image: featured.png
 tweet_id: 935202027583483904
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Sí, memoización, no, no memorización.
 

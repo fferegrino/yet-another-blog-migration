@@ -6,6 +6,7 @@ excerpt: La autenticación de dos factores da más seguridad a los usuarios al e
 featured_image: featured.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 La autenticación multifactor es un método de control de acceso  que se basa en que el usuario que quiere acceder a un sistema presente más de una prueba para comprobar su identidad. Este puede ser usado tanto para lugares físicos como un edificio de oficinas, como en lugares virtuales, por ejemplo, una cuenta de correo.
 

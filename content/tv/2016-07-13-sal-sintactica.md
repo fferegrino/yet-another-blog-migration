@@ -7,6 +7,7 @@ excerpt: La sal sintáctica, cuyo objetivo es supuestamente ser lo totalmente op
 featured_image: featured.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 En un video anterior había hablado de la azúcar sintáctica (si no lo has visto, <a href="../tv/azucar-sintactica">aquí está el enlace</a>). 
 

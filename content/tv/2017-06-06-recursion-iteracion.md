@@ -6,6 +6,7 @@ excerpt: La recursión e iteración son técnicas de programación que nos ayuda
 featured_image: featured.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Seguramente si ya tienen nociones de programación ya habrán escuchado hablar de estos técnicas, pero si no, aquí te cuento sobre ellos: Comenzaré por decir que son técnicas de programación permiten solucionar problemas iguales pero viéndolos desde enfoques distintos.
 

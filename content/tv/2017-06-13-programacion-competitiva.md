@@ -6,6 +6,7 @@ excerpt: La programación competitiva enfrenta a programadores que tienen que re
 featured_image: featured.png
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Sí, hay competencias de programación y son una de las cosas más interesantes del planeta… o al menos eso creo yo.
 

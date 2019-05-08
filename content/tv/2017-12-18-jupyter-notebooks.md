@@ -7,6 +7,7 @@ featured_image: featured.png
 tweet_id: 940237219826229248
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Los Notebooks de Jupyter son unas hojas de código interactivas...
 

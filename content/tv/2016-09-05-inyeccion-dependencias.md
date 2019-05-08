@@ -8,6 +8,7 @@ github: https://github.com/ThatCSharpGuy/patterns
 tweet_id: 772914100062093316
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Antes de hablar de la inyección de dependencias es necesario conocer dos conceptos:  
 
