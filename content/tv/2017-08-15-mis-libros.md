@@ -6,6 +6,7 @@ excerpt: El canal llegó a 5̶0̶0̶ 534 suscriptores y decidí hacer este video
 featured_image: libros.png
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 ¡Hey! el canal llegó a 5̶0̶0̶ 534 suscriptores y decidí hacer este video en el que no hablo de nada sobre el desarrollo. La programación habitual regresa la siguiente semana.
 

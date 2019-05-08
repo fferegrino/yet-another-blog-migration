@@ -8,6 +8,7 @@ lang: es
 images_folder: /tv/hola-mundo/
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 # Information retrieval   
 Well, the title is self-explanatory but a good definition is the following: information retrieval is a field concerned with the structure, analysis, organisation, storage, searching and retrieval of information. In this case, we focused on textual information.

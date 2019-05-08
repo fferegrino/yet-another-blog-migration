@@ -6,6 +6,7 @@ excerpt: Este es un ejemplo de ORM, el framework Entity Framework, inicialmante 
 featured_image: overlay-code.png
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Obtén el código que describí en el video: <a href="https://github.com/ThatCSharpGuy/agenda-orm" target="_blank">enlace</a>.
 

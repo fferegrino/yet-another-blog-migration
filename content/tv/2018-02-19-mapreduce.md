@@ -5,6 +5,7 @@ excerpt: La idea de MapReduce es ofrecer una forma simple, rápida, escalable y 
 tweet_id: 965987034518163457
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Es un modelo de programación fuertemente orientado a la ejecución paralela y distribuida entre múltiples computadoras, que se utiliza para trabajar con grandes colecciones de datos, digamos, de unos cuantos terabytes (o petabytes). La idea de MapReduce es ofrecer una forma simple, rápida, escalable y resistente a fallos para manipular enormes cantidades de datos. En la terminología de MapReduce a estas manipulaciones se les conoce como trabajos, y así me referiré a ellos de ahora en adelante.
 

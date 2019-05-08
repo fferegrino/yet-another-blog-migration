@@ -6,6 +6,7 @@ excerpt: Programar con estilo es escribir nuestros programas fáciles de entende
 featured_image: featured.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Y no, el título no se refiero a escribir código con traje sastre, los meñiques levantados mientras tomamos té. Sino escribir nuestros programas fáciles de entender, bien documentados y siguiendo convenciones de escritura previamente adoptadas. Esto hará que nuestro código sea universal.  
 

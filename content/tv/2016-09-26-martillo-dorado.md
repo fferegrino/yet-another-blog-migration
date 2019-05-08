@@ -6,6 +6,7 @@ excerpt: La falacia del martillo de oro es una de las falacias en las cuales los
 featured_image: featured.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 El Martillo Dorado, Martillo de Maslow, La ley del Instrumeto o *Per simplex responsum* es una falacia lógica en la cual se cae cuando se usa la misma respuesta (o alguna forma de esta) para cualquier pregunta o problema, incluyendo aquellas para las que no es la mejor solución o, peor aún: para las que ni siquiera lo es.    
 

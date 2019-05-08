@@ -5,6 +5,7 @@ excerpt: Tu, ¿programas en inglés?
 tweet_id: 976181727671603200
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Los algoritmos voraces o *greedy* son algoritmos que implementan una heuristica(técnica) que tiene como objetivo optimizar la búsqueda de una solución óptima para un problema.
 

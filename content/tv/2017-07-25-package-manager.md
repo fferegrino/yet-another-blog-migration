@@ -6,6 +6,7 @@ excerpt: Los gestores de paquete le otorgan a los desarrolladores una manera má
 featured_image: package.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Los gestores de paquetes son esas herramientas sin las cuales el desarrollo actual sería un gran dolor de cabeza. Y es que últimamente son el pan de cada día de los desarrolladores, especialmente si se está trabajando con tecnologías "modernas" como el desarrollo móvil o web. 
 

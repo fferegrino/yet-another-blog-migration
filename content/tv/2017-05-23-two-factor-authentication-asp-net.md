@@ -6,6 +6,7 @@ excerpt: Aprende a implementar la autenticación de dos factores con ASP.NET Cor
 featured_image: code-featured.png
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Los pasos a realizar son los siguientes:  
 

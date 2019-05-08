@@ -6,6 +6,7 @@ excerpt: Los patrones de diseño son soluciones reusables a problemas comunes qu
 featured_image: youtube.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Ya previamente les había hablado sobre algunos patrones, en este caso arquitectónicos, como el <a href="..\mvc" target="_blank">patrón MVC</a> y el <a href="..\mvvm" target="_blank">patrón MVVM</a>, sin embargo, ahora les quiero hablar de los patrones de diseño.
 

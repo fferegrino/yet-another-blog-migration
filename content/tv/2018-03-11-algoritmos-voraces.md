@@ -5,6 +5,7 @@ excerpt: La idea detrás de los algoritmos voraces (o greedy) consiste en siempr
 tweet_id: 973684466211282945
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Los algoritmos voraces o *greedy* son algoritmos que implementan una heuristica(técnica) que tiene como objetivo optimizar la búsqueda de una solución óptima para un problema.
 

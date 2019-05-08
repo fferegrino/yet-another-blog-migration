@@ -6,6 +6,7 @@ excerpt: Estas pruebas es donde componentes individuales del software se someten
 featured_image: featured-yt.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Más seguido de lo que pensamos, nosotros, los desarrolladores llegamos a pensar que nuestro código carece de errores. Todo está bien, después de todo nosotros lo escribimos, probamos dos o tres casos y nunca falló y según nosotros está listo para ser publicado en producción... pero, ¿qué pasa cuando alguien nos pregunta "Y si probaste el código"? uno no puede decir que sí sin sentirse nervioso.  
 

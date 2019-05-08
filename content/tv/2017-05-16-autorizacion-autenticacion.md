@@ -6,6 +6,7 @@ excerpt: Identidad, Autenticación y Autorización son conceptos distintos, pero
 featured_image: featured.jpg
 tags: Meta, Tv
 featured_tag: Tv
+template: video
 
 Estoy seguro que con la identidad no hay mucho problema, sino que es con la autenticación y la autorización en donde existe un pequeño conflicto ya que al igual que la internacionalización y localización, suelen usarse indistintamente, haciendo que el que hable de ellos caiga en un pequeño error. 
 
