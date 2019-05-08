@@ -26,7 +26,7 @@ services.Configure<MvcOptions>(options =>
 {
 	options.Filters.Add(new RequireHttpsAttribute());
 });
-```
+```  
 
   - Agregar el siguiente código en el archivo Startup.cs, línea 81
 
@@ -35,7 +35,7 @@ services.Configure<MvcOptions>(options =>
 // Requires using Microsoft.AspNetCore.Rewrite;
 var options = new RewriteOptions()
    .AddRedirectToHttps();
-```
+```  
 
  - Habilitar SSL en las propiedades del sitio web, en la pestaña de debug. 
 
@@ -46,14 +46,14 @@ var options = new RewriteOptions()
 
 ```csharp  
 public virtual string TfaKey { get; set; }
-```
+```  
 
  - Agregar el siguiente código en el archivo 00000000000000_CreateIdentitySchema.cs, línea 60
 
 
 ```csharp  
 TfaKey = table.Column<string>(maxLength: 32, nullable: true),
-```
+```  
 
 ## Preparar la aplicación para que soporte sesiones
 
@@ -69,14 +69,14 @@ services.AddSession(options =>
 	options.IdleTimeout = TimeSpan.FromSeconds(10);
 	options.CookieHttpOnly = true;
 });
-```
+```  
 
  - Agregar el siguiente código en el archivo Startup.cs, línea 98
 
 
 ```csharp  
 app.UseSession();
-```
+```  
 
 ## Agregar código de Google Authenticator  
 
@@ -96,7 +96,7 @@ Código de <a href="http://www.domstamand.com/two-factor-authentication-in-asp-n
 
 ```csharp  
 .AddTokenProvider(GoogleAuthenticatorProvider.ProviderName, typeof(GoogleAuthenticatorProvider))
-```
+```  
 
 ## Preparar la interfaz para el 2FA
 
@@ -105,14 +105,14 @@ Código de <a href="http://www.domstamand.com/two-factor-authentication-in-asp-n
 
 ```csharp  
 public string TwoFactorAuthenticatorQrCode { get; set; }
-```
+```  
 
  - Agregar el siguiente código en el archivo ManageController.cs, líneas 64, 123 y 168
 
 
 ```csharp  
 TwoFactorAuthenticatorQrCode = TempData["AuthenticatorQr"]?.ToString(),
-```
+```  
 
 
 ```csharp  
@@ -134,12 +134,12 @@ public async Task<IActionResult> RequestTwoFactorAuthentication()
   }
   return RedirectToAction(nameof(Index), "Manage");
 }
-```
+```  
 
 ```csharp  
 user.TfaKey = null;
 await _userManager.UpdateAsync(user);
-```
+```  
 
 20. Reemplazar el código del `<dd></dd>` de la autenticación de dos factores por 
 
@@ -167,7 +167,7 @@ else
 		</form>
 	}
 }
-```
+```  
 
 ## Listo 
 

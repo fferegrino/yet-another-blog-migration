@@ -21,7 +21,7 @@ En este post vamos a usar una `MasterDetailPage` para crear una app con un menú
 ```csharp  
 public class MainPage : MasterDetailPage
 {
-``` 
+```  
 
 Luego, dentro del constructor de esta clase debes establecer las propiedades `Master` y `Detail`, para nosotros `Master` será la página en la que se muestre el menú y `Detail` en donde se muestre el contenido de la app. Por el momento solamente vamos establecerla dos páginas genéricas, sin nada de significado para la app:
 
@@ -52,7 +52,7 @@ public MainPage()
         }
     };
 }
-```   
+```  
 
 Asegúrate de que esta página esté establecida como `MainPage` en la clase `App` de tu proyecto de Forms.
 
@@ -141,7 +141,7 @@ Listo hasta ahora hemos creado ya casi toda la infraestructura necesaria para ec
 ```csharp  
 public class SideMenuPage : ContentPage
 {
-```   
+```  
 
 Y dentro de su constructor debes crear la apariencia con la que debe contar tu menú, aquí es donde se crea y se muestra, ahora sí, la lista de menús:  
 

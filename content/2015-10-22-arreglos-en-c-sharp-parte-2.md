@@ -16,7 +16,7 @@ Los arreglos escalonados (o *jagged arrays*) son los tipos de arreglos multidime
 
 #### Instanciación  
 Para crear estos arreglos de arreglos, tenemos una sintaxis similar a la creación de arreglos unidimensionales, con `[ ]` para cada dimensión: 
-```csharp  			
+```csharp  
 char[][] gato = new char[3][];
 
 string [][][] rubik = new string[3][][];
@@ -24,13 +24,13 @@ string [][][] rubik = new string[3][][];
 int[][] escalera = new int[3][];
 ```  
 Acá es importante notar que al instanciar un arraglo multidimensional de esta manera **únicamente estamos indicando el tamaño de la primera dimensión**, 3 en el caso de `gato`, 3 también para `rubik` y 2 para `escalera`. Es tarea nuestra inicializar los arreglos interiores: 
-```csharp  			
+```csharp  
 for(int i = 0; i < 3; i++)
 {
 	gato[i] = new char[3]; // gato[i] hace referencia a un arreglo
 }
-```   
-```csharp  			
+```  
+```csharp  
 for(int i = 0; i < 3; i++)
 {
 	rubik[i] = new string[3][];
@@ -41,13 +41,13 @@ for(int i = 0; i < 3; i++)
 }
 ```  
 Con los arreglos escalonados no hay nada que nos prohíba crear arreglos internos de dimensiones iguales a la de arreglo que las contiene, es más, **podemos crear arreglos internos de distintos tamaños en la misma dimensión**, hagamos algo con nuestro arreglo `escalera`:   
-```csharp  			
+```csharp  
 escalera [0] = new int[1] { 1 };
 escalera [1] = new int[2] { 2, 3 };
 escalera [2] = new int[3] { 4, 5, 6 };
 ```  
 Con estos arreglos de arreglos también podemos usar la instanciación de colecciones:   
-```csharp  	
+```csharp  
 char[][] gato = 
 {
 	new char[]{ 'o', 'x', 'o' },
@@ -58,7 +58,7 @@ char[][] gato =
   
 #### Acceso a los elementos  
 De nueva cuenta, y por tratarse de arreglos, usaremos los `[ ]` para acceder a los elementos de nuestros arreglos, de tal manera que es posible escribir algo como esto:   
-```csharp   
+```csharp  
 for (int i = 0; i < escalera.Length; i++)
 {
 	for (int j = 0; j < escalera [i].Length; j++) 

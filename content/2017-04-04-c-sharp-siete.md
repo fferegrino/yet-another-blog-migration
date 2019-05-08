@@ -20,11 +20,11 @@ En este post voy a mostrar algunas de las nuevas característias de este lenguaj
 
 #### En la sección de "Build" o "Compilación" abrimos "Avanzadas"  
 
-{% post_image 2advanced.png "Avanzadas" %}  
+<img src="/images/aprende-c-sharp__siete__2advanced.png" title=""Avanzadas"" />
 
 #### Elegimos C# 7 como versión del lenguaje  
 
-{% post_image 3selectlang.png "Seleccionar lenguaje" %}
+<img src="/images/aprende-c-sharp__siete__3selectlang.png" title=""Seleccionar lenguaje"" />
 
 ## Literales numéricos  
 Una de las características más simples pero con un gran impacto es la inclusión del caracter `_` como separador de dígitos al momento de declarar literales numéricos. La idea detrás de esta característica es mejorar la legibilidad del código.
@@ -43,7 +43,7 @@ La alternativa es... bueno, no hay alternativa. En C# 6 no podemos usar el separ
 private const double EarthDiameterInKms = 12756;
 private const int PaleBlueDotColor = 0xA0DFE6;
 //const long Earth = 0b01000101_01100001_01110010_01110100_01101000;
-```
+```  
 
 ## *Tuples*  
 Mientras que la versión anterior de C# ya daba soporte para *Tuplas*, este era un tanto limitado y hasta antinatural para el lenguaje. Usando C# 6 era necesario emplear directamente una <a href="..\genericos-c-sharp-clases">clase genérica</a>, sin embargo, ahora ya no es necesario. Ahora solo basta con usar paréntesis para agrupar un conjunto de posibles valores de retorno. Como en este caso, que se devuelven tres instancias de la clase `Coordenada` de un <a href="..\extension-methods-es">método de extensión</a>:
@@ -66,7 +66,7 @@ Console.WriteLine(
     $"\n\t{interesingPoints.antipoda.Descripcion}" +
     $"\n\t{interesingPoints.antipodaLatitud.Descripcion}" +
     $"\n\t{interesingPoints.antipodaLongitud.Descripcion}");
-``` 
+```  
 
 En este caso cada una de las "propiedades" de nuestra tupla tiene un nombre asignado desde la declaración del método, aunque bien pudimos haberlos dejado sin uno, al declarar el valor de retorno como `(Coordenada, Coordenada, Coordenada)`.
 
@@ -89,7 +89,7 @@ Console.WriteLine(
     $"\n\t{interesingPoints.Item1.Descripcion}" +
     $"\n\t{interesingPoints.Item2.Descripcion}" +
     $"\n\t{interesingPoints.Item3.Descripcion}");
-```    
+```  
 
 #### Importante  
 Para usar las tuplas en C# 7 es necesario agregar el paquete de NuGet `System.ValueTuple` 
@@ -109,7 +109,7 @@ public void Deconstruct(out decimal latitud, out decimal longitud)
     latitud = Latitud;
     longitud = Longitud;
 }
-``` 
+```  
 
 Para llamarlo en C# 7, basta con escribir el siguiente código:  
 
@@ -126,7 +126,7 @@ Mientras que la alternativa es la de antes, declarar las variables y usarlas des
 decimal evLat, evLong;
 everest.Deconstruct(out evLat, out evLong);
 Console.WriteLine($"Latitud y longitud del Everest: {evLat} y {evLong}");
-```     
+```  
 
 ## Deconstructor  
 Seguramente recuerdas el método `Deconstruct` de la sección anterior. Pues bien, los métodos llamados `Deconstruct` con parámetros de tipo `out` pueden ser usados de otra manera a través de una sintaxis parecida a las tuplas:  
@@ -134,7 +134,7 @@ Seguramente recuerdas el método `Deconstruct` de la sección anterior. Pues bie
 ```csharp  
 (decimal evLat1, decimal evLong1) = everestCoordinates;
 Console.WriteLine($"Latitud y longitud del Everest: {evLat1} y {evLong1}");
-``` 
+```  
 
 Como puedes ver, estamos realizando una asignación múltiple desde un solo objeto. Las claves para que esto funcione son dos:  
 

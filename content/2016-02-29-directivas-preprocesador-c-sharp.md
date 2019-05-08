@@ -23,7 +23,7 @@ La sintaxis de una directiva es simple: comienza por el símbolo `#` seguido inm
 #if esta_es_una_directiva
 #endif
 #endregion
-```
+```  
 
 ### Instrucciones disponibles  
 Podemos dividir las directivas dentro estas categorías:  
@@ -38,7 +38,7 @@ Pero nosotros también podemos definirlos mediante el uso de la directiva `#defi
 #define mundo
 #define PIZZA
 #undef mundo
-```
+```  
 
 En este caso para el archivo quedarán definidos los símbolos `HOLA` y `PIZZA`, estas definiciones se hacen con una sola intención, que veremos más adelante. Hay que señalar que las definiciones deben ser las primeras instrucciones en cada archivo.
 
@@ -59,7 +59,7 @@ Console.WriteLine("...");
 #if (HOLA || mundo) && PIZZA
 Console.WriteLine("Hola o mundo y ¡pizza!");
 #endif
-```
+```  
 
 El resultado de la ejecución es
  
@@ -84,7 +84,7 @@ Pero, ¿para qué querríamos provocar errores o *warnings* en nuestro código? 
 #if !DEBUG
 #error Whoops, este código solamente puede ser usado en configuración debug
 #endif
-```
+```  
 
 #### Supresión de *warnings*  
 Del mismo modo que podemos crear *warnings*, también podemos instruir al compilador a que ignore algunas de estas mediante el uso de la directiva `#pragma warning disable ([identificador de advertencias])`.  
@@ -101,29 +101,29 @@ int x = 0;
 return;
 int zero = 0;
 if (1 != null) ;
-```
+```  
 
-{% post_image warnings.png "Warnings" %}  
+<img src="/images/directives__warnings.png" title=""Warnings"" />
 
 Podemos deshabilitar las advertencias una por una:
 ```csharp  
 #pragma warning disable 219
             int x = 0;
-```
+```  
 
 Varias a la vez:
 
 ```csharp  
 #pragma warning disable 162,219
             int zero = 0;
-```
+```  
 
 O simplemente todas a la vez:
 
 ```csharp  
 #pragma warning disable
             if (1 != null) ;
-```
+```  
   
 #### Organización de código  
 Estas son es seguramente las directivas con las que más frecuentemente te has encontrado, y es que su uso es mucho más común que las otras, su finalidad es agrupar físicamente bloques de código dentro de nuestro archivo fuente, además de que algunos IDE permiten colapsar el texto entre ella. Es importante decir que su inclusión no modifica el comportamiento del compilador.
@@ -138,7 +138,7 @@ Console.WriteLine("Hola");
 
 Que en Visual Studio se ve así:
 
-{% post_image region.gif "Region directive" %}  
+<img src="/images/directives__region.gif" title=""Region directive"" />
 
 #### Para finalizar  
 Como puedes ver, las directivas nos pueden ayudar a personalizar nuestro código a partir de condiciones dictadas antes de la compilación del mismo, o a "forzar" que ciertas condiciones se cumplan para que siquiera compile. También nos ayudan a organizar nuestro código en bloques físicos dentro del archivo fuente.  

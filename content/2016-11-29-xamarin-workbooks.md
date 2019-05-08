@@ -15,7 +15,7 @@ Los Workbooks son una especie de documentos "vivos" con los que puedes compilar 
 
 ```csharp  
 Console.WriteLine("Hola mundo");
-```
+```  
 
 ### Interfaz
 Vamos a ver algunos elementos de la interfaz antes de adentrarnos de lleno en el tema. Estos son los controles que te encontrarás muy seguido:
@@ -37,7 +37,7 @@ int entero; // declaración
 float flotante = 10f; // Asignación
 decimal x = (decimal)flotante * 3;
 decimal y = x / 6;
-```
+```  
 
 ### Declaración de clases
 
@@ -51,14 +51,14 @@ public class Pokemon
   public int Height { get; set; }
   public int Weight { get; set; }
 }
-```
+```  
 
 Y luego, instanciarlas:
 
 ```csharp  
 var p1 = new Pokemon();
 p1.Name = "Pikachu";
-```
+```  
 
 ### NuGet
 
@@ -70,7 +70,7 @@ Una vez agregado el paquete aparecerán unas directivas para preprocesador que l
 #r "System.Net.Http.Primitives"
 #r "System.Net.Http.Extensions"
 #r "Newtonsoft.Json"
-```
+```  
 
 A partir de entonces podemos hacer uso de estas, ¡pero hey! no olvides los `using`
 
@@ -78,7 +78,7 @@ A partir de entonces podemos hacer uso de estas, ¡pero hey! no olvides los `usi
 using Newtonsoft;
 using System.Net.Http;
 using System.Net.Http.Headers;
-```
+```  
 
 Ahora sí, vamos a consultar la PokéAPI. Configuramos el cliente:
 
@@ -87,14 +87,14 @@ var client = new HttpClient();
 client.BaseAddress = new Uri("http://pokeapi.co/api/v2/");
 client.DefaultRequestHeaders.Accept.Clear();
 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-```
+```  
 
 Y realizamos las llamadas. ¿por qué no buscas a tu Pokémon favorito modificando la variable `pkmn`? (no olvides presionar ctrl o cmd \+ ↩︎ para ejecutar el código:
 
 ```csharp  
 var pkmn = "jirachi";
 var response = await client.GetAsync("pokemon/" + pkmn);
-```
+```  
 
 ¡Oh! lo olvidaba, ¿ves eso que sale debajo de nuestro código cada vez que lo ejecutamos? no es nada más que otra de las maravillas de los Workbooks, que realiza la evaluación de la última expresión y la presenta en pantalla, además de que nos da varias opciones para visualizar la información:
 
@@ -107,7 +107,7 @@ if(response.IsSuccessStatusCode)
         var poke = await Newtonsoft.Json.JsonConvert.DeserializeObjectAsync<Pokemon>(result);
 	    Console.WriteLine($"{poke.Id:000} {poke.Name}: H: {poke.Height} and W: {poke.Weight}");
 }
-```
+```  
 
 ### ¿Cómo son los Workbooks?
 

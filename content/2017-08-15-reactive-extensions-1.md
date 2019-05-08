@@ -77,7 +77,7 @@ flujoDatos.Subscribe(
     onNext: dato => { Console.Write($"{dato}, "); },
     onCompleted: () => { Console.WriteLine("\nTerminé de recibir los datos"); }
 );
-```    
+```  
 
 Al ejecutar el código obtendremos algo así en pantalla:  
 

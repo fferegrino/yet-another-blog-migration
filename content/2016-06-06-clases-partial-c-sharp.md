@@ -129,7 +129,7 @@ public partial class Core
         int byteCount = photo.Length;
     }
 }
-``` 
+```  
 
 **CoreAndroid.cs** en el proyecto de Android
 ```csharp  

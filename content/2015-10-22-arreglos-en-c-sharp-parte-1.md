@@ -38,7 +38,7 @@ char [] vocales = new char[5] { 'a', 'e', 'i', 'o', 'u' };
 int [] conteo = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
 
 object [] misObjetos = { "3", 1, 99.99 };
-```
+```  
 Como podemos ver, tenemos varias opciones para inicializar arreglos unidimensionales:  
 
 1. `new char[5] { ...`, nos permite indicar el tamaño y el tipo explícitamente y posteriormente indicar los valores, si cambiáramos el `5` por un `7`sin aumentar la cantidad de valores obtendríamos un error de compilación.  
@@ -51,7 +51,7 @@ Una vez instanciado, podemos acceder a los elementos del arreglo usando nuevamen
 Retomemos los arreglos del ejemplo pasado. Para acceder a la `a` dentro del arreglo `vocales` debemos acceder a la posición `0`:  
 ```csharp  
 Console.WriteLine(vocales[0]); // a
-```
+```  
 O, digamos que queremos reemplazar la `i` por una `t`:  
 ```csharp  
 vocales[2] = 't';

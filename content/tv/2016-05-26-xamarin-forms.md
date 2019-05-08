@@ -23,7 +23,7 @@ Dentro de estas abstracciones de controles tenemos:
      
 En esta imagen puedes ver todas:
      
-{% post_image pages.png "Xamarin.Forms stock pages" %}
+<img src="/images/tv__xamarinforms__pages.png" title=""Xamarin.Forms stock pages"" />
      
  - Contenedores (Layouts) que nos permiten acomodar los elementos de interfaz gráfica dentro de una página, de igual manera, Forms nos da algunos `Layouts` comunes como:
 	 - `StackLayout` para apilar los controles, uno sobre otro
@@ -33,7 +33,7 @@ En esta imagen puedes ver todas:
 
 En fin, hay varios más
      
-{% post_image layouts.png "Xamarin.Forms stock layouts" %}
+<img src="/images/tv__xamarinforms__layouts.png" title=""Xamarin.Forms stock layouts"" />
 
  - Controles (Views) son elementos visuales, y en donde realmente se "nota" más, el poder de Forms. Estos elementos visuales son los que reciben directamente la interacción del usuario, por ejemplo, en Forms tenemos:
 	 - `Button`, que no necesita mucha explicaciòn
@@ -46,7 +46,7 @@ En fin, hay varios más
 	 - En fin, hay muchos más.
 - Celdas (Cells) que como ya lo mencioné, se usan junto con las `ListView` o `TableView` para mostrar datos, en esta categoría hay celdas que nos permiten mostrar texto, texto e imágenes o controles como un Switch o una caja de texto.  
 
-{% post_image controls.png "Xamarin.Forms stock layouts" %}
+<img src="/images/tv__xamarinforms__controls.png" title=""Xamarin.Forms stock layouts"" />
 
 Xamarin.Forms funciona así: las abstracciones de controles se transforman en tiempo de ejecución a controles nativos, en cada plataforma hay un conjunto de *Renderers* que toman la abstracción y la convierten al control nativo. De tal manera que cuando nosotros usamos un control, por ejemplo digamos `Entry` (para recibir texto del usuario), estos `Renderers` lo convertirán en Android a un `EditText`, en iOS a un `UITextView` y en Windows a un `TextBox`:  
 
@@ -62,7 +62,7 @@ Pero no te desanimes, así como Forms hace uso de los renderers, tu también los
   
 Otra de las dudas más comunes es sobre el cómo escribimos la interfaz usando Xamarin.Forms, y pues las respuestas son dos:  
 
-{% post_image language.png "Lenguaje de interfaz gráfica" %}  
+<img src="/images/tv__xamarinforms__language.png" title=""Lenguaje de interfaz gráfica"" />
 
 Sí, XAML y código C#. Yo preiero el código, aunque si tienes muchos controles, la cosa se puede tornar bastante fea si no tienes buena organización.
 

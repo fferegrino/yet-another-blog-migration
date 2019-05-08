@@ -63,7 +63,7 @@ public class CameraPage : PageRenderer, TextureView.ISurfaceTextureListener
 Dentro de esta clase, debemos sobreescribir el método `OnElementChanged`, ya que es donde se debe modificar el el control de acuerdo a nuestras necesidades, para este caso, en ese método de carga un `layout` que contiene la definición de la página en XML para Android y se añaden los manejadores de eventos. Para terminar, debemos **indicar a Xamarin.Forms** que nuestra clase derivada de `PageRenderer` debe ser usada para renderizar la página de la cámara en el dispositivo, esto se hace mediante el atributo `ExportRenderer`:
 ```csharp  
 [assembly: ExportRenderer(typeof(CharpHat.Pages.CameraPage), typeof(CharpHat.Droid.Pages.CameraPage))]
-```    
+```  
 La implementación de la cámara usa las APIs viejas de Android, y no es para nada distinto de lo que se haría para implementar una funcionalidad similar usando Java, pero en este caso estarías usando fabuloso C#.  
   
 ### StickerableImage  
@@ -72,7 +72,7 @@ Otra de las características que tuvo que ser implementada de manera individual 
 **Declarar la abstracción**
 ```csharp  
 public class StickerableImage : View
-```
+```  
 En este caso, añadí dos propiedades a esta clase que permitirán manipular el tamaño (`ScaleFactor`) y el ángulo (`RotationFactor`) en el código del proyecto compartido, además las declaré como propiedades "bindeables", para poderlas usar desde XAML o con los <code>ViewModels</code>.
 ```csharp  
 BindableProperty ScaleFactorProperty;
@@ -81,11 +81,11 @@ BindableProperty RotationFactorProperty;
 **Implementar individualmente**, para este caso, no se usa un renderizador conocido (como podría ser PageRenderer o ButtonRenderer), sino que se utiliza ViewRenderer en el que debemos especificar: el tipo del control en Xamarin.Forms y el tipo de control en la plataforma nativa (en este caso es Xamarin.Android) 
 ```csharp  
 public class StickerableImageRenderer : ViewRenderer<StickerableImage, StickerView>
-```
+```  
 Con el código anterior, lo que estamos diciendo es algo como: *Cuando sea Android, reemplaza StickerableImage por StickerView*, donde <code>StickerView</code> es un control del tipo <code>Android.Views.View</code>. Una vez hecho esto, únicamente resta indicarle a Forms que queremos usar ese Renderer para ese tipo de control, para ello usamos fuera del `namespace`:
 ```csharp  
 [assembly: ExportRenderer(typeof(CharpHat.Controls.StickerableImage), typeof(CharpHat.Droid.Controls.StickerableImageRenderer))]
-``` 
+```  
   
 #### StickerView  
 Es un `View` que lo que hace es estar al pendiente de cuando el usuario toca la pantalla y dibuja en ese punto el peculiar birrete de C#, también permite modificar el tamaño y el ángulo de este, para poder acomodarlo de acuerdo a lo que indique el usuario.
@@ -99,7 +99,7 @@ public interface IPictureManager
 {
 	string SavePictureToDisk (string filename, string folder, byte[] imageData);
 	// ...
-```
+```  
 **Implementar individualmente**
 ```csharp  
 public class PictureManager : IPictureManager
@@ -109,12 +109,12 @@ public class PictureManager : IPictureManager
 		var dir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryPictures);
 		string picsFolder = System.String.Empty;
 		// ...
-```
+```  
 Para usar el servicio de dependencias de Xamarin.Forms, debemos utilizar `DependencyAttribute` fuera del nombre de espacio en nuestra clase, como en la siguientes líneas:
 ```csharp  
 [assembly: Xamarin.Forms.Dependency(typeof(CharpHat.Droid.Services.PictureManager))]
 namespace CharpHat.Droid.Services
-```
+```  
   
 ### IScreenshotService
 Para el caso de `IScreenshotService` se realizan pasos similares que para `IPictureManager`. La implementación de `IScreenshotService` permite capturar la pantalla que está viendo el usuario, úitil para cuando el birrete está en su posición y se quiere guardar esa imagen.  

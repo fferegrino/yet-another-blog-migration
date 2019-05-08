@@ -31,7 +31,7 @@ Is a level of the software testing process where individual components of a soft
 
 To perform testing on a unit of software we must have two things: A **set of input values** and **the expected outputs for that set** of values. The structure for a test is the following:  
 
-{% post_image test-explanation-2.png "Test explanation" %}
+<img src="/images/unit-testing__test-explanation-2.png" title=""Test explanation"" />
 
 
 **Arrange**: *Here is where we declare the input values for the component we are testing and the expected output*  

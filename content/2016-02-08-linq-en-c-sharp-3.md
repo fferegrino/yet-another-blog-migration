@@ -132,13 +132,13 @@ Si queremos obtener el primer maestro:
 
 ```csharp  
 var maestro1 = q6.First();
-``` 
+```  
 
 `First` también acepta una condicional, digamos que queremos obtener el primer maestro que tiene como nombre "Cosme Fulanito":
 
 ```csharp  
 var cosmeFulanito = q6.First(m => m.GivenName == "Cosme" && m.LastName == "Fulanito");
-``` 
+```  
 
 Con este tipo de operaciones debemos ser muy cuidadosos, porque en el ejemplo pasado, al no existir un maestro llamado "Cosme Fulanito", el método `First` lanza una excepción del tipo `InvalidOperationException`, lo cual ocurre si el conjunto sobre el que operamos no contiene elemento alguno que cumpla la condición (o si no indicamos condición basta con que el conjunto esté vacío).  
   
@@ -146,7 +146,7 @@ Para evitar la excepción podemos usar el método `FirstOrDefault` el cual regre
 
 ```csharp  
 var cosmeFulanito2 = q6.FirstOrDefault(m => m.GivenName == "Cosme" && m.LastName == "Fulanito");
-``` 
+```  
 
 ### Single
 
@@ -154,7 +154,7 @@ Adicionalmente a `First`, también existe el método `Single` y `SingleOrDefault
 
 ```csharp  
 var maestro3 = q6.Single(); // Excepción porque q6 contiene más de 1 elemento
-``` 
+```  
  
 Tal vez te estés preguntando para qué existe `Single` si ya existe `First` y yo al igual que muchos coincido en que todo es cuestión de semántica en nuestro código. Si queremos dejar claro que una consulta a la base de datos, a un XML o a cualquier otra cosa a través de Linq debe siempre regresar un solo resultado debemos usar `Single`, si esperamos obtener el primer resultado de un conjunto más grande debemos usar `First`.  
   
@@ -165,13 +165,13 @@ No no siempre vamos a necesitar el primer elemento de una colección, tal vez es
 var maestroSegundo = q6.ElementAt(2);
 
 var maestroDecimo = q6.ElementAt(10);
-``` 
+```  
 
 En este caso también debemos ser cuidadosos ya que, si nuestro conjunto no contiene al menos la cantidad de elementos necesaria para cumplir nuestra petición, obtendremos otra excepción, en este caso una del tipo `ArgumentOutOfRangeException`, así pues que cuando se solicita al maestro 900 obtendremos el error:
  
 ```csharp  
 var maestroNoningentesimo = q6.ElementAt(900); // Excepción ¡porque q6 no tiene 900 maestros!
-``` 
+```  
     
 #### Lo que sigue  
 Aún quedan algunas cuantas herramientas de Linq por demostrar, entre ellas las intersecciones, uniones y demás operaciones sobre conjuntos que se pueden realizar. Sin duda espero haberte convencido (o demostrado) que el poder de esta característica que nos ofrece .NET es bastante bueno y que no debe pasarse por alto cuando desarrollas. Como siempre, recuerda que todo el código fuente de este post está en la información (cerca del título).

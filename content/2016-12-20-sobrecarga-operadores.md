@@ -90,7 +90,7 @@ Los operadores de comparación son un caso muy peculiar, ya que es necesario sie
 public static bool operator >(Toy a, Toy b)
 {
     // ...
-```   
+```  
 
 Ya que de no hacerlo, nuestro programa no compilaría.
 

@@ -19,13 +19,13 @@ Resulta que `string` y `System.String` (o simplemente `String`) son lo mismo, es
 ```csharp  
 int abc = 123;
 Int32 xyz = 123;
-```
+```  
 	</div>
     <div class="pure-u-1-2">
 ```csharp  
 Int32 abc = 123;
 int xyz = 123;
-```
+```  
 	</div>
 </div>  
 
@@ -73,14 +73,14 @@ Al significar lo mismo en términos de programación su uso es cuestión de gust
 // Yo prefiero...
 int abc = Int32.Parse("123");
 string emptyString = String.Empty;
-```
+```  
 	</div>
     <div class="pure-u-1-2">
 ```csharp  
 // ... a esto
 Int32 abc = int.Parse("123");
 String xyz = string.Empty;
-```
+```  
 	</div>
 </div>  
 

@@ -25,7 +25,7 @@ Estos dos valores son:
 
 Para modificarlos es necesario acceder al archivo `AndroidManifest.xml`. En Visual Studio o Xamarin Studio te podrás beneficiar de contar con un editor gráfico:  
 
-{% post_image androidmanifest.jpg "AndroidManifest GUI editor" %}
+<img src="/images/nugets__versioning__androidmanifest.jpg" title=""AndroidManifest GUI editor"" />
 
 ## iOS  
 Para iOS la cosa no cambia mucho, igualmente existen dos valores con las mismas características (uno público y el otro privado) pero con distinto nombre:  
@@ -36,7 +36,7 @@ Para iOS la cosa no cambia mucho, igualmente existen dos valores con las mismas 
 
 Estos valores se almacenan en el archivo Info.plist, para el cual también tenemos disponible un editor gráfico:  
 
-{% post_image infoplist.jpg "Info.plist GUI editor" %}
+<img src="/images/nugets__versioning__infoplist.jpg" title=""Info.plist GUI editor"" />
 
 ## Version Tracking Plugin
 Este pequeño paquetito de NuGet nos ayuda a acceder programáticamente a estos dos números directamente desde nuestro proyecto de Forms. 
@@ -72,7 +72,7 @@ android:versionCode="1"
 android:versionName="1.0"  
  
  
-```
+```  
 	</div>
     <div class="pure-u-1-2">
 ```xml  
@@ -81,11 +81,11 @@ android:versionName="1.0"
 <string>1.0</string>
 <key>CFBundleVersion</key>
 <string>1.0</string>
-```
+```  
 	</div>
 </div>
 
-{% post_image one.jpg "Version one" %}  
+<img src="/images/nugets__versioning__one.jpg" title=""Version one"" />
 
 #### Cambio en el *build*   
 
@@ -97,7 +97,7 @@ android:versionCode="2"
 android:versionName="1.0"  
  
  
-```
+```  
 	</div>
     <div class="pure-u-1-2">
 ```xml  
@@ -106,11 +106,11 @@ android:versionName="1.0"
 <string>1.0</string>
 <key>CFBundleVersion</key>
 <string>1.1</string>
-```
+```  
 	</div>
 </div>
 
-{% post_image two.jpg "Build bump" %}
+<img src="/images/nugets__versioning__two.jpg" title=""Build bump"" />
 
 #### Cambio en la versión     
 
@@ -122,7 +122,7 @@ android:versionCode="2"
 android:versionName="1.2"  
  
  
-```
+```  
 	</div>
     <div class="pure-u-1-2">
 ```xml  
@@ -131,11 +131,11 @@ android:versionName="1.2"
 <string>1.2</string>
 <key>CFBundleVersion</key>
 <string>1.1</string>
-```
+```  
 	</div>
 </div>
 
-{% post_image three.jpg "Version bump" %}
+<img src="/images/nugets__versioning__three.jpg" title=""Version bump"" />
 
 #### Cambio en la versión y *build*  
 
@@ -147,7 +147,7 @@ android:versionCode="2"
 android:versionName="2.0"  
  
  
-```
+```  
 	</div>
     <div class="pure-u-1-2">
 ```xml  
@@ -156,11 +156,11 @@ android:versionName="2.0"
 <string>2.0</string>
 <key>CFBundleVersion</key>
 <string>2.0</string>
-```
+```  
 	</div>
 </div>
 
-{% post_image four.jpg "Bumped both" %}
+<img src="/images/nugets__versioning__four.jpg" title=""Bumped both"" />
 
 #### Cambio en la versión y *build*  
 
@@ -172,7 +172,7 @@ android:versionCode="3"
 android:versionName="3.0"  
  
  
-```
+```  
 	</div>
     <div class="pure-u-1-2">
 ```xml  
@@ -181,16 +181,16 @@ android:versionName="3.0"
 <string>3.0</string>
 <key>CFBundleVersion</key>
 <string>3.0</string>
-```
+```  
 	</div>
 </div>
 
-{% post_image five.jpg "Bumped both" %}
+<img src="/images/nugets__versioning__five.jpg" title=""Bumped both"" />
 
 #### Si el usuario borra la app...
 Desde luego, toda esta información se pierde si el usuario borra la app. En este caso, el usuario borró y reinstaló la versión tres, y tras abrirla nuevamente, esta es la pantalla que aparece:  
 
-{% post_image six.jpg "Fresh versioning" %}
+<img src="/images/nugets__versioning__six.jpg" title=""Fresh versioning"" />
 
 ## Instalación  
 Para instalarlo basta con instalar el <a href="https://www.nuget.org/packages/Plugin.VersionTracking/" target="_blank">paquete de NuGet</a> Plugin.VersionTracking.

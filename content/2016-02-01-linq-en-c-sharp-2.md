@@ -34,7 +34,7 @@ join teacher in db.Teachers
 where teacher.LastName == "Williams"
 select new { TeacherId = grouped.Key, 
              Name = teacher.GivenName };
-```
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
 ```csharp  
@@ -46,7 +46,7 @@ db.Lectures
 .Where (an => an.Teacher.LastName == "Williams")
 .Select (an => new { TeacherId = an.Grouped.Key,
                      Name = an.Teacher.GivenName });
-```
+```  
 </div>
 </div>  
   
@@ -131,7 +131,7 @@ var promedioEdadSMail = (from t in db.Teachers
 var promedioEmailCMail = db.Teachers
     .Where (t => t.Email != "")
     .Average (t => t.Age);
-```   
+```  
 
 También existe una función llamada `Aggregate` que nos da flexibilidad para integrar nuestra propia funcionalidad de agregación.
 
@@ -143,7 +143,7 @@ Podemos usar el método `All` para verificar que todos los elementos dentro del 
   
 ```csharp  
 bool todosMayores = db.Teachers.All(teacher => teacher.Age > 18);
-```   
+```  
 
 ### Algún elemento (Any)
 Contrario a `All`, el método `Any` devolverá `true` cuando exista **al menos un elemento que cumpla con la condición** que se le pasa como argumento. Por ejemplo, si queremos saber si existe algún maestro que se llame Cosme Fulanito:  
@@ -151,13 +151,13 @@ Contrario a `All`, el método `Any` devolverá `true` cuando exista **al menos u
 ```csharp  
 bool existeCosmeFulanito = db.Teachers.Any(teacher => teacher.GivenName == "Cosme"
                             && teacher.LastName == "Fulanito");
-```   
+```  
 
 Otra de las funciones de `Any` es evitarnos el "molesto" condicional de `.Count > 0`. Porque si llamamos `Any` sin pasar ningún condicional, este nos devolverá `true` siempre que nuestra secuencia contenga algún elemento. Digamos que antes de seguir queremos saber si hay clases registradas:
   
 ```csharp  
 bool hayClases = db.Lectures.Any();  
-```   
+```  
 
 ## Ordenamiento (OrderBy, orderby) 
 Con Linq también es posible ordenar nuestros conjuntos de datos. Solo hay que recordar que generalmente el ordenamiento operará solo de manera temporal y que el ordenamiento no permanecerá una vez que hemos dejado de trabajar con los datos.

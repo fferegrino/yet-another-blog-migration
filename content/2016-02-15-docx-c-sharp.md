@@ -19,12 +19,12 @@ En esta ocasión mostraré cómo crear un reporte de las clases (`lectures`) que
 ## Creando un documento
 Para crear un documento es necesario utilizar el método estático `Create` especificando la ruta del archivo. La sentencia `using` es importante para asegurarnos que cuando terminemos de usar el documento, se liberen sus recursos de manera adecuada:  
 
-```csharp   
+```csharp  
 using (var document = DocX.Create("Prueba.docx"))
 {
     // Dentro de este bloque tenemos disponible el documento
     // ...
-```
+```  
 
 ## Guardando un documento  
 Una vez creado el documento y después de que hemos terminado de trabajar con él debemos guardar nuestros cambios, esto se hace mediante una llamada a su método `Save`, con lo cual todos los cambios hechos en el documento serán aplicados sobre el archivo. Es importante que llames al método dentro del bloque `using` (de otro modo obtendrás un error de compilación).  
@@ -33,20 +33,20 @@ Una vez creado el documento y después de que hemos terminado de trabajar con é
     // ...
     document.Save();
 }
-```
+```  
 
 Cabe señalar que también tenemos a nuestra disposición el método `SaveAs` que permite especificar una ruta distinta a la que usamos para crear nuestro documento.  
   
 Si ejecutamos el código hasta este momento veremos un documento vacío llamado "Prueba.docx" en la carpeta donde está nuestra aplicación, en mi caso es dentro de `bin\Debug`, y es porque al crear nuestro documento únicamente empleamos el nombre de un archivo.  
   
-{% post_image created-document.png "Documento vacío" %}  
+<img src="/images/docx-c-sharp__created-document.png" title=""Documento vacío"" />
 
 ## Añadiendo texto  
 El texto dentro de un documento de DocX está organizado en párrafos, y por eso debemos añadir párrafos a nuestro documento, para ello debemos tomar nuestro documento y llamar el método `InsertParagraph`.  
 
 ```csharp  
 var reportParagraph = document.InsertParagraph();
-```
+```  
 
 El método devuelve una referencia al párrafo que añadió al documento, a partir de aquí podemos añadirle texto a dicho párrafo, y por ende, al documento. Para agregar texto debemos usar el método `Append` de la clase `Paragraph`, este método funciona de manera similar a un `StringBuilder` ya que podemos *"encadenar"* las llamadas para separar partes del código:  
 
@@ -58,7 +58,7 @@ reportParagraph.Append("Este es un reporte perteneciente a las clases que impart
   
 Hasta este momento, el resultado de ejecutar el código es un documento que contiene el texto arriba indicado, se ve más o menos así:  
   
-{% post_image sin-estilo.png "Documento sin estilo" %}  
+<img src="/images/docx-c-sharp__sin-estilo.png" title=""Documento sin estilo"" />
 
 ### Formateando el texto  
 El texto sin formato está bien, ¿pero sabes qué es mejor?  
@@ -83,7 +83,7 @@ En el código de arriba están pasando varias cosas:
  
 Obtenemos un resultado como este:   
   
-{% post_image estilo.png "Documento estilizado" %}   
+<img src="/images/docx-c-sharp__estilo.png" title=""Documento estilizado"" />
 
  
 Además de estas opciones de formato también podemos subrayar, cruzar, cambiar el tamaño del texto.
@@ -98,7 +98,7 @@ titleParagraph.Append("Reporte " + LastName).Heading(HeadingType.Heading1);
 
 Y acá está el resultado:  
   
-{% post_image encabezado.png "Encabezado" %}  
+<img src="/images/docx-c-sharp__encabezado.png" title=""Encabezado"" />
   
 ## Encabezado y pie de página  
 Para darle un poco más de formalidad al documento, vamos a añadirle un pie de página y un encabezado, otra vez debemos añadir párrafos. Antes que nada, es necesario llamar a dos métodos para preparar el terreno.
@@ -121,10 +121,10 @@ En este caso estamos agregando el texto "Reporte - DocX" al encabezado y un núm
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image header.png "Encabezado" %}  
+<img src="/images/docx-c-sharp__header.png" title=""Encabezado"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image footer.png "Pie de pagina" %}  
+<img src="/images/docx-c-sharp__footer.png" title=""Pie de pagina"" />
 </div>  
 </div>  
 
@@ -162,7 +162,7 @@ foreach (var lecture in lectures)
 
 Y el resultado:  
 
-{% post_image table.png "Tabla" %}  
+<img src="/images/docx-c-sharp__table.png" title=""Tabla"" />
 
 Con esto llegamos al final de la generación de nuestro reporte, pero antes hay que decir que DocX también permite trabajar con imágenes, hipervínculos, propiedades del documento.  
 
@@ -171,16 +171,16 @@ Personalmente pienso que la posibilidad de DocX de buscar y reemplazar texto en 
  
 Por ejemplo, tenemos un documento llamado `template.docx`, lo abriremos con DocX usando el método `Load` y reemplazaremos algunos de sus valores para guardarlo como `out.docx`:
 
-{% post_image template.png "Template" %}
+<img src="/images/docx-c-sharp__template.png" title=""Template"" />
 
 ```csharp  
 template.ReplaceText("esta entrada", "este post sobre DocX");
 template.ReplaceText("querido", "querido y respetable");
 template.ReplaceText("Facebook", "Twitter");
 template.ReplaceText("correo electrónico", "feregrino@thatcsharpguy.com");
-```      
+```  
         
-{% post_image out.png "Salida" %}        
+<img src="/images/docx-c-sharp__out.png" title=""Salida"" />
 
 ## Conclusión  
 Al principio la API de DocX nos puede parecer un poco rara y con poca documentación, sin embargo, eso no le resta a lo enormemente útil que resulta esta librería, cuando lo que buscamos es trabajar y generar documentos de Word de manera programática. Lo mejor de todo es que **no requiere que la máquina en donde se ejecuta tenga instalado Office**, gran, gran plus.

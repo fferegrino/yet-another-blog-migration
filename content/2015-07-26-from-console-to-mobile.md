@@ -52,9 +52,9 @@ static void Main()
 	int distance = Compute(str1, str2);
 	Console.WriteLine("Distance: " + distance);
 }
-```
+```  
 
-{% post_image sample-c-app.gif "Sample app" %}
+<img src="/images/from-console-to-mobile__sample-c-app.gif" title=""Sample app"" />
 
 <h3>Some differences</h3>
 <h4>Entry point</h4>
@@ -102,14 +102,14 @@ static void Main()
 <h4>Creating the project</h4>
 <p>To create the project we'll use the Mobile Apps template that comes with Xamarin Platform installation. To do this once Visual is open go to <code>File &gt; New &gt; Project</code> and select Mobile Apps and then Blank App (the one that says "portable"). Assign your project a name and let VS do its magic. It shouldn't take long, after it finishes we'll end up with a structure like the one below.</p>
 
-{% post_image project-structure.png "Project structure" %}
+<img src="/images/from-console-to-mobile__project-structure.png" title=""Project structure"" />
 
 <p>You can see that there are 4 projects, three of them ending with a suffix indicating the platform they are specific to. The other one is a portable class library (from now on "PCL") which will contain most of our code. You also must notice that the name of the PCL is highlighted with a bold font, it means that the PCL is set as the <strong>startup project</strong>.</p>
 <h4>Running the startup project</h4>
 <p>The startup project is the project that will get executed once we click the "Play" button o the upper part of our IDE, we can change the startup project by right-clicking on the project we want to set and choosing the corresponding option.</p>
 <p>Depending on what kind of project have we selected as startup, a different set of options will be available to run our project, let's keep it simple and set the Windows Phone project as the startup one. Set the emulator as the target device and hit Play to build and run the app.</p>
 
-{% post_image project-target-selection.png "Startup project" %}
+<img src="/images/from-console-to-mobile__project-target-selection.png" title=""Startup project"" />
 
 <h4>What's inside a Xamarin.Forms app</h4>
 <p>Let's go back to the PCL project, in it we'll find a file named <code>App.cs</code> it contains the <code>App</code> class which we can see as the "entry point" for our Forms app, I quoted entry point because it isn't true: as I said before, every platform has its own entry point. But for now we'll see the App.cs file as if it were.</p>
@@ -147,7 +147,7 @@ public App()
 {
 	ContentPage xevenshteinMainPage = new ContentPage();
 	StackLayout mainLayout = new StackLayout();
-```
+```  
 
 <p>Next let's create some controls, we'll create two <code>Entry</code>, three <code>Label</code> and a <code>Button</code>, we'll declare the controls outside the <code>App</code> constructor since we'll need them outside the constructor. Always try to give your controls and variables meaningful names. Add this code above the class constructor:</p>
 
@@ -159,11 +159,11 @@ Entry firstStringEntry, secondStringEntry;
 // Class constructor
 public App()
 {
-```
+```  
 
 <p>By this point we have done a lot, but our controls aren't created yet, the following code will do so. Notice that some controls are created using property initializing, it allows us to set some properties at the time of instantiation instead of doing it later. The following code is supposed to be after the creation of the <code>mainLayout</code>.</p>
 
-```csharp  	
+```csharp  
 	// ... Above is the instatiation of mainLayout
 	
     computeButton = new Button { Text = "Compute" };
@@ -172,7 +172,7 @@ public App()
     computationResultLabel = new Label { Text = "No distance calculated yet" };
     firstStringEntry = new Entry();
     secondStringEntry = new Entry();
-```
+```  
 
 <p>Our controls are created now! but they don't appear on the page if we run the app. That is because we haven't told our code to show them. In the following code we tell the code to add them to the view, see how we are using the <code>Children</code> property of the <code>mainLayout</code> to add the controls in the order we want them to appear, later, we set the <code>mainLayout</code> as the content of the <code>xevenshteinMainPage</code> and a line below we also set the  <code>xevenshteinMainPage</code> as the <code>MainPage</code> for our app.</p>
 
@@ -188,7 +188,7 @@ public App()
 
     xevenshteinMainPage.Content = mainLayout;
     MainPage = xevenshteinMainPage;
-```
+```  
 
 <img src="http://i.giphy.com/l41lLKZiUBR2tK2By.gif" alt="App shows controls but no behavior" />
 
@@ -206,7 +206,7 @@ void ComputeButton_Clicked (object sender, EventArgs e)
 	int distance = Xevenshtein.Algorithm.LevenshteinDistance.Compute(str1, str2);
 	computationResultLabel.Text = "Distance: " + distance;
 }
-```
+```  
 
 <img src="http://i.giphy.com/3o85xmAGsOX5wlZX7W.gif" alt="App shows controls but no behavior" />
 

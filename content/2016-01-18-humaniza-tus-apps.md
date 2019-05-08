@@ -48,7 +48,7 @@ Por default, para el idioma de los textos, Humanizer toma la cultura del hilo qu
 
 ```csharp  
 Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-ES");
-``` 
+```  
 
 Si por las restricciones de tu aplicación no es posible hacer el cambio anterior, no te preocupes, generalmente los métodos que veremos a continuación permiten especificar la cultura en la que queremos que funcionen.
 
@@ -81,7 +81,7 @@ Truncar cadenas es algo importante para cuando queremos mostrar una parte de un 
 contest.Description.Truncate(40); // 40 caracteres, terminando en '…' 
 contest.Description.Truncate(40,"..."); // 40 caracteres, terminando en "..."
 contest.Description.Truncate(7,Truncator.FixedNumberOfWords); // 7 palabras, terminando en '…'
-```    
+```  
 
 Se pueden hacer combinaciones como que sean 30 caracteres y termine en ":::", o que trunque el texto en 10 palabras comenzando por la derecha y que termine en "...".   
 
@@ -103,7 +103,7 @@ Desde luego, hay palabras que no serán directamente *pluralizables* o que simpl
 Vocabularies.Default.AddIrregular("feliz", "felices");
 
 Vocabularies.Default.AddUncountable("lava");
-```   
+```  
 
 ### Fechas e intervalos de tiempos  
 <b>Importante:</b> al momento de hacer este post, parece que me encontré con un bug con la localización de las fechas, ya nos entrega el resultado en inglés, <a href="https://github.com/Humanizr/Humanizer/issues/513" target="_blank" rel="nofollow"><i>levanté un issue</i></a> en GitHub y trataré de encontrar el problema.
@@ -120,7 +120,7 @@ Console.WriteLine (DateTime.Now.Humanize(false)); // "Ahora"
 Console.WriteLine (DateTime.UtcNow.Humanize()); // "Ahora"
 Console.WriteLine (DateTime.UtcNow.AddDays(3).Humanize()); // "En tres días"
 Console.WriteLine (DateTimeOffset.UtcNow.AddMonths(-10).Humanize()); // "Hace 10 meses"
-```   
+```  
 
 El método `Humanize` funciona tanto para tipos `DateTime` como para `DateTimeOffset` y entre sus sobrecargas podemos especificar si estamos manejando una fecha UTC, o contra qué fecha queremos comparar (por default usa `DateTime.UtcNow`).  
 
@@ -131,7 +131,7 @@ Los eventos tienen una fecha de inicio y una de finalización, un escenario idea
 
 ```csharp  
 (evt.End - evt.Start).Humanize(3); // "7 horas, 30 minutos"
-```   
+```  
 
 Otra vez, el método tiene muchas sobrecargas, entre las que podemos elegir con qué detalle queremos que se muestre la cadena, o cuál es la unidad máxima (o mínima) de tiempo que queremos tomar en cuenta. En el caso del ejemplo, coloqué un  `3` puesto que a lo mucho quiero que se muestren días, horas y minutos.  
 
@@ -140,7 +140,7 @@ Humanizer no solo son mejoras para el usuario final, sino también para nosotros
 
 ```csharp  
 DateTime.Now + 2.Days() + 3.Hours() - 5.Minutes();
-```    
+```  
 
 Es equivalente a 
 

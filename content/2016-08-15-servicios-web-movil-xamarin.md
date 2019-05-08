@@ -132,7 +132,7 @@ var tekconfApi = RestService.For<ITekConfApi>("http://api.tekconf.com/v1");
 var conferences = await tekconfApi.GetConferences();
 
 var codemash = await tekconfApi.GetConference("codemash-2016");  
-```     
+```  
 
 ## Fast response for our users  
 
@@ -164,7 +164,7 @@ public async Task<List<ConferenceDto>> GetConferences()
     var conferences = await cachedConferences.FirstOrDefaultAsync();
     return conferences;
 }
-```   
+```  
 
 Podemos usar el método `GetAndFetchLatest` de Akavache para devolver inmediatamente las conferencias almacenadas, si hay alguna. Al mismo tiempo, preparamos una petición a nuestro método `GetRemoteConferencesAsync`, quién hará la llamada al servicio remoto si el periodo de tiempo indicado ha transcurrido.  
 
@@ -187,7 +187,7 @@ var client = new HttpClient(new NativeMessageHandler())
 };
 
 return RestService.For<ITekConfApi>(client);
-```   
+```  
 
 Al pasar `NativeMessageHandler` al constructir de `HttpClient`, automáticamente estamos usando el *stack* apropiado en cada plataforma.  
   

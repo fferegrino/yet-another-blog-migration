@@ -59,7 +59,7 @@ Es importante establecer la pantalla de inicio de nuestra aplicación y para el 
 En la solución dentro de `start` la propiedad `MainPage` es inicializada con una página creada ahí mismo, debemos cambiarla por una referencia a nuestra `CalcPage`:  
 ```csharp  
 MainPage = new CalcPage();
-```
+```  
 
 ##### Código
 Archivo `App.cs`
@@ -81,18 +81,18 @@ layout.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUni
 // Columnas:
 layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 layout.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-```
+```  
 
 En el código anterior se crea un nuevo `Grid` llamado `layout` y se le añaden dos columnas y dos filas. Algo importante a notar es que para las columnas se les establece la propiedad `Width` y para las filas a propiedad `Height`. El hecho de que se use `GridUnitType.Star` (o `*`) indica que el tamaño de las columnas será proporcional entre ellas.  
   
 Para el ejercicio, crea un grid con filas y columnas que representen el siguiente gráfico: 
 
-{% post_image grid.png "Grid" %}
+<img src="/images/introduccion-xamarin-forms-sharpuladora__grid.png" title=""Grid"" />
   
 Una vez creado el *layout* es importante especificarle a nuestra página que debe usarlo como contenido, esto se hace normalmente al final del constructor de la página con la siguiente línea de código:  
 ```csharp  
 Content = _layout;
-```
+```  
 
 ##### Código
 Archivo `CalcPage.cs`
@@ -104,22 +104,22 @@ Usaremos botones para los dígitos y los operadores y un *label* para mostrar el
 La inicialización de controles es bastante sencilla, por ejemplo, para crear el botón que será el '0' en nuestra calculadora tenemos que escribir el siguiente código:  
 ```csharp  
 _b0 = new Button { Text = "0" };
-```
+```  
 
 Una vez creado el control debemos añadirlo al *layout* contenedor para que se muestre en la pantalla. Recordemos que nuestro *layout* se compone de filas y columnas, así que debemos asignarle una fila y una columna en donde mostrarse a nuestro control, la clase `Grid` nos permite asignarlos con los métodos estáticos `SetColumn` y `SetRow`. En el código siguiente, se le asigna la columna 1 y la fila 4 al botón `_b0`:  
 ```csharp  
 Grid.SetColumn(_b0, 1);
 Grid.SetRow(_b0, 4);
-```
+```  
 Para posteriormente añadirlo al *layout* con:  
 ```csharp  
 _gridLayout.Children.Add(_b0);
-```
+```  
 
 Para el caso de la etiqueta en donde se mostrará el resultado, haremos uso del método `SetColumnSpan` para indicarle a nuestro control que debe usar más de una columna dentro del *layout* que lo contiene. En este caso, le estamos indicando a `_resultDisplay` que debe ocupar 4 columnas:  
 ```csharp  
 Grid.SetColumnSpan(_resultDisplay, 4);
-```
+```  
 
 También existe `SetRowSpan` si lo que deseamos es que el control ocupe más de una fila.
 
@@ -132,7 +132,7 @@ En una calculadora como la que estamos haciendo se requiere de interacción de l
 Para nuestra calculadora vamos a manejar el evento `Clicked` de los botones, dicho evento es lanzado cada vez que el usuario da "click" sobre el botón. Manejar eventos es cosa sencilla en C#, lo que tenemos que hacer es asignar (con el operador `+=`) un manejador al evento del control que deseamos. En el siguiente fragmento de código se especifica un manejador para el evento `Clicked` de `_b0`:  
 ```csharp  
 _b0.Clicked += OnNumericButtonClicked;
-```
+```  
 
 El manejador `OnNumericButtonClicked` no es más que un método que tiene como tipo de retorno `void` y recibe dos argumentos:  
 
@@ -153,7 +153,7 @@ void OnNumericButtonClicked(object sender, EventArgs e)
 		segundoNumero = botonClickeado.Text;
 	}
 }
-```
+```  
 
 Los manejadores pueden ser compartidos entre muchos controles, así que no tienes que crear un manejador para cada control que uses en tu aplicación. Así que ahora es tu turno de crear toda la lógica de la calculadora usando los controles y los manejadores de eventos. Si te encuentras un poco perdido puedes echarle un ojo al archivo que te indico más abajo para comenzar.
 
@@ -171,7 +171,7 @@ relativeLayout.Children.Add(_layout, // <= Original layout
 	Constraint.RelativeToParent(p => p.Width),
 	Constraint.RelativeToParent(p => p.Height));
 Content = relativeLayout;
-```
+```  
 
 # Siguientes pasos  
 Como probablemente te habrás dado cuenta, la aplicación no está completa, le falta implementar algunos manejadores y toda la lógica de la calculadora.  Esa es tu misión, si decides aceptarla.  

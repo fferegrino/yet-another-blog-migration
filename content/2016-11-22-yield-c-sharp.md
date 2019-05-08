@@ -39,7 +39,7 @@ IEnumerable<int> GetMultiplesOf(int n,
     }
     return multiples;
 }
-```   
+```  
 </div> 
 <div class="pure-u-1 pure-u-md-1-2">
 ```csharp  
@@ -59,7 +59,7 @@ IEnumerable<int> YieldMultiplesOf(int n,
     }  
 
 }
-```   
+```  
 </div>
 </div> 
 
@@ -77,7 +77,7 @@ foreach (var m in GetMultiplesOf(2, 1, 10))
 {
     Console.WriteLine($"{m} es multiplo de 2");
 }
-``` 
+```  
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
 ```csharp  
@@ -86,7 +86,7 @@ foreach (var m in YieldMultiplesOf(2, 1, 10))
 {
     Console.WriteLine($"{m} es multiplo de 2");
 }
-```   
+```  
 </div> 
 </div>
 
@@ -127,10 +127,10 @@ Para comprender un poco mejor el funcionamiento, mira estas imágenes:
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image get.png "Normal Enumerable" %}
+<img src="/images/aprende-c-sharp__yield__get.png" title=""Normal Enumerable"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image yield.png "Yield Enumerable" %}
+<img src="/images/aprende-c-sharp__yield__yield.png" title=""Yield Enumerable"" />
 </div>
 </div>
 
@@ -153,7 +153,7 @@ var yield = YieldMultiplesOf(2, 320, 335)
                 .Skip(3)
                 .First();
 Console.WriteLine($"El 4to multiplo es {yield}");
-```
+```  
 </div>
 </div>
 

@@ -84,7 +84,7 @@ En Android hay que implementar la celda, en esta plataforma la forma por excelen
 
 Inclusive puedes utilizar el editor gráfico de tu preferencia:  
 
-{% post_image ContactCell.png "Creación del proyecto" %}
+<img src="/images/xamarin-forms__customcell__ContactCell.png" title=""Creación del proyecto"" />
 
 ### *Wrapper*
 
@@ -193,11 +193,11 @@ En iOS también tenemos la opción de crear celdas usando código, o como en est
 
 ### Diseño
 
-{% post_image projectCreation.jpg "Creación del proyecto" %}
+<img src="/images/xamarin-forms__customcell__projectCreation.jpg" title=""Creación del proyecto"" />
 
 Esto generará un par de archivos `ContactCell.cs` y `ContactCell.xib`, es el segundo archivo en el que se edita la interfaz. Yo inclusive lo edité con el editor de Xcode:
 
-{% post_image edit.jpg "Creación del proyecto" %}
+<img src="/images/xamarin-forms__customcell__edit.jpg" title=""Creación del proyecto"" />
 
 ### *Wrapper*
 
@@ -206,7 +206,7 @@ Una vez que está creada la celda, vamos a echarle un ojo a su clase asociada `C
 ```csharp  
 public partial class ContactCell : UITableViewCell, INativeElementView
 {
-```
+```  
 
 Luego, verás unas partes de código que se generaron automáticamente, estas nos serán de gran ayuda cuando sea la hora de crear las celdas.
 
@@ -223,7 +223,7 @@ Luego, verás unas partes de código que se generaron automáticamente, estas no
     {
         // Note: this .ctor should not contain any initialization logic.
     }
-```
+```  
 
 Ya por último, añade una propiedad desde la cual puedas hacer referencia a un tipo `ContactCell` del proyecto de Forms, liego debes agregar una propiedad pública de tipo `Element` para cumplir con la interfaz `INativeElementView` y por último, agrega una forma de actualizar el valor de los campos dentro de la celda:
 

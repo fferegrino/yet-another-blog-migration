@@ -30,19 +30,19 @@ A través de los tipos `T#` se define el contenido de la clase, siendo así que 
 
 ```csharp  
 var t = new Tuple<int, string, string>(1, "A", "B");
-```
+```  
 
 O, por ejemplo, si quisiéramos crear algo más complejo como una clase que contiene un entero, un decimal, un objeto, otro entero, un booleano y un flotante, tendríamos que hacer algo como esto:    
 
 ```csharp  
 var t1 = new Tuple<int, decimal, object, int, bool, float>(3, 1.5m, new { emoji = ":grin:" }, 5, true, 7.5f);
-```
+```  
 
 Uhhmm, la sintaxis se pone un poco complicada, ¿no? para eliminar esta sintaxis complicada, podemos usar el método estático `Create` de la clase `Tuple` para crear tuplas:  
 
 ```csharp  
 var t1 = Tuple.Create(3, 1.5m, new { emoji = ":grin:" }, 5, true, 7.5f);
-```
+```  
 
 Este método, inferirá de los tipos de dato a partir de los parámetros pasados como argumentos.
 
@@ -52,13 +52,13 @@ Una vez creada la clase (ya sea con el constructor o el método estático), pode
 ```csharp  
 Console.WriteLine(t.Item1); // 1 -> int
 Console.WriteLine(t.Item2 + " - " + t.Item3 ); // "A - B" -> string
-```
+```  
 
 Es importante señalar que las propiedades de la clase `Tuple` son de solo lectura, y que una vez asignadas en el constructor, no pueden ser modificadas:  
 
 ```csharp  
 // t1.Item4 = 7; // Error, solo lectura
-```
+```  
 
 ## Ejemplos de uso  
 
@@ -67,26 +67,26 @@ Podríamos pensar en un método como este:
   
 ```csharp  
 string MegaMetodoArgumentos(int studentId, int classroomId, string type, decimal sum, bool active)
-```
+```  
 
 Para llamarlo necesitaríamos escribir algo como esto:  
 
 ```csharp  
 MegaMetodoArgumentos(10, 3, "MX", 3.1m, true);
-```
+```  
 
 O, también podríamos haber escrito el método de la siguiente manera:  
 
 ```csharp  
 string MegaMetodoTuple(Tuple<int, int, string, decimal, bool> args)
-```
+```  
 
 E invocarlo así:  
 
 ```csharp  
 var tuple = Tuple.Create(10, 3, "MX", 3.1m, true);
 MegaMetodoTuple(tuple);  
-```
+```  
 
 ### Como valores de retorno
 
@@ -101,7 +101,7 @@ private static void SplitColors(string hex, out int r, out int g, out int b)
     g = Int32.Parse(hex.Substring(2, 2), NumberStyles.HexNumber);
     b = Int32.Parse(hex.Substring(4, 2), NumberStyles.HexNumber);
 }
-```
+```  
 
 Pero también podríamos usar una tupla como valor de retorno:  
 
@@ -113,7 +113,7 @@ private static Tuple<int, int, int> SplitColors(string hex)
     int b = Int32.Parse(hex.Substring(4, 2), NumberStyles.HexNumber);
     return Tuple.Create(r, g, b);
 }
-```
+```  
 
 Entonces para llamarlo, simplemente necesitaríamos escribir lo siguiente:  
 
@@ -121,7 +121,7 @@ Entonces para llamarlo, simplemente necesitaríamos escribir lo siguiente:
 string color = "3C8A3F";
 var colors = SplitColors(color);
 Console.WriteLine("{0} es R:{1} G:{2} B:{3}", color, colors.Item1, colors.Item2, colors.Item3);
-```
+```  
 
 ## Tuplas de 8 elementos
 Si volvemos a las definiciones de las clases `Tuple` puedes ver que existen hasta 8 versiones genéricas disponibles. Sin embargo, la octava una peculiaridad: el octavo valor no se almacena dentro de "Item8", sino dentro de otra tupla (a la que accedemos desde la propiedad `Rest`):  
@@ -130,7 +130,7 @@ Si volvemos a las definiciones de las clases `Tuple` puedes ver que existen hast
 var megaTuple = Tuple.Create(1, 2, 3, 4, 5, 6, 7, 8);
 //Console.WriteLine(miniTuple.Item8); // Item8 no existe, entonces tenemos que usar Rest:
 Console.WriteLine(megaTuple.Rest.Item1); 
-```
+```  
 
 ## Ejemplo de la vida real
 Mmm... en realidad no existe alguna api dentro del framework de .NET que haga uso de tuplas, pero en específico se recomienda para:

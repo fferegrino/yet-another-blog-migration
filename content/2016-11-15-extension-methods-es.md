@@ -17,13 +17,13 @@ Para comenzar, mira el siguiente código:
 ```csharp  
 var secuencia = new int[] { 1, 2, 3, 4, 5, 6 };
 var resultado = Enumerable.Take(Enumerable.Where(secuencia, i => i % 2 == 0), 1);
-``` 
+```  
 
 ¿Te resulta familiar? (si no, te recomiendo que veas mi post sobre <a href="..\linq-en-c-sharp" target="_blank">linq en C#</a>). Seguramente recuerdas los métodos `Take` y `Where`, de linq salvo que esta vez los estamos usando con su sintaxis original. El resultado de lo anterior es idéntico a lo que obtendríamos de ejecutar el siguiente código:  
 
 ```csharp  
 var resultado = secuencia.Where(i => i % 2 == 0).Take(1);
-``` 
+```  
 
 Mucho más limpio y fácil de recordar.  
 
@@ -41,7 +41,7 @@ Vamos a crear unas extensiones para `char`, comenzamos con la clase que los cont
 ```csharp  
 public static class CharExtensions  
 {
-``` 
+```  
 
 Dentro de esa clase crearemos un método para "voltear" un caracter, es decir, para convertirlo a mayúscula si es minúscula y viceversa:
 
@@ -96,7 +96,7 @@ Los métodos de extensión solo son azúcar sintáctica como te habrás dado cue
 ```csharp  
 string n = null;
 Console.WriteLine("null = " + n.Flip()); // Imprime: "null = "
-``` 
+```  
 
 Si nosotros intentáramos llamar cualquier método de la clase `string` sobre la variable `n`, obtendríamos una `NullReferenceException`, sin embargo, con este tipo de métodos no es así, dado que **el método no se invoca sobre el objeto**, para él, nuestra variable `n` no es más que otro argumento.  
 

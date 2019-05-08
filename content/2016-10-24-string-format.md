@@ -21,7 +21,7 @@ Lo cual significa que recibe una cadena y una colección de objetos y devuelve u
 
 ```csharp  
 Console.WriteLine(String.Format("Buen día señor {0}", "sol"));
-```
+```  
 
 Que produce el siguiente resultado en la pantalla:  ```Buen día señor sol```.  
 
@@ -47,14 +47,14 @@ Formatear enteros es probablemente algo que tendrás que hacer comúnmente, así
 Console.WriteLine(String.Format("{0:00000}", 1300)); // Imprime: "01300"
 Console.WriteLine(String.Format("{0:00000}", -52)); // Imprime: "-00052"
 Console.WriteLine(String.Format("{0:00000}", 0)); // Imprime: "00000"
-```   
+```  
 
 O, ¿quién no conoce la notación exponencial? pues también la podemos usar para formatear nuestros números, el modificador de formato es la letra `e`: 
 
 ```csharp  
 Console.WriteLine(String.Format("{0:e}", 1300)); // Imprime: "1.300000e+003"
 Console.WriteLine(String.Format("{0:e}", -52)); // Imprime: "-5.200000e+001"
-```   
+```  
 
 El modificador de formato `c` puede resultar muy útil para aplicaciones que manejan cantidades monetarias, ya que se encarga de darles formato y añadirle el signo de la moneda sin necesidad de más esfuerzo del programador:
 
@@ -64,7 +64,7 @@ El modificador de formato `c` puede resultar muy útil para aplicaciones que man
 Console.WriteLine(String.Format("{0:c}", 1300)); // Imprime: "$1,300.00
 Console.WriteLine(String.Format("{0:c}", -52)); // Imprime: "($52.00)"
 Console.WriteLine(String.Format("{0:c}", 0)); // Imprime: "$0.00"
-```    
+```  
 
 Y no podríamos dejar de lado a los números hexadecimales, su modificador es la letra `x` seguido de un número entero que indica el número de posiciones que debe ocupar, mira:
 
@@ -117,7 +117,7 @@ Los usos de este pueden ser muy variados, por ejemplo, imagina que un requerimie
 Console.WriteLine(String.Format("{0:#,##0.00;MENOS #,##0.00;—}", 13000)); // Imprime: "13,000.00"
 Console.WriteLine(String.Format("{0:#,##0.00;MENOS #,##0.00;—}", 0));  // Imprime: "—"
 Console.WriteLine(String.Format("{0:#,##0.00;MENOS #,##0.00;—}", -0.50m));  // Imprime: "MENOS 0.50"
-``` 
+```  
 
 Otro posible uso es para esos sistemas, raros, en donde se utilizan los valores 1 y -1 como booleanos:  
 
@@ -125,7 +125,7 @@ Otro posible uso es para esos sistemas, raros, en donde se utilizan los valores 
 Console.WriteLine(String.Format("{0:VERDADERO;FALSO;DESCONOCIDO}", 1)); // Imprime: "VERDADERO"
 Console.WriteLine(String.Format("{0:VERDADERO;FALSO;DESCONOCIDO}", 0));  // Imprime: "DESCONOCIDO"
 Console.WriteLine(String.Format("{0:VERDADERO;FALSO;DESCONOCIDO}", -1));  // Imprime: "FALSO"
-``` 
+```  
 
 También puedes hacer cosas como mostrar si un balance es positivo o negativo sin mostrar los números y sin la necesidad de agregar sentencias de control a tu código. Deja que `Format` haga el trabajo.  
 
@@ -139,7 +139,7 @@ Console.WriteLine(String.Format("{0:F}", now)); // Imprime: "sábado, 22 de octu
 Console.WriteLine(String.Format("{0:M}", now)); // Imprime: "22 de octubre"
 Console.WriteLine(String.Format("{0:T}", now)); // Imprime: "09:54:33 a.m."
 Console.WriteLine(String.Format("{0:r}", now)); // Imprime: "Sat, 22 Oct 2016 09:54:33 GMT"
-``` 
+```  
 
 Pero también puedes crear tus formatos propios, por ejemplo:  
  
@@ -149,7 +149,7 @@ Console.WriteLine(String.Format("{0:dd/MM/yyyy}", now)); // Imprime: "24/10/2016
 Console.WriteLine(String.Format("{0:dd-MM-yyyy}", now)); // Imprime: "24-10-2016"
 Console.WriteLine(String.Format("{0:dd MMM yyyy}", now)); // Imprime: "24 oct. 2016"
 Console.WriteLine(String.Format("{0:dd 'de' MMMM 'de' yy}", now)); // Imprime: "24 de octubre de 16"
-``` 
+```  
 
 En la última línea, ¿viste cómo es que "de" está escrito entre comillas simples? a esto se le llama *"escapar"* una cadena, ya que de otro modo (de haber puesto "de" sin comillas simples) el resultado de `Format` habría sido: "24 24e octubre 24e 16". Siempre que deseemos que un caracter sea ignorado para cuando se realice el formato, tenemos que *escaparlo*.
 
@@ -164,7 +164,7 @@ El número que agreguemos representará la cantidad de relleno que se deberá ag
 Console.WriteLine(String.Format("I|{0,10}|{0,-10}|D", 1300));    // Imprime: "I|      1300|1300      |D"
 Console.WriteLine(String.Format("I|{0,10}|{0,-10}|D", -52));     // Imprime: "I|       -52|-52       |D"
 Console.WriteLine(String.Format("I|{0,10}|{0,-10}|D", 0));       // Imprime: "I|         0|0         |D"
-``` 
+```  
 
 Para terminar, podemos combinar todos los tipos de formato con *padding* y modificadores para presentar datos de una manera más ordenada, por ejemplo, en una tabla:
   
@@ -180,7 +180,7 @@ foreach (var item in data)
 {
     Console.WriteLine("|{0,10:000}|{1,10}|{2,10:dd-MM}|", item.Dato1, item.Dato2, item.Dato3);
 }
-``` 
+```  
 
 Con lo cual obtendremos algo así:  
 

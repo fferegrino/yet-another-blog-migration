@@ -48,19 +48,19 @@ Y obtendremos algo como esto (del lado izquierdo es la app creada con una `Tabbe
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">
-{% post_image android-no-small.gif "iOS no normal" %}
+<img src="/images/xamarin-forms__tabbed-page__android-no-small.gif" title=""iOS no normal"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">  
-{% post_image android-small.gif "iOS no normal" %}
+<img src="/images/xamarin-forms__tabbed-page__android-small.gif" title=""iOS no normal"" />
 </div>  
 </div> 
 
 <div class="pure-g">
 <div class="pure-u-1 pure-u-md-1-2">  
-{% post_image ios-no-small.gif "iOS no normal" %}
+<img src="/images/xamarin-forms__tabbed-page__ios-no-small.gif" title=""iOS no normal"" />
 </div>
 <div class="pure-u-1 pure-u-md-1-2">  
-{% post_image ios-small.gif "iOS no normal" %}
+<img src="/images/xamarin-forms__tabbed-page__ios-small.gif" title=""iOS no normal"" />
 </div>  
 </div>  
 
@@ -200,7 +200,7 @@ Para Android el *renderer* del que debemos derivar es `TabbedPageRenderer`... s√
 
 ```csharp  
 public class PlatformTabbedPageRenderer : TabbedPageRenderer
-```    
+```  
 
 Se necesitan unas cuantas propiedades para preservar los colores por default:
 

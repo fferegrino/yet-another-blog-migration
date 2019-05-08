@@ -132,7 +132,7 @@ if (Decimal.TryParse(dec2, out two))
     Console.WriteLine("Convertí " + dec2 + " en " + two);
 else
     Console.WriteLine(dec  + " no es convertible a decimal");
-```   
+```  
 
 ### Lo que sigue
 

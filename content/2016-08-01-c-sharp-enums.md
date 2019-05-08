@@ -58,7 +58,7 @@ Console.WriteLine((int)textAlignment); // 2
 
 textAlignment = (TextAlign)1;
 Console.WriteLine(textAlignment); // Left
-```   
+```  
 
 Si por alguna razón necesitamos cambiar el tipo de dato asociado a la enumeración o modificar los valores debajo de cada elemento de la enumeración podemos hacer algo como esto:
 
@@ -99,7 +99,7 @@ if (pl1.HasFlag(OperatingSystems.Mac))
 
 var pl2 = OperatingSystems.Other | OperatingSystems.Linux | OperatingSystems.Mac;
 Console.WriteLine(pl2); // 14
-``` 
+```  
 
 ### Flags  
 Como puedes ver, queremos mostrar los valores que contiene un `enum` combinado, únicamente obtenemos el entero que resulta de la combinación, ante lo cual podemos hacer uso del <a href="https://msdn.microsoft.com/es-MX/library/aa288454(v=vs.71).aspx" target="_blank" rel="nofollow">atributo</a> `FlagsAttribute` que se coloca sobre la declaración de un tipo y permiten permiten a la enumeración mostrarse de manera correcta:

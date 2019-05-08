@@ -32,7 +32,7 @@ public class Nokia3310
         Console.WriteLine(whoIsCalling + " is calling " + number);
     }
     // ...
-```    
+```  
 
 Como puedes observar, en el código anterior existen 4 declaraciones de atributos: dos `ObsoleteAttribute`, un `CallerMemberNameAttribute` y un `RangeAttribute`. Antes de continuar, hay dos cosas a notar:  La primera es que no es necesaario escribir el nombre completo del atributo, tanto el nombre completo, como el nombre sin el sufijo "Attribute" son válidos para ser usados. Y la segunda es que los atributos también pueden recibir parámetros a través de su constructor.  
 
@@ -42,11 +42,11 @@ Como podrás ver, debido a su naturaleza declarativa, los atributos resultan ser
 
 Pero su utilidad no termina ahí, si estamos desarrollando en Visual Studio, cuando deseemos usar la clase `NoKia3310`, el IDE nos informará sobre la obsolecencia de la clase o sus métodos: 
 
-{% post_image vs.png "Capture" %}  
+<img src="/images/aprende-c-sharp__attrs__vs.png" title=""Capture"" />
 
 Y si luego ejecutamos un programa que lo use:  
 
-{% post_image capture.png "Capture" %}
+<img src="/images/aprende-c-sharp__attrs__capture.png" title=""Capture"" />
 
 ## Parámetros  
 

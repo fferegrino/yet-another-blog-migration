@@ -115,7 +115,7 @@ if (GeneratingNumber1 != null)
 {
     GeneratingNumber1(this, EventArgs.Empty);
 }
-```    
+```  
 
 ### Eventos con información extra (EventHandler<T>)  
 
@@ -156,7 +156,7 @@ static void G_EvenNumberGenerated(object sender, int number)
 
 // Suscripción del manejador  
 g.EvenNumberGenerated += G_EvenNumberGenerated;  
-```    
+```  
 
 #### Invocación  
 

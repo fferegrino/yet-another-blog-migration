@@ -47,7 +47,7 @@ Los dos realizan exactamente lo mismo, sin embargo, para ejecutar cada uno, requ
 ```csharp  
 Metodo1Arrays(null); // Imprime: M1Arrays recibió 0 booleanos
 Metodo1Params(); // Imprime: M1Params recibió 0 booleanos
-```
+```  
 
 Podemos pasar variables:
 
@@ -56,7 +56,7 @@ bool cierto = true;
 // Metodo1Arrays(cierto); // Nope, necesita un arreglo
 Metodo1Arrays(new bool[] { cierto }); // Imprime: M1Arrays recibió 1 booleanos
 Metodo1Params(cierto); // Imprime: M1Params recibió 1 booleanos
-```
+```  
 
 Como puedes ver, no podemos llamar `Metodo1Arrays` indicando únicamente el argumento que queremos, nosotros tenemos que crear el arreglo para llamarlo, en el siguiente ejemplo está un poco más claro:
 
@@ -126,7 +126,7 @@ public static void PromediaCalificacionesParams(params decimal [][] calificacion
         Console.WriteLine("(Params) Calificación alumno " + i + ": " + promedio);
     }
 }
-```
+```  
 
 Y las llamadas al método:
 
@@ -136,7 +136,7 @@ var alumno2 = new []{ 8.5m, 9.3m, 8.6m, 9.9m, 10m };
 
 PromediaCalificacionesArray(new []{ alumno1, alumno2 });
 PromediaCalificacionesParams(alumno1, alumno2);
-```    
+```  
 
 ### Ejemplo de la vida real
 Uno de los máximos exponentes del uso de `params` es el método estático `String.Format`, que *formatea* una cadena y a la cual le podemos pasar una lista de argumentos. La firma de dicho método es:
@@ -154,7 +154,7 @@ No podemos marcar un tipo de dato que no sea un arreglo con params, como es el c
 
 ```csharp  
 public static void Metodo1Params(params char a) // Invalido, debe ser un arreglo
-```
+```  
 
 Un parámetro marcado con `params` debe ser siempre el último parámetro del método, esto para evitar confusiones a la hora de ejecutarlo:
 
@@ -163,7 +163,7 @@ public static void Metodo3Params(int a, params decimal[] b, char c)
 {
     Console.WriteLine("Metodo3Params: " + b.Length);
 }
-``` 
+```  
 
 Tampoco podemos declarar dos métodos con el mismo nombre y los mismos parámetros, ya que técnicamente la firma del método es la misma.
 
@@ -171,7 +171,7 @@ Tampoco podemos declarar dos métodos con el mismo nombre y los mismos parámetr
 public static void Metodo4(params decimal[] b) //...
 
 public static void Metodo4(decimal[] b) //...
-```
+```  
 
 ### Lo que sucede internamente
 
