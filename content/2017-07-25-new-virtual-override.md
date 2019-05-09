@@ -95,22 +95,26 @@ Considera el siguiente programa, en donde declaramos un perro de la clase base y
 
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
+
 ```csharp  
 CanisLupusFamiliaris canis = new CanisLupusFamiliaris();
 Console.WriteLine("Canis genérico:");
 canis.Ladrar();
-canis.MoverOrejas();
+canis.MoverOrejas();  
 ```  
-      </div>
-      <div class="pure-u-1 pure-u-md-10-24">
+
+</div>
+<div class="pure-u-1 pure-u-md-10-24">
+
 <pre>
 // En pantalla:
 Canis genérico:
 Ladrido genérico
 Error: sin información
 </pre>
-      </div>
-  </div>
+
+</div>
+</div>
 
 En el siguiente bloque creamos un `Chihuahua` pero lo asignamos a un objeto de la clase base, después, al llamar a los métodos, vemos que en realidad está llamando a los métodos de la clase base, puesto que no está sobrescribiéndolos con `override`:  
 
@@ -122,8 +126,10 @@ Console.WriteLine("Chihuahua (Canis):");
 chihuahuaCanis.Ladrar();
 chihuahuaCanis.MoverOrejas();
 ```  
-      </div>
-      <div class="pure-u-1 pure-u-md-10-24">
+
+</div>
+<div class="pure-u-1 pure-u-md-10-24">
+
 <pre>
 // En pantalla:
 Chihuahua (Canis):
@@ -137,14 +143,17 @@ En el siguiente bloque creamos un `Chihuahua`, ahora si asignándolo a un objeto
 
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
+      
 ```csharp  
 Chihuahua chihuahua = new Chihuahua();
 Console.WriteLine("Chihuahua:");
 chihuahua.Ladrar();
 chihuahua.MoverOrejas();
 ```  
-      </div>
-      <div class="pure-u-1 pure-u-md-10-24">
+
+</div>
+<div class="pure-u-1 pure-u-md-10-24">
+
 <pre>
 // En pantalla:
 Chihuahua:
@@ -158,43 +167,51 @@ En el siguiente bloque creamos un `GranDanes`, asignándolo a un objeto de la cl
 
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
+
 ```csharp  
 CanisLupusFamiliaris granDanesCanis = new GranDanes();
 Console.WriteLine("Gran danes (Canis):");
 granDanesCanis.Ladrar();
 granDanesCanis.MoverOrejas();
 ```  
-      </div>
-      <div class="pure-u-1 pure-u-md-10-24">
+
+</div>
+<div class="pure-u-1 pure-u-md-10-24">
+
 <pre>
 // En pantalla:
 Gran danes (Canis):
 WOOF! WOOF!
 Error: sin información
 </pre>
-      </div>
-  </div>  
+
+</div>
+</div>  
 
 En el siguiente bloque creamos un `GranDanes`, asignándolo a una clase de su tipo, las llamadas a los métodos se hacen directamente a este tipo: 
   
   <div class="wrapper pure-g">
       <div class="pure-u-1 pure-u-md-14-24">
+
 ```csharp  
 GranDanes granDanes = new GranDanes();
 Console.WriteLine("Gran danes:");
 granDanes.Ladrar();
 granDanes.MoverOrejas();
 ```  
-      </div>
-      <div class="pure-u-1 pure-u-md-10-24">
+
+</div>
+<div class="pure-u-1 pure-u-md-10-24">
+
 <pre>
 // En pantalla:
 Gran danes:
 WOOF! WOOF!
 Mueve sus orejas gigantezcas
 </pre> 
-      </div>
-  </div>  
+
+</div>
+</div>  
 
 ## Para terminar  
 
