@@ -202,9 +202,9 @@ Cuando la prueba falla:
 ## Uso  
 Recuerda que este es un paquete de NuGet que debe ser instalado en tu proyecto de pruebas, no en el proyecto que vas a probar. Basta con instalar  <a href="https://www.nuget.org/packages/FluentAssertions/" target="_blank">paquete de NuGet</a>.
 
-{% console titulo %}
+```  
 PM> Install-Package FluentAssertions
-{% endconsole %}
+```  
 
 O... o, siempre <a href="https://github.com/FluentAssertions/FluentAssertions" target="_blank">puedes descargar el código</a> fuente para integrarlo y hacerle las modificaciones que desees.
 

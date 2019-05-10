@@ -17,9 +17,9 @@ That is why I decided to create a <a href="https://developer.xamarin.com/guides/
 ## Usage
 To start using this tabs you have two options: install the <a href="https://www.nuget.org/packages/PlatformTabbedPage/" target="_blank">NuGet package</a> in your three projects, or download the <a href="https://github.com/messier16/PlatformTabbedPage" target="_blank">source code</a> and paste in your code directly.  
 
-{% console titulo %}
+```  
 PM> Install-Package PlatformTabbedPage
-{% endconsole %}
+```  
 
 After that, you need to create a page that inherits from `PlatformTabbedPage`:  
 

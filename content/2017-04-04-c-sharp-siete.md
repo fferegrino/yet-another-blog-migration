@@ -16,7 +16,7 @@ En este post voy a mostrar algunas de las nuevas característias de este lenguaj
 
 #### Damos click derecho sobre el proyecto y abrimos las propiedades  
 
-{% post_image 1properties.png "Click derecho, propiedades" %}  
+<img src="/images/aprende-c-sharp__siete__1properties.png" title=""Click derecho, propiedades"" />
 
 #### En la sección de "Build" o "Compilación" abrimos "Avanzadas"  
 

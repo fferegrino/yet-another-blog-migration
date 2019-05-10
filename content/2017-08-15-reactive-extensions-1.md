@@ -31,9 +31,9 @@ A diferencia del publicador, el suscriptor debe implementar más métodos para r
 ### Reactive Extensions (Rx)  
 Las interfaces mencionadas anteriormente están disponibles en el *framework* desde la versión 4, sin embargo, para sacarle todo el jugo a la programación reactiva (sin tener que reinventar la rueda nosotros mismos), también es necesario instalar una biblioteca desde NuGet, así que instala el paquete: 
 
-{% console titulo %}
+```  
 PM> Install-Package System.Reactive
-{% endconsole %}  
+```  
 
 En todos los lugares en los que vayas a hacer uso de este paradigma de programación. Por cierto, `System.Reactive` antes era `Rx-Main` por si llegaran a encontrar algún tutorial que hace referencia a este paquete, no se rompan la cabeza tratando de encontrarlo.  
 

@@ -71,7 +71,7 @@ En cuanto a los métodos, la declaración es casi idéntica (y más con Java 8) 
 
 ### Código en general
 
-{% post_image Code.png "Código Java & C#" %}
+<img src="/images/xamarin-android__Code.png" title=""Código Java & C#"" />
 
 En cuanto al código en general, me atrevería a decir que la traducción entre C# y Java no es muy complicada... son como hermanos, en realidad una de las más "grandes" diferencias es que en Java tenemos únicamente métodos para acceder a las propiedades de un objeto como es el caso de <code>length()`.
 

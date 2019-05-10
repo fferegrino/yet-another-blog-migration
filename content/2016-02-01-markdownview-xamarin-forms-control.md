@@ -81,8 +81,8 @@ Be aware that this control does not provide stylesheets, however, <a href="https
 ### Where to get it
 It is available on NuGet, just install the following package:
 
-{% console titulo %}
+```  
 PM> Install-Package Xam.Plugins.Forms.MarkdownView
-{% endconsole %}
+```  
 
 An example of its usage can be seen in my [MrkViewer app](/MrkViewer), I recently switched to it to show the content of the markdown documents. 

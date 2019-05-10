@@ -98,7 +98,7 @@ Es hora de copiarlo en el directorio desde el que serán cargados e iniciar Visu
 
 Entonces al escribir en un archivo de código C# el atajo `love` y presionar <kbd>tab</kbd> <kbd>tab</kbd>, sucede esto:
 
-{% post_image love.gif "I love C#" %}
+<img src="/images/code-snippets__love.gif" title=""I love C#"" />
 
 Vamos a crear algo un poco más complejo, algo que permita reemplazar valores dentro del fragmento de código, como el caso de `prop`, para realizar la tarea puedes seguir trabajando con el archivo que tienes, o <a target="_blank" rel="nofollow" href="https://raw.githubusercontent.com/fferegrino/fantastic-broccoli/master/sample-2.snippet">descargar este otro</a>.
 

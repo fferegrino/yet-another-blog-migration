@@ -127,7 +127,7 @@ También hay que agregarle una propiedad que se corresponda con la propiedad `Fi
 
 Ahora vamos a volver por un momento a PaintCode para recuperar el código del dibujo. En el panel de exportación de código asegúrate de que esté seleccionado "iOS > C# Xamarin"  
 
-{% post_image 12codeSelection.png "Selección de código C# Xamarin" %}  
+<img src="/images/xamarin-forms__paintcode__12codeSelection.png" title=""Selección de código C# Xamarin"" />
 
 Y copia todo hacia la clase que acabas de crear, tal vez tengas que agregar un par de referencias para que compile. Ya por último, sobrescribe el método `Draw` y dentro de él llama al método que acabas de copiar (en mi caso se llama `DrawSharpCanvas` por el nombre que le puse al canvas al inicio de este post), pasándole el color de relleno y las dimensiones del *frame*:
 
@@ -223,7 +223,7 @@ Ahora, también hay que agregar una nueva propiedad, `FillColor` para establecer
 
 Ahora, atención: PaintCode aún no tiene soporte para Xamarin.Android, pero en realidad no importa mucho, puesto que la diferencia entre Java y C# con Xamarin no es mucha. Para comenzar, en PaintCode asegúrate de seleccionar "Android > Java":  
 
-{% post_image 13androidJava.png "Selección de código C# Xamarin" %}  
+<img src="/images/xamarin-forms__paintcode__13androidJava.png" title=""Selección de código C# Xamarin"" />
 
 Ahora, en tu proyecto de Android crea una nueva clase llamada `SharpKit`, borra el contenido luego copia en ella todo el código que te aparece en el panel de PaintCode una vez que seleccionaste "Android > Java"... un montón de errores, ¿cierto? Ahora primero deshazte de la declaración `package` y de todos los `import`, si quieres, mete en un *namespace* la clase que queda.
 

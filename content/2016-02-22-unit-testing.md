@@ -40,7 +40,7 @@ To perform testing on a unit of software we must have two things: A **set of inp
 
 It is easy to perform unit testing using Visual Sudio. Start by adding a new Project to your solution. When the window shows up, search for Unit Test Project in the installed templates:  
 
-{% post_image add-new-test-project.png %}  
+<img src="/images/unit-testing__add-new-test-project.png" />
 
 After the project is created it'll contain a default class.
 Open it and observe that both the class and it's method are decorated with `TestClass` and `TestMethod` respectively. These decorators allow our tests to be discovered by Visual Studio's Text Explorer (to open the Text Explorer go to *Test > Windows > Test Explorer*).
@@ -49,11 +49,11 @@ Open it and observe that both the class and it's method are decorated with `Test
 
 After that, rename the default class and write your own tests following the structure shown above: Arrange, Act and Assert. To allow Test Explorer to show our tests we need to build the solution we are working with, after that you'll have somewhat like this:  
 
-{% post_image  test-explorer-not-ran.png %}  
+<img src="/images/unit-testing__test-explorer-not-ran.png" />
 
 From this window we can select several actions, like run all tests, just one or all those which have failed. I've selected *Run All*, and this is what I've got:  
 
-{% post_image test-explorer-ran.png %}  
+<img src="/images/unit-testing__test-explorer-ran.png" />
 
 Pretty cool, isn't it? Now you should go ahead and unit test your projects whenever possible. If you want to see the code I used for this post check it out on [GitHub](https://github.com/fferegrino/Xevenshtein) or download it [here](https://github.com/fferegrino/Xevenshtein/releases/download/b-p-1/Xevenshtein-test-post.zip).
 

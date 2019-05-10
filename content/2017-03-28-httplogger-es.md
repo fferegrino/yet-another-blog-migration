@@ -134,8 +134,8 @@ client = new HttpClient(new NativeMessageHandler());
 
 Para instalarlo basta con instalar el <a href="https://www.nuget.org/packages/HttpLogger/" target="_blank">paquete de NuGet</a> HttpLoggingHandler.
 
-{% console titulo %}
+```  
 PM> Install-Package HttpLogger
-{% endconsole %}
+```  
 
 Aunque en realidad no es más que una sola clase, por lo que daría lo mismo que copiaras el código de la clase <a href="https://github.com/messier16/HttpLogger/blob/master/HttpLogger/HttpLoggingHandler.cs" target="_blank">HttpLoggingHandler</a> dentro de tu app.

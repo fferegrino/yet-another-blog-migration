@@ -57,7 +57,7 @@ using (var writer = new StreamWriter("output.html"))
 
 Tras lo cual, si abrimos el archivo `output.html` con un navegador, veremos algo como lo siguiente:  
 
-{% post_image raw_output.png "Salida" %}
+<img src="/images/commonmark__raw_output.png" title=""Salida"" />
 
 Sin embargo, de esta forma lo único que estamos haciendo es escribiendo algunas etiquetas HTML en el documento de salida, falta escribir los tags `html`, `head`, `body`... entre otros para que el HTML sea válido.  
 
@@ -130,7 +130,7 @@ Pero esta es solo una opción de configuración, ya que por otro lado podemos so
 
 Tras lo cual, podrías tener algo como esto:
 
-{% post_image raw_output_2.png "Salida" %}
+<img src="/images/commonmark__raw_output_2.png" title=""Salida"" />
 
 Gran diferencia, ¿no?
 
@@ -145,8 +145,8 @@ En el gestor de paquetes de NuGet: `CommonMark.NET`
 
 O desde la consola: 
 
-{% console titulo %}
+```  
 PM> Install-Package CommonMark.NET
-{% endconsole %}
+```  
 
 Y al igual que con todos los NuGets, no olvides revisar el código fuente de *CommonMark.NET* <a href="https://github.com/Knagis/CommonMark.NET" target="_blank" >en GitHub</a>, en donde encontrarás gran parte de la <a href="https://github.com/Knagis/CommonMark.NET/blob/master/CommonMark/Formatters/HtmlFormatter.cs" target="_blank">documentación en el código</a>, lo cual es absolutamente fantástico.  

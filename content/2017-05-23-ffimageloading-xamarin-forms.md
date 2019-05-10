@@ -66,11 +66,11 @@ La imagen se transforma en:
 ## Instalación  
 Para instalarlo basta con instalar el <a href="https://www.nuget.org/packages/Xamarin.FFImageLoading.Forms" target="_blank">paquete de NuGet</a> Xamarin.FFImageLoading.Forms. Y si vas a usar el soporte SVG y las transformaciones debes instalar <a href="https://www.nuget.org/packages/Xamarin.FFImageLoading.Svg.Forms" target="_blank">Xamarin.FFImageLoading.Svg.Forms</a> y <a href="https://www.nuget.org/packages/Xamarin.FFImageLoading.Transformations" target="_blank">Xamarin.FFImageLoading.Transformations</a>.
 
-{% console titulo %}
+```  
 PM> Install-Package Xamarin.FFImageLoading.Forms
 PM> Install-Package Xamarin.FFImageLoading.Svg.Forms
 PM> Install-Package Xamarin.FFImageLoading.Transformations
-{% endconsole %}
+```  
 
 Y como con muchos *plugins*, es necesario instalarlo tanto en el proyecto central como en los clientes, e inicializarlo antes de cargar la aplicación con:  
 

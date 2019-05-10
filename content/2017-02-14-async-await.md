@@ -96,7 +96,7 @@ Segundo: Cambió el tipo de retorno del método de `void` a `Task`, esto es una 
 
 Tercero: Pusimos la palabra `await` justo antes de ejecutar la tarea. Es aquí donde por fin *"controlamos"* los hilos. **Lo que hace esta palabra reservada es indicarle al programa que queremos que la tarea se ejecute en otro hilo, pero que cuando termine regrese y termine de ejecutar lo que le quedó pendiente en el hilo del que la lanzó**. Algo como lo que se muestra en este diagrama:
 
-{% post_image async.png "Async, sin bloqueo" %}
+<img src="/images/aprende-c-sharp__asyncawait__async.png" title=""Async, sin bloqueo"" />
 
 Se dice que *async* y *await* son contagiosos, ya que una vez que lo usas prácticamente todo tu código relacionado con un método asíncrono también se vuelve asíncrono. Así que para beneficiarnos realmente de la asincronía también debemos llamar a el método asíncrono de la siguiente manera `await EjecutaTareaAsync`, sí, con `await`. 
 

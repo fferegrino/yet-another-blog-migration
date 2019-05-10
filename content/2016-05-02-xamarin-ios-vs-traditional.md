@@ -67,7 +67,7 @@ En cuanto a los métodos, la declaración es también idéntica aún tomando en 
 
 ### Código en general
 
-{% post_image library.png "Código Swift & C#" %}
+<img src="/images/xamarin-ios__library.png" title=""Código Swift & C#"" />
 
 En cuanto al código en general, me atrevería a decir que la traducción entre C# y Swift no es muy complicada, basta con encontrar las equivalencias entre ellos, así como definir si las equivalencias realmente son la forma óptima de realizar la tarea. En particular a mí se me hizo un poco complicado el entender cómo acceder a los caracteres de una cadena y cómo declarar un arreglo multidimensional.
 

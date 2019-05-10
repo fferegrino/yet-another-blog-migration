@@ -127,7 +127,7 @@ We must add a property that corresponds to the `FillColor` property in our Forms
 
 Now, lets go back to PaintCode for a second, we need to retrieve the drawing's code. In the export panel make sure that "iOS > C# Xamarin" is selected:   
 
-{% post_image 12codeSelection.png "Selección de código C# Xamarin" %}  
+<img src="/images/xamarin-forms__paintcode__12codeSelection.png" title=""Selección de código C# Xamarin"" />
 
 
 Once selected, copy all lines of code to this newly created class. You may need to add a couple of `using` sentences for it to compile. To finish, override the `OnDraw` method, in it call the method you've just copied from PaintCode (in this case it is called `DrawSharpCanvas`), and pass the fill color and the frame dimensions to it as parameters:
@@ -224,7 +224,7 @@ Now, in this case we need to add a new property, `FillColor` so that we can set 
 
 Now, again, pay attention to this following step: PaintCode doesn't support Xamarin.Android yet, but for us it makes no difference as Java and Xamarin's C# are similar enough to translate it ourselves. To star, open again PaintCode and make sure "Android > Java" is selected in the export code panel:   
 
-{% post_image 13androidJava.png "Selección de código C# Xamarin" %}  
+<img src="/images/xamarin-forms__paintcode__13androidJava.png" title=""Selección de código C# Xamarin"" />
 
 Now, inside the Android project, create a new class called `SharpKit`, wipe all the boilerplate code and paste in it the code from PaintCode, there should be a ton of errors, but don't worry, all you have to do is remove the `package` declaration, erase all the `import` lines and, if you feel like, put the remaining clas into a C# *namespace*.  
 

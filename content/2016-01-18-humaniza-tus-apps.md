@@ -35,9 +35,9 @@ Que ya es un poco más "lenguaje humano" pero tiene ese horrible paréntesis al 
 ### Instalando Humanizer  
 Humanizer está en forma de [una Portable Class Library](/post/que-son-portable-class-library/), y disponible a través de NuGet, por lo que es sencillo instalarla en cualquier proyecto, desde una aplicación de consola (como la de este post) hasta una app de Xamarin.iOS. Basta con instalar el paquete `Humanizer.Core` usando la consola del administrador de paquetes:  
 
-{% console titulo %}
+```  
 PM> Install-Package Humanizer
-{% endconsole %}
+```  
 
 O a través de la interfaz gráfica en donde basta con buscar `Humanizer.Core` e instalarlo.
 
