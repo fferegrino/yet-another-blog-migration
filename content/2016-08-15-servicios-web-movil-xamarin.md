@@ -102,9 +102,9 @@ Ataquemos estos objetivos uno a la vez, y veremos cómo podemos mejorar nuestra 
 
 ### Refit  
 
-{% console titulo %}
+```  
 PM> Install-Package Refit
-{% endconsole %}  
+```  
 
 La primera cosa que vamos a necesitar es una forma para acceder a nuestros servicios. **Podríamos** usar HttpClient + Json.net como hicimos en el ejemplo anterior, sin embargo, podemos hacer esto más simple. De nuevo, uno de nuestros objetivos secundarios es reusar librerías existentes. La primera que usaremos es <a href="https://github.com/paulcbetts/refit" target="_blank" rel="nofollow">Refit</a>. Refit nos permite definir una interfaz que describe la API que estamos llamando, y el framework se encarga de hacer la llamada al servicio y deserializar el objeto de regreso.  
 
@@ -138,9 +138,9 @@ var codemash = await tekconfApi.GetConference("codemash-2016");
 
 ### Akavache  
 
-{% console titulo %}
+```  
 PM> Install-Package Akavache
-{% endconsole %}  
+```  
 
 Ahora que tenemos una forma sencilla de acceder al servicio, nos podemos concentrar en la experiencia de usuario. El desempeño de una aplicación móvil, desde la perspectiva del usuario, es **crítica**. No importa en realidad si tu aplicación **ES** rápida mientras que el usuario **PIENSE** que lo es.  
   
@@ -172,9 +172,9 @@ Matthew Soucop tiene un muy buen <a href="http://codemilltech.com/akavache-is-ak
 
 ### ModernHttpClient  
 
-{% console titulo %}
+```  
 PM> Install-Package ModernHttpClient
-{% endconsole %}  
+```  
 
 A pesar de que nos gustaría siempre obtener los datos de la cache, sabemos que en algún momento tendremos que llamar al servicio remoto. Sin embargo, en la *Xamarin stack*, nos encontramos con un problema, por default Mono (y por tanto Xamarin) usa la *Mono networking stack*. Funciona, pero Apple y Google hay pasado un montón de tiempo optimizando su *stack* de redes en sus respectivas plataformas, y cando usamos `HttpClient` estamos pasando par algo dichas optimizaciones por completo. Podemos arreglar esto añadiendo <a href="https://github.com/paulcbetts/ModernHttpClient" target="_blank" rel="nofollow">ModernHttpClient</a>.  
   
@@ -193,9 +193,9 @@ Al pasar `NativeMessageHandler` al constructir de `HttpClient`, automáticamente
   
 ### Fusillade  
 
-{% console titulo %}
+```  
 PM> Install-Package Fusillade
-{% endconsole %}  
+```  
 
 Desde la perspectiva del usuario, no todas las peticiones al servicio son iguales. Peticiones que son iniciadas por una acción del usuario deben tener una prioridad que cualquier otra que la app haga por su cuenta. Recuerda que nuestro objetivo es que el usuario **sienta** que la app responde rápido.  
   
@@ -289,9 +289,9 @@ Contrario a las aplicaciones de escritorio, nuestras aplicaciones móviles deben
 
 ### Connectivity  
 
-{% console titulo %}
+```  
 PM> Install-Package Xam.Plugin.Connectivity
-{% endconsole %}  
+```  
 
 Si queremos estar seguros de que no causaremos un excepción al hacer una petición cuando no hay internet, entonces necesitamos una manera de conocer el estado de la conexión. Cada plataforma tiene su manera de hacer esta validación, pero nosotros queremos hacer uso de ella de una manera *cross-platform* desde nuestra PCL.  
   
@@ -317,9 +317,9 @@ En un mundo perfecto, nuestro código funcionaría correctamente todo el tiempo.
 
 ## Polly  
  
-{% console titulo %}
+```  
 PM> Install-Package Polly
-{% endconsole %}  
+```  
 
 <a href="https://github.com/michael-wolfenden/Polly" target="_blank" rel="nofollow">Polly</a> es una de las librerías más útiles que he usado en un tiempo. De su sitio web:  
 
@@ -340,9 +340,9 @@ conferences = await Policy
 
 ### AsyncErrorHandler  
  
-{% console titulo %}
+```  
 PM> Install-Package AsyncErrorHandler.Fody  
-{% endconsole %}  
+```  
 
 Inclusive con todo el cacheo, los reintentos y planeación que hemos puesto en el código, en algún momento fallará. Queremos que cuando eso suceda, lo manejemos de buena manera.  
   

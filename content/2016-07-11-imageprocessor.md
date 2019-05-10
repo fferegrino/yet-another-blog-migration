@@ -252,8 +252,8 @@ Como siempre, hay que buscar en el gestor de paquetes de NuGet: `ImageProcessor`
 
 O desde la consola: 
 
-{% console titulo %}
+```  
 PM> Install-Package ImageProcessor
-{% endconsole %}
+```  
 
 No olvides echarle un ojo al <a href="https://github.com/JimBobSquarePants/ImageProcessor" target="_blank" >proyecto en GitHub</a> o en el <a href="http://imageprocessor.org" target="_blank">sitio web del proyecto</a>. Y de nueva cuenta, te invito a <strong><a href="https://github.com/ThatCSharpGuy/ImageProcessor-Sample" target="_blank">descargar el código</a></strong> y hagas pruebas con él.

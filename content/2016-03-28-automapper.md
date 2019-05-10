@@ -167,8 +167,8 @@ Este post apenas y roza la superficie de todo las posibilidades que AutoMapper t
 # Instalación  
 Para instalarlo no hay mejor manera que el gestor de paquetes de NuGet:
 
-{% console titulo %}
+```  
 PM> Install-Package AutoMapper
-{% endconsole %}
+```  
 
 O échale un ojo al <a href="https://github.com/AutoMapper/AutoMapper" target="_blank" rel="nofollow">proyecto en GitHub</a> y contribuir a su desarrollo de alguna manera.

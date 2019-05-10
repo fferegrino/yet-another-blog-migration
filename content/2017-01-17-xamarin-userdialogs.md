@@ -113,8 +113,8 @@ Como siempre, hay que buscar en el gestor de paquetes de NuGet: `Acr.UserDialogs
 
 O desde la consola: 
 
-{% console titulo %}
+```  
 PM> Install-Package Acr.UserDialogs
-{% endconsole %}
+```  
 
 Recuerda que si lo usas en Xamarin.Forms debes instalar Acr.UserDialogs en todos tus proyectos (núcleo y clientes) para que funcione correctamente.

@@ -195,9 +195,9 @@ Desde luego, toda esta información se pierde si el usuario borra la app. En est
 ## Instalación  
 Para instalarlo basta con instalar el <a href="https://www.nuget.org/packages/Plugin.VersionTracking/" target="_blank">paquete de NuGet</a> Plugin.VersionTracking.
 
-{% console titulo %}
+```  
 PM> Install-Package Plugin.VersionTracking
-{% endconsole %}
+```  
 
 Recuerda que debes instalarlo tanto en los proyectos cliente como en el proyecto de Forms.  
 

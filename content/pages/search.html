@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Blog">
+  <head>
+  {% include "head.html" %}
+    <title>Search</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.css">
+  <script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js"></script>
+  <script>
+    $(document).ready(function(){
+
+      var search = instantsearch({
+        appId: 'S3BTX49GDG',
+        apiKey: 'c5abf732457f861d861e36caaa1e5791',
+        indexName: 'dev_posts',
+        urlSync: true
+      });
+    });
+    </script>
+  </head>
+  <body>
+
+    {% include "header.html" %}
+
+    <div class="page-content">
+      <div class="wrapper">
+        <h1 class="post-title">{{ page.title }}</h1>
+        <div class="pure-u-23-24 post-content">
+          <article>
+            {{ content }}
+          </article>
+        </div>
+      </div>
+    </div>
+
+    {% include "footer.html" %}
+
+  </body>
+
+</html>

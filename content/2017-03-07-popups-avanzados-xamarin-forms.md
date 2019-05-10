@@ -120,14 +120,14 @@ Que generará una animación así:
 ### Mi uso  
 A final de cuentas yo la usé para crear este *popup* en una de las apps que estoy haciendo, quedó algo como esto:  
 
-{% post_image custom_layout.jpg "Basic pop" %}
+<img src="/images/xamarin-forms__popups__custom_layout.jpg" title=""Basic pop"" />
 
 
 ## Uso  
 Para comenzar a usar estos maravillosos *popups* tienes que instalar el <a href="https://www.nuget.org/packages/Rg.Plugins.Popup/" target="_blank">paquete de NuGet</a> en tus tres proyectos.  
 
-{% console titulo %}
+```  
 PM> Install-Package PlatformTabbedPage
-{% endconsole %}
+```  
 
 No olvides que esta biblioteca también es *open source* y puedes encontrar su código fuente en <a href="https://github.com/rotorgames/Rg.Plugins.Popup" target="_blank">GitHub</a>. Por cierto, no te olvides de descargar el código fuente de este post, <a href="https://github.com/ThatCSharpGuy/PopupSample" target="_blank">también en GitHub</a>.

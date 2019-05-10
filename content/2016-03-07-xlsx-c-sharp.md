@@ -241,6 +241,6 @@ Sin lugar a dudas, la API de EPPlus es bastante buena y fácil de usar y si bien
 # Instalación  
 No olvides visitar <a href="http://epplus.codeplex.com" target="_blank">la página de EPPlus en Codeplex</a> o instala el paquete de NuGet en tu proyecto:
 
-{% console titulo %}
+```  
 PM> Install-Package EPPlus
-{% endconsole %}
+```  

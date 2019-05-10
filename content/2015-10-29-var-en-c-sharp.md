@@ -81,5 +81,5 @@ Es importante repetir esto: **C# sigue siendo fuertemente tipado, con var lo ún
 En el post original había mencionado que `var` es una palabra reservada, cuando en realdad, no lo es. Depende del contexto.
 
 ### Lo que sigue  
-En este post hablamos de dos nuevos conceptos: LINQ y tipos anónimos, y sobre uno de ellos dos será el post siguiente, ¿tienes preferencia sobre alguno? házmelo saber vía <a href="https://twitter.com/intent/tweet?text=@io_exception">Twitter</a> o por <a href="mailto:{{ site.email }}?subject={{ page.title }}">correo electrónico</a>.
+En este post hablamos de dos nuevos conceptos: LINQ y tipos anónimos, y sobre uno de ellos dos será el post siguiente, ¿tienes preferencia sobre alguno? házmelo saber vía <a href="https://twitter.com/intent/tweet?text=@io_exception">Twitter</a> o por <a href="mailto:{{ MY_EMAIL }}?subject={{ title }}">correo electrónico</a>.
 

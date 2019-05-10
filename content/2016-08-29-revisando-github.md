@@ -16,7 +16,7 @@ Este fin de semana fue de limpieza, y también le tocó a algunos de mis reposit
 ## aprende-c-sharp
 <div class="pure-g project">
 <div class="pure-u-1 pure-u-md-1-5">
-{% post_image aprende-c-sharp.png "Aprende C#" %}
+<img src="/images/mis-repos-github__aprende-c-sharp.png" title=""Aprende C#"" />
 </div>
 <div class="pure-u-1 pure-u-md-4-5">
 No hay mucho qué decir sobre este repo, en él se encuentra tódo el código de los posts con la etiqueta <a href="../../tag/AprendeCSharp">#AprendeCSharp</a>, en los cuales trato de explicar un poco más a detalle algunas de las características de este magnífico lenguaje. Muchos de los ejemplos son un simple archivo, pero decidí incluirlos en proyectos de Visual Studio para que pudieras ejecutarlos en un entorno conocido. 

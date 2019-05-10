@@ -188,6 +188,6 @@ Al principio la API de DocX nos puede parecer un poco rara y con poca documentac
 # Instalación  
 No olvides visitar <a href="http://docx.codeplex.com" target="_blank">la página de DocX en Codeplex</a> o instala el paquete de NuGet en tu proyecto:
 
-{% console titulo %}
+```  
 PM> Install-Package DocX
-{% endconsole %}
+```  
