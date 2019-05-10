@@ -1,17 +1,15 @@
 import hashlib
-from pprint import pprint
-
 import logging
 
+from algoliasearch.search_client import SearchClient
 from bs4 import BeautifulSoup
-
 from pelican import signals
 from pelican.settings import DEFAULT_CONFIG
-from algoliasearch.search_client import SearchClient
 
 logger = logging.getLogger(__name__)
 
-#__all__ = ['register']
+
+# __all__ = ['register']
 
 def set_default_settings(settings):
     settings.setdefault('ALGOLIA_APP_ID', None)
@@ -19,30 +17,33 @@ def set_default_settings(settings):
     settings.setdefault('ALGOLIA_ADMIN_API_KEY', None)
     settings.setdefault('ALGOLIA_INDEX_NAME', 'blog')
 
+
 def init_default_config(pelican):
     set_default_settings(DEFAULT_CONFIG)
-    if(pelican):
+    if pelican:
         set_default_settings(pelican.settings)
 
-def convert_article(page):
 
+def convert_article(page):
     soup_title = BeautifulSoup(page.title.replace('&nbsp;', ' '), 'html.parser')
-    page_title = soup_title.get_text(' ', strip=True).replace('“', '"').replace('”', '"').replace('’', "'").replace('^', '&#94;')
+    page_title = soup_title.get_text(' ', strip=True).replace('“', '"').replace('”', '"').replace('’', "'").replace('^',
+                                                                                                                    '&#94;')
 
     soup_text = BeautifulSoup(page.content, 'html.parser')
-    page_text = soup_text.get_text(' ', strip=True).replace('“', '"').replace('”', '"').replace('’', "'").replace('¶', ' ').replace('^', '&#94;')
+    page_text = soup_text.get_text(' ', strip=True).replace('“', '"').replace('”', '"').replace('’', "'").replace('¶',
+                                                                                                                  ' ').replace(
+        '^', '&#94;')
     page_text = ' '.join(page_text.split())
 
-    soup_summary = BeautifulSoup(page.summary, 'html.parser')
-    page_summary = soup_summary.get_text(' ', strip=True).replace('“', '"').replace('”', '"').replace('’', "'").replace('¶', ' ').replace('^', '&#94;')
+    soup_summary = BeautifulSoup(page.excerpt, 'html.parser')
+    page_summary = soup_summary.get_text(' ', strip=True).replace('“', '"').replace('”', '"').replace('’', "'").replace(
+        '¶', ' ').replace('^', '&#94;')
 
     if getattr(page, 'category', 'None') == 'None':
         page_category = ''
     else:
         page_category = page.category.name
 
-    #siteurl = page.settings.get('SITEURL')
-    #page_url = siteurl + '/' + page.url
     page_url = page.url
 
     tags = [t.name for t in getattr(page, "tags", [])]
@@ -50,14 +51,14 @@ def convert_article(page):
     page_created = page.date
     page_modified = getattr(page, 'modified', None)
     page_date = page_created
-    if page_modified:
-        page_date = page_modified
 
-    return {
+    objectId = hashlib.sha256(str(page.slug).encode('utf-8')).hexdigest()
+
+    object_to_index = {
+        'objectID': objectId,
         'slug': page.slug,
-        'date': page_date,
-        'created': page_created,
-        'modified': page_modified,
+        'date': page_date.strftime('%Y-%m-%dT%H:%M:%SZ'),
+        'created': page_created.strftime('%Y-%m-%dT%H:%M:%SZ'),
         'title': page_title,
         'category': page_category,
         'content': page_text,
@@ -66,11 +67,17 @@ def convert_article(page):
         'url': page_url
     }
 
+    if page_modified:
+        object_to_index['date'] = page_modified
+        object_to_index['modified'] = page_modified
+
+    return object_to_index
+
+
 def index_generator(generator):
     index_name = generator.settings.get('ALGOLIA_INDEX_NAME', None)
     app_id = generator.settings.get('ALGOLIA_APP_ID', None)
     admin_api_key = generator.settings.get('ALGOLIA_ADMIN_API_KEY', None)
-
 
     if None in [index_name, app_id, admin_api_key]:
         logger.error("Algolia Indexe - settings error")
@@ -108,7 +115,7 @@ def index_generator(generator):
 
     settings = common_settings.copy()
 
-    #settings.update({
+    # settings.update({
     #    "replicas": [
     #        "blog_created_asc",
     #        "blog_title_asc",
@@ -116,26 +123,26 @@ def index_generator(generator):
     #    "ranking": [
     #        "desc(created)",
     #    ]
-    #})
-    #index.set_settings(settings)
+    # })
+    # index.set_settings(settings)
 
-    #blog_created_asc = client.init_index("blog_created_asc")
-    #settings = common_settings.copy()
-    #settings.update({
+    # blog_created_asc = client.init_index("blog_created_asc")
+    # settings = common_settings.copy()
+    # settings.update({
     #    "ranking": [
     #        "asc(created)",
     #    ]
-    #})
-    #blog_created_asc.set_settings(settings)
+    # })
+    # blog_created_asc.set_settings(settings)
 
-    #blog_title_asc = client.init_index("blog_title_asc")
-    #settings = common_settings.copy()
-    #settings.update({
+    # blog_title_asc = client.init_index("blog_title_asc")
+    # settings = common_settings.copy()
+    # settings.update({
     #    "ranking": [
     #        "asc(title)",
     #    ]
-    #})
-    #blog_title_asc.set_settings(settings)
+    # })
+    # blog_title_asc.set_settings(settings)
 
     exists = []
 
@@ -143,22 +150,22 @@ def index_generator(generator):
         try:
             logger.info("Indexing article: '%s'" % article.title)
             data = convert_article(article)
-            objectId = hashlib.sha256(str(article.slug).encode('utf-8')).hexdigest()
-            exists.append(objectId)
-            index.add_object(data, objectId)
+            exists.append(data['objectID'])
+            index.save_object(data)
         except Exception as err:
             logger.error(err)
 
     logger.info('Purge old Algolia objects')
     for_delete = []
-    res = index.browse_all()
+    res = index.browse_objects()
     for hit in res:
         if not hit['objectID'] in exists:
             for_delete.append(hit['objectID'])
             logger.debug('Delete old article[%s]' % hit['title'])
 
     if for_delete:
-        res = index.delete_objects(for_delete)
+        _ = index.delete_objects(for_delete)
+
 
 def register():
     """Plugin registration."""
