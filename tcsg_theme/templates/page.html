@@ -5,7 +5,10 @@
 
 {% block head %}
   {{ super() }}
-
+{% if page.title == "Search" %}
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.css">
+  <script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js"></script>
+{% endif %}
   {% import 'translations.html' as translations with context %}
   {% if translations.entry_hreflang(page) %}
     {{ translations.entry_hreflang(page) }}
@@ -24,4 +27,9 @@
         Last updated: {{ page.locale_modified }}
         </p>
     {% endif %}
+
+
+{% if page.title == "Search" %}
+    {% include "pages/search_script.html" %}
+{% endif %}
 {% endblock %}
