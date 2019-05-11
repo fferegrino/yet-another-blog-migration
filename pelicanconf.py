@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+import os
+
 AUTHOR = 'Antonio Feregrino'
 SITENAME = 'That C# guy'
 SITEURL = ''
@@ -42,7 +44,7 @@ PLUGINS = ['pelican_alias', 'tv_alias']
 
 ALGOLIA_APP_ID = "2RZXM7KI15"
 ALGOLIA_SEARCH_API_KEY = "ad630b2f2ffaa553017fc1c23209c06b"
-ALGOLIA_ADMIN_API_KEY = "[YOUR ALGOLIA ADMIN API KEY]"
+ALGOLIA_ADMIN_API_KEY = os.getenv('ALGOLIA_ADMIN_API_KEY')
 ALGOLIA_INDEX_NAME = 'tcsg-demo'
 
 SITE_VERSION = 'beta'
