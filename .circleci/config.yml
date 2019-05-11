@@ -27,7 +27,11 @@ jobs:
       - run:
           name: Publish locally
           command: |
-            make publish
+            if [ "${CIRCLE_BRANCH}" != "master" ]; then
+              make publish-demo
+            else
+              make publish
+            fi
 
       - run:
           name: Upload to DigitalOcean

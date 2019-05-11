@@ -1,0 +1,39 @@
+
+<script>
+ var search = instantsearch({
+   appId: '{{ ALGOLIA_APP_ID }}',
+   apiKey: '{{ ALGOLIA_SEARCH_API_KEY }}',
+   indexName: '{{ ALGOLIA_INDEX_NAME }}'
+ });
+
+ var onRenderHandler = function() {
+       console.log("Masonry");
+       $('#hits-container').removeAttr('style');
+    };
+
+ search.addWidget(
+   instantsearch.widgets.searchBox({
+     container: '#search-box',
+     cssClasses: {
+         root: 'search-container'
+         },
+     placeholder: 'Busca posts'
+   })
+ );
+
+ var hitbox= instantsearch.widgets.hits({
+     container: '#hits-container',
+     cssClasses: {
+         root: 'pure-g'
+         },
+     templates: {
+    empty: 'Sin resultados',
+    item: '<div class="listed-post pure-u-1"><h3 class=post-title><a class="post-link" href="/posts/{{"{{"}} slug }}">{{"{{"}} title }}</a></h3><div class=post-excerpt>{{"{{"}} summary }}</div></div>'
+ }
+   });
+
+ search.addWidget(hitbox);
+
+ search.start();
+
+</script>

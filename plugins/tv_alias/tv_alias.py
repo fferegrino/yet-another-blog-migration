@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import os.path
 import logging
+import os.path
 from urllib.parse import urlparse
 
 from pelican import signals
@@ -54,10 +54,13 @@ class TvAliasGenerator(object):
         for page in pages:
             featured_tag = page.metadata.get('featured_tag', '').lower()
             if featured_tag == 'tv':
-                alias = f'tv/{page.slug}/'
-                logger.info('[alias] Processing tv alias %s' % alias)
-                self.create_alias(page, alias)
 
+                aliases = ['tv/{slug}/', 'posts/{slug}/']
+
+                for alias_template in aliases:
+                    alias = alias_template.format(slug=page.slug)
+                    logger.info('[tv_alias] Processing tv alias %s' % alias)
+                    self.create_alias(page, alias)
 
 
 def get_generators(generators):

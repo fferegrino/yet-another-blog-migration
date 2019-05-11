@@ -12,6 +12,8 @@ markdown = "*"
 pelican-alias = "*"
 requests = "*"
 click = "*"
+beautifulsoup4 = "*"
+algoliasearch = "*"
 
 [requires]
 python_version = "3.6"

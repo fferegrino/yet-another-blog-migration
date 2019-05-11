@@ -72,6 +72,9 @@ endif
 publish:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 
+publish-demo:
+	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+
 migrate_all: migrate_images
 
 migrate_images:
@@ -81,7 +84,6 @@ migrate_posts:
 	$(IN_ENV) python management/post_migration.py /Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy/en/_posts/ /Users/antonioferegrino/Documents/GitHub/yet-another-blog-migration/content/
 	$(IN_ENV) python management/post_migration.py /Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy/es/_posts/ /Users/antonioferegrino/Documents/GitHub/yet-another-blog-migration/content/
 	$(IN_ENV) python management/post_migration.py /Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy/tv/_posts/ /Users/antonioferegrino/Documents/GitHub/yet-another-blog-migration/content/tv/ -t template:video
-
 
 
 .PHONY: html help clean regenerate serve serve-global devserver stopserver publish 

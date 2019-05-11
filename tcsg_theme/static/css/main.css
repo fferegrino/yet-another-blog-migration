@@ -221,6 +221,9 @@ pre {
       font-size: 24px;
       background-image: none;
       padding: 0 !important; } }
+  .site-title span {
+    color: white;
+    background-color: #424242; }
 
 .title-number {
   font-size: 36px;
@@ -573,6 +576,13 @@ h3.post-title {
     font-size: 20px;
     margin: 10px 0; }
 
+.search-container {
+  width: 100%; }
+
+.search-container input {
+  width: 100%;
+  font-size: 2em; }
+
 .sp {
   background-image: url(/theme/images/site/spritesheet.png);
   background-repeat: no-repeat;
@@ -727,3 +737,5 @@ figure.console pre {
 a {
   color: #007acc;
   text-decoration: none; }
+
+/*# sourceMappingURL=main.css.map */

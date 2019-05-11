@@ -30,6 +30,11 @@
         background-image: none;
         padding: 0 !important;
     }
+
+    & span {
+        color: white;
+        background-color: #424242;
+    }
 }
 .title-number{
     font-size: 36px;
