@@ -11,6 +11,7 @@
         <div class="trigger">
           <a class="link page-link" href="/">Home</a>
           <a class="link page-link" href="/about">About</a>
+          <a class="link page-link" href="/search">Search</a>
         </div>
       </nav>
     </div>
@@ -18,12 +19,12 @@
       <div class="pure-g">
         <div class="pure-u-1-24 title-number"><span>1</span></div>
         <div class="pure-u-11-24 content-window">
-          <a class="site-title" href="{{ SITEURL }}/">{{ SITENAME }}</a>
+          <a class="site-title" href="{{ SITEURL }}/">{{ SITENAME }}{% if SITE_VERSION != 'live' %}<span>{{ SITE_VERSION }}</span>{% endif %}</a>
         </div>
         <div class="pure-u-12-24 header-menu">
           <ul>
             <li class="datascience"><a href="{{ SITEURL }}/tag/datascience/">Data Science!</a></li>
-            <li class="youtube"><a href="https://www.youtube.com/c/thatcsharpguy">YouTube</a></li>
+            <li class="youtube"><a href="https://www.youtube.com/c/thatcsharpguy">YouTube<a></li>
             <li class="csharp"><a href="{{ SITEURL }}/tag/aprendecsharp/">Aprende C#</a></li>
             <li class="xamarin"><a href="{{ SITEURL }}/tag/xamarin/">Xamarin</a></li>
           </ul>

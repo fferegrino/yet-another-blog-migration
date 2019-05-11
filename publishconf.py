@@ -2,26 +2,28 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-# This file is only used if you use `make publish` or
-# explicitly specify it as your config file.
-
 import os
 import sys
+
+# This file is only used if you use `make publish` or
+# explicitly specify it as your config file.
 sys.path.append(os.curdir)
-from pelicanconf import *
 
 # If your site is available via HTTPS, make sure SITEURL begins with https://
-#SITEURL = 'https://thatcsharpguy.com'
+# SITEURL = 'https://thatcsharpguy.com'
 RELATIVE_URLS = False
 
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
 
-DATE_FORMAT = '%Y/%m/%d'
-
 DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
 
-#DISQUS_SITENAME = ""
-#GOOGLE_ANALYTICS = ""
+# DISQUS_SITENAME = ""
+# GOOGLE_ANALYTICS = ""
+
+ALGOLIA_INDEX_NAME = 'tcsg-live'
+ALGOLIA_ADMIN_API_KEY = os.getenv('ALGOLIA_ADMIN_API_KEY')
+
+SITE_VERSION = 'live'

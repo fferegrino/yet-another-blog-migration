@@ -25,17 +25,9 @@ ARTICLE_SAVE_AS = 'posts/{slug}/index.html'
 TAG_URL = 'tag/{slug}/'
 TAG_SAVE_AS = 'tag/{slug}/index.html'
 
-# Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+DATE_FORMAT = '%Y/%m/%d'
 
 THEME = 'tcsg_theme'
-
-# Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
 
 MY_EMAIL = "antonio.feregrino@gmail.com"
 MY_TWITTER_HANDLE = "io_exception"
@@ -43,14 +35,14 @@ MY_TWITTER_HANDLE = "io_exception"
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+# RELATIVE_URLS = True
 
 PLUGIN_PATHS = ['./plugins']
 PLUGINS = ['pelican_alias', 'tv_alias']
 
-
-
 ALGOLIA_APP_ID = "2RZXM7KI15"
 ALGOLIA_SEARCH_API_KEY = "ad630b2f2ffaa553017fc1c23209c06b"
 ALGOLIA_ADMIN_API_KEY = "[YOUR ALGOLIA ADMIN API KEY]"
-ALGOLIA_INDEX_NAME = 'demo-tcsg'
+ALGOLIA_INDEX_NAME = 'tcsg-demo'
+
+SITE_VERSION = 'beta'
