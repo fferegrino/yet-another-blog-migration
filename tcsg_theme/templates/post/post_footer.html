@@ -40,8 +40,8 @@
 
     $('#fb-share').click(function() {
         let button = $(this)
-        alert(button.attr('data-href') )
         FB.ui({ method: 'share', href:button.attr('data-href')  });
     })
 </script>
 <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
