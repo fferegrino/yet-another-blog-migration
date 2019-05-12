@@ -7,7 +7,7 @@
             <li><a title="{{ MY_EMAIL }}" href="mailto:{{ MY_EMAIL }}?subject={{ article.title|striptags }}">{% include "svg/mail.svg" %}</a></li>
             <li><a title="@{{ MY_TWITTER_HANDLE }}" href="https://twitter.com/intent/tweet?text=@{{ MY_TWITTER_HANDLE }} about {{ article.title|striptags }}{%if article.tweet_id %}&in_reply_to={{ article.tweet_id }}{% endif %}">{% include "svg/twitter.svg" %}</a></li>
             {# TODO: Fix disquss
-            <li>{% include "svg/comments.svg" %} <a id="post-count" href="{{ SITEURL }}/{{ article.url }}#disqus_thread" data-disqus-identifier="{{ SITEURL }}/{{ article.url }}"></a></li>
+            <li>{% include "svg/comments.svg" %} <a data-replace-url="href" id="post-count" href="$URL$/{{ article.url }}#disqus_thread" data-disqus-identifier="{{ SITEURL }}/{{ article.url }}"></a></li>
             #}
         </ul>
     </div> 
@@ -30,8 +30,8 @@
          {# TODO: Add multilingual support 
             {{ site.locale[article.lang].post.share }} #}
         <ul class="post-contact-list">
-            <li><a href="mailto:?subject={{ article.title|striptags }}&amp;body={{ SITEURL }}/{{ article.url }}" title="email">{% include "svg/mail.svg" %}</a></li>
-            <li><a href="https://twitter.com/intent/tweet?text={{ article.title|striptags }} {{ SITEURL }}/{{ article.url }}&hashtags={{ article.featured_tag }}" title="Tweet">{% include "svg/twitter.svg" %}</a></li>
+            <li><a data-replace-url="href" href="mailto:?subject={{ article.title|striptags }}&amp;body=$URL$/{{ article.url }}" title="email">{% include "svg/mail.svg" %}</a></li>
+            <li><a data-replace-url="href" href="https://twitter.com/intent/tweet?text={{ article.title|striptags }} $URL$/{{ article.url }}&hashtags={{ article.featured_tag }}" title="Tweet">{% include "svg/twitter.svg" %}</a></li>
             {%if article.tweet_id %}<li><a href="https://twitter.com/intent/retweet?tweet_id={{ article.tweet_id }}" title="Retweet">{% include "svg/retweet.svg" %}</a></li>{% endif %}
             <li><a href="javascript:sharePostFacebook();" title="share" >{% include "svg/facebook.svg" %}</a> </li>
             <li><a class="kindleWidget" href="#" title="send to kindle"> {% include "svg/kindle.svg" %} </a> </li>
