@@ -3,6 +3,7 @@ date: 2018-03-11 18:00:00
 youtube: DsS33DCWvC4
 excerpt: La idea detrás de los algoritmos voraces (o greedy) consiste en siempre tomar la mejor decisión de todas las que puede tomar inmediatamante con la esperanza de que al juntar todas estas pequeñas "mejores" decisiones, se obtendrá la mejor solución al problema en general.
 tweet_id: 973684466211282945
+lang: en
 tags: Meta, Tv
 featured_tag: Tv
 template: video

@@ -3,7 +3,8 @@ date: 2018-03-20 18:00:00
 youtube: UvaZZi_zgSo
 excerpt: Tu, ¿programas en inglés?
 tweet_id: 976181727671603200
-tags: Meta, Tv
+lang: en
+tags: Data science, Meta, Tv
 featured_tag: Tv
 template: video
 

@@ -3,7 +3,8 @@ date: 2018-04-05 18:00:00
 youtube: bXipUOIxwJ0
 excerpt: The first video in the series "what was I doing the last six months?
 tweet_id: 981683756674240512
-tags: Meta, Tv
+lang: en
+tags: Data science, Meta, Tv
 featured_tag: Tv
 template: video
 

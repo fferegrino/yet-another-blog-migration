@@ -24,6 +24,9 @@ AUTHOR_FEED_RSS = None
 ARTICLE_URL = 'posts/{slug}/'
 ARTICLE_SAVE_AS = 'posts/{slug}/index.html'
 
+ARTICLE_LANG_URL = 'posts/{slug}-{lang}/'
+ARTICLE_LANG_SAVE_AS = 'posts/{slug}-{lang}/index.html'
+
 TAG_URL = 'tag/{slug}/'
 TAG_SAVE_AS = 'tag/{slug}/index.html'
 

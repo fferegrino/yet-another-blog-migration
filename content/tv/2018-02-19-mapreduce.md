@@ -3,7 +3,8 @@ date: 2018-02-19 18:00:00
 youtube: b27hWyhq9oo
 excerpt: La idea de MapReduce es ofrecer una forma simple, rápida, escalable y resistente a fallos para manipular enormes cantidades de datos.
 tweet_id: 965987034518163457
-tags: Meta, Tv
+lang: en
+tags: Data science, Meta, Tv
 featured_tag: Tv
 template: video
 
