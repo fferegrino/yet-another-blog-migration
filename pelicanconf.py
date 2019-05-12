@@ -50,4 +50,12 @@ ALGOLIA_SEARCH_API_KEY = "ad630b2f2ffaa553017fc1c23209c06b"
 ALGOLIA_ADMIN_API_KEY = os.getenv('ALGOLIA_ADMIN_API_KEY')
 ALGOLIA_INDEX_NAME = 'tcsg-demo'
 
+FB_APP_ID = '942345702508916'
+
 SITE_VERSION = 'beta'
+
+POST_STRINGS = {
+    'contact': 'Do you want to discuss? contact me',
+    'share': 'Comparte este post',
+    'see_more': 'Want to see similar stuff, check <a class=\'special-tag\' href=\'{featured_tag_page}\'>#{featured_tag}</a>'
+}
