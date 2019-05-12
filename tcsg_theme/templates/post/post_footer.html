@@ -21,7 +21,7 @@
             <li><a data-replace-url="href" href="mailto:?subject={{ article.title|striptags }}&amp;body=$URL$/{{ article.url }}" title="email">{% include "svg/mail.svg" %}</a></li>
             <li><a data-replace-url="href" href="https://twitter.com/intent/tweet?text={{ article.title|striptags }} $URL$/{{ article.url }}&hashtags={{ article.featured_tag }}" title="Tweet">{% include "svg/twitter.svg" %}</a></li>
             {%if article.tweet_id %}<li><a href="https://twitter.com/intent/retweet?tweet_id={{ article.tweet_id }}" title="Retweet">{% include "svg/retweet.svg" %}</a></li>{% endif %}
-            <li><a id="fb-share" data-replace-url="data-href" data-href="$URL$/{{ article.url }}" href="#" title="share" >{% include "svg/facebook.svg" %}</a> </li>
+            <li><a id="fb-share" data-replace-url="data-href" data-href="$URL$/{{ article.url }}" title="share" >{% include "svg/facebook.svg" %}</a> </li>
         </ul>
     </div>
 </div>
