@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block head %}
+<!-- Twitter tags -->
+<meta property="og:title" content="{{ article.title }}" />
+<meta property="og:url" content="{{ PUBLIC_URL }}/{{ article.url }}" />
+<meta property="og:description" content="{{ article.excerpt }}" />
+{% endblock %}
+
 {% block content %}
 {% include "post/post_meta.html" %}
 <h1 class="post-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"

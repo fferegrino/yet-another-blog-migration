@@ -56,6 +56,10 @@ SITE_VERSION = 'beta'
 
 POST_STRINGS = {
     'contact': 'Do you want to discuss? contact me',
-    'share': 'Comparte este post',
-    'see_more': 'Want to see similar stuff, check <a class=\'special-tag\' href=\'{featured_tag_page}\'>#{featured_tag}</a>'
+    'share': 'Share this post!',
+    'see_more': 'Want to see similar stuff? check <a class=\'special-tag\' href=\'{featured_tag_page}\'>#{featured_tag}</a>'
 }
+
+
+PUBLIC_URL = 'https://thatcsharpguy.com'
+DESCRIPTION = 'A description'

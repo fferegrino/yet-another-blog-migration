@@ -1,6 +1,12 @@
-
 <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.2/pure-min.css">
 <link rel="stylesheet" href="/theme/css/main.css">
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="{{ MY_TWITTER_HANDLE }}" />
+<meta name="twitter:creator" content="{{ MY_TWITTER_HANDLE }}" />
+<meta property="og:url" content="{{ PUBLIC_URL }}" />
+<meta property="og:title" content="{{ SITENAME }}" />
+<meta property="og:description" content="{{ DESCRIPTION }}" />
