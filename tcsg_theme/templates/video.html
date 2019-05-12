@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
+{% block head %}
+<!-- Twitter tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:title" content="{{ article.title }}" />
+<meta property="og:url" content="{{ PUBLIC_URL }}/{{ article.url }}" />
+<meta property="og:description" content="{{ article.excerpt }}" />
+<meta property="og:image" content="https://img.youtube.com/vi/{{ article.youtube }}/sddefault.jpg" />
+{% endblock %}
+
 {% block content %}
 <div class="video-wrapper">
     <iframe width="992" height="558" src="https://www.youtube.com/embed/{{ article.youtube }}" frameborder="0" allowfullscreen></iframe>
