@@ -55,7 +55,7 @@ class TvAliasGenerator(object):
             featured_tag = page.metadata.get('featured_tag', '').lower()
             if featured_tag == 'tv':
 
-                aliases = ['tv/{slug}/', 'posts/{slug}/']
+                aliases = ['tv/{slug}/']
 
                 for alias_template in aliases:
                     alias = alias_template.format(slug=page.slug)
