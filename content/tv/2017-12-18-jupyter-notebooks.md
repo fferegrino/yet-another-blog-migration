@@ -5,7 +5,8 @@ images_folder: /tv/jupyter/
 excerpt: Los Jupyter Notebooks son una herramienta bastate útil para documentar el código antes de llevarlo a producción. ¡Y no son solo para Python!
 featured_image: featured.png
 tweet_id: 940237219826229248
-tags: Meta, Tv
+lang: en
+tags: Data science, Meta, Tv
 featured_tag: Tv
 template: video
 
