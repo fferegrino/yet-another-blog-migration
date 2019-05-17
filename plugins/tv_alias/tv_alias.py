@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import logging
 import os.path
 from urllib.parse import urlparse
+import ntpath
 
 from pelican import signals
 
@@ -55,10 +56,13 @@ class TvAliasGenerator(object):
             featured_tag = page.metadata.get('featured_tag', '').lower()
             if featured_tag == 'tv':
 
+                filename = ntpath.basename(page.source_path)
+                page_slug = filename[11:-3]
+
                 aliases = ['tv/{slug}/']
 
                 for alias_template in aliases:
-                    alias = alias_template.format(slug=page.slug)
+                    alias = alias_template.format(slug=page_slug)
                     logger.info('[tv_alias] Processing tv alias %s' % alias)
                     self.create_alias(page, alias)
 
