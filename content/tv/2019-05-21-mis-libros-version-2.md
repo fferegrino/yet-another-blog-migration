@@ -1,5 +1,5 @@
 title: Mis libros de data science
-date: 2019-04-29 18:00:00
+date: 2019-05-21 18:00:00
 youtube: dxbFSp_CpYQ
 tweet_id: 1130334298677174273
 categories: data-science  
