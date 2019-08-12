@@ -3,16 +3,16 @@ from shutil import copy
 
 import click
 
-image_types = set(['jpg', 'jpeg', '.gif', 'png'])
-sources = set(['pxm', 'sketch', 'sketch'])
+image_types = set(["jpg", "jpeg", ".gif", "png"])
+sources = set(["pxm", "sketch", "sketch"])
 
 extensions = set()
 
 
 @click.command()
-@click.argument('source', type=click.Path(exists=True, file_okay=False))
-@click.argument('destiny', type=click.Path(exists=True, file_okay=False))
-@click.option('--verbose', is_flag=True)
+@click.argument("source", type=click.Path(exists=True, file_okay=False))
+@click.argument("destiny", type=click.Path(exists=True, file_okay=False))
+@click.option("--verbose", is_flag=True)
 def migrate_images(source, destiny, verbose):
     for root, directories, files in os.walk(source):
         for file in files:
@@ -21,11 +21,11 @@ def migrate_images(source, destiny, verbose):
 
             if extension.lower() in image_types:
                 old_path = os.path.join(root, file)
-                old_new_path = old_path[len(source):]
-                new_name = '__'.join(old_new_path.split('/'))
+                old_new_path = old_path[len(source) :]
+                new_name = "__".join(old_new_path.split("/"))
 
                 if verbose:
-                    print(f'Will copy {old_path} to {destiny}')
+                    print(f"Will copy {old_path} to {destiny}")
 
                 copy(old_path, destiny)
 
@@ -33,7 +33,7 @@ def migrate_images(source, destiny, verbose):
                 new_file = os.path.join(destiny, new_name)
 
                 if verbose:
-                    print(f'Will rename {old_file} to {new_file}')
+                    print(f"Will rename {old_file} to {new_file}")
 
                 os.rename(old_file, new_file)
 
