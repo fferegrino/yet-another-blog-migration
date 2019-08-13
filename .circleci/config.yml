@@ -25,6 +25,11 @@ jobs:
             pipenv install --dev
 
       - run:
+          name: Lint code
+          command: |
+            make lint
+
+      - run:
           name: Publish locally
           command: |
             if [ "${CIRCLE_BRANCH}" != "master" ]; then

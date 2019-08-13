@@ -4,16 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = ">18.*"
+isort = "*"
+pylint = "*"
 
 [packages]
-pelican = "*"
-webassets = "*"
+algoliasearch = "*"
+beautifulsoup4 = "*"
+click = "*"
 markdown = "*"
+pelican = "*"
 pelican-alias = "*"
 requests = "*"
-click = "*"
-beautifulsoup4 = "*"
-algoliasearch = "*"
+webassets = "*"
 
 [requires]
 python_version = "3.6"
