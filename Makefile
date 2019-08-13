@@ -52,6 +52,9 @@ lint:
 	$(IN_ENV) isort --check-only
 	$(IN_ENV) black --check $(BLACK_TARGETS)
 
+lint-assets:  
+	cat $(THEME)/static/css/main.scss | sass > /dev/null
+
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
 
@@ -97,4 +100,4 @@ migrate_posts:
 	$(IN_ENV) python management/post_migration.py /Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy/tv/_posts/ /Users/antonioferegrino/Documents/GitHub/yet-another-blog-migration/content/tv/ -t template:video
 
 
-.PHONY: html help clean regenerate serve serve-global devserver stopserver publish 
+.PHONY: html help clean regenerate serve serve-global devserver stopserver publish test-assets

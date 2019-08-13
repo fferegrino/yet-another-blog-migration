@@ -28,6 +28,7 @@ jobs:
           name: Lint code
           command: |
             make lint
+            make lint-assets
 
       - run:
           name: Publish locally
