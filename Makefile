@@ -50,7 +50,7 @@ format:
 	$(IN_ENV) isort --apply
 	$(IN_ENV) black $(BLACK_TARGETS)
 
-lint:
+lint-code:
 	$(IN_ENV) isort --check-only
 	$(IN_ENV) black --check $(BLACK_TARGETS)
 

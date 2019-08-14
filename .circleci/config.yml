@@ -25,10 +25,10 @@ jobs:
             pipenv install --dev
 
       - run:
-          name: Lint code
+          name: Lint
           command: |
-            make lint
-            cat tcsg_theme/static/css/main.scss | scss > /dev/null -I tcsg_theme/static/css/
+            make lint-assets
+            make lint-code
 
       - run:
           name: Publish locally
