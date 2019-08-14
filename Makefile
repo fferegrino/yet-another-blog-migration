@@ -10,6 +10,8 @@ OUTPUTDIR=$(BASEDIR)/output
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
+THEME=tcsg_theme
+
 BLACK_TARGETS := $(shell find . -name "*.py" -not -path "*/.venv/*" -not -path "*/.vscode/*" -not -path "*/.tox/*")
 
 DEBUG ?= 0
@@ -52,8 +54,8 @@ lint:
 	$(IN_ENV) isort --check-only
 	$(IN_ENV) black --check $(BLACK_TARGETS)
 
-lint-assets:  
-	cat $(THEME)/static/css/main.scss | sass > /dev/null
+lint-assets:
+	cat $(THEME)/static/css/main.scss | scss > /dev/null -I $(THEME)/static/css/
 
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)

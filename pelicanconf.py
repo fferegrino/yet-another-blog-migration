@@ -43,7 +43,7 @@ DEFAULT_PAGINATION = 10
 # RELATIVE_URLS = True
 
 PLUGIN_PATHS = ["./plugins"]
-PLUGINS = ["pelican_alias", "algolia_search", "tv_alias"]
+PLUGINS = ["pelican_alias", "algolia_search", "tv_alias", "assets"]
 
 ALGOLIA_APP_ID = "2RZXM7KI15"
 ALGOLIA_SEARCH_API_KEY = "ad630b2f2ffaa553017fc1c23209c06b"
