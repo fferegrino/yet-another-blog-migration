@@ -10,6 +10,8 @@ OUTPUTDIR=$(BASEDIR)/output
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
+THEME=tcsg_theme
+
 BLACK_TARGETS := $(shell find . -name "*.py" -not -path "*/.venv/*" -not -path "*/.vscode/*" -not -path "*/.tox/*")
 
 DEBUG ?= 0
@@ -48,9 +50,12 @@ format:
 	$(IN_ENV) isort --apply
 	$(IN_ENV) black $(BLACK_TARGETS)
 
-lint:
+lint-code:
 	$(IN_ENV) isort --check-only
 	$(IN_ENV) black --check $(BLACK_TARGETS)
+
+lint-assets:
+	cat $(THEME)/static/css/main.scss | scss > /dev/null -I $(THEME)/static/css/
 
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
@@ -97,4 +102,4 @@ migrate_posts:
 	$(IN_ENV) python management/post_migration.py /Users/antonioferegrino/Documents/GitHub/that-c-sharp-guy/tv/_posts/ /Users/antonioferegrino/Documents/GitHub/yet-another-blog-migration/content/tv/ -t template:video
 
 
-.PHONY: html help clean regenerate serve serve-global devserver stopserver publish 
+.PHONY: html help clean regenerate serve serve-global devserver stopserver publish test-assets

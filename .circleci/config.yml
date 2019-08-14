@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: casimir/python-circleci-rsync
+      - image: circleci/python:3.6.8
 
     working_directory: ~/repo
 
@@ -14,20 +14,21 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Pipfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
 
       - run:
           name: Install dependencies
           command: |
+            sudo apt-get install ruby-full rsync -y
+            sudo gem install sass
             export PIPENV_VENV_IN_PROJECT=1
             sudo pip install pipenv
             pipenv install --dev
 
       - run:
-          name: Lint code
+          name: Lint
           command: |
-            make lint
+            make lint-assets
+            make lint-code
 
       - run:
           name: Publish locally

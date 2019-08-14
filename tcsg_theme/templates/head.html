@@ -1,7 +1,9 @@
 <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
 <meta charset="utf-8" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.2/pure-min.css">
-<link rel="stylesheet" href="/theme/css/main.css">
+{% assets filters="scss,cssmin", output="css/main.min.css", "css/main.scss" %}
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+{% endassets %}
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
 <meta name="twitter:card" content="summary" />
