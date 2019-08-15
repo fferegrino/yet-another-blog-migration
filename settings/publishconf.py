@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from pelicanconf import *
+from settings.pelicanconf import *
 
 # This file is only used if you use `make publish` or
 # explicitly specify it as your config file.

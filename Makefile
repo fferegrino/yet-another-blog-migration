@@ -1,5 +1,5 @@
 PY?=python3
-PIPENV=PIPENV_VENV_IN_PROJECT=1 pipenv
+PIPENV=PIPENV_VENV_IN_PROJECT=1 PYTHONPATH=. pipenv
 IN_ENV=$(PIPENV) run
 PELICAN?=$(IN_ENV) pelican
 PELICANOPTS=
@@ -7,8 +7,8 @@ PELICANOPTS=
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
 OUTPUTDIR=$(BASEDIR)/output
-CONFFILE=$(BASEDIR)/pelicanconf.py
-PUBLISHCONF=$(BASEDIR)/publishconf.py
+CONFFILE=$(BASEDIR)/settings/pelicanconf.py
+PUBLISHCONF=$(BASEDIR)/settings/publishconf.py
 
 THEME=tcsg_theme
 
