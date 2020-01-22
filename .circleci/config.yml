@@ -39,14 +39,19 @@ jobs:
               make publish
             fi
 
+      - add_ssh_keys:
+          fingerprints:
+            - "da:fb:1b:bd:f5:c6:bc:26:24:4c:33:73:60:76:3c:cd"
+
       - run:
           name: Upload to DigitalOcean
           command: |
             if [ "${CIRCLE_BRANCH}" != "master" ]; then
-              rsync -e "ssh -o StrictHostKeyChecking=no" -avz output/ $HTTP_USER@$HTTP_SERVER:$HTTP_DEMO_FOLDER
+              rsync -avz output/ $HTTP_USER@$HTTP_SERVER:$HTTP_DEMO_FOLDER
             else
-              rsync -e "ssh -o StrictHostKeyChecking=no" -avz output/ $HTTP_USER@$HTTP_SERVER:$HTTP_FOLDER
+              rsync -avz output/ $HTTP_USER@$HTTP_SERVER:$HTTP_FOLDER
             fi
+
 
       - save_cache:
           paths:
