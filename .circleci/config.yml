@@ -46,6 +46,7 @@ jobs:
       - run:
           name: Upload to DigitalOcean
           command: |
+            ssh-keyscan $HTTP_SERVER >> ~/.ssh/known_hosts
             if [ "${CIRCLE_BRANCH}" != "master" ]; then
               rsync -avz output/ $HTTP_USER@$HTTP_SERVER:$HTTP_DEMO_FOLDER
             else
